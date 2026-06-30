@@ -1,0 +1,316 @@
+[
+  {
+    "id": "vc_juejin_7646985522290311219",
+    "title": "前端项目如何做 vibe coding",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/0a57c9395e4a43ae9fdbe2c913b1001e~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5qmY54yr6LWw5rGf5rmW:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=SGgzcypvDu8RSC2DWnk00XkWPUk%3D",
+    "demo_video_url": "",
+    "full_prompt": "Vue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 AI（如 Cursor Agent）协作完成软件开发的模式：你描述意图，AI 读代码、改代码、跑命令；你负责方向、验",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7646985522290311219",
+    "like_count": 8,
+    "tag_list": [
+      "Web应用",
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-06-04T01:47:20+00:00"
+  },
+  {
+    "id": "vc_juejin_7594832320030244907",
+    "title": "Vibe Coding指南",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "Vibe Coding 指南 目录 什么是 Vibe Coding？ 核心理念 完美提示词的六大要素 高级技巧 三种工作模式 常见陷阱与避坑指南 黄金公式 进阶心法 实战案例 性能与成本优化 附录",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7594832320030244907",
+    "like_count": 71,
+    "tag_list": [
+      "Web应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-01-14T10:17:42+00:00"
+  },
+  {
+    "id": "vc_juejin_7643668218096041984",
+    "title": "从 Vibe Coding 到 SDD：AI 编程的工程化演进",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/dee8b2113ee74906917d8b26eb6f9987~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5pS_6YeH5LqR5oqA5pyv:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=JLwAo139SIJKd%2Bzc66m2mp7XPFg%3D",
+    "demo_video_url": "",
+    "full_prompt": "从 Vibe Coding 到 SDD：AI 编程的工程化演进 1. 为什么 AI 编程需要 SDD 很多人第一次使用 AI 编程工具时，体验都很像 Vibe Coding：告诉 AI 一个大概想法，",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7643668218096041984",
+    "like_count": 45,
+    "tag_list": [
+      "工具脚本",
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-05-26T01:47:17+00:00"
+  },
+  {
+    "id": "vc_juejin_7646958528021086258",
+    "title": "Vibe Coding时代的自我鞭策",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/08fce29d99a2435eb00c9a105d9d4a77~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5bCP6auY5LiN5oeC5YaZ5Luj56CB:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=IefmmMqYQxbpI2AtBGmn3vfAUO4%3D",
+    "demo_video_url": "",
+    "full_prompt": "AI编程时代下你的优势到底是什么 灵魂拷问: 在 vibe coding 盛行以及基模越来越强的当今，你觉得你的优势是什么？ 如果你还在说: “AI处理不了复杂的业务逻辑”、“AI写不了安全代码”、“",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7646958528021086258",
+    "like_count": 17,
+    "tag_list": [
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-06-03T07:08:56+00:00"
+  },
+  {
+    "id": "vc_juejin_7537644857381109769",
+    "title": "全面解读 Vibe Coding：概念、流程、实践与未来",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "Vibe Coding近来在软件开发圈掀起热议。作为一种 由大语言模型（LLM）驱动的全新编程风格，它由人工智能专家安德烈·卡帕斯提（Andrej Karpathy）于2025年初提出。",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7537644857381109769",
+    "like_count": 6,
+    "tag_list": [
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-08-13T05:16:48+00:00"
+  },
+  {
+    "id": "vc_juejin_7602191709389176874",
+    "title": "Vibe Coding 概念大全",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "Vibe Coding 概念大全 AI 基础概念 人工智能（AI） 大语言模型（LLM） 模型参数 训练和推理 微调（Fine-tuning） Token 和计费 Token 输入 Token 和输出",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7602191709389176874",
+    "like_count": 46,
+    "tag_list": [
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-02-03T06:28:39+00:00"
+  },
+  {
+    "id": "vc_juejin_7611819355540504628",
+    "title": "Vibe Coding 的尽头是 AI Agent 军团：我用 16 个 Agent 自动化了整个创业公司",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "90% 的人还在让 AI 补代码，1% 的人已经在指挥 AI 军团。本文带你从 Vibe Coding 入门到 Agent 协同实战。",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7611819355540504628",
+    "like_count": 20,
+    "tag_list": [
+      "工具脚本",
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-03-01T13:48:18+00:00"
+  },
+  {
+    "id": "vc_juejin_7592082090207461403",
+    "title": "拒绝手写代码！用 Vibe Coding + SDD 范式“搓”一个微信计分小程序",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "在传统的软件开发语境下，当我们想做一个“麻将/扑克计分器”时，脑海中浮现的第一个画面往往是：打开 VS Code，初始化 Git 仓库，纠结是用 Vue 还是 React，配置 Webpack 或 V",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7592082090207461403",
+    "like_count": 36,
+    "tag_list": [
+      "Web应用",
+      "移动端",
+      "小程序"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-01-06T15:35:26+00:00"
+  },
+  {
+    "id": "vc_juejin_7503373674461544486",
+    "title": "Vibe Coding：让AI替你写代码，你只管躺着赚钱！",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/bcc8395c92e348b08d10ca1ffd4ff21d~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgV2lsZEJsdWU=:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=T6yR5Fs%2F9f6950eKvVydND2sg3I%3D",
+    "demo_video_url": "",
+    "full_prompt": "Vibe Coding：用自然语言+AI编辑器开发产品，小白3天赚大钱！无需编程，灵感即代码，AI自动生成、调试、优化。Cursor/Trae等工具让开发像搭积木，成本直降90%。",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7503373674461544486",
+    "like_count": 56,
+    "tag_list": [
+      "工具脚本",
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-05-12T16:25:46+00:00"
+  },
+  {
+    "id": "vc_juejin_7594791357144940586",
+    "title": "10分钟复刻爆火「死了么」App：vibe coding 实战（Expo+Supabase+MCP）",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/36d5dd2a3aa64d5e80ffeeabd94510a0~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbUNlbGw=:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=Py3lVwEJGu2OIGpGS5apZcglMCs%3D",
+    "demo_video_url": "",
+    "full_prompt": "这期用 vibe coding 的方式，10分钟复刻「死了么」App 的核心功能。我不讲原理、不展开细节，只讲“怎么做”。跟着视频步骤走，你也能做出一个可运行的 App 原型。",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7594791357144940586",
+    "like_count": 7,
+    "tag_list": [
+      "移动端"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-01-14T18:38:14+00:00"
+  },
+  {
+    "id": "vc_juejin_7589466706377965604",
+    "title": "2025 Vibe Coding 元年：AI 编程的技术突破全景",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/c58da7b2d6df446fbf583362e27774c4~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgRGVscm95:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=y2dwRrSPHva6apAdhbnqFsKSy8U%3D",
+    "demo_video_url": "",
+    "full_prompt": "2025 年，Vibe Coding（对话式编程）正式从概念走向成熟。这一年，AI 编程从\"会补全代码的 Copilot\"跨越到\"能接管项目的 Agent\"，开发者与 AI 的协作方式发生了历史性变革",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7589466706377965604",
+    "like_count": 11,
+    "tag_list": [
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-12-30T08:46:04+00:00"
+  },
+  {
+    "id": "vc_juejin_7603616672927727631",
+    "title": "Vibe Coding 中的 Skills 详解",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "一、Cursor IDE 中的 Skills 功能（技术特性） 1. 什么是 Cursor Skills？ Skills 是 Cursor 编辑器中引入的一种动态上下文管理机制，用于扩展 AI Age",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7603616672927727631",
+    "like_count": 3,
+    "tag_list": [
+      "工具脚本",
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-02-08T02:04:35+00:00"
+  },
+  {
+    "id": "vc_juejin_7592170171634434063",
+    "title": "🌟从“抽卡式编程”到规范驱动： 深度解析「Vibe Coding」的三层跃迁",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "今天，我们就以一个“手搓计分小程序”的真实演进路径，拆解 Vibe Coding 的三大阶段，见证它如何从“碰运气”走向“控流程”，最终实现 **AI 驱动的工程化落地**。",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7592170171634434063",
+    "like_count": 22,
+    "tag_list": [
+      "移动端",
+      "AI应用",
+      "小程序"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-01-07T08:13:35+00:00"
+  },
+  {
+    "id": "vc_juejin_7567832953080004635",
+    "title": "前端Vibe Coding探索：Cursor+MCP打造沉浸式开发流",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "chrome-devtools-mcp（调试自动化）+cursor Rules（代码风格约束）+figma mcp（设计稿数据确定）进行前端vibe coding 探索",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7567832953080004635",
+    "like_count": 14,
+    "tag_list": [
+      "Web应用",
+      "工具脚本",
+      "Chrome插件"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-11-03T03:29:51+00:00"
+  },
+  {
+    "id": "vc_juejin_7624588815168356406",
+    "title": "【大纲】TRAE AI 编程入门第一讲——Vibe Coding 初识即上手",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "体系化 AI 编程入门课程第一讲大纲。本课聚焦 Vibe Coding（直觉编程）理念，带你告别晦涩语法，像聊天一样写代码。通过对比传统编程，快速上手字节跳动 AI 编程工具 TRAE，体验从想法到聊",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7624588815168356406",
+    "like_count": 1,
+    "tag_list": [
+      "工具脚本",
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2026-04-04T13:43:00+00:00"
+  },
+  {
+    "id": "vc_juejin_7509367698067308595",
+    "title": "开通了 Trae Pro 终于可以开心地 Vibe Coding 了",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/c1887a566c174a589b63d12329508445~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5oKf6bij:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=UA44%2Bu8p%2BzSO72s5QJxUWr%2BiF6E%3D",
+    "demo_video_url": "",
+    "full_prompt": "一位资深Java程序员分享了使用AI编程工具Trae的深度体验。作者目前95%的代码都由AI编写，通过\"Vibe Coding\"方式用自然语言描述需求让AI完成编码。",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7509367698067308595",
+    "like_count": 18,
+    "tag_list": [
+      "工具脚本",
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-05-28T17:12:56+00:00"
+  },
+  {
+    "id": "vc_juejin_7575413146921648143",
+    "title": "关于氛围编程（Vibe Coding）的一切",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/9ff330efd8fc4d5eb693fa863867b89f~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5bCP5bCP5oCq5YW9:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=enbqvIO3jWCfM25MgFTWhfwKywA%3D",
+    "demo_video_url": "",
+    "full_prompt": "Vibe Coding这一术语由OpenAI联合创始人Andrej Karpathy提出，即用自然语言提示和智能体AI支持，更快地将想法转化为代码。",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7575413146921648143",
+    "like_count": 2,
+    "tag_list": [
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-11-23T15:19:55+00:00"
+  },
+  {
+    "id": "vc_juejin_7589214068093779987",
+    "title": "Vibe Coding：重构工作流的思维与实践",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/cc9353d518074b4fadd64621a4a08bea~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5p625p6E57K-6L-b5LmL6Lev:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=mOSk7ijK%2F9yWKxFylUmscQaitXA%3D",
+    "demo_video_url": "",
+    "full_prompt": "本文系作者 [架构精进之路] 原创，著作权归作者所有，未经授权禁止任何形式的转载、抄袭或盗用，违者必究。 弹指间，岁序更迭，又至年末，这一年我们不断奋斗，不断忙碌，真的好似一瞬间，就来到了 2025",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7589214068093779987",
+    "like_count": 4,
+    "tag_list": [
+      "Web应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-12-30T06:47:03+00:00"
+  },
+  {
+    "id": "vc_juejin_7583845695179849734",
+    "title": "挖到 4 个 Vibe Coding 的 GitHub 开源项目，速速收藏。",
+    "cover_img": "",
+    "demo_video_url": "",
+    "full_prompt": "Andrej Karpathy 是 OpenAI 创始成员、前特斯拉 AI 总监。 他年初在 X 上发布了一条推文，分享了自己使用 Cursor + Claude 进行编程的体验",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7583845695179849734",
+    "like_count": 1,
+    "tag_list": [
+      "AI应用"
+    ],
+    "difficulty": "零基础",
+    "create_time": "2025-12-15T03:02:04+00:00"
+  },
+  {
+    "id": "vc_juejin_7503400503176871936",
+    "title": "一个人的战场 —— Vibe Coding 与 Cursor、Trae、Vercel 的沉浸式开发实战",
+    "cover_img": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/a15b2330e1654d19b9f7d830374bd941~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5YWs5Li7:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=Ef9wQ8IIdoU9kafxJJC8dbgA2p0%3D",
+    "demo_video_url": "",
+    "full_prompt": "在传统印象中，开发一个产品需要一个完整的团队：前端、后端、UI、运维、产品经理……大家各司其职，通宵改需求，开会扯功能。但今天我要告诉你的是——一个人也可以搞定一切。 我越来越坚信：工具决定效率",
+    "source_platform": "掘金",
+    "source_url": "https://juejin.cn/post/7503400503176871936",
+    "like_count": 43,
+    "tag_list": [
+      "Web应用",
+      "工具脚本"
+    ],
+    "difficulty": "进阶",
+    "create_time": "2025-05-12T15:54:55+00:00"
+  }
+]

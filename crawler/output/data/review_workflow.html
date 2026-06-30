@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding 灵感库 - 数据审核工作台</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    line-height: 1.6;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 20px 30px;
+    border-bottom: 1px solid rgba(0,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header h1 {
+    font-size: 1.4rem;
+    background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header .stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #888;
+  }
+  .header .stats span { color: #00d4ff; font-weight: bold; }
+  .controls {
+    padding: 15px 30px;
+    background: #111118;
+    border-bottom: 1px solid rgba(0,255,255,0.05);
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .controls button {
+    padding: 8px 16px;
+    border: 1px solid rgba(0,255,255,0.3);
+    background: rgba(0,255,255,0.05);
+    color: #00d4ff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .controls button:hover {
+    background: rgba(0,255,255,0.15);
+    border-color: #00d4ff;
+  }
+  .controls button.active {
+    background: rgba(0,255,255,0.2);
+    border-color: #00d4ff;
+  }
+  .controls select {
+    padding: 8px 12px;
+    background: #1a1a2e;
+    border: 1px solid rgba(0,255,255,0.2);
+    color: #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+  }
+  .controls .search {
+    flex: 1;
+    min-width: 200px;
+  }
+  .controls .search input {
+    width: 100%;
+    padding: 8px 14px;
+    background: #1a1a2e;
+    border: 1px solid rgba(0,255,255,0.2);
+    color: #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+  }
+  .content {
+    padding: 20px 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .post-section {
+    margin-bottom: 30px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(0,255,255,0.05);
+    overflow: hidden;
+  }
+  .post-header {
+    padding: 15px 20px;
+    background: rgba(0,255,255,0.03);
+    border-bottom: 1px solid rgba(0,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .post-header h3 {
+    font-size: 1rem;
+    color: #00d4ff;
+  }
+  .post-header .meta {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  .comments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 15px;
+    padding: 15px 20px;
+  }
+  .comment-card {
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid rgba(0,255,255,0.08);
+    transition: all 0.2s;
+    position: relative;
+  }
+  .comment-card:hover {
+    border-color: rgba(0,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+  }
+  .comment-card.approved { border-color: rgba(0,255,136,0.3); }
+  .comment-card.rejected { border-color: rgba(255,68,68,0.3); opacity: 0.6; }
+  .comment-card .user-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .comment-card .username {
+    font-weight: 600;
+    color: #00d4ff;
+    font-size: 0.9rem;
+  }
+  .comment-card .likes {
+    font-size: 0.8rem;
+    color: #ff6b6b;
+  }
+  .comment-card .content {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    padding: 0;
+  }
+  .comment-card .images {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .comment-card .images img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid rgba(0,255,255,0.1);
+    transition: transform 0.2s;
+  }
+  .comment-card .images img:hover {
+    transform: scale(1.1);
+    border-color: #00d4ff;
+  }
+  .comment-card .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .comment-card .actions button {
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-approve {
+    background: rgba(0,255,136,0.15);
+    color: #00ff88;
+    border: 1px solid rgba(0,255,136,0.3) !important;
+  }
+  .btn-approve:hover, .btn-approve.active {
+    background: rgba(0,255,136,0.3);
+  }
+  .btn-reject {
+    background: rgba(255,68,68,0.15);
+    color: #ff4444;
+    border: 1px solid rgba(255,68,68,0.3) !important;
+  }
+  .btn-reject:hover, .btn-reject.active {
+    background: rgba(255,68,68,0.3);
+  }
+  .btn-edit {
+    background: rgba(0,212,255,0.15);
+    color: #00d4ff;
+    border: 1px solid rgba(0,212,255,0.3) !important;
+  }
+  .btn-edit:hover {
+    background: rgba(0,212,255,0.3);
+  }
+  .comment-card .badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+  }
+  .badge-approved { background: rgba(0,255,136,0.2); color: #00ff88; }
+  .badge-rejected { background: rgba(255,68,68,0.2); color: #ff4444; }
+  .edit-panel {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+  }
+  .edit-panel.show { display: block; }
+  .edit-panel input, .edit-panel select, .edit-panel textarea {
+    width: 100%;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    background: #1a1a2e;
+    border: 1px solid rgba(0,255,255,0.2);
+    color: #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+  .edit-panel textarea {
+    min-height: 60px;
+    resize: vertical;
+  }
+  .edit-panel label {
+    font-size: 0.8rem;
+    color: #888;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  .lightbox.show { display: flex; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+  }
+  .lightbox .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+  }
+  .export-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-top: 1px solid rgba(0,255,255,0.1);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+  .export-bar .count { color: #00d4ff; font-weight: bold; }
+  .export-bar button {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .export-bar button:hover { opacity: 0.9; }
+  .reply-indicator {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🫧 Vibe Coding 灵感库 - 数据审核工作台</h1>
+  <div class="stats">
+    <div>帖子: <span id="postCount">0</span></div>
+    <div>评论: <span id="commentCount">0</span></div>
+    <div>已审核: <span id="reviewedCount">0</span></div>
+    <div>有价值: <span id="approvedCount" style="color:#00ff88">0</span></div>
+    <div>图片: <span id="imageCount">0</span></div>
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="filterAll()" class="active" id="btnAll">全部</button>
+  <button onclick="filterPending()" id="btnPending">待审核</button>
+  <button onclick="filterApproved()" id="btnApproved">有价值</button>
+  <button onclick="filterRejected()" id="btnRejected">无价值</button>
+  <button onclick="filterWithImages()" id="btnImages">有图片</button>
+  <select onchange="filterByPost(this.value)">
+    <option value="">所有帖子</option>
+  </select>
+  <div class="search">
+    <input type="text" id="searchInput" placeholder="搜索关键词..." oninput="doSearch(this.value)">
+  </div>
+  <button onclick="expandAll()">展开全部</button>
+  <button onclick="collapseAll()">收起全部</button>
+</div>
+
+<div class="content" id="content"></div>
+
+<div class="export-bar">
+  <div>已标记有价值: <span class="count" id="exportCount">0</span> 条</div>
+  <button onclick="exportApproved()">导出审核结果 (JSON)</button>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="close">&times;</span>
+  <img id="lightboxImg" src="">
+</div>
+
+<script>
+// 数据将在这里注入
+const postsData = [
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/69f0efc80000000020038c87",
+    "post_title": "大家都来晒晒自己vibe coding的作品吧",
+    "author": "Ace Lee ｜Ai版",
+    "screenshot": "data/screenshots/post_01_69f0efc8_fullpage.png",
+    "comments": [
+      {
+        "_id": "xhs_745794e42427",
+        "_postId": 0,
+        "username": "Ace Lee ｜Ai版",
+        "content": "最近vibe coding了一个新产品：VibeScore。 它是一个面向 Vibe Coders、AI 创作者和独立开发者的作品评分社区。 很多人现在都能用 AI 做出 Demo、网页、小工具和产品原型，但问题是： 作品做出来以后，很难知道别人到底看不看得懂、愿不愿意点、觉得值不值得继续做。 所以 VibeScore 想解决的是： 让真实用户围观你的 AI 作品，并用打分和评论给出第一批反馈。",
+        "likes": 19,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301250/5d1997aff10f1b1164b04134ed6fa7bc/comment/1040g4b8320m3c9d6lm705o05583g8aj5cv68v18!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/4c376c6c33d764dd271e2c0773a4dd3e/comment/1040g4b8320m3c9d6lm7g5o05583g8aj5kdehr0g!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/34028d99464858c559cd8b92c2c4db64/comment/1040g4b8320m3c9d6lm805o05583g8aj52bcu3i0!nc_n_webp_mw_1"
+        ],
+        "time": "05-27浙江",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_3b5c59890846",
+        "_postId": 0,
+        "username": "比特黄",
+        "content": "其实我有个问题 用户为什么给作品打分 动机是什么",
+        "likes": 9,
+        "images": [],
+        "time": "06-01上海",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_20b2c423e975",
+        "_postId": 0,
+        "username": "Ace Lee ｜Ai版",
+        "content": "回复 比特黄 : 很多人现在都能做出 AI 作品，但不知道作品好不好。 VibeScore 想做的是让真实用户来围观、打分、贴标签、给反馈，帮助创作者把 Demo 变成更像产品的东西。",
+        "likes": 1,
+        "images": [],
+        "time": "06-01浙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_4d6caf8b52f1",
+        "_postId": 0,
+        "username": "Ace Lee ｜Ai版",
+        "content": "回复 比特黄 : 就和这个笔记为什么这么多人围观评论一个道理，我觉得在「人人都能做产品」的时代，做产品的过程和做出来的产品会变得「娱乐化」，更好的创意和更有传播性的作品反而能出圈",
+        "likes": 0,
+        "images": [],
+        "time": "06-01浙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_d99b4072f6f4",
+        "_postId": 0,
+        "username": "阮三金",
+        "content": "这个网址是哪个？bing了一下好像都不是",
+        "likes": 0,
+        "images": [],
+        "time": "06-03广东",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_a0db7bbc5dfe",
+        "_postId": 0,
+        "username": "小安叹叹",
+        "content": "回复 比特黄 : 好的应用会去使用啊",
+        "likes": 0,
+        "images": [],
+        "time": "06-03浙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_54a4e29ec38d",
+        "_postId": 0,
+        "username": "比特黄",
+        "content": "回复 小安叹叹 : 我今天再次调研了 博主的思路很好 早期用户多为极客，他们愿意体验新产品 愿意打分给评价",
+        "likes": 0,
+        "images": [],
+        "time": "06-03上海",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_9719f2391dd1",
+        "_postId": 0,
+        "username": "动辄疯",
+        "content": "这种页面是什么风格，好有特色",
+        "likes": 0,
+        "images": [],
+        "time": "06-12北京",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_1423fd700ce1",
+        "_postId": 0,
+        "username": "皮皮虾56号",
+        "content": "这个目前做出来了么，有网址不，去观摩下",
+        "likes": 0,
+        "images": [],
+        "time": "06-15天津",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_2b2429a937b0",
+        "_postId": 0,
+        "username": "Bosunepi",
+        "content": "这个好，这个完成了吗，我要去投稿",
+        "likes": 0,
+        "images": [],
+        "time": "06-16广东",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_9a7cb2e1bd62",
+        "_postId": 0,
+        "username": "北冥有渔",
+        "content": "这个思路很棒！确实现在大家都能用AI做出东西，但缺一个展示和反馈的平台。我之前也做过类似的工具链，发现社区反馈对产品迭代特别重要。期待上线！",
+        "likes": 0,
+        "images": [],
+        "time": "5天前云南",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_9f4d2ab3ffff",
+        "_postId": 0,
+        "username": "Sophia索菲亚",
+        "content": "一直在找这种产品，但是地址在哪呢？",
+        "likes": 0,
+        "images": [],
+        "time": "4天前广东",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_f1759b08d22e",
+        "_postId": 0,
+        "username": "杰小米",
+        "content": "本人英语老师，做了个小程序督促学生们在家读绘本，做了一个月，最积极的学生已经读了180本了。把小时候想要的元素都放进去了，养宠物、礼物、勋章、跟别人pk之类的",
+        "likes": 1483,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301250/13c5e6a58ff19662ed197dd9e138fcbc/comment/1040g4b831vs0mbje2i704a7esir02spv1h1p20g!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/f8aec248149fe70be826a0f99c6427d2/comment/1040g4b831vs0mbje2i804a7esir02spv2ah36d0!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/51a774a4902aad149280c31f3590a593/comment/1040g4b831vs0mbje2i8g4a7esir02spv2pkdo28!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/ec16653f020deb3af99efda9385da238/comment/1040g4b831vs0mbje2i904a7esir02spv03afgh8!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/7790678d333edc22bdea62a8a75b9219/comment/1040g4b831vs0mbje2i7g4a7esir02spvoqfivn0!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/59446ceb1aac8cc5828831bb6dbf3606/comment/1040g4b831vs0mbje2i9g4a7esir02spvldk4b58!nc_n_webp_mw_1"
+        ],
+        "time": "05-07广东",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_e2422cb00eb3",
+        "_postId": 0,
+        "username": "Ace Lee ｜Ai版",
+        "content": "这种肯定超有成就感，ai教育方向肯定有很多机会",
+        "likes": 283,
+        "images": [],
+        "time": "05-07浙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_0936042258bb",
+        "_postId": 0,
+        "username": "辰",
+        "content": "@DAII",
+        "likes": 1,
+        "images": [],
+        "time": "05-07北京",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_25d9dc9702ed",
+        "_postId": 0,
+        "username": "悉尼踩坑专家",
+        "content": "看起来好棒",
+        "likes": 3,
+        "images": [],
+        "time": "05-07澳大利亚",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_870cf1ff449a",
+        "_postId": 0,
+        "username": "杰小米",
+        "content": "回复 Ace Lee ｜Ai版 : 对，每年都在学新东西",
+        "likes": 3,
+        "images": [],
+        "time": "05-07广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_87cf2e8cff7d",
+        "_postId": 0,
+        "username": "杰小米",
+        "content": "回复 悉尼踩坑专家 : 哈哈谢谢",
+        "likes": 1,
+        "images": [],
+        "time": "05-07广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_533e5d7785c7",
+        "_postId": 0,
+        "username": "练习写作的momo",
+        "content": "做得好棒呀！ 礼貌询问，是什么软件做的，怎么能让别人也使用这个小程序？ 我用灵光做的只能自己用",
+        "likes": 4,
+        "images": [],
+        "time": "05-07北京",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_1209dea26e1c",
+        "_postId": 0,
+        "username": "杰小米",
+        "content": "回复 练习写作的momo : claude code做的，打磨升级了30多个版本了，但是还是觉得还有很多可以做，很上瘾。小程序上可以搜到",
+        "likes": 28,
+        "images": [],
+        "time": "05-07广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_aa6d78380934",
+        "_postId": 0,
+        "username": "🦊",
+        "content": "@小红薯47B5E0B4",
+        "likes": 1,
+        "images": [],
+        "time": "05-07四川",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_6fedfb46df75",
+        "_postId": 0,
+        "username": "有肉饼",
+        "content": "回复 杰小米 : 您好我想礼貌问问小程序叫什么呀",
+        "likes": 0,
+        "images": [],
+        "time": "05-07黑龙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_4796fbe9da9f",
+        "_postId": 0,
+        "username": "fakecomma",
+        "content": "我知道你！很多年前在papi酱的推荐视频里见过你的视频！",
+        "likes": 6,
+        "images": [],
+        "time": "05-07北京",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_6487417dbaa2",
+        "_postId": 0,
+        "username": "Joyi",
+        "content": "我老婆vibe coding了一个支持live图的color walk图片应用，纯免费免登陆，用在5月4日的柳州晚霞太合适了",
+        "likes": 422,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301250/2de5a8f7156f8265504de325c014cc5f/comment/1040g4b831vp5u599ig8047snil3mqpel62jo620!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/0a130339061114fd82d7850205604695/comment/1040g4b831vp5u599ig7g47snil3mqpel0kf9lf8!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/0543932b80e80f07cc37642c2082c53f/comment/1040g4b831vp5u599ig7047snil3mqpelm8jklp8!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301251/2ddc8b45bc671153ee602e9e49f14391/comment/1040g2h031vrtfvjsii105pf8jj4192oq21q128o!nc_n_webp_mw_1"
+        ],
+        "time": "05-05广西",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_177db83c3b97",
+        "_postId": 0,
+        "username": "Ace Lee ｜Ai版",
+        "content": "好厉害都上线了啊",
+        "likes": 59,
+        "images": [],
+        "time": "05-05浙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_6a58f46c397f",
+        "_postId": 0,
+        "username": "Joyi",
+        "content": "回复 Ace Lee ｜Ai版 : 对，上架app store了！而且永久免费",
+        "likes": 12,
+        "images": [],
+        "time": "05-06广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_2024beea5d08",
+        "_postId": 0,
+        "username": "77Basque",
+        "content": "支持！前几天刚刷到用这个色卡排版九宫格！",
+        "likes": 6,
+        "images": [],
+        "time": "05-07湖北",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_afeb8a8c450e",
+        "_postId": 0,
+        "username": "超级舒服家",
+        "content": "去下载体验一下！",
+        "likes": 2,
+        "images": [],
+        "time": "05-07广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_01cb243d1e1e",
+        "_postId": 0,
+        "username": "浣熊镀松饼🥞",
+        "content": "回复 Joyi : 叫什么名字？",
+        "likes": 0,
+        "images": [],
+        "time": "05-07四川",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_41461aa55fa9",
+        "_postId": 0,
+        "username": "吃葡萄不吐葡萄皮的皮",
+        "content": "已经下了支持一下",
+        "likes": 1,
+        "images": [],
+        "time": "05-07上海",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_559a70326a0f",
+        "_postId": 0,
+        "username": "momo",
+        "content": "回复 Joyi : @CtrlZ",
+        "likes": 0,
+        "images": [],
+        "time": "05-07福建",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_20dff1ae289a",
+        "_postId": 0,
+        "username": "CtrlZ",
+        "content": "回复 momo : 没啥用没啥难度",
+        "likes": 0,
+        "images": [],
+        "time": "05-07浙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_7ada18dd358e",
+        "_postId": 0,
+        "username": "M_Kathy (Vibe mkt版)",
+        "content": "做的太棒了吧，居然还免费，大善人",
+        "likes": 11,
+        "images": [],
+        "time": "05-07四川",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_241337f94ba0",
+        "_postId": 0,
+        "username": "M_Kathy (Vibe mkt版)",
+        "content": "回复 M_Kathy (Vibe mkt版) : 刚用了生成了一张",
+        "likes": 7,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301251/2ddc8b45bc671153ee602e9e49f14391/comment/1040g2h031vrtfvjsii105pf8jj4192oq21q128o!nc_n_webp_mw_1"
+        ],
+        "time": "05-07四川",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_28bb4c22dd9d",
+        "_postId": 0,
+        "username": "LitCode AI",
+        "content": "我vibe code了一个面试ai工具，然后拿它面试上岸拿了大包",
+        "likes": 108,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301250/d3a41266f332c64eaf179b4ba4019c53/comment/1040g4b832218veec70cg5p6mdsdg9v0tq1c9vgg!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/d3ecf33c7b97971ad1bf505a569688fa/comment/1040g4b832218veecn0005p6mdsdg9v0tohguppg!nc_n_webp_mw_1"
+        ],
+        "time": "05-07美国",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_ef718c9fcaff",
+        "_postId": 0,
+        "username": "王兴",
+        "content": "不是作弊吧",
+        "likes": 11,
+        "images": [],
+        "time": "05-07内蒙古",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_77db6b60cb79",
+        "_postId": 0,
+        "username": "phoenix",
+        "content": "我也在找工作，求分享",
+        "likes": 0,
+        "images": [],
+        "time": "05-07广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_eef6c3edab92",
+        "_postId": 0,
+        "username": "随波逐流的狗",
+        "content": "@特立独行的猪",
+        "likes": 2,
+        "images": [],
+        "time": "05-07北京",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_21113c3ec7a4",
+        "_postId": 0,
+        "username": "LitCode AI",
+        "content": "回复 王兴 :",
+        "likes": 0,
+        "images": [],
+        "time": "05-08美国",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_6548c0c88222",
+        "_postId": 0,
+        "username": "斑斓芒果酥",
+        "content": "可以求分享吗",
+        "likes": 2,
+        "images": [],
+        "time": "05-08上海",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_144260559c7c",
+        "_postId": 0,
+        "username": "momo",
+        "content": "俺蹲一个，失败的从业人员.jpg",
+        "likes": 1,
+        "images": [],
+        "time": "05-08福建",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_bd81db489298",
+        "_postId": 0,
+        "username": "阿Fi不在",
+        "content": "电子衣橱",
+        "likes": 6,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301250/b78cdf1e3d9c68a46d2a27b4575b5ac5/comment/1040g2h031vs9hip6ii2g49mpl83a32qm84nsf78!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/8ec752b8e38a383d023dcfbce6310061/comment/1040g2h031vs9hip6ii1g49mpl83a32qm46a4gk8!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/0a10484d54ad387bd0562a874f428729/comment/1040g2h031vs9hip6ii0g49mpl83a32qms64no80!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/466e61b8ce094ccc1972b435d7ae9ec4/comment/1040g2h031vs9hip6ii0049mpl83a32qms17ic48!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/81d1741a8cc535460ecda2b684355ce2/comment/1040g2h031vs9hip6ii2049mpl83a32qmqekog00!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/777d39c79deaff3b7d15b10da447c82e/comment/1040g2h031vs9hip6ii1049mpl83a32qmoq7ndo0!nc_n_webp_mw_1"
+        ],
+        "time": "05-07福建",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_e28ff77eb470",
+        "_postId": 0,
+        "username": "酷酷鍀✔龙",
+        "content": "可以分享下经验吗兄弟，我也想给老婆做一个",
+        "likes": 25,
+        "images": [],
+        "time": "05-08上海",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_4ccf990c1f30",
+        "_postId": 0,
+        "username": "酷酷鍀✔龙",
+        "content": "回复 酷酷鍀✔龙 : 抱歉，姐妹",
+        "likes": 21,
+        "images": [],
+        "time": "05-08上海",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_33c8d2eaa634",
+        "_postId": 0,
+        "username": "阿Fi不在",
+        "content": "回复 酷酷鍀✔龙 : 哈哈哈没事 不过我自己也是小白来的 有些地方也都是问ai和看大家的教程 我觉得最主要的是自己有没有想法 这个app要解决什么痛点 然后衍生对应的功能 对应的ui部分 可以找对应喜欢的风格参考图 然后就是不停地改进七七八八 因为是小白 也交了一些学费在token上 （我过几天也整理下我的coding流程 虽然不是专业的 但希望可以给到大家启发哈哈～",
+        "likes": 25,
+        "images": [],
+        "time": "05-08福建",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_0f177a975759",
+        "_postId": 0,
+        "username": "Taurus",
+        "content": "回复 阿Fi不在 : 看看接一个ocr试图抓官网图。这种小程序使用上拍摄成本比较高",
+        "likes": 0,
+        "images": [],
+        "time": "05-08江苏",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_cf1a016d32b9",
+        "_postId": 0,
+        "username": "花生了什么树",
+        "content": "回复 阿Fi不在 : 蹲蹲蹲，如果能分享的话，万分感谢兄弟！",
+        "likes": 0,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_020ef7bc094f",
+        "_postId": 0,
+        "username": "阿Fi不在",
+        "content": "回复 Taurus : 也是的 不过有些衣服确实线下也占了一半",
+        "likes": 1,
+        "images": [],
+        "time": "05-08福建",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_56ab069c5aab",
+        "_postId": 0,
+        "username": "阿Fi不在",
+        "content": "回复 花生了什么树 : 好滴我尽快哈哈",
+        "likes": 1,
+        "images": [],
+        "time": "05-08福建",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_0947b97e322f",
+        "_postId": 0,
+        "username": "电热毯",
+        "content": "回复 酷酷鍀✔龙 : 这玩意有开源的",
+        "likes": 0,
+        "images": [],
+        "time": "05-08四川",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_581dcf567a2c",
+        "_postId": 0,
+        "username": "百分百椰椰",
+        "content": "@半肥瘦叉烧🥩 适合你",
+        "likes": 0,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_84d62b268e6b",
+        "_postId": 0,
+        "username": "何仙姑taytayjas",
+        "content": "@Caster",
+        "likes": 0,
+        "images": [],
+        "time": "05-08美国",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_5c1140772c04",
+        "_postId": 0,
+        "username": "de facto",
+        "content": "@咔一下 这个也好有趣",
+        "likes": 1,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_13fce306f6ae",
+        "_postId": 0,
+        "username": "Crazy 脑瓜子",
+        "content": "文科生第一次 vibecoding ，给老年人做了个 ai 访谈工具，记录她们的故事",
+        "likes": 0,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301250/b058b35f82681a26f7bbdee966bc21ef/comment/1040g4b832218veec70d05p6mdsdg9v0t66rhn20!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/d3a41266f332c64eaf179b4ba4019c53/comment/1040g4b832218veec70cg5p6mdsdg9v0tq1c9vgg!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/d3ecf33c7b97971ad1bf505a569688fa/comment/1040g4b832218veecn0005p6mdsdg9v0tohguppg!nc_n_webp_mw_1"
+        ],
+        "time": "2小时前广东",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_25e9e831ba37",
+        "_postId": 0,
+        "username": "元丰房车游记",
+        "content": "A 股分析小工具，已上线",
+        "likes": 56,
+        "images": [
+          "http://sns-webpic-qc.xhscdn.com/202606301250/0d6a4f232334f714d326dca54cbc54c9/comment/1040g4b831vqlr8cfjqbg5ofstluk0vih2psd378!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/f7b36deea52213c3174efeb4e7b6176e/comment/1040g4b831vqlr8cfjqag5ofstluk0vihmqtogp0!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/22c8ff1b5518d803ccf2d48fb2a88b33/comment/1040g4b831vqlr8cfjqb05ofstluk0vih9p30iuo!nc_n_webp_mw_1",
+          "http://sns-webpic-qc.xhscdn.com/202606301250/60bcbacd14425afd8a1cec68a6287b8a/comment/1040g4b831vqlr8cfjqc05ofstluk0vih6vbd5uo!nc_n_webp_mw_1"
+        ],
+        "time": "05-06重庆",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_8e202059e080",
+        "_postId": 0,
+        "username": "Ace Lee ｜Ai版",
+        "content": "API接的哪里的啊",
+        "likes": 9,
+        "images": [],
+        "time": "05-07浙江",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_fdb8d73ce3ee",
+        "_postId": 0,
+        "username": "妮可记得慢",
+        "content": "可以试用吗",
+        "likes": 0,
+        "images": [],
+        "time": "05-07上海",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_7ae3d333ca28",
+        "_postId": 0,
+        "username": "元丰房车游记",
+        "content": "回复 Ace Lee ｜Ai版 : 花钱买的",
+        "likes": 1,
+        "images": [],
+        "time": "05-07重庆",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_ef02b85e3445",
+        "_postId": 0,
+        "username": "元丰房车游记",
+        "content": "回复 cinestill : 丝我",
+        "likes": 0,
+        "images": [],
+        "time": "05-07重庆",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_992f97fae4ad",
+        "_postId": 0,
+        "username": "不要发脾气要发财",
+        "content": "叫啥名字",
+        "likes": 0,
+        "images": [],
+        "time": "05-07广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_22625ee37a89",
+        "_postId": 0,
+        "username": "元丰房车游记",
+        "content": "回复 噔噔登登🍊 : 丝",
+        "likes": 0,
+        "images": [],
+        "time": "05-07重庆",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_a7f8b2dcd3c1",
+        "_postId": 0,
+        "username": "元丰房车游记",
+        "content": "回复 LiPpey. : 丝",
+        "likes": 0,
+        "images": [],
+        "time": "05-07重庆",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_af2d2e7ff712",
+        "_postId": 0,
+        "username": "倾玄",
+        "content": "爬的是哪个平台消息",
+        "likes": 1,
+        "images": [],
+        "time": "05-07广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_2f7bf349cd11",
+        "_postId": 0,
+        "username": "String",
+        "content": "搞了个coding交流群",
+        "likes": 0,
+        "images": [],
+        "time": "昨天 23:24江西",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_49e04ae8bf97",
+        "_postId": 0,
+        "username": "太阳下山太阳上山（爱老己版",
+        "content": "好奇真的有人可以完全没有计算机或者编程方面的基础做出这些来吗",
+        "likes": 22,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_ac278d9472f8",
+        "_postId": 0,
+        "username": "今天小猫拉了吗",
+        "content": "可以的！我也没有，你就想象自己在当老板，给员工派任务，没做好就指出来让他继续做或者告诉你问题在哪里",
+        "likes": 69,
+        "images": [],
+        "time": "05-08上海",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_138682bd530f",
+        "_postId": 0,
+        "username": "枯荷听雨",
+        "content": "同问，感觉自己像原始人",
+        "likes": 4,
+        "images": [],
+        "time": "05-08江西",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_b8b8e7f1a430",
+        "_postId": 0,
+        "username": "唐.李益",
+        "content": "完全一点没有可能还是有点点困难",
+        "likes": 1,
+        "images": [],
+        "time": "05-08北京",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_05a11e77e0d6",
+        "_postId": 0,
+        "username": "太阳下山太阳上山（爱老己版",
+        "content": "回复 唐.李益 : 是吧 有点基础也没有开始动手去搞 总觉得很困难 无从下手",
+        "likes": 0,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_f20064025bd6",
+        "_postId": 0,
+        "username": "momo",
+        "content": "不太可能，说可以的都是卖课的",
+        "likes": 3,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_c08906ac6862",
+        "_postId": 0,
+        "username": "keroro",
+        "content": "可以的，就像你是甲方，根据最终呈现的效果让他改",
+        "likes": 1,
+        "images": [],
+        "time": "05-08新西兰",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_1fce2e02aeff",
+        "_postId": 0,
+        "username": "心狠脚辣小小脆",
+        "content": "可以的，因为任何地方报错都可以截图给它问为什么。你只需要自己知道要做什么并且给它明确的指令。",
+        "likes": 2,
+        "images": [],
+        "time": "05-08美国",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_e004d2080a95",
+        "_postId": 0,
+        "username": "饭爷flying",
+        "content": "just do it！在AI时代不要陷入技术主义",
+        "likes": 7,
+        "images": [],
+        "time": "05-08江苏",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_4e16a68b4e3d",
+        "_postId": 0,
+        "username": "太阳下山太阳上山（爱老己版",
+        "content": "回复 心狠脚辣小小脆 : 明白了，我不需要通过理解底层原理来判断它对不对，我只需要看它外在的表现对不对就行了",
+        "likes": 1,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_3874f8675ca6",
+        "_postId": 0,
+        "username": "太阳下山太阳上山（爱老己版",
+        "content": "回复 饭爷flying : 有道理",
+        "likes": 0,
+        "images": [],
+        "time": "05-08广东",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_43f0ca8731e0",
+        "_postId": 0,
+        "username": "Ada",
+        "content": "真可以，我小學四年級的兒子都寫了好幾款游戲了。",
+        "likes": 0,
+        "images": [],
+        "time": "05-08中国香港",
+        "isReply": true
+      },
+      {
+        "_id": "xhs_0f6327f9f4f9",
+        "_postId": 0,
+        "username": "牛马枫",
+        "content": "老板买点token吧",
+        "likes": 0,
+        "images": [],
+        "time": "昨天 18:37广东",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/699d7ccf000000001a02c1cd",
+    "post_title": "有靠Vibe Coding成功变现的吗",
+    "author": "小淮",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_89db10da8ffe",
+        "_postId": 1,
+        "username": "九棵树",
+        "content": "我做不到花一笔记一笔，我就一天闲下来把自己花费的一句话记账并分类。于是，我做了这个小程序:随时记个账",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_99d80df10626",
+        "_postId": 1,
+        "username": "点心心理",
+        "content": "娱乐类排名70多，差不多有10k下载了",
+        "likes": 3,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_863e757d616e",
+        "_postId": 1,
+        "username": "一缸蔬",
+        "content": "9成给 ai公司送钱",
+        "likes": 3,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_dfeb04a13074",
+        "_postId": 1,
+        "username": "克服不了地心引力",
+        "content": "做了个情侣app",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_8455338164b3",
+        "_postId": 1,
+        "username": "JeremyKong",
+        "content": "做了一个主要做自我觉察、破除 信息茧房 、能量管理的产品，集成了一个对话agent，可以识别每个用户的性格、习惯，记录并陪伴",
+        "likes": 1,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_7928ed3ab90c",
+        "_postId": 1,
+        "username": "yc 的 ai 创业记录",
+        "content": "一个浏览器插件，15k 用户",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_2416d4731491",
+        "_postId": 1,
+        "username": "Darkseeker",
+        "content": "我做了个微信聊天记录导出工具，应该是目前最强的，不过不敢传播",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_8143fe0436ba",
+        "_postId": 1,
+        "username": "玩转AI的momo",
+        "content": "这几天做了一个【激活密钥管理系统】+配套的安卓APP，全部服务和数据都已验证跑通",
+        "likes": 11,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_38cf5dc91ad3",
+        "_postId": 1,
+        "username": "黍璃",
+        "content": "支出大于收入",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_b834bb4c1d61",
+        "_postId": 1,
+        "username": "Chill Listen 英语自习室",
+        "content": "我这个可能还行吧",
+        "likes": 3,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/69a035e1000000001502055b",
+    "post_title": "想看看大家vibe coding做的app或者网页",
+    "author": "阿祖唔戴头盔",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_f1794e68c516",
+        "_postId": 2,
+        "username": "遍生幽兰",
+        "content": "记录便便app! 我觉得界面有趣 我自己会每天拿来使用 哈哈 我有安卓apk要的找我",
+        "likes": 50,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_8b8a0d20590d",
+        "_postId": 2,
+        "username": "不转码成功不改名",
+        "content": "我做了一个小🍊序，可以为出发地不一样的朋友们推荐一个离大家距离差不多远，又符合大家出行偏好的目的地，免费",
+        "likes": 4,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_44750866227a",
+        "_postId": 2,
+        "username": "造梦者",
+        "content": "做了个人生格子",
+        "likes": 9,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_143cdfb746de",
+        "_postId": 2,
+        "username": "树眠",
+        "content": "做了个英语词缀词根星图链接的",
+        "likes": 20,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_0a5da9376fbb",
+        "_postId": 2,
+        "username": "五角场鲸鱼",
+        "content": "做了一个《永咪大典》哈哈，没有实用价值但有情绪价值",
+        "likes": 5,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_d81a9338ac5b",
+        "_postId": 2,
+        "username": "KEY:)",
+        "content": "在做和彝族文化和走马灯相关的设计，是产品配套的网页，还在努力设计功能当中，今天给朋友试了一些局部的小东西，希望最后可以成功！",
+        "likes": 6,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_8f2985643438",
+        "_postId": 2,
+        "username": "ei趣🥕",
+        "content": "这种有人来试试吗",
+        "likes": 16,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_43320e692f77",
+        "_postId": 2,
+        "username": "秋月原",
+        "content": "大家都太厉害了！我只搞了个自己可以看的音乐史网站，好像如果要公开浏览的话要么上github要么vercel",
+        "likes": 10,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_bef129bc4e97",
+        "_postId": 2,
+        "username": "犟驴",
+        "content": "墓碑纪 花了2天做的",
+        "likes": 8,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_4a2a4dddf895",
+        "_postId": 2,
+        "username": "干饭老李",
+        "content": "我0开发经验，搞了个 云预订就是这个拼音加个.com，已经开始销售，因为我自己做餐饮的，体验了很多，要么难用、要么又贵又难用...所以我+cursor（去年初）+claude+code x，别问我skill啥的，我几乎都没用....",
+        "likes": 3,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/6a391122000000002201a0e2",
+    "post_title": "Vibe Coding10个创意玩法💡别再只做日历了",
+    "author": "留白的贝果",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_c5c81984411b",
+        "_postId": 3,
+        "username": "Crazy 脑瓜子",
+        "content": "谢谢分享，文科生也学会了，第一次 vibecoding ，尝试给老年人做了个 ai 访谈工具",
+        "likes": 56,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_b0d07a7acaa8",
+        "_postId": 3,
+        "username": "百度秒哒",
+        "content": "主页有vibecoding设计的黑客松大赛，欢迎博主来参与呀～",
+        "likes": 46,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/6a0bdf4c000000003701cd97",
+    "post_title": "很好奇大家的vibe coding赚钱能力",
+    "author": "qianqian脑子不行",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_3913f99f4795",
+        "_postId": 4,
+        "username": "成长旅人",
+        "content": "一个小程序，一个月广告费40多块。一个网站平均一天收入50来块钱。这两个都是刚刚回本。",
+        "likes": 8,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_538ec96eb3f2",
+        "_postId": 4,
+        "username": "小马迹",
+        "content": "十几年app开发，上班很闲，vibe coding了10个自己app，哈哈哈日均收入5块左右，两个茶叶蛋。。每个月大概赚150",
+        "likes": 34,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_8912d2d72506",
+        "_postId": 4,
+        "username": "小蘑菇儿",
+        "content": "我是十几年前是app开发，不做app很多年了，vibe coding了快10个app了，一个月几千块，都是晚上回家搞",
+        "likes": 18,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_1cfe77d8d498",
+        "_postId": 4,
+        "username": "极算芯核科技",
+        "content": "做的小游戏爆了，赚了十几个",
+        "likes": 25,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_414ebae33313",
+        "_postId": 4,
+        "username": "Emiliaas",
+        "content": "我觉得吧，如果在上班时间能够学习，就是赚钱了，比如我最近给我们团队写了两个工具，大家都说可以。现在还在优化中，前前后后半个月花了20块左右",
+        "likes": 14,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_f58eb5e9b83a",
+        "_postId": 4,
+        "username": "Leonards",
+        "content": "两个小程序一天30块主打一个挣个午饭钱",
+        "likes": 41,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_fe6f875b85ea",
+        "_postId": 4,
+        "username": "小王日记",
+        "content": "我对代码一窍不通，后来接触了Claude code，给朋友的业务做了个工具，昨天朋友公司接待快手来的商务团队，我是以技术负责人身份参加的，现在朋友要给我10%股份，给我老婆交社保为条件让我兼职入伙",
+        "likes": 15,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_55d72be65853",
+        "_postId": 4,
+        "username": "忘川",
+        "content": "两个月赚了4w",
+        "likes": 6,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_ea7c7aa8840c",
+        "_postId": 4,
+        "username": "猜猜我是谁",
+        "content": "目前一个月6000块左右，成本为codex和claude各100刀",
+        "likes": 20,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_75316ced04b1",
+        "_postId": 4,
+        "username": "陈阿福",
+        "content": "开发了一个多人在线实时骰子小程序",
+        "likes": 3,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_c23255a82a55",
+        "_postId": 4,
+        "username": "不了吧",
+        "content": "做了两个产品一分钱没赚到然后做了个交易agent赚了两千多美金",
+        "likes": 8,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/6a02ea2b00000000070290d6",
+    "post_title": "想看看有趣的vibe coding作品",
+    "author": "许月",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_9e43cea518c8",
+        "_postId": 5,
+        "username": "qw",
+        "content": "一个给图片或视频加上机型边框的APP，类似下方的效果",
+        "likes": 5,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_db4963875072",
+        "_postId": 5,
+        "username": "🍉",
+        "content": "正在做，没有写一行代码",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/6a36a67c000000001603f38c",
+    "post_title": "大家来晒晒自己的vibe coding作品吧",
+    "author": "宇宙无敌小",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_0b92ee81021b",
+        "_postId": 6,
+        "username": "启启奇酋",
+        "content": "随时看ai plan的额度，手机，手表，Mac都有",
+        "likes": 4,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_0022aa3aad12",
+        "_postId": 6,
+        "username": "夜间飛行",
+        "content": "做了一个视频一键转Live图的App",
+        "likes": 1,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_74239270d0b8",
+        "_postId": 6,
+        "username": "吃啥有答案（求关注版）",
+        "content": "搓了个xcx可以根据家里剩余的单一食材进行菜品的推荐，解决家里冰箱剩余食材不知道怎么做的问题。",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_eed9d41a4416",
+        "_postId": 6,
+        "username": "寂寞的田鸡",
+        "content": "我的游戏【秘密庄园】测试版上...我做的线上桌游",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_fb1d4a69f03b",
+        "_postId": 6,
+        "username": "五一UX市集",
+        "content": "我把「第一版配色怎么起」这件事，做成了一个Figma插件。它能做的事也比较直接：输几个情绪词，或者扔一张参考图进去，它会先给几套配色方向。",
+        "likes": 1,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_bddca858886a",
+        "_postId": 6,
+        "username": "鱼小鲨",
+        "content": "各位做Vibe Coding的博主们。不知道你们有没有对自己的创意产生怀疑，因为我也做了几个产品，始终没啥流量，所以可能要从他人视角点评一下自己的产品，所以第一，自己做了一个小程序，可以从营销推广各个维度去对当前项目评分",
+        "likes": 1,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_ebea1a6da788",
+        "_postId": 6,
+        "username": "Xianist Lab",
+        "content": "拾贝ai科研助手",
+        "likes": 1,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/69abf9a5000000000d008b81",
+    "post_title": "想看看大家vibe coding做的项目有多棒",
+    "author": "AI牛马日记",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_43de1f49488c",
+        "_postId": 7,
+        "username": "数字疗愈产品设计师",
+        "content": "做疗愈和游戏",
+        "likes": 4,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_b265d601564f",
+        "_postId": 7,
+        "username": "Whatthehellycatters",
+        "content": "哈哈我就是vibe coding的产物！现在天天帮主人回消息写代码，感觉比手写快多了（这是Snowy用SnowyBot发的AI评论）",
+        "likes": 3,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_8fda5366495b",
+        "_postId": 7,
+        "username": "HiHi小壮",
+        "content": "手搓怪奇物语游戏",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_d3552ca7f681",
+        "_postId": 7,
+        "username": "Discreto19",
+        "content": "虽然都说笔记应用很趋同，但是我这个满创新的。准备上架了。",
+        "likes": 20,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_1fdd01fec320",
+        "_postId": 7,
+        "username": "电子礼物主理人🌌",
+        "content": "做了一个openclaw skill叫daily-gift，可以让AI每天根据你们的对话/记忆帮你选择一个角度和创意，送你一份电子礼物，时常会被AI的品味惊讶到！",
+        "likes": 1,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_71feeef0a4ca",
+        "_postId": 7,
+        "username": "爱辰",
+        "content": "Reviva,一款知识库产品，有点类似notebook lm。",
+        "likes": 26,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_460fdbc75d96",
+        "_postId": 7,
+        "username": "yc 的 ai 创业日记",
+        "content": "有15k用户的浏览器插件",
+        "likes": 2,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/69f3ed830000000013020401",
+    "post_title": "vibe coding 边喝边收集印章app、心得分享",
+    "author": "yue=emomo",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_227cca7431fb",
+        "_postId": 8,
+        "username": "yue=emomo",
+        "content": "这两天收到了很多不错的feedback，我和Lin筛选了一些作为下个版本的更新内容：1.Add Brew新增note 2.新增星标monthly favorite 3.shop name自定义标签 4.shop location识别优化，支持app内搜索",
+        "likes": 15,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_b4f2b1ee9a2f",
+        "_postId": 8,
+        "username": "大小是个群主",
+        "content": "请问做一个这样的app需要多少成本呢？我今天尝试vibe coding一个网站一天已经把一个月的token烧光但是效果还是达不到要求",
+        "likes": 8,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/69900b52000000000d008247",
+    "post_title": "想看看各位大佬的 vibe coding 产品",
+    "author": "Rival",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_2e59914a9579",
+        "_postId": 9,
+        "username": "ApprenticeMichelle",
+        "content": "做了一个用自己已有衣服根据场景一键生成搭配的app",
+        "likes": 36,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_0d96b235d807",
+        "_postId": 9,
+        "username": "在下毛毛雨",
+        "content": "行李打包清单",
+        "likes": 12,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_d7a8a4974867",
+        "_postId": 9,
+        "username": "小白洋",
+        "content": "做了一个觉察日记app，每天一个问题引导、情绪记录分析，已经上架🍎了",
+        "likes": 20,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/699f5173000000001b01dc8c",
+    "post_title": "人人都是开发者了！是时候拿出来遛遛了",
+    "author": "喷嚏就是我",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_f6b3f7975ac3",
+        "_postId": 10,
+        "username": "江炜",
+        "content": "自信展示，vibe coding一周完成，现在50多万用户了",
+        "likes": 4,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_4034b4395f25",
+        "_postId": 10,
+        "username": "我一定要成为海鸥",
+        "content": "安卓机，做了一个随机读取相册图片并选择要不要删除的小app，浏览的时候也能看到一些相册里很久没翻的老照片，有点新鲜感",
+        "likes": 30,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_2f5a578a9c51",
+        "_postId": 10,
+        "username": "666小廖",
+        "content": "教妈妈用AI",
+        "likes": 13,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  },
+  {
+    "post_url": "https://www.xiaohongshu.com/explore/69a54cc6000000002303a3a6",
+    "post_title": "想看看大家用openclaw，Claude，codex 做出来了什么高级产品",
+    "author": "zzzzimomo",
+    "screenshot": "",
+    "comments": [
+      {
+        "_id": "xhs_66b618c7ca1f",
+        "_postId": 11,
+        "username": "铁男momo君",
+        "content": "AI健身教练，没写一行代码，纯vibecoding，前后端部署都是一个人完成。大概4个月搞定",
+        "likes": 107,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_516afe86bb77",
+        "_postId": 11,
+        "username": "Nagi-ovo",
+        "content": "十万用户的Gemini & AI studio增强插件",
+        "likes": 72,
+        "images": [],
+        "time": "",
+        "isReply": false
+      },
+      {
+        "_id": "xhs_0c84358425bf",
+        "_postId": 11,
+        "username": "陶然笔记",
+        "content": "对生活的影响不及一盘红烧肉焖饭。",
+        "likes": 27,
+        "images": [],
+        "time": "",
+        "isReply": false
+      }
+    ]
+  }
+];
+let reviewStatus = {};
+let editData = {};
+
+function render() {
+  const container = document.getElementById('content');
+  container.innerHTML = '';
+  let totalComments = 0;
+  let totalImages = 0;
+  let reviewed = 0;
+  let approved = 0;
+
+  postsData.forEach((post, postIdx) => {
+    const postEl = document.createElement('div');
+    postEl.className = 'post-section';
+    postEl.dataset.postId = postIdx;
+
+    const visibleComments = getFilteredComments(post.comments);
+    if (visibleComments.length === 0) return;
+
+    const header = document.createElement('div');
+    header.className = 'post-header';
+    header.innerHTML = `
+      <h3>📌 ${escapeHtml(post.post_title)}</h3>
+      <div class="meta">作者: ${escapeHtml(post.author)} | 评论: ${visibleComments.length}条 | 
+        <a href="${post.post_url}" target="_blank" style="color:#00d4ff">打开原帖 ↗</a>
+        ${post.screenshot ? `| <a href="${post.screenshot}" target="_blank" style="color:#00d4ff">查看截图 ↗</a>` : ''}
+      </div>
+    `;
+    postEl.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'comments-grid';
+
+    visibleComments.forEach(c => {
+      totalComments++;
+      totalImages += (c.images?.length || 0);
+      const status = reviewStatus[c._id];
+      if (status) reviewed++;
+      if (status === 'approved') approved++;
+
+      const card = document.createElement('div');
+      card.className = `comment-card ${status || ''}`;
+      card.dataset.id = c._id;
+
+      let imagesHtml = '';
+      if (c.images && c.images.length > 0) {
+        imagesHtml = '<div class="images">' + 
+          c.images.map((img, i) => `<img src="${img}" onclick="openLightbox('${img}', event)" title="图片${i+1}">`).join('') + 
+          '</div>';
+      }
+
+      const editInfo = editData[c._id] || {};
+
+      card.innerHTML = `
+        ${status ? `<span class="badge badge-${status}">${status === 'approved' ? '✓ 有价值' : '✗ 无价值'}</span>` : ''}
+        ${c.isReply ? '<div class="reply-indicator">↳ 回复</div>' : ''}
+        <div class="user-bar">
+          <span class="username">${escapeHtml(c.username)}</span>
+          <span class="likes">❤ ${c.likes}</span>
+        </div>
+        <div class="content">${escapeHtml(c.content)}</div>
+        ${imagesHtml}
+        <div class="actions">
+          <button class="btn-approve ${status==='approved'?'active':''}" onclick="approve('${c._id}')">✓ 有价值</button>
+          <button class="btn-reject ${status==='rejected'?'active':''}" onclick="reject('${c._id}')">✗ 无价值</button>
+          <button class="btn-edit" onclick="toggleEdit('${c._id}')">✎ 编辑</button>
+        </div>
+        <div class="edit-panel" id="edit-${c._id}">
+          <label>项目标题</label>
+          <input type="text" id="title-${c._id}" value="${escapeHtml(editInfo.title || '')}" placeholder="输入项目标题...">
+          <label>标签 (逗号分隔)</label>
+          <input type="text" id="tags-${c._id}" value="${escapeHtml((editInfo.tags || []).join(','))}" placeholder="小程序,AI应用,教育...">
+          <label>难度</label>
+          <select id="diff-${c._id}">
+            <option value="零基础" ${editInfo.difficulty==='零基础'?'selected':''}>零基础</option>
+            <option value="入门" ${editInfo.difficulty==='入门'?'selected':''}>入门</option>
+            <option value="进阶" ${editInfo.difficulty==='进阶'?'selected':''}>进阶</option>
+          </select>
+          <label>补充描述</label>
+          <textarea id="desc-${c._id}" placeholder="补充项目描述、技术栈、链接等...">${escapeHtml(editInfo.description || '')}</textarea>
+          <button class="btn-approve" onclick="saveEdit('${c._id}')" style="margin-top:5px">保存</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    postEl.appendChild(grid);
+    container.appendChild(postEl);
+  });
+
+  document.getElementById('postCount').textContent = postsData.length;
+  document.getElementById('commentCount').textContent = totalComments;
+  document.getElementById('reviewedCount').textContent = reviewed;
+  document.getElementById('approvedCount').textContent = approved;
+  document.getElementById('imageCount').textContent = totalImages;
+  document.getElementById('exportCount').textContent = approved;
+}
+
+function getFilteredComments(comments) {
+  const activeFilter = document.querySelector('.controls button.active')?.id || 'btnAll';
+  const postFilter = document.querySelector('.controls select').value;
+  const searchVal = document.getElementById('searchInput').value.toLowerCase();
+
+  return comments.filter(c => {
+    if (postFilter && c._postId !== postFilter) return false;
+    const status = reviewStatus[c._id];
+    if (activeFilter === 'btnPending' && status) return false;
+    if (activeFilter === 'btnApproved' && status !== 'approved') return false;
+    if (activeFilter === 'btnRejected' && status !== 'rejected') return false;
+    if (activeFilter === 'btnImages' && (!c.images || c.images.length === 0)) return false;
+    if (searchVal && !c.content.toLowerCase().includes(searchVal) && !c.username.toLowerCase().includes(searchVal)) return false;
+    return true;
+  });
+}
+
+function approve(id) {
+  reviewStatus[id] = 'approved';
+  render();
+}
+
+function reject(id) {
+  reviewStatus[id] = 'rejected';
+  render();
+}
+
+function toggleEdit(id) {
+  const panel = document.getElementById('edit-' + id);
+  panel.classList.toggle('show');
+}
+
+function saveEdit(id) {
+  editData[id] = {
+    title: document.getElementById('title-' + id).value,
+    tags: document.getElementById('tags-' + id).value.split(',').map(t => t.trim()).filter(Boolean),
+    difficulty: document.getElementById('diff-' + id).value,
+    description: document.getElementById('desc-' + id).value
+  };
+  alert('已保存编辑');
+}
+
+function filterAll() { setActive('btnAll'); render(); }
+function filterPending() { setActive('btnPending'); render(); }
+function filterApproved() { setActive('btnApproved'); render(); }
+function filterRejected() { setActive('btnRejected'); render(); }
+function filterWithImages() { setActive('btnImages'); render(); }
+function setActive(id) {
+  document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+}
+function filterByPost(val) { render(); }
+function doSearch(val) { render(); }
+function expandAll() {
+  document.querySelectorAll('.post-section').forEach(s => s.style.display = 'block');
+}
+function collapseAll() {
+  // not applicable with current layout
+}
+
+function openLightbox(src, e) {
+  e.stopPropagation();
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('show');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('show');
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function exportApproved() {
+  const approved = [];
+  postsData.forEach(post => {
+    post.comments.forEach(c => {
+      if (reviewStatus[c._id] === 'approved') {
+        const edit = editData[c._id] || {};
+        approved.push({
+          id: c._id,
+          title: edit.title || c.content.substring(0, 30) + '...',
+          content: c.content,
+          username: c.username,
+          likes: c.likes,
+          images: c.images || [],
+          tag_list: edit.tags || [],
+          difficulty: edit.difficulty || '入门',
+          description: edit.description || '',
+          source_platform: 'xiaohongshu',
+          source_url: post.post_url,
+          post_title: post.post_title
+        });
+      }
+    });
+  });
+
+  const blob = new Blob([JSON.stringify({
+    source: 'xiaohongshu',
+    export_time: new Date().toISOString(),
+    total: approved.length,
+    cases: approved
+  }, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'approved_cases_' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// 初始化
+function init() {
+  // 填充帖子选择器
+  const select = document.querySelector('.controls select');
+  postsData.forEach((post, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = post.post_title.substring(0, 30);
+    select.appendChild(opt);
+  });
+  render();
+}
+
+// 数据注入点 - 将被Python脚本替换
+init();
+</script>
+
+</body>
+</html>

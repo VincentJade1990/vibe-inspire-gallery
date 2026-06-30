@@ -1,0 +1,188 @@
+{
+  "source": "xiaohongshu",
+  "crawl_time": "2026-06-30",
+  "posts": [
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/69f0efc80000000020038c87",
+      "post_title": "大家都来晒晒自己vibe coding的作品吧",
+      "author": "Ace Lee ｜Ai版",
+      "comments": [
+        {"username":"Ace Lee ｜Ai版","content":"最近vibe coding了一个新产品：VibeScore。 它是一个面向 Vibe Coders、AI 创作者和独立开发者的作品评分社区。 很多人现在都能用 AI 做出 Demo、网页、小工具和产品原型，但问题是： 作品做出来以后，很难知道别人到底看不看得懂、愿不愿意点、觉得值不值得继续做。 所以 VibeScore 想解决的是： 让真实用户围观你的 AI 作品，并用打分和评论给出第一批反馈。","likes":13,"is_top":true},
+        {"username":"杰小米","content":"本人英语老师，做了个小程序督促学生们在家读绘本，做了一个月，最积极的学生已经读了180本了。把小时候想要的元素都放进去了，养宠物、礼物、勋章、跟别人pk之类的","likes":101},
+        {"username":"Joyi","content":"我老婆vibe coding了一个支持live图的color walk图片应用，纯免费免登陆，用在5月4日的柳州晚霞太合适了","likes":66},
+        {"username":"LitCode AI","content":"我vibe code了一个面试ai工具，然后拿它面试上岸拿了大包","likes":25},
+        {"username":"酷酷鍀✔龙","content":"可以分享下经验吗兄弟，我也想给老婆做一个","likes":25},
+        {"username":"阿Fi不在","content":"哈哈哈没事 不过我自己也是小白来的 有些地方也都是问ai和看大家的教程 我觉得最主要的是自己有没有想法 这个app要解决什么痛点 然后衍生对应的功能 对应的ui部分 可以找对应喜欢的风格参考图 然后就是不停地改进七七八八 因为是小白 也交了一些学费在token上 （我过几天也整理下我的coding流程 虽然不是专业的 但希望可以给到大家启发哈哈～","likes":25},
+        {"username":"Crazy 脑瓜子","content":"文科生第一次 vibecoding ，给老年人做了个 ai 访谈工具，记录她们的故事","likes":53},
+        {"username":"元丰房车游记","content":"A 股分析小工具，已上线","likes":36},
+        {"username":"String","content":"搞了个coding交流群","likes":24},
+        {"username":"timtim","content":"Vibe了一个思念星球","likes":44},
+        {"username":"Ace Lee ｜Ai版","content":"这种肯定超有成就感，ai教育方向肯定有很多机会","likes":283},
+        {"username":"Ace Lee ｜Ai版","content":"好厉害都上线了啊","likes":59},
+        {"username":"Joyi","content":"回复 Ace Lee ｜Ai版 : 对，上架app store了！而且永久免费","likes":12},
+        {"username":"77Basque","content":"支持！前几天刚刷到用这个色卡排版九宫格！","likes":6},
+        {"username":"Ace Lee ｜Ai版","content":"回复 比特黄 : 很多人现在都能做出 AI 作品，但不知道作品好不好。 VibeScore 想做的是让真实用户来围观、打分、贴标签、给反馈，帮助创作者把 Demo 变成更像产品的东西。","likes":1},
+        {"username":"比特黄","content":"其实我有个问题 用户为什么给作品打分 动机是什么","likes":9},
+        {"username":"阮三金","content":"这个网址是哪个？bing了一下好像都不是","likes":3},
+        {"username":"练习写作的momo","content":"做得好棒呀！ 礼貌询问，是什么软件做的，怎么能让别人也使用这个小程序？ 我用灵光做的只能自己用","likes":4},
+        {"username":"phoenix","content":"我也在找工作，求分享","likes":7},
+        {"username":"随波逐流的狗","content":"@特立独行的猪","likes":2},
+        {"username":"Taurus","content":"回复 阿Fi不在 : 看看接一个ocr试图抓官网图。这种小程序使用上拍摄成本比较高","likes":8},
+        {"username":"花生了什么树","content":"回复 阿Fi不在 : 蹲蹲蹲，如果能分享的话，万分感谢兄弟！","likes":8},
+        {"username":"Ace Lee ｜Ai版","content":"API接的哪里的啊","likes":9},
+        {"username":"元丰房车游记","content":"回复 Ace Lee ｜Ai版 : 花钱买的","likes":1},
+        {"username":"我吃饱了","content":"怎么才能用到啊","likes":2},
+        {"username":"嘻嘻嘻","content":"这个数据保存在哪里了？","likes":7},
+        {"username":"timtim","content":"回复 嘻嘻嘻 : 目前测试是在本地跑的，后面会上传到服务器","likes":4},
+        {"username":"timtim","content":"回复 我吃饱了 : 还在做最后测试","likes":2},
+        {"username":"牛马枫","content":"老板买点token吧","likes":37},
+        {"username":"杰小米","content":"回复 Ace Lee ｜Ai版 : 对，每年都在学新东西","likes":3},
+        {"username":"杰小米","content":"回复 悉尼踩坑专家 : 哈哈谢谢","likes":1},
+        {"username":"Ace Lee ｜Ai版","content":"回复 比特黄 : 就和这个笔记为什么这么多人围观评论一个道理，我觉得在「人人都能做产品」的时代，做产品的过程和做出来的产品会变得「娱乐化」，更好的创意和更有传播性的作品反而能出圈","likes":1},
+        {"username":"小安叹叹","content":"回复 比特黄 : 好的应用会去使用啊","likes":3},
+        {"username":"比特黄","content":"回复 小安叹叹 : 我今天再次调研了 博主的思路很好 早期用户多为极客，他们愿意体验新产品 愿意打分给评价","likes":3},
+        {"username":"超级舒服家","content":"去下载体验一下！","likes":2},
+        {"username":"浣熊镀松饼🥞","content":"回复 Joyi : 叫什么名字？","likes":7},
+        {"username":"元丰房车游记","content":"回复 cinestill : 丝我","likes":7},
+        {"username":"阿Fi不在","content":"回复 Taurus : 也是的 不过有些衣服确实线下也占了一半","likes":1}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/699d7ccf000000001a02c1cd",
+      "post_title": "有靠Vibe Coding成功变现的吗",
+      "author": "小淮",
+      "comments": [
+        {"username":"九棵树","content":"我做不到花一笔记一笔，我就一天闲下来把自己花费的一句话记账并分类。于是，我做了这个小程序:随时记个账","likes":2},
+        {"username":"点心心理","content":"娱乐类排名70多，差不多有10k下载了","likes":3},
+        {"username":"一缸蔬","content":"9成给 ai公司送钱","likes":3},
+        {"username":"克服不了地心引力","content":"做了个情侣app","likes":2},
+        {"username":"JeremyKong","content":"做了一个主要做自我觉察、破除 信息茧房 、能量管理的产品，集成了一个对话agent，可以识别每个用户的性格、习惯，记录并陪伴","likes":1},
+        {"username":"yc 的 ai 创业记录","content":"一个浏览器插件，15k 用户","likes":2},
+        {"username":"Darkseeker","content":"我做了个微信聊天记录导出工具，应该是目前最强的，不过不敢传播","likes":2},
+        {"username":"玩转AI的momo","content":"这几天做了一个【激活密钥管理系统】+配套的安卓APP，全部服务和数据都已验证跑通","likes":11},
+        {"username":"黍璃","content":"支出大于收入","likes":2},
+        {"username":"Chill Listen 英语自习室","content":"我这个可能还行吧","likes":3}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/69a035e1000000001502055b",
+      "post_title": "想看看大家vibe coding做的app或者网页",
+      "author": "阿祖唔戴头盔",
+      "comments": [
+        {"username":"遍生幽兰","content":"记录便便app! 我觉得界面有趣 我自己会每天拿来使用 哈哈 我有安卓apk要的找我","likes":50},
+        {"username":"不转码成功不改名","content":"我做了一个小🍊序，可以为出发地不一样的朋友们推荐一个离大家距离差不多远，又符合大家出行偏好的目的地，免费","likes":4},
+        {"username":"造梦者","content":"做了个人生格子","likes":9},
+        {"username":"树眠","content":"做了个英语词缀词根星图链接的","likes":20},
+        {"username":"五角场鲸鱼","content":"做了一个《永咪大典》哈哈，没有实用价值但有情绪价值","likes":5},
+        {"username":"KEY:)","content":"在做和彝族文化和走马灯相关的设计，是产品配套的网页，还在努力设计功能当中，今天给朋友试了一些局部的小东西，希望最后可以成功！","likes":6},
+        {"username":"ei趣🥕","content":"这种有人来试试吗","likes":16},
+        {"username":"秋月原","content":"大家都太厉害了！我只搞了个自己可以看的音乐史网站，好像如果要公开浏览的话要么上github要么vercel","likes":10},
+        {"username":"犟驴","content":"墓碑纪 花了2天做的","likes":8},
+        {"username":"干饭老李","content":"我0开发经验，搞了个 云预订就是这个拼音加个.com，已经开始销售，因为我自己做餐饮的，体验了很多，要么难用、要么又贵又难用...所以我+cursor（去年初）+claude+code x，别问我skill啥的，我几乎都没用....","likes":3}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/6a391122000000002201a0e2",
+      "post_title": "Vibe Coding10个创意玩法💡别再只做日历了",
+      "author": "留白的贝果",
+      "comments": [
+        {"username":"Crazy 脑瓜子","content":"谢谢分享，文科生也学会了，第一次 vibecoding ，尝试给老年人做了个 ai 访谈工具","likes":56},
+        {"username":"百度秒哒","content":"主页有vibecoding设计的黑客松大赛，欢迎博主来参与呀～","likes":46}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/6a0bdf4c000000003701cd97",
+      "post_title": "很好奇大家的vibe coding赚钱能力",
+      "author": "qianqian脑子不行",
+      "comments": [
+        {"username":"成长旅人","content":"一个小程序，一个月广告费40多块。一个网站平均一天收入50来块钱。这两个都是刚刚回本。","likes":8},
+        {"username":"小马迹","content":"十几年app开发，上班很闲，vibe coding了10个自己app，哈哈哈日均收入5块左右，两个茶叶蛋。。每个月大概赚150","likes":34},
+        {"username":"小蘑菇儿","content":"我是十几年前是app开发，不做app很多年了，vibe coding了快10个app了，一个月几千块，都是晚上回家搞","likes":18},
+        {"username":"极算芯核科技","content":"做的小游戏爆了，赚了十几个","likes":25},
+        {"username":"Emiliaas","content":"我觉得吧，如果在上班时间能够学习，就是赚钱了，比如我最近给我们团队写了两个工具，大家都说可以。现在还在优化中，前前后后半个月花了20块左右","likes":14},
+        {"username":"Leonards","content":"两个小程序一天30块主打一个挣个午饭钱","likes":41},
+        {"username":"小王日记","content":"我对代码一窍不通，后来接触了Claude code，给朋友的业务做了个工具，昨天朋友公司接待快手来的商务团队，我是以技术负责人身份参加的，现在朋友要给我10%股份，给我老婆交社保为条件让我兼职入伙","likes":15},
+        {"username":"忘川","content":"两个月赚了4w","likes":6},
+        {"username":"猜猜我是谁","content":"目前一个月6000块左右，成本为codex和claude各100刀","likes":20},
+        {"username":"陈阿福","content":"开发了一个多人在线实时骰子小程序","likes":3},
+        {"username":"不了吧","content":"做了两个产品一分钱没赚到然后做了个交易agent赚了两千多美金","likes":8}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/6a02ea2b00000000070290d6",
+      "post_title": "想看看有趣的vibe coding作品",
+      "author": "许月",
+      "comments": [
+        {"username":"qw","content":"一个给图片或视频加上机型边框的APP，类似下方的效果","likes":5},
+        {"username":"🍉","content":"正在做，没有写一行代码","likes":2}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/6a36a67c000000001603f38c",
+      "post_title": "大家来晒晒自己的vibe coding作品吧",
+      "author": "宇宙无敌小",
+      "comments": [
+        {"username":"启启奇酋","content":"随时看ai plan的额度，手机，手表，Mac都有","likes":4},
+        {"username":"夜间飛行","content":"做了一个视频一键转Live图的App","likes":1},
+        {"username":"吃啥有答案（求关注版）","content":"搓了个xcx可以根据家里剩余的单一食材进行菜品的推荐，解决家里冰箱剩余食材不知道怎么做的问题。","likes":2},
+        {"username":"寂寞的田鸡","content":"我的游戏【秘密庄园】测试版上...我做的线上桌游","likes":2},
+        {"username":"五一UX市集","content":"我把「第一版配色怎么起」这件事，做成了一个Figma插件。它能做的事也比较直接：输几个情绪词，或者扔一张参考图进去，它会先给几套配色方向。","likes":1},
+        {"username":"鱼小鲨","content":"各位做Vibe Coding的博主们。不知道你们有没有对自己的创意产生怀疑，因为我也做了几个产品，始终没啥流量，所以可能要从他人视角点评一下自己的产品，所以第一，自己做了一个小程序，可以从营销推广各个维度去对当前项目评分","likes":1},
+        {"username":"Xianist Lab","content":"拾贝ai科研助手","likes":1}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/69abf9a5000000000d008b81",
+      "post_title": "想看看大家vibe coding做的项目有多棒",
+      "author": "AI牛马日记",
+      "comments": [
+        {"username":"数字疗愈产品设计师","content":"做疗愈和游戏","likes":4},
+        {"username":"Whatthehellycatters","content":"哈哈我就是vibe coding的产物！现在天天帮主人回消息写代码，感觉比手写快多了（这是Snowy用SnowyBot发的AI评论）","likes":3},
+        {"username":"HiHi小壮","content":"手搓怪奇物语游戏","likes":2},
+        {"username":"Discreto19","content":"虽然都说笔记应用很趋同，但是我这个满创新的。准备上架了。","likes":20},
+        {"username":"电子礼物主理人🌌","content":"做了一个openclaw skill叫daily-gift，可以让AI每天根据你们的对话/记忆帮你选择一个角度和创意，送你一份电子礼物，时常会被AI的品味惊讶到！","likes":1},
+        {"username":"爱辰","content":"Reviva,一款知识库产品，有点类似notebook lm。","likes":26},
+        {"username":"yc 的 ai 创业日记","content":"有15k用户的浏览器插件","likes":2}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/69f3ed830000000013020401",
+      "post_title": "vibe coding 边喝边收集印章app、心得分享",
+      "author": "yue=emomo",
+      "comments": [
+        {"username":"yue=emomo","content":"这两天收到了很多不错的feedback，我和Lin筛选了一些作为下个版本的更新内容：1.Add Brew新增note 2.新增星标monthly favorite 3.shop name自定义标签 4.shop location识别优化，支持app内搜索","likes":15},
+        {"username":"大小是个群主","content":"请问做一个这样的app需要多少成本呢？我今天尝试vibe coding一个网站一天已经把一个月的token烧光但是效果还是达不到要求","likes":8}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/69900b52000000000d008247",
+      "post_title": "想看看各位大佬的 vibe coding 产品",
+      "author": "Rival",
+      "comments": [
+        {"username":"ApprenticeMichelle","content":"做了一个用自己已有衣服根据场景一键生成搭配的app","likes":36},
+        {"username":"在下毛毛雨","content":"行李打包清单","likes":12},
+        {"username":"小白洋","content":"做了一个觉察日记app，每天一个问题引导、情绪记录分析，已经上架🍎了","likes":20}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/699f5173000000001b01dc8c",
+      "post_title": "人人都是开发者了！是时候拿出来遛遛了",
+      "author": "喷嚏就是我",
+      "comments": [
+        {"username":"江炜","content":"自信展示，vibe coding一周完成，现在50多万用户了","likes":4},
+        {"username":"我一定要成为海鸥","content":"安卓机，做了一个随机读取相册图片并选择要不要删除的小app，浏览的时候也能看到一些相册里很久没翻的老照片，有点新鲜感","likes":30},
+        {"username":"666小廖","content":"教妈妈用AI","likes":13}
+      ]
+    },
+    {
+      "post_url": "https://www.xiaohongshu.com/explore/69a54cc6000000002303a3a6",
+      "post_title": "想看看大家用openclaw，Claude，codex 做出来了什么高级产品",
+      "author": "zzzzimomo",
+      "comments": [
+        {"username":"铁男momo君","content":"AI健身教练，没写一行代码，纯vibecoding，前后端部署都是一个人完成。大概4个月搞定","likes":107},
+        {"username":"Nagi-ovo","content":"十万用户的Gemini & AI studio增强插件","likes":72},
+        {"username":"陶然笔记","content":"对生活的影响不及一盘红烧肉焖饭。","likes":27}
+      ]
+    }
+  ]
+}

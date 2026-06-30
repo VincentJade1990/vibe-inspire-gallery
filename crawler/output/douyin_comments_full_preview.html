@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>抖音评论区 Vibe Coding 项目完整抓取结果</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card: #151e32;
+      --card-hover: #1a2540;
+      --border: #2a3a5a;
+      --text: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --accent: #06b6d4;
+      --accent-glow: rgba(6,182,212,0.3);
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --tag-bg: rgba(6,182,212,0.12);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0 16px 80px;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+    header {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    header h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    header .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .source-info {
+      background: linear-gradient(145deg, var(--card), #111a2e);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 28px;
+    }
+    .source-info .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+    .source-info .label {
+      color: var(--text-secondary);
+      min-width: 70px;
+      font-weight: 500;
+    }
+    .source-info a {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .source-info a:hover { text-decoration: underline; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(6,182,212,0.2);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 12px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .stat:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .stat .num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat .label { color: var(--text-secondary); font-size: 0.8rem; margin-top: 6px; }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 44px 0 22px;
+      padding-left: 14px;
+      border-left: 4px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title .count {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* 案例卡片 */
+    .case-card {
+      background: linear-gradient(145deg, var(--card), #111a2e);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 0;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s;
+    }
+    .case-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 30px rgba(6,182,212,0.12);
+      transform: translateY(-2px);
+    }
+    .case-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #8b5cf6);
+    }
+    .case-body { padding: 22px 24px 18px; }
+    .case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .case-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .case-difficulty {
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .diff-easy { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .diff-hard { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .case-prompt {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .case-original {
+      background: rgba(6,182,212,0.06);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+    .case-images {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .case-images img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .case-images img:hover {
+      transform: scale(1.05);
+      border-color: var(--accent);
+    }
+    .case-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.2);
+    }
+    .case-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .case-tag {
+      background: var(--tag-bg);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(6,182,212,0.15);
+    }
+    .case-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .case-meta { color: var(--text-secondary); font-size: 0.82rem; }
+    .case-likes {
+      display: flex; align-items: center; gap: 5px;
+      color: #f472b6;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .author-liked {
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .download-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(11,17,32,0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      z-index: 100;
+    }
+    .download-bar a, .download-bar button {
+      background: linear-gradient(135deg, var(--accent), #0891b2);
+      color: white;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .download-bar a:hover, .download-bar button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .download-bar .secondary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 20px; right: 30px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.35rem; }
+      .case-body { padding: 16px; }
+      .case-footer { padding: 12px 16px; }
+      .case-images img { width: 100px; height: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>抖音评论区 Vibe Coding 项目完整抓取结果</h1>
+      <p class="subtitle">登录后展开全部折叠回复，共抓取 177 条评论元素，筛选出 30 条优质项目案例</p>
+    </header>
+
+    <div class="source-info">
+      <div class="row"><span class="label">原帖</span><a href="https://www.douyin.com/note/7632979028546757349" target="_blank">https://www.douyin.com/note/7632979028546757349</a></div>
+      <div class="row"><span class="label">作者</span><span>BOBO AI编程 (专注AI)</span></div>
+      <div class="row"><span class="label">标题</span><span>大家都来晒晒自己vibe coding的作品吧！ 超想见识下</span></div>
+      <div class="row"><span class="label">数据</span><span>抓取时间 2026-06-26 | 登录态 | 展开 220 个折叠回复</span></div>
+      <div class="tags">
+        <span class="tag">#ai</span><span class="tag">#ai编程</span><span class="tag">#vibecoding</span>
+        <span class="tag">#创意</span><span class="tag">#ai教程</span><span class="tag">#vibecoding大赏</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat"><div class="num">30</div><div class="label">项目案例</div></div>
+      <div class="stat"><div class="num">10</div><div class="label">小程序</div></div>
+      <div class="stat"><div class="num">11</div><div class="label">Web应用</div></div>
+      <div class="stat"><div class="num">10</div><div class="label">工具脚本</div></div>
+      <div class="stat"><div class="num">13</div><div class="label">进阶项目</div></div>
+      <div class="stat"><div class="num">14</div><div class="label">带评论截图</div></div>
+    </div>
+
+    <h2 class="section-title">整理后的案例 <span class="count">30</span></h2>
+
+    <div id="cases-container"></div>
+
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <div class="download-bar">
+    <a href="douyin_comments_full.json" download>下载完整 JSON</a>
+    <button onclick="document.querySelector('.lightbox').classList.remove('active'); window.scrollTo({top:0,behavior:'smooth'})">回到顶部</button>
+    <a href="https://www.douyin.com/note/7632979028546757349" target="_blank" class="secondary">查看原帖</a>
+  </div>
+
+  <script>
+    const cases = [
+      {"id":"vc_douyin_001","title":"一键提取下载网页所有图片工具","content":"一键提取、下载网页上所有图片，刚上线已经突破 200 用户了","full_prompt":"开发一个浏览器扩展或Web工具，能够一键提取当前网页中的所有图片资源，支持按尺寸筛选、格式过滤和批量打包下载。上线首月即突破200用户，验证了工具类产品的市场刚需。","username":"kyriewen","location":"广东","likes":139,"time":"1月前","author_liked":true,"images":[],"tag_list":["Chrome插件","工具脚本"],"difficulty":"进阶"},
+      {"id":"vc_douyin_002","title":"Vibe Coding项目四周获数十万用户","content":"做了不到一个月，已经有几十万用户了","full_prompt":"通过Vibe Coding方式在不到一个月时间内开发并上线的产品，已成功获取数十万用户。展示了AI辅助开发在快速验证产品想法、缩短开发周期方面的强大能力。","username":"佳佳子_","location":"山东","likes":38,"time":"4周前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/17bc9c4501784279b8e7d886832b0f28?lk3s=343af0a2&x-expires=2097813600&x-signature=TFfqZeXMs1tcwraAWucMtAAVYrU%3D&from=876277922"],"tag_list":["Web应用","AI应用"],"difficulty":"零基础"},
+      {"id":"vc_douyin_003","title":"AI命理测试网站","content":"我自己手搓了一个命理测试网站，总体来说效果还是不错的，现在还差最后一步就能上线了～","full_prompt":"手搓一个命理测试网站，提供基于传统命理学的在线测算服务，包含八字排盘、运势分析、缘分测试等模块。","username":"Idontmean2hateyou","location":"福建","likes":22,"time":"1周前","author_liked":true,"images":[],"tag_list":["Web应用"],"difficulty":"零基础"},
+      {"id":"vc_douyin_004","title":"微信小程序项目","content":"做了一个微信小程序","full_prompt":"使用Vibe Coding方式开发微信小程序，展示AI辅助开发在小程序场景中的应用实践。","username":"来份奶油意面","location":"英国","likes":18,"time":"4周前","author_liked":true,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/4296ea156ee6479e9ad5c1381ec73cca?lk3s=343af0a2&x-expires=2097813600&x-signature=OLJySyXvL9Z7hPMrX%2F7hlRR2FcU%3D&from=876277922"],"tag_list":["小程序","移动端"],"difficulty":"零基础"},
+      {"id":"vc_douyin_005","title":"聚合型科研MCP工具","content":"做了一个聚合型的科研mcp","full_prompt":"开发一个聚合型科研MCP工具，整合多个科研数据源和AI模型，为科研人员提供统一接口。","username":"Lollipop","location":"湖北","likes":2,"time":"1周前","author_liked":true,"images":[],"tag_list":["工具脚本","AI应用"],"difficulty":"进阶"},
+      {"id":"vc_douyin_006","title":"食堂点评小程序","content":"食堂点评","full_prompt":"开发一个食堂点评应用，支持菜品评分、评论、每日菜单预览和热门排行。","username":"帕恰小嘉_","location":"陕西","likes":43,"time":"4周前","author_liked":false,"images":[],"tag_list":["小程序","移动端","Web应用"],"difficulty":"零基础"},
+      {"id":"vc_douyin_007","title":"健身记录小程序（已申请软著）","content":"做了一个健身记录小程序，在网申了","full_prompt":"开发健身记录小程序，支持训练计划、运动追踪和进度可视化，已完成软著申请。","username":"Zhou8xOvO","location":"江苏","likes":4,"time":"2周前","author_liked":true,"images":[],"tag_list":["小程序","移动端","工具脚本"],"difficulty":"进阶"},
+      {"id":"vc_douyin_008","title":"实验报告生成网站","content":"给学弟学妹写了个做实验报告的网站，目前几十个用户","full_prompt":"为大学生开发实验报告自动生成网站，支持数据录入、模板选择和PDF导出。","username":"小椰","location":"上海","likes":16,"time":"1月前","author_liked":false,"images":["https://p11-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/ded714fc2e63451690ae1a32553a6bcf~tplv-p14lwwcsbr-x2-q75-r:248:332:q75.image?lk3s=7b078dd2&x-expires=1782478800&x-signature=W5jC0jMZsO7z1C0N9abDvOg1tCE%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=20260626154201B3EEF8825D289A6DDC66"],"tag_list":["Web应用","工具脚本"],"difficulty":"零基础"},
+      {"id":"vc_douyin_009","title":"安卓UI动画项目","content":"我真服了，安卓真的好难写Ui和动画，我崩溃了做了一个星期的","full_prompt":"使用Vibe Coding开发Android应用，挑战原生UI布局和动画效果。","username":"你家差点炸了","location":"广东","likes":0,"time":"2天前","author_liked":false,"images":["https://p26-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/4e570dcc4a6d49e2b5aa3b20bb78be2f~tplv-p14lwwcsbr-x2-q75-r:248:332:q75.image?lk3s=7b078dd2&x-expires=1782478800&x-signature=DDG7Fe6xSAJddHLEkxTRntzwcrk%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=20260626154201B3EEF8825D289A6DDC66"],"tag_list":["移动端"],"difficulty":"进阶"},
+      {"id":"vc_douyin_010","title":"AI录题导出系统（PPstrctureV3+DeepSeekV4）","content":"搭载PPstrctureV3和deepseekV4工作流的录题导出系统，从此告别Word","full_prompt":"基于PPstrctureV3和DeepSeekV4构建智能录题导出系统，支持拍照识别题目并自动格式化导出。","username":"夕晴秋水","location":"广东","likes":0,"time":"2天前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/62266cefe5fe4422aceaeaeed9072b3b?lk3s=343af0a2&x-expires=2097813600&x-signature=KgIxnqRbYCpVPlHWJIAulP0u5UE%3D&from=876277922"],"tag_list":["工具脚本","AI应用"],"difficulty":"进阶"},
+      {"id":"vc_douyin_011","title":"AI私教应用","content":"在做了在做了 ai私教","full_prompt":"开发AI私教应用，利用大语言模型提供个性化健身指导和运动计划。","username":"偷偷搞个APP","location":"北京","likes":0,"time":"2天前","author_liked":false,"images":["https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/b36248652c7941dcbe3320a620d619f9~tplv-p14lwwcsbr-x2-q75-r:248:332:q75.image?lk3s=7b078dd2&x-expires=1782478800&x-signature=ejHnD5Qh9V%2FNYT%2BEl6SK%2BoM0A6M%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=20260626154201B3EEF8825D289A6DDC66"],"tag_list":["移动端","AI应用"],"difficulty":"进阶"},
+      {"id":"vc_douyin_012","title":"Agent操作系统","content":"我 vibe coding 搞出了一个 agent 操作系统，有人信吗","full_prompt":"构建Agent操作系统，协调多个AI Agent协同工作的底层框架。","username":"兜了个兜","location":"河北","likes":12,"time":"1月前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/a0a1e35991334532b142572d93f38ac5?lk3s=343af0a2&x-expires=2097813600&x-signature=qzA0yX36EFS%2FPRzCgUlF5Rpg%2Fkg%3D&from=876277922"],"tag_list":["工具脚本","AI应用"],"difficulty":"进阶"},
+      {"id":"vc_douyin_013","title":"AI生图网站（Image-2接口）","content":"一个生图网站 用的image 2接口","full_prompt":"基于Image-2 API搭建在线生图网站，支持文生图和图生图功能。","username":"好戏开场","location":"浙江","likes":6,"time":"1月前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/dbd68a1183b344648759f5971cbc6238?lk3s=343af0a2&x-expires=2097813600&x-signature=746WpWX5elr%2F931SRCIhylcpZPo%3D&from=876277922"],"tag_list":["Web应用","AI应用"],"difficulty":"零基础"},
+      {"id":"vc_douyin_014","title":"小程序「燃伴」","content":"第一次做了个小程序，燃伴，做了两个月","full_prompt":"初学者首个Vibe Coding小程序项目「燃伴」，历时两个月完成。","username":"大猫tom","location":"北京","likes":14,"time":"3周前","author_liked":true,"images":["https://p9-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/bdaa04172c464e7dbc911a34ad89a3cf~tplv-p14lwwcsbr-medium-webp:248:332:q75.webp?lk3s=7b078dd2&x-expires=1782547200&x-signature=SWYzd%2BNfBFg1nyE2vyTCA01KSZ0%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=2026062615421232D67676FD85596E5019"],"tag_list":["小程序","移动端"],"difficulty":"零基础"},
+      {"id":"vc_douyin_015","title":"对话Agent+Hermes运维部署系统","content":"就我傻不愣登的在做对话agent，然后用hermes部署操作运维环境么","full_prompt":"开发对话式AI Agent，结合Hermes框架实现自动化运维环境部署。","username":"做咩野","location":"四川","likes":1,"time":"1月前","author_liked":false,"images":[],"tag_list":["工具脚本","AI应用"],"difficulty":"进阶"},
+      {"id":"vc_douyin_016","title":"0尴尬表白小程序","content":"做了个帮人向暗恋对象表白的小程序，只有被暗恋的人也喜欢自己的时候才能看告白内容，不然就永远看不到，主打一个0尴尬表白，目前有五千多人用","full_prompt":"双向匿名表白小程序，只有双方互相表白时才展示内容，0尴尬体验，用户超五千人。","username":"初代奥特曼的小日子","location":"广东","likes":5,"time":"3天前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/17bc9c4501784279b8e7d886832b0f28?lk3s=343af0a2&x-expires=2097813600&x-signature=TFfqZeXMs1tcwraAWucMtAAVYrU%3D&from=876277922"],"tag_list":["小程序","移动端"],"difficulty":"零基础"},
+      {"id":"vc_douyin_017","title":"半年迭代项目","content":"一个人做了半年了还在继续迭代","full_prompt":"个人独立开发项目，持续迭代半年时间，展示Vibe Coding支持长期产品演进。","username":"钝角","location":"北京","likes":4,"time":"2周前","author_liked":false,"images":["https://p3-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/fa0e81184a39475a8e9cead90ae38698~tplv-p14lwwcsbr-medium-webp:248:332:q75.webp?lk3s=7b078dd2&x-expires=1782478800&x-signature=JuKZlaiqw3PSoxKoyd7%2FwlBIHkM%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=202606261542130ED122AA3104FB6D77F9"],"tag_list":["Web应用"],"difficulty":"进阶"},
+      {"id":"vc_douyin_018","title":"工程计算工具","content":"做了个工程计算工具","full_prompt":"专业工程计算工具，支持结构力学、材料力学等常见工程计算场景。","username":"思考一下","location":"四川","likes":26,"time":"1月前","author_liked":false,"images":[],"tag_list":["工具脚本","Web应用"],"difficulty":"进阶"},
+      {"id":"vc_douyin_019","title":"海淘库存自动监控插件","content":"喜欢海淘外国烟草，所以做了一个自动查阅几个海淘官网库存的插件，每周看看有没有优惠，有优惠就提醒我就下单","full_prompt":"海淘库存监控浏览器插件，自动轮询多个网站库存和价格，发现优惠时提醒用户。","username":"无聊的人","location":"天津","likes":0,"time":"1周前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/54a0f69dc150401a85ba8c20c1a05db1?lk3s=343af0a2&x-expires=2097813600&x-signature=QVqQbVVRMUL%2BsZ8Bj%2BVDvqwL5Vo%3D&from=876277922"],"tag_list":["Chrome插件","工具脚本"],"difficulty":"进阶"},
+      {"id":"vc_douyin_020","title":"Vibe Coding作品集网站","content":"vibe coding 了一個作品集","full_prompt":"使用Vibe Coding打造个人作品集网站，让设计师无需深入编码即可拥有专业展示站点。","username":"Doris","location":"上海","likes":7,"time":"1月前","author_liked":true,"images":["https://p11-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/95b94a57d63b43e280d1b5e45329d585~tplv-p14lwwcsbr-medium-webp:248:332:q75.webp?lk3s=7b078dd2&x-expires=1782478800&x-signature=1GFW5paMhCAYDvHSzeMEl7wTTJ8%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=202606261542142ABE4AC0F658A66F311B"],"tag_list":["Web应用"],"difficulty":"零基础"},
+      {"id":"vc_douyin_021","title":"老照片高清修复工具","content":"老照片高清修复，一键搭建，全自动，无需维护，刚刚写完代码，已跑通，准备上线","full_prompt":"基于AI超分辨率算法的老照片高清修复工具，一键修复模糊、褪色、破损照片。","username":"西门大官人","location":"江苏","likes":3,"time":"1月前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/87c2ae45679c4cc4a35bd7182fd76935?lk3s=343af0a2&x-expires=2097813600&x-signature=9PWp50u1f6Nl5ZTlOe%2BqCrnC4Ws%3D&from=876277922"],"tag_list":["Web应用","AI应用"],"difficulty":"零基础"},
+      {"id":"vc_douyin_022","title":"健身记录App","content":"健身记录app：今天训练","full_prompt":"健身记录App，支持训练计划管理、组数重量记录和训练历史可视化。","username":"许愿雨在干嘛","location":"法国","likes":4,"time":"4周前","author_liked":false,"images":["https://p9-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/5e6ca84136104f83b1b209d2ce24286f~tplv-p14lwwcsbr-medium-webp:248:332:q75.webp?lk3s=7b078dd2&x-expires=1782478800&x-signature=B75plEjhGZMbXJkKqYk0UVaQLcY%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=202606261542142ABE4AC0F658A66F311B"],"tag_list":["移动端","工具脚本"],"difficulty":"零基础"},
+      {"id":"vc_douyin_023","title":"韩娱偶像模拟器","content":"做了一个流程完整的韩娱偶像模拟器。","full_prompt":"韩娱偶像模拟器，完整模拟练习生从选拔、训练、出道到顶流的全过程。","username":"苏澜_Yukiri","location":"北京","likes":6,"time":"5天前","author_liked":false,"images":["https://p9-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/45242972cbf8473d8681ee38f2e85dfe~tplv-p14lwwcsbr-medium-webp:248:332:q75.webp?lk3s=7b078dd2&x-expires=1782478800&x-signature=zLX7%2BFLKQkraXdUjha%2B4aezK%2BMI%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=202606261542142ABE4AC0F658A66F311B"],"tag_list":["Web应用","游戏"],"difficulty":"进阶"},
+      {"id":"vc_douyin_024","title":"量化结构套利CLI工具（自动赚USDC）","content":"当然是量化，结构套利，自动赚usdc游戏币\n没有界面都是cli","full_prompt":"加密货币量化交易CLI工具，实现结构套利策略自动执行，纯命令行操作。","username":"这个世界既随机也确定","location":"北京","likes":1,"time":"4周前","author_liked":false,"images":[],"tag_list":["工具脚本"],"difficulty":"进阶"},
+      {"id":"vc_douyin_025","title":"立绘状态机+实时语音系统","content":"接的立绘状态机和实时语音，延迟0.5秒吧，感觉没什么意思，已经删了两个版本了，越做功能越多越头疼，不如直接用别人开源的羡慕上面大佬的审美，都是好项目","full_prompt":"立绘状态机与实时语音系统，虚拟角色实时切换表情并同步语音输出，延迟0.5秒内。","username":"小男孩","location":"安徽","likes":6,"time":"1月前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/357ac72b9b6449f7bd3005ff66678822?lk3s=343af0a2&x-expires=2097813600&x-signature=PhGodlHuIdCAZ2iUQe1jDmK2rsw%3D&from=876277922"],"tag_list":["AI应用","工具脚本"],"difficulty":"进阶"},
+      {"id":"vc_douyin_026","title":"「吃了么」随机选餐小程序","content":"吃了么，不知道吃什么就摇一摇","full_prompt":"「吃了么」随机选餐小程序，摇一摇随机推荐餐厅，解决选择困难症。","username":"木木剑光","location":"四川","likes":27,"time":"2周前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/87c2ae45679c4cc4a35bd7182fd76935?lk3s=343af0a2&x-expires=2097813600&x-signature=9PWp50u1f6Nl5ZTlOe%2BqCrnC4Ws%3D&from=876277922"],"tag_list":["小程序","移动端"],"difficulty":"零基础"},
+      {"id":"vc_douyin_027","title":"宠遇APP","content":"宠遇APP","full_prompt":"宠物社交与服务平台「宠遇APP」，支持宠物档案、宠友匹配和医院推荐。","username":"清禾叙","location":"北京","likes":1,"time":"3周前","author_liked":true,"images":["https://p11-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/36c7e141bbf941d280dcb85cac6abccb~tplv-p14lwwcsbr-medium-webp:248:332:q75.webp?lk3s=7b078dd2&x-expires=1782547200&x-signature=HYXBSAXA8CooZwaSUo9qdDoOW2M%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=20260626154217F5BEF1D37EF8B361343A"],"tag_list":["移动端","小程序"],"difficulty":"零基础"},
+      {"id":"vc_douyin_028","title":"供应商结算自动化工具","content":"给自己做了一套懒人工具 excel分类填写信息-自动给所有供应商发送对应的结算通知-供应商反馈的附件收集到本地","full_prompt":"供应商结算自动化工具，从Excel读取信息，自动发送结算通知并收集附件。","username":"Forskme","location":"北京","likes":0,"time":"1周前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/357ac72b9b6449f7bd3005ff66678822?lk3s=343af0a2&x-expires=2097813600&x-signature=PhGodlHuIdCAZ2iUQe1jDmK2rsw%3D&from=876277922"],"tag_list":["工具脚本"],"difficulty":"进阶"},
+      {"id":"vc_douyin_029","title":"彩票选号自动兑奖工具","content":"彩票选号自动兑奖","full_prompt":"彩票选号与自动兑奖工具，支持随机选号、开奖结果自动抓取和中奖核对。","username":"闻锦的说","location":"上海","likes":1,"time":"1月前","author_liked":false,"images":["https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-i-p14lwwcsbr/6728bebcd3524eb2849bad2b72db2acf~tplv-p14lwwcsbr-medium-webp:248:332:q75.webp?lk3s=7b078dd2&x-expires=1782547200&x-signature=XIHZ6I0o2VAqt0aGxLmLO716crI%3D&from=2064092626&se=false&sc=thumb&biz_tag=aweme_comment&l=202606261542200C6321844557B75EDE79"],"tag_list":["工具脚本"],"difficulty":"零基础"},
+      {"id":"vc_douyin_030","title":"立绘状态机与实时语音系统","content":"接的立绘状态机和实时语音，延迟0.5秒吧，感觉没什么意思，已经删了两个版本了，越做功能越多越头疼，不如直接用别人开源的羡慕上面大佬的审美，都是好项目","full_prompt":"立绘状态机与实时语音系统，虚拟角色实时切换表情并同步语音输出，延迟0.5秒内。","username":"小男孩","location":"安徽","likes":6,"time":"1月前","author_liked":false,"images":["https://p3-pc-sign.douyinpic.com/obj/tos-cn-i-tsj2vxp0zn/357ac72b9b6449f7bd3005ff66678822?lk3s=343af0a2&x-expires=2097813600&x-signature=PhGodlHuIdCAZ2iUQe1jDmK2rsw%3D&from=876277922"],"tag_list":["AI应用","工具脚本"],"difficulty":"进阶"}
+    ];
+
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function renderCases() {
+      const container = document.getElementById('cases-container');
+      container.innerHTML = cases.map((c, i) => {
+        const diffClass = c.difficulty === '零基础' ? 'diff-easy' : 'diff-hard';
+        const authorLikedBadge = c.author_liked ? '<span class="author-liked">作者赞过</span>' : '';
+        const imagesHtml = c.images.length > 0
+          ? `<div class="case-images">${c.images.map(img => `<img src="${img}" onclick="openLightbox('${img}')" alt="评论截图">`).join('')}</div>`
+          : '';
+        const tagsHtml = c.tag_list.map(t => `<span class="case-tag">${t}</span>`).join('');
+        return `
+          <div class="case-card">
+            <div class="case-body">
+              <div class="case-header">
+                <div class="case-title">${i+1}. ${c.title}</div>
+                <div class="case-difficulty ${diffClass}">${c.difficulty}</div>
+              </div>
+              <div class="case-original">"${c.content}"</div>
+              <div class="case-prompt">${c.full_prompt}</div>
+              ${imagesHtml}
+            </div>
+            <div class="case-footer">
+              <div class="case-tags">${tagsHtml}</div>
+              <div class="case-meta-row">
+                <span class="case-meta">${c.username} · ${c.location}</span>
+                ${authorLikedBadge}
+                <span class="case-likes">${c.likes}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    renderCases();
+  </script>
+</body>
+</html>

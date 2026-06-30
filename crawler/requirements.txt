@@ -1,0 +1,13 @@
+# Vibe Coding 灵感库 - 爬虫依赖
+# 安装命令: pip install -r requirements.txt
+
+# 核心依赖
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# 数据解析与处理
+python-dateutil>=2.8.0
+
+# 可选：如需使用浏览器自动化方案抓取反爬严格的平台（小红书/X/B站详情页）
+# playwright>=1.40.0

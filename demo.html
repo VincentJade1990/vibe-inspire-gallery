@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Vibe Coding 灵感库 - 交互演示</title>
+  <style>
+    /* ===== CSS Variables 主题系统 ===== */
+    :root {
+      --bg: #f8fafc;
+      --bg2: #ffffff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --rule: #e2e8f0;
+      --accent: #0ea5e9;
+      --accent2: #38bdf8;
+      --accent-soft: rgba(14, 165, 233, 0.08);
+      --glass-bg: rgba(255, 255, 255, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.3);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --bg2: #0f172a;
+      --ink: #f1f5f9;
+      --muted: #94a3b8;
+      --rule: #1e293b;
+      --accent: #38bdf8;
+      --accent2: #7dd3fc;
+      --accent-soft: rgba(56, 189, 248, 0.1);
+      --glass-bg: rgba(15, 23, 42, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.06);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ===== 顶部导航栏 ===== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 18px; }
+    .logo-icon { width: 28px; height: 28px; color: var(--accent); }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .mode-toggle {
+      display: flex;
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 3px;
+    }
+    .mode-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .mode-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+    }
+    .theme-btn {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--rule);
+      background: var(--bg2);
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .theme-btn:hover { border-color: var(--accent); }
+
+    /* ===== 主布局 ===== */
+    .main-layout {
+      padding-top: 56px;
+      display: flex;
+      max-width: 1280px;
+      margin: 0 auto;
+      gap: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    @media (max-width: 1024px) {
+      .main-layout { padding-left: 12px; padding-right: 12px; }
+    }
+
+    /* ===== 侧边筛选面板 ===== */
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      padding-top: 16px;
+    }
+    @media (max-width: 1024px) {
+      .sidebar { display: none; }
+    }
+    .sidebar-card {
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      border-radius: 16px;
+      padding: 16px;
+      position: sticky;
+      top: 72px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+    }
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sidebar-title { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .reset-btn {
+      font-size: 12px; color: var(--muted); background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 3px;
+    }
+    .reset-btn:hover { color: #ef4444; }
+    .filter-section { margin-bottom: 14px; }
+    .filter-label {
+      font-size: 12px; font-weight: 600; color: var(--ink);
+      margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer;
+    }
+    .search-box {
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 8px 28px 8px 32px;
+      border-radius: 10px;
+      border: 1px solid var(--rule);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+    .search-box svg {
+      position: absolute;
+      left: 9px; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; color: var(--muted);
+    }
+    .tag-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag-chip {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      border: 1px solid var(--rule);
+      background: var(--bg);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .tag-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .tag-chip.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .result-count {
+      font-size: 11px;
+      color: var(--muted);
+      padding-top: 8px;
+      border-top: 1px solid var(--rule);
+    }
+    .result-count span { color: var(--ink); font-weight: 600; }
+
+    /* ===== 内容区 ===== */
+    .content { flex: 1; min-width: 0; padding-top: 16px; padding-bottom: 40px; }
+
+    /* ===== 骨架屏 ===== */
+    .skeleton-screen {
+      display: none;
+    }
+    .skeleton-screen.active { display: block; }
+    .skeleton-stack {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      position: relative;
+    }
+    .skeleton-card {
+      position: absolute;
+      width: 280px;
+      height: 380px;
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      animation: skeleton-pulse 1.5s ease-in-out infinite;
+    }
+    .skeleton-card:nth-child(1) { transform: scale(0.92); opacity: 0.4; }
+    .skeleton-card:nth-child(2) { transform: scale(0.96); opacity: 0.7; }
+    .skeleton-card:nth-child(3) { padding: 16px; }
+    @keyframes skeleton-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .skeleton-img {
+      width: 100%; height: 180px;
+      background: var(--rule);
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+    .skeleton-line {
+      height: 16px; background: var(--rule); border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .skeleton-line.short { width: 60%; }
+
+    /* ===== 卡片模式 ===== */
+    .card-mode {
+      display: none;
+      height: 60vh;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      perspective: 1000px;
+    }
+    .card-mode.active { display: flex; }
+    .card-stack {
+      position: relative;
+      width: 320px;
+      height: 440px;
+    }
+    .case-card {
+      position: absolute;
+      width: 320px;
+      height: 440px;
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      cursor: grab;
+      transition: transform 0.1s;
+      user-select: none;
+      touch-action: none;
+    }
+    .case-card:active { cursor: grabbing; }
+    .case-card.dragging { transition: none; }
+    .case-card.exit-left { animation: exitLeft 0.4s ease forwards; }
+    .case-card.exit-right { animation: exitRight 0.4s ease forwards; }
+    .case-card.exit-up { animation: exitUp 0.4s ease forwards; }
+    .case-card.exit-down { animation: exitDown 0.4s ease forwards; }
+    @keyframes exitLeft { to { transform: translateX(-150%) rotate(-20deg); opacity: 0; } }
+    @keyframes exitRight { to { transform: translateX(150%) rotate(20deg); opacity: 0; } }
+    @keyframes exitUp { to { transform: translateY(-150%) rotate(10deg); opacity: 0; } }
+    @keyframes exitDown { to { transform: translateY(150%) rotate(-10deg); opacity: 0; } }
+
+    .card-cover { width: 100%; height: 220px; object-fit: cover; }
+    .card-body { padding: 16px; }
+    .card-title { font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 8px; }
+    .card-meta { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .card-tag {
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .card-prompt {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-actions {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid var(--rule);
+      background: var(--bg2);
+    }
+    .card-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid var(--rule);
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .card-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .card-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .card-btn.primary:hover { opacity: 0.9; }
+
+    .gesture-hint {
+      position: absolute;
+      bottom: -36px;
+      left: 50%; transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ===== 气泡模式 ===== */
+    .bubble-mode {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      border-radius: 20px;
+      border: 1px solid var(--rule);
+      background: var(--bg2);
+      overflow: hidden;
+      touch-action: none;
+    }
+    .bubble-mode.active { display: block; }
+    .bubble-canvas {
+      position: absolute;
+      inset: 0;
+      cursor: grab;
+    }
+    .bubble-canvas:active { cursor: grabbing; }
+    .bubble-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .bubble:hover { transform: scale(1.08); }
+    .bubble.tier-monthly {
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,0.8), rgba(14,165,233,0.4));
+      box-shadow: 0 0 50px rgba(14,165,233,0.4), inset 0 0 20px rgba(255,255,255,0.2);
+      animation: breathe 2.5s ease-in-out infinite;
+    }
+    .bubble.tier-S {
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,0.6), rgba(14,165,233,0.3));
+      box-shadow: 0 0 30px rgba(14,165,233,0.3), inset 0 0 15px rgba(255,255,255,0.15);
+      animation: breathe 2s ease-in-out infinite;
+    }
+    .bubble.tier-A {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--rule);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .bubble.tier-B {
+      background: rgba(226,232,240,0.6);
+      border: 1px solid var(--rule);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .bubble-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      padding: 0 4px;
+      line-height: 1.2;
+    }
+    .bubble-label.white { color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+    .bubble-label.dark { color: var(--ink); }
+    .bubble-platform {
+      font-size: 9px;
+      margin-top: 2px;
+    }
+    .bubble-badge {
+      position: absolute;
+      top: -4px; right: -4px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(14,165,233,0.3);
+    }
+    .bubble-glow {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(56,189,248,0.4);
+      animation: glow-ring 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes glow-ring {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.08); }
+    }
+
+    /* 粒子 */
+    .particle {
+      position: absolute;
+      border-radius: 30%;
+      pointer-events: none;
+      animation: particle-fly 0.8s ease-out forwards;
+    }
+    @keyframes particle-fly {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(var(--rot)); }
+    }
+
+    /* 缩放控制 */
+    .zoom-controls {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+    }
+    .zoom-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      background: var(--bg2);
+      color: var(--ink);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .zoom-btn:hover { border-color: var(--accent); }
+    .zoom-level {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--bg2);
+      padding: 3px 8px;
+      border-radius: 6px;
+      z-index: 10;
+    }
+    .canvas-hint {
+      position: absolute;
+      bottom: 12px; left: 12px;
+      font-size: 10px;
+      color: var(--muted);
+      background: var(--bg2);
+      padding: 6px 10px;
+      border-radius: 8px;
+      z-index: 10;
+      line-height: 1.6;
+    }
+
+    /* ===== 预览弹窗 ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.2s ease;
+    }
+    .modal-overlay.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-card {
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      overflow: hidden;
+      width: 400px;
+      max-width: 92vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes modalIn {
+      from { transform: scale(0.7) translateY(30px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-cover { position: relative; height: 180px; }
+    .modal-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      cursor: pointer;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { background: rgba(0,0,0,0.6); }
+    .modal-cover-text {
+      position: absolute;
+      bottom: 12px; left: 16px; right: 16px;
+      z-index: 2;
+    }
+    .modal-cover-text h3 { color: #fff; font-size: 18px; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+    .modal-cover-text p { color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px; }
+    .modal-body { padding: 16px; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .modal-prompt {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .modal-prompt-label { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+    .modal-prompt-text { font-size: 12px; color: var(--ink); line-height: 1.6; }
+    .modal-actions { display: flex; gap: 8px; }
+    .modal-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--rule);
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .modal-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .modal-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .modal-btn.primary:hover { opacity: 0.9; }
+
+    /* ===== 右下角悬浮气泡池 ===== */
+    .float-pool {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 90;
+      transition: all 0.2s;
+      color: var(--ink);
+    }
+    .float-pool:hover { transform: scale(1.08); border-color: var(--accent); color: var(--accent); }
+    .float-pool .badge {
+      position: absolute;
+      top: -4px; right: -4px;
+      min-width: 20px; height: 20px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+    }
+    .float-pool .pulse-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      animation: pool-pulse 2s ease-in-out infinite;
+    }
+    @keyframes pool-pulse {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.15); }
+    }
+
+    /* ===== 气泡池抽屉 ===== */
+    .pool-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(4px);
+      z-index: 180;
+      display: none;
+    }
+    .pool-drawer-overlay.active { display: block; }
+    .pool-drawer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--rule);
+      border-radius: 24px 24px 0 0;
+      padding: 20px;
+      max-height: 60vh;
+      overflow-y: auto;
+      z-index: 190;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .pool-drawer.open { transform: translateY(0); }
+    .pool-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .pool-drawer-header h3 { font-size: 16px; font-weight: 700; }
+    .pool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    .pool-item {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pool-item:hover { border-color: var(--accent); }
+    .pool-item img { width: 100%; height: 80px; object-fit: cover; }
+    .pool-item p { padding: 8px; font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ===== 移动端筛选按钮 ===== */
+    .mobile-filter-btn {
+      display: none;
+      position: fixed;
+      bottom: 96px;
+      left: 16px;
+      padding: 10px 16px;
+      border-radius: 50px;
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      z-index: 90;
+      align-items: center;
+      gap: 6px;
+    }
+    @media (max-width: 1024px) {
+      .mobile-filter-btn { display: flex; }
+    }
+    .mobile-filter-drawer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--rule);
+      border-radius: 24px 24px 0 0;
+      padding: 20px;
+      max-height: 70vh;
+      overflow-y: auto;
+      z-index: 190;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .mobile-filter-drawer.open { transform: translateY(0); }
+
+    /* ===== 空状态 ===== */
+    .empty-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 50vh;
+      text-align: center;
+      color: var(--muted);
+    }
+    .empty-state.active { display: flex; }
+    .empty-state h3 { font-size: 18px; color: var(--ink); margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; margin-bottom: 16px; }
+    .empty-state button {
+      padding: 10px 24px;
+      border-radius: 10px;
+      border: 1px solid var(--rule);
+      background: var(--bg2);
+      color: var(--ink);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .empty-state button:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ===== 过渡动画 ===== */
+    .mode-transition {
+      animation: modeEnter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes modeEnter {
+      from { opacity: 0; transform: scale(0.92) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <nav class="navbar">
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+      </svg>
+      <span class="gradient-text">Vibe Coding 灵感库</span>
+    </div>
+    <div class="nav-actions">
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="card" onclick="switchMode('card')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          卡片
+        </button>
+        <button class="mode-btn" data-mode="canvas" onclick="switchMode('canvas')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+          气泡
+        </button>
+      </div>
+      <button class="theme-btn" onclick="toggleTheme()" title="切换主题">
+        <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 主布局 -->
+  <div class="main-layout">
+    <!-- 桌面端侧边筛选面板 -->
+    <aside class="sidebar" id="desktop-sidebar"></aside>
+
+    <!-- 内容区 -->
+    <section class="content">
+      <!-- 骨架屏 -->
+      <div class="skeleton-screen" id="skeleton">
+        <div class="skeleton-stack">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片模式 -->
+      <div class="card-mode" id="card-mode"></div>
+
+      <!-- 气泡模式 -->
+      <div class="bubble-mode" id="bubble-mode">
+        <div class="bubble-grid"></div>
+        <div class="bubble-canvas" id="bubble-canvas"></div>
+        <div class="zoom-level" id="zoom-level">100%</div>
+        <div class="zoom-controls">
+          <button class="zoom-btn" onclick="changeZoom(1.2)">+</button>
+          <button class="zoom-btn" onclick="changeZoom(0.83)">-</button>
+        </div>
+        <div class="canvas-hint">
+          单击气泡：预览详情<br>
+          长按气泡：收纳至气泡池<br>
+          拖拽空白处：平移画布<br>
+          滚轮：缩放画布
+        </div>
+      </div>
+
+      <!-- 空状态 -->
+      <div class="empty-state" id="empty-state">
+        <h3>暂无案例</h3>
+        <p>当前没有符合条件的案例，尝试调整筛选条件</p>
+        <button onclick="resetFilters()">重置筛选</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- 移动端筛选按钮 -->
+  <button class="mobile-filter-btn" onclick="toggleMobileFilter()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 13 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l8.223 8.99A2 2 0 0 1 11 14v6Z"/></svg>
+    筛选
+  </button>
+
+  <!-- 移动端筛选抽屉 -->
+  <div class="pool-drawer-overlay" id="mobile-filter-overlay" onclick="toggleMobileFilter()"></div>
+  <div class="mobile-filter-drawer" id="mobile-filter-drawer"></div>
+
+  <!-- 右下角悬浮气泡池 -->
+  <div class="float-pool" id="float-pool" onclick="togglePoolDrawer()">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+    <span class="badge" id="pool-badge" style="display:none">0</span>
+    <span class="pulse-ring" id="pool-pulse" style="display:none"></span>
+  </div>
+
+  <!-- 气泡池抽屉 -->
+  <div class="pool-drawer-overlay" id="pool-overlay" onclick="togglePoolDrawer()"></div>
+  <div class="pool-drawer" id="pool-drawer">
+    <div class="pool-drawer-header">
+      <h3>临时气泡池</h3>
+      <button class="modal-close" onclick="togglePoolDrawer()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="pool-grid" id="pool-grid"></div>
+  </div>
+
+  <!-- 预览弹窗 -->
+  <div class="modal-overlay" id="modal" onclick="closeModal()">
+    <div class="modal-card" id="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-cover">
+        <img id="modal-img" src="" alt="">
+        <button class="modal-close" onclick="closeModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+        <div class="modal-cover-text">
+          <h3 id="modal-title"></h3>
+          <p id="modal-meta"></p>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tags" id="modal-tags"></div>
+        <div class="modal-prompt">
+          <div class="modal-prompt-label">生成 Prompt</div>
+          <div class="modal-prompt-text" id="modal-prompt"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn" onclick="likeCurrent()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            点赞
+          </button>
+          <button class="modal-btn" onclick="copyCurrentPrompt()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            复制
+          </button>
+          <button class="modal-btn primary" onclick="closeModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            关闭
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ===== 模拟案例数据 =====
+const PLATFORMS = {
+  xiaohongshu: '小红书',
+  bilibili: 'B站',
+  juejin: '掘金',
+  x: 'X',
+  douyin: '抖音'
+};
+const DIFFICULTIES = {
+  beginner: { label: '零基础', color: '#22c55e' },
+  intermediate: { label: '进阶', color: '#f59e0b' },
+  advanced: { label: '专业', color: '#ef4444' }
+};
+const SCENE_TAGS = ['Web应用', '移动端', '游戏', '工具脚本', 'AI应用', 'Chrome插件', '小程序', '数据可视化'];
+
+function generateCases() {
+  const titles = [
+    '用 Cursor 3小时开发个人博客系统',
+    'v0 + ChatGPT 生成电商落地页',
+    'AI 辅助开发 Chrome 翻译插件',
+    'Claude 3.5 生成贪吃蛇游戏',
+    '用 Windsurf 开发任务管理看板',
+    'Vibe Coding 开发天气预报小程序',
+    'AI 生成 3D 产品展示页面',
+    'Cursor Composer 开发团队协作工具',
+    'v0 生成 SaaS 后台管理界面',
+    'AI 辅助开发数据可视化大屏',
+    '用 Claude 开发 Markdown 编辑器',
+    'Vibe Coding 生成个人作品集网站',
+  ];
+  const prompts = [
+    '帮我用 Next.js + Tailwind CSS 开发一个支持暗色模式的个人博客，要有文章列表、标签分类和评论功能',
+    '生成一个现代风格的电商产品落地页，包含hero区域、产品特性、价格表和CTA按钮，使用Framer Motion做滚动动画',
+    '开发一个Chrome扩展，选中网页任意文本后右键翻译，支持中英互译，UI要简洁美观',
+    '用HTML5 Canvas开发一个经典的贪吃蛇游戏，支持键盘控制、分数记录和难度选择',
+    '开发一个类似Trello的任务管理工具，支持拖拽排序、标签颜色和进度统计',
+    '开发一个微信小程序，展示实时天气信息，包含7天预报、穿衣建议和生活指数',
+    '生成一个3D产品展示页面，使用Three.js展示可旋转的产品模型，支持切换颜色和材质',
+    '开发一个团队项目管理工具，支持看板视图、甘特图和实时协作编辑',
+    '生成一个SaaS后台管理系统，包含Dashboard图表、用户管理、权限控制和数据表格',
+    '开发一个大数据可视化大屏，展示实时数据流、地图热力图和多维度统计图表',
+    '开发一个支持实时预览的Markdown编辑器，支持语法高亮、导出PDF和云端同步',
+    '生成一个设计师作品集网站，包含项目画廊、关于页面和联系方式，支持平滑滚动动画',
+  ];
+  return titles.map((title, i) => ({
+    id: `case-${i + 1}`,
+    title,
+    platform: Object.keys(PLATFORMS)[i % 5],
+    coverImage: `https://picsum.photos/seed/vibe${i + 1}/400/300`,
+    prompt: prompts[i],
+    heatScore: [96, 88, 72, 91, 65, 58, 83, 77, 69, 85, 62, 94][i],
+    sceneTags: [SCENE_TAGS[i % 8], SCENE_TAGS[(i + 3) % 8]],
+    difficulty: Object.keys(DIFFICULTIES)[i % 3],
+    likes: [1200, 890, 456, 2100, 320, 180, 670, 540, 410, 1500, 290, 3400][i],
+  }));
+}
+
+let allCases = generateCases();
+let filteredCases = [...allCases];
+let currentMode = 'card';
+let savedPool = new Set();
+let likedCases = new Set();
+let currentModalCase = null;
+let bubbleZoom = 1;
+let bubbleOffset = { x: 0, y: 0 };
+let isCanvasDragging = false;
+let canvasDragStart = { x: 0, y: 0, ox: 0, oy: 0 };
+let longPressTimer = null;
+let isLongPress = false;
+let dragStartPos = { x: 0, y: 0 };
+
+// ===== 筛选面板渲染 =====
+function renderFilterPanel(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const selectedPlatforms = new Set();
+  const selectedScenes = new Set();
+  const selectedDiffs = new Set();
+  let searchKeyword = '';
+
+  function updateFilter() {
+    filteredCases = allCases.filter(c => {
+      if (selectedPlatforms.size && !selectedPlatforms.has(c.platform)) return false;
+      if (selectedScenes.size && !c.sceneTags.some(t => selectedScenes.has(t))) return false;
+      if (selectedDiffs.size && !selectedDiffs.has(c.difficulty)) return false;
+      if (searchKeyword && !c.title.toLowerCase().includes(searchKeyword.toLowerCase()) && !c.prompt.toLowerCase().includes(searchKeyword.toLowerCase())) return false;
+      return true;
+    });
+    renderContent();
+  }
+
+  function build() {
+    const selCount = selectedPlatforms.size + selectedScenes.size + selectedDiffs.size + (searchKeyword ? 1 : 0);
+    container.innerHTML = `
+      <div class="sidebar-card">
+        <div class="sidebar-header">
+          <div class="sidebar-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 13 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l8.223 8.99A2 2 0 0 1 11 14v6Z"/></svg>
+            筛选
+            ${selCount ? `<span style="background:var(--accent);color:#fff;padding:1px 7px;border-radius:10px;font-size:11px;margin-left:6px">${selCount}</span>` : ''}
+          </div>
+          ${selCount ? `<button class="reset-btn" onclick="this.closest('.sidebar-card').querySelector('.reset-trigger').click()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            重置
+          </button>` : ''}
+        </div>
+        <div style="display:none"><button class="reset-trigger"></button></div>
+
+        <div class="filter-section">
+          <div class="filter-label">搜索</div>
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" placeholder="搜索标题、Prompt..." value="${searchKeyword}" id="search-input">
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-label">平台</div>
+          <div class="tag-grid">
+            ${Object.entries(PLATFORMS).map(([k, v]) => `<button class="tag-chip ${selectedPlatforms.has(k) ? 'active' : ''}" data-type="platform" data-val="${k}">${v}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-label">场景</div>
+          <div class="tag-grid">
+            ${SCENE_TAGS.map(t => `<button class="tag-chip ${selectedScenes.has(t) ? 'active' : ''}" data-type="scene" data-val="${t}">${t}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-label">难度</div>
+          <div class="tag-grid">
+            ${Object.entries(DIFFICULTIES).map(([k, v]) => `<button class="tag-chip ${selectedDiffs.has(k) ? 'active' : ''}" data-type="diff" data-val="${k}">${v.label}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="result-count">
+          展示 <span>${filteredCases.length}</span> / ${allCases.length} 个案例
+        </div>
+      </div>
+    `;
+
+    // 绑定事件
+    const searchInput = container.querySelector('#search-input');
+    searchInput?.addEventListener('input', (e) => {
+      searchKeyword = e.target.value;
+      updateFilter();
+      build();
+    });
+
+    container.querySelectorAll('.tag-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.type;
+        const val = btn.dataset.val;
+        if (type === 'platform') {
+          selectedPlatforms.has(val) ? selectedPlatforms.delete(val) : selectedPlatforms.add(val);
+        } else if (type === 'scene') {
+          selectedScenes.has(val) ? selectedScenes.delete(val) : selectedScenes.add(val);
+        } else if (type === 'diff') {
+          selectedDiffs.has(val) ? selectedDiffs.delete(val) : selectedDiffs.add(val);
+        }
+        updateFilter();
+        build();
+      });
+    });
+
+    container.querySelector('.reset-trigger')?.addEventListener('click', () => {
+      selectedPlatforms.clear();
+      selectedScenes.clear();
+      selectedDiffs.clear();
+      searchKeyword = '';
+      updateFilter();
+      build();
+    });
+  }
+
+  build();
+}
+
+// ===== 渲染内容 =====
+function renderContent() {
+  const skeleton = document.getElementById('skeleton');
+  const cardMode = document.getElementById('card-mode');
+  const bubbleMode = document.getElementById('bubble-mode');
+  const empty = document.getElementById('empty-state');
+
+  skeleton.classList.remove('active');
+  cardMode.classList.remove('active');
+  bubbleMode.classList.remove('active');
+  empty.classList.remove('active');
+
+  if (filteredCases.length === 0) {
+    empty.classList.add('active');
+    return;
+  }
+
+  if (currentMode === 'card') {
+    cardMode.classList.add('active', 'mode-transition');
+    renderCardStack();
+    setTimeout(() => cardMode.classList.remove('mode-transition'), 400);
+  } else {
+    bubbleMode.classList.add('active', 'mode-transition');
+    renderBubbleCanvas();
+    setTimeout(() => bubbleMode.classList.remove('mode-transition'), 400);
+  }
+}
+
+// ===== 卡片堆叠渲染 =====
+let cardStackData = [];
+function renderCardStack() {
+  const container = document.getElementById('card-mode');
+  cardStackData = [...filteredCases].reverse();
+
+  container.innerHTML = `
+    <div class="card-stack" id="card-stack">
+      ${cardStackData.map((c, i) => `
+        <div class="case-card" data-id="${c.id}" style="z-index:${cardStackData.length - i};transform:scale(${1 - i * 0.03}) translateY(${i * 6}px);opacity:${1 - i * 0.15}">
+          <img class="card-cover" src="${c.coverImage}" alt="" draggable="false">
+          <div class="card-body">
+            <div class="card-title">${c.title}</div>
+            <div class="card-meta">
+              <span class="card-tag">${PLATFORMS[c.platform]}</span>
+              <span class="card-tag" style="background:${DIFFICULTIES[c.difficulty].color}15;color:${DIFFICULTIES[c.difficulty].color}">${DIFFICULTIES[c.difficulty].label}</span>
+              <span class="card-tag">${c.heatScore}°</span>
+            </div>
+            <div class="card-prompt">${c.prompt}</div>
+          </div>
+          <div class="card-actions">
+            <button class="card-btn" onclick="likeCase('${c.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="${likedCases.has(c.id) ? '#ef4444' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              点赞
+            </button>
+            <button class="card-btn" onclick="copyPrompt('${c.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              复制
+            </button>
+            <button class="card-btn primary" onclick="openModal('${c.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              详情
+            </button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="gesture-hint">
+      <span>左滑减少</span>
+      <span>右滑点赞</span>
+      <span>上滑详情</span>
+      <span>下滑复制</span>
+    </div>
+  `;
+
+  // 卡片拖拽交互
+  const cards = container.querySelectorAll('.case-card');
+  cards.forEach(card => {
+    let startX = 0, startY = 0, currentX = 0, currentY = 0;
+    let dragging = false;
+
+    card.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      dragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      card.classList.add('dragging');
+    });
+    card.addEventListener('touchstart', (e) => {
+      dragging = true;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      card.classList.add('dragging');
+    }, { passive: true });
+
+    const moveHandler = (clientX, clientY) => {
+      if (!dragging) return;
+      currentX = clientX - startX;
+      currentY = clientY - startY;
+      card.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${currentX * 0.05}deg)`;
+    };
+    card.addEventListener('mousemove', (e) => moveHandler(e.clientX, e.clientY));
+    card.addEventListener('touchmove', (e) => moveHandler(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+
+    const endHandler = () => {
+      if (!dragging) return;
+      dragging = false;
+      card.classList.remove('dragging');
+
+      const threshold = 100;
+      if (currentX > threshold) {
+        card.classList.add('exit-right');
+        setTimeout(() => likeCase(card.dataset.id), 100);
+      } else if (currentX < -threshold) {
+        card.classList.add('exit-left');
+      } else if (currentY < -threshold) {
+        card.classList.add('exit-up');
+        setTimeout(() => openModal(card.dataset.id), 100);
+      } else if (currentY > threshold) {
+        card.classList.add('exit-down');
+        setTimeout(() => copyPrompt(card.dataset.id), 100);
+      } else {
+        card.style.transform = '';
+        return;
+      }
+      setTimeout(() => {
+        const id = card.dataset.id;
+        cardStackData = cardStackData.filter(c => c.id !== id);
+        renderCardStack();
+      }, 400);
+    };
+    card.addEventListener('mouseup', endHandler);
+    card.addEventListener('touchend', endHandler);
+    card.addEventListener('mouseleave', endHandler);
+  });
+}
+
+// ===== 气泡画布渲染 =====
+let bubbleElements = [];
+let bubbleAnimFrame = null;
+function renderBubbleCanvas() {
+  const canvas = document.getElementById('bubble-canvas');
+  const container = document.getElementById('bubble-mode');
+  canvas.innerHTML = '';
+  bubbleElements = [];
+
+  // 初始视图居中
+  bubbleZoom = 0.7;
+  bubbleOffset = {
+    x: (container.clientWidth - 2400 * bubbleZoom) / 2,
+    y: (container.clientHeight - 1800 * bubbleZoom) / 2,
+  };
+
+  const monthly = filteredCases.reduce((max, c) => c.heatScore > max.heatScore ? c : max, filteredCases[0]);
+
+  filteredCases.forEach((c, i) => {
+    const isMonthly = c.id === monthly.id;
+    let tier, size;
+    if (isMonthly) { tier = 'monthly'; size = 180 + Math.random() * 40; }
+    else if (c.heatScore >= 85) { tier = 'S'; size = 100 + Math.random() * 40; }
+    else if (c.heatScore >= 60) { tier = 'A'; size = 70 + Math.random() * 30; }
+    else { tier = 'B'; size = 45 + Math.random() * 20; }
+
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+    const radius = isMonthly ? 0 : 180 + Math.sqrt(i) * 55;
+    const angle = i * goldenAngle;
+    let x = 1200 + Math.cos(angle) * radius + (Math.random() - 0.5) * 60;
+    let y = 900 + Math.sin(angle) * radius + (Math.random() - 0.5) * 60;
+
+    if (isMonthly) { x = 1200; y = 900; }
+
+    const el = document.createElement('div');
+    el.className = `bubble tier-${tier}`;
+    el.dataset.id = c.id;
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.transform = `translate(-50%, -50%)`;
+    el.innerHTML = `
+      <span class="bubble-label ${tier === 'S' || tier === 'monthly' ? 'white' : 'dark'}">${c.title.slice(0, tier === 'monthly' ? 8 : tier === 'S' ? 5 : 3)}</span>
+      <span class="bubble-platform bubble-label ${tier === 'S' || tier === 'monthly' ? 'white' : 'dark'}">${PLATFORMS[c.platform]}</span>
+      ${isMonthly ? '<span class="bubble-badge">精选</span>' : ''}
+      ${tier === 'S' || tier === 'monthly' ? '<span class="bubble-glow"></span>' : ''}
+    `;
+
+    // 长按 + 点击
+    let pressTimer = null;
+    let pressed = false;
+    let moved = false;
+    let pressStart = { x: 0, y: 0 };
+
+    const startPress = (cx, cy) => {
+      pressed = true;
+      moved = false;
+      pressStart = { x: cx, y: cy };
+      pressTimer = setTimeout(() => {
+        if (!moved) {
+          isLongPress = true;
+          addToPool(c.id);
+          el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+          el.style.transform = 'translate(-50%, -50%) scale(0.1)';
+          el.style.opacity = '0';
+          setTimeout(() => { el.style.display = 'none'; }, 500);
+        }
+      }, 600);
+    };
+
+    el.addEventListener('mousedown', e => { e.stopPropagation(); startPress(e.clientX, e.clientY); });
+    el.addEventListener('touchstart', e => { e.stopPropagation(); startPress(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+
+    const movePress = (cx, cy) => {
+      const dx = cx - pressStart.x;
+      const dy = cy - pressStart.y;
+      if (Math.sqrt(dx * dx + dy * dy) > 10) {
+        moved = true;
+        clearTimeout(pressTimer);
+      }
+    };
+    el.addEventListener('mousemove', e => movePress(e.clientX, e.clientY));
+    el.addEventListener('touchmove', e => movePress(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+
+    const endPress = () => {
+      clearTimeout(pressTimer);
+      if (pressed && !moved && !isLongPress) {
+        burstBubble(el, c);
+      }
+      pressed = false;
+      isLongPress = false;
+    };
+    el.addEventListener('mouseup', e => { e.stopPropagation(); endPress(); });
+    el.addEventListener('touchend', e => { e.stopPropagation(); endPress(); });
+    el.addEventListener('mouseleave', () => { clearTimeout(pressTimer); pressed = false; });
+
+    canvas.appendChild(el);
+    bubbleElements.push({ el, x, y, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, size, caseItem: c });
+  });
+
+  // 启动漂浮动画
+  if (bubbleAnimFrame) cancelAnimationFrame(bubbleAnimFrame);
+  function animateBubbles() {
+    bubbleElements.forEach(b => {
+      if (b.el.style.display === 'none') return;
+      b.vx += (Math.random() - 0.5) * 0.015;
+      b.vy += (Math.random() - 0.5) * 0.015;
+      const maxSpeed = b.caseItem.heatScore >= 85 ? 0.4 : 0.7;
+      const speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+      if (speed > maxSpeed) { b.vx = b.vx / speed * maxSpeed; b.vy = b.vy / speed * maxSpeed; }
+      b.x += b.vx;
+      b.y += b.vy;
+      const half = b.size / 2;
+      if (b.x < half) { b.x = half; b.vx *= -0.8; }
+      if (b.x > 2400 - half) { b.x = 2400 - half; b.vx *= -0.8; }
+      if (b.y < half) { b.y = half; b.vy *= -0.8; }
+      if (b.y > 1800 - half) { b.y = 1800 - half; b.vy *= -0.8; }
+
+      // 简单碰撞排斥
+      bubbleElements.forEach(b2 => {
+        if (b === b2 || b2.el.style.display === 'none') return;
+        const dx = b2.x - b.x;
+        const dy = b2.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const minDist = (b.size + b2.size) / 2 + 6;
+        if (dist < minDist && dist > 0) {
+          const force = (minDist - dist) * 0.008;
+          const nx = dx / dist, ny = dy / dist;
+          b.vx -= nx * force; b.vy -= ny * force;
+          b2.vx += nx * force; b2.vy += ny * force;
+        }
+      });
+
+      b.el.style.left = b.x + 'px';
+      b.el.style.top = b.y + 'px';
+    });
+    bubbleAnimFrame = requestAnimationFrame(animateBubbles);
+  }
+  bubbleAnimFrame = requestAnimationFrame(animateBubbles);
+
+  // 画布拖拽
+  const bubbleMode = document.getElementById('bubble-mode');
+  bubbleMode.onmousedown = e => {
+    if (e.target.closest('.bubble') || e.target.closest('.zoom-btn')) return;
+    isCanvasDragging = true;
+    canvasDragStart = { x: e.clientX, y: e.clientY, ox: bubbleOffset.x, oy: bubbleOffset.y };
+  };
+  bubbleMode.ontouchstart = e => {
+    if (e.target.closest('.bubble') || e.target.closest('.zoom-btn')) return;
+    isCanvasDragging = true;
+    canvasDragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY, ox: bubbleOffset.x, oy: bubbleOffset.y };
+  };
+  const doDrag = (cx, cy) => {
+    if (!isCanvasDragging) return;
+    bubbleOffset.x = canvasDragStart.ox + (cx - canvasDragStart.x);
+    bubbleOffset.y = canvasDragStart.oy + (cy - canvasDragStart.y);
+    updateBubbleTransform();
+  };
+  bubbleMode.onmousemove = e => doDrag(e.clientX, e.clientY);
+  bubbleMode.ontouchmove = e => doDrag(e.touches[0].clientX, e.touches[0].clientY);
+  const stopDrag = () => { isCanvasDragging = false; };
+  bubbleMode.onmouseup = stopDrag;
+  bubbleMode.onmouseleave = stopDrag;
+  bubbleMode.ontouchend = stopDrag;
+
+  // 滚轮缩放
+  bubbleMode.onwheel = e => {
+    e.preventDefault();
+    changeZoom(e.deltaY > 0 ? 0.9 : 1.1);
+  };
+
+  updateBubbleTransform();
+}
+
+function updateBubbleTransform() {
+  const canvas = document.getElementById('bubble-canvas');
+  canvas.style.transform = `translate(${bubbleOffset.x}px, ${bubbleOffset.y}px) scale(${bubbleZoom})`;
+  canvas.style.transformOrigin = '0 0';
+  document.getElementById('zoom-level').textContent = Math.round(bubbleZoom * 100) + '%';
+}
+
+function changeZoom(factor) {
+  bubbleZoom = Math.max(0.3, Math.min(4, bubbleZoom * factor));
+  updateBubbleTransform();
+}
+
+// 气泡破碎粒子效果
+function burstBubble(el, caseItem) {
+  const rect = el.getBoundingClientRect();
+  const container = document.getElementById('bubble-mode');
+  const count = 14 + Math.floor(Math.random() * 6);
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    const size = 4 + Math.random() * 6;
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+    const dist = 60 + Math.random() * 100;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = rect.left + rect.width / 2 + 'px';
+    particle.style.top = rect.top + rect.height / 2 + 'px';
+    particle.style.background = caseItem.heatScore >= 85 ? 'rgba(56,189,248,0.8)' : 'rgba(148,163,184,0.6)';
+    particle.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+    particle.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+    particle.style.setProperty('--rot', (Math.random() - 0.5) * 720 + 'deg');
+    container.appendChild(particle);
+    setTimeout(() => particle.remove(), 800);
+  }
+  el.style.display = 'none';
+  openModal(caseItem.id);
+
+  // 3-7秒后重生
+  setTimeout(() => {
+    el.style.display = '';
+    el.style.opacity = '0';
+    el.style.transform = 'translate(-50%, -50%) scale(0)';
+    const b = bubbleElements.find(b => b.caseItem.id === caseItem.id);
+    if (b) {
+      const edge = Math.floor(Math.random() * 4);
+      const half = b.size / 2;
+      switch (edge) {
+        case 0: b.x = half; b.y = Math.random() * 1800; break;
+        case 1: b.x = 2400 - half; b.y = Math.random() * 1800; break;
+        case 2: b.x = Math.random() * 2400; b.y = half; break;
+        case 3: b.x = Math.random() * 2400; b.y = 1800 - half; break;
+      }
+      b.vx = (Math.random() - 0.5) * 1.5;
+      b.vy = (Math.random() - 0.5) * 1.5;
+    }
+    setTimeout(() => {
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      el.style.opacity = '1';
+      el.style.transform = 'translate(-50%, -50%) scale(1)';
+      setTimeout(() => { el.style.transition = ''; }, 500);
+    }, 50);
+  }, 3000 + Math.random() * 4000);
+}
+
+// ===== 模态框 =====
+function openModal(caseId) {
+  const c = allCases.find(x => x.id === caseId);
+  if (!c) return;
+  currentModalCase = c;
+  document.getElementById('modal-img').src = c.coverImage;
+  document.getElementById('modal-title').textContent = c.title;
+  document.getElementById('modal-meta').textContent = `${PLATFORMS[c.platform]} \u00b7 ${DIFFICULTIES[c.difficulty].label} \u00b7 ${c.heatScore}\u00b0热度`;
+  document.getElementById('modal-tags').innerHTML = c.sceneTags.map(t => `<span class="card-tag">${t}</span>`).join('');
+  document.getElementById('modal-prompt').textContent = c.prompt;
+  document.getElementById('modal').classList.add('active');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  currentModalCase = null;
+}
+function likeCurrent() {
+  if (currentModalCase) likeCase(currentModalCase.id);
+}
+function copyCurrentPrompt() {
+  if (currentModalCase) {
+    navigator.clipboard?.writeText(currentModalCase.prompt);
+    alert('Prompt 已复制到剪贴板');
+  }
+}
+
+// ===== 气泡池 =====
+function addToPool(caseId) {
+  savedPool.add(caseId);
+  updatePoolUI();
+}
+function togglePoolDrawer() {
+  const drawer = document.getElementById('pool-drawer');
+  const overlay = document.getElementById('pool-overlay');
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('active');
+}
+function updatePoolUI() {
+  const badge = document.getElementById('pool-badge');
+  const pulse = document.getElementById('pool-pulse');
+  const grid = document.getElementById('pool-grid');
+  badge.style.display = savedPool.size ? '' : 'none';
+  badge.textContent = savedPool.size;
+  pulse.style.display = savedPool.size ? '' : 'none';
+
+  const items = Array.from(savedPool).map(id => allCases.find(c => c.id === id)).filter(Boolean);
+  grid.innerHTML = items.map(c => `
+    <div class="pool-item" onclick="openModal('${c.id}')">
+      <img src="${c.coverImage}" alt="">
+      <p>${c.title}</p>
+    </div>
+  `).join('') || '<p style="color:var(--muted);text-align:center;padding:20px">气泡池为空</p>';
+}
+
+// ===== 操作 =====
+function switchMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  renderContent();
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-icon').innerHTML = isDark
+    ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'
+    : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
+}
+function likeCase(id) {
+  likedCases.has(id) ? likedCases.delete(id) : likedCases.add(id);
+  renderContent();
+}
+function copyPrompt(id) {
+  const c = allCases.find(x => x.id === id);
+  if (c) navigator.clipboard?.writeText(c.prompt);
+}
+function toggleMobileFilter() {
+  const drawer = document.getElementById('mobile-filter-drawer');
+  const overlay = document.getElementById('mobile-filter-overlay');
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('active');
+}
+function resetFilters() {
+  filteredCases = [...allCases];
+  renderFilterPanel('desktop-sidebar');
+  renderFilterPanel('mobile-filter-drawer');
+  renderContent();
+}
+
+// ===== 初始化 =====
+document.addEventListener('DOMContentLoaded', () => {
+  renderFilterPanel('desktop-sidebar');
+  renderFilterPanel('mobile-filter-drawer');
+
+  // 模拟加载
+  document.getElementById('skeleton').classList.add('active');
+  setTimeout(() => {
+    document.getElementById('skeleton').classList.remove('active');
+    renderContent();
+  }, 1200);
+});
+</script>
+</body>
+</html>
