@@ -3,11 +3,10 @@
  * 全局容器：导航栏、侧边筛选、双模式浏览、悬浮气泡池、路由配置
  *
  * 架构设计：
- * - 顶部固定 Navbar：项目名称 + 模式切换 + 主题切换
- * - 主内容区：桌面端左侧 FilterSidebar + 右侧路由内容
- * - 全局右下角 FloatingBubblePool（仅在首页）
- * - 模式切换 0.3s spring 弹性过渡动画
- * - 全局状态管理：useCaseStore（案例/筛选）、useInteractionStore（模式/气泡池）
+ * - 启动页 / ：独立全屏 Landing，无导航栏
+ * - 气泡库 /gallery：桌面端侧边栏 + 内容区 + 导航栏
+ * - 详情/筛选页：标准居中布局 + 导航栏
+ * - 全局右下角 FloatingBubblePool（仅在画廊页）
  */
 
 import { useState, useEffect, useCallback } from 'react';
@@ -20,6 +19,7 @@ import Navbar from './components/Navbar';
 import FilterSidebar from './components/FilterSidebar';
 import FloatingBubblePool from './components/FloatingBubblePool';
 import BubblePool from './components/BubblePool';
+import Landing from './views/Landing';
 import Home from './views/Home';
 import CaseDetail from './views/CaseDetail';
 import FilterPage from './views/FilterPage';
@@ -30,7 +30,8 @@ import NotFound from './views/NotFound';
  */
 function App() {
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const isLanding = location.pathname === '/';
+  const isGallery = location.pathname === '/gallery';
 
   // ===== 全局案例状态 =====
   const {
@@ -69,7 +70,6 @@ function App() {
 
   /**
    * 同步用户偏好模式到本地状态
-   * 当用户从 LocalStorage 恢复偏好时生效
    */
   useEffect(() => {
     setViewMode(preferredMode);
@@ -77,7 +77,6 @@ function App() {
 
   /**
    * 处理浏览模式切换
-   * 同时更新本地状态和持久化偏好
    */
   const handleModeChange = useCallback(
     (mode: ViewMode) => {
@@ -94,6 +93,18 @@ function App() {
     loadCases();
   }, [loadCases]);
 
+  // ===== 启动页：独立全屏，无导航栏 =====
+  if (isLanding) {
+    return (
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Landing />} />
+        </Routes>
+      </AnimatePresence>
+    );
+  }
+
+  // ===== 画廊页及子页面：标准布局 =====
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
       {/* 顶部导航栏 */}
@@ -101,10 +112,10 @@ function App() {
 
       {/* 主布局区 */}
       <div className="pt-14">
-        {isHome ? (
-          /* 首页布局：桌面端侧边栏 + 内容区 */
+        {isGallery ? (
+          /* 画廊页布局：桌面端侧边栏 + 内容区 */
           <div className="max-w-7xl mx-auto flex gap-6 px-4">
-            {/* 侧边筛选面板（桌面端固定，移动端底部按钮+Drawer） */}
+            {/* 侧边筛选面板 */}
             <FilterSidebar
               keyword={keyword}
               onKeywordChange={setKeyword}
@@ -123,7 +134,7 @@ function App() {
               <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
                   <Route
-                    path="/"
+                    path="/gallery"
                     element={
                       <Home
                         cases={filteredCases}
@@ -139,7 +150,7 @@ function App() {
             </main>
           </div>
         ) : (
-          /* 非首页：标准居中布局 */
+          /* 非画廊页：标准居中布局 */
           <main className="max-w-6xl mx-auto px-4">
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
@@ -152,8 +163,8 @@ function App() {
         )}
       </div>
 
-      {/* 全局右下角悬浮气泡池（仅在首页显示） */}
-      {isHome && (
+      {/* 全局右下角悬浮气泡池（仅在画廊页显示） */}
+      {isGallery && (
         <>
           <FloatingBubblePool onOpen={() => setShowBubblePool(true)} />
           <BubblePool
