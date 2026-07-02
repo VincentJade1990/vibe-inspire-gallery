@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Bubble 灵感库</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== 基础重置与变量 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #050510;
+  --bg-light: #0a0a1a;
+  --purple: #a855f7;
+  --pink: #ec4899;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --glass: rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.1);
+}
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ===== Canvas 层 ===== */
+#bgCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+/* ===== 顶部UI ===== */
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(5,5,16,0.9) 0%, rgba(5,5,16,0) 100%);
+  pointer-events: none;
+}
+.top-bar > * { pointer-events: auto; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+  background: radial-gradient(circle at 35% 35%, rgba(200,180,255,0.9), rgba(150,100,255,0.5) 40%, rgba(80,40,180,0.3) 70%, transparent 100%);
+  box-shadow: 0 0 15px rgba(150,100,255,0.4), inset 0 0 10px rgba(255,255,255,0.15);
+}
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  top: 6px; left: 6px;
+  width: 10px; height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.7), transparent 70%);
+  transform: rotate(-30deg);
+}
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.logo-text .cn {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 2px;
+}
+.logo-text .en {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 2px;
+}
+
+.top-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+  max-width: 600px;
+}
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 320px;
+}
+.search-box input {
+  width: 100%;
+  height: 38px;
+  border-radius: 19px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  padding: 0 16px 0 36px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+}
+.search-box input:focus {
+  border-color: var(--purple);
+  background: rgba(168,85,247,0.08);
+}
+.search-box .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.filter-btn {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 19px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--purple);
+  background: rgba(168,85,247,0.15);
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.top-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 0.3s;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+.top-nav-link:hover {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(139,92,246,0.3);
+  background: rgba(139,92,246,0.08);
+}
+.top-nav-link svg {
+  width: 14px; height: 14px;
+  opacity: 0.6;
+}
+.stat-num span {
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 16px;
+}
+/* 筛选面板 */
+.filter-panel {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: rgba(10,10,26,0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 20px;
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  backdrop-filter: blur(20px);
+  min-width: 320px;
+  max-width: 90vw;
+}
+.filter-panel.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.filter-section { margin-bottom: 16px; }
+.filter-section:last-child { margin-bottom: 0; }
+.filter-section h4 {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.filter-tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text-dim);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-tag:hover, .filter-tag.active {
+  border-color: var(--pink);
+  background: rgba(236,72,153,0.15);
+  color: var(--text);
+}
+.filter-reset {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 0;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-reset:hover {
+  border-color: var(--cyan);
+  background: rgba(34,211,238,0.12);
+  color: var(--text);
+}
+
+/* ===== 底部UI ===== */
+.bottom-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 100;
+  background: linear-gradient(to top, rgba(5,5,16,0.9) 0%, rgba(5,5,16,0) 100%);
+  pointer-events: none;
+}
+.bottom-bar > * { pointer-events: auto; }
+.bottom-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+.bottom-btn:hover {
+  border-color: var(--cyan);
+  background: rgba(6,182,212,0.15);
+  transform: translateY(-2px);
+}
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+}
+.mode-option {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s;
+  user-select: none;
+}
+.mode-option.active {
+  background: rgba(236,72,153,0.25);
+  border: 1px solid var(--pink);
+  color: var(--text);
+}
+.mode-option:not(.active):hover {
+  color: var(--text);
+}
+.sound-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+.sound-toggle:hover {
+  border-color: var(--purple);
+  background: rgba(168,85,247,0.15);
+  color: var(--text);
+}
+.sound-toggle.muted {
+  opacity: 0.4;
+}
+
+/* ===== 弹窗遮罩 ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(5px);
+  padding: 20px;
+}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+
+.modal {
+  background: linear-gradient(180deg, #0f0f25, #080818);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  transform: scale(0.9);
+  transition: transform 0.3s;
+  position: relative;
+}
+.modal-overlay.show .modal { transform: scale(1); }
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover {
+  background: rgba(236,72,153,0.2);
+  border-color: var(--pink);
+}
+
+.modal h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-right: 40px;
+}
+
+.modal-content {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.modal-meta span {
+  display: flex; align-items: center; gap: 4px;
+}
+.modal-meta .likes { color: var(--pink); }
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.modal-tag {
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: rgba(168,85,247,0.15);
+  color: var(--purple);
+  font-size: 12px;
+  border: 1px solid rgba(168,85,247,0.3);
+}
+
+.modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.modal-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+}
+
+/* 投稿弹窗表单 */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--purple);
+  background: rgba(168,85,247,0.08);
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+
+.tag-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tag-option {
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text-dim);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tag-option.selected {
+  border-color: var(--cyan);
+  background: rgba(6,182,212,0.2);
+  color: var(--cyan);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+}
+
+/* 空状态 */
+.empty-state {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.empty-state.show { opacity: 1; }
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+.empty-state p {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 768px) {
+  .top-bar {
+    height: 56px;
+    padding: 0 12px;
+  }
+  .logo { font-size: 14px; }
+  .logo-icon { width: 26px; height: 26px; font-size: 11px; }
+  .search-box { max-width: 140px; }
+  .search-box input { height: 34px; font-size: 12px; }
+  .filter-btn { padding: 0 10px; height: 34px; font-size: 12px; }
+  .stat-num { display: none; }
+  .logo-text .cn { font-size: 14px; }
+  .logo-text .en { font-size: 9px; }
+
+  .bottom-bar {
+    height: 64px;
+    gap: 10px;
+  }
+  .bottom-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .modal { padding: 20px; max-height: 80vh; }
+  .modal h2 { font-size: 16px; }
+
+  .filter-panel {
+    left: 12px; right: 12px;
+    transform: translateY(-10px);
+    min-width: auto;
+  }
+  .filter-panel.show {
+    transform: translateY(0);
+  }
+}
+
+#bubble-labels-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.bubble-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: transform 0.2s, color 0.2s, opacity 0.2s;
+  max-width: 160px;
+  line-height: 1.3;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  z-index: 2;
+  background: rgba(0,0,0,0.2);
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+.bubble-label.hovered {
+  transform: translate(-50%, -50%) scale(1.15);
+  color: rgba(255,255,255,0.98);
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<!-- Three.js 渲染器容器 -->
+<div id="three-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;"></div>
+
+<!-- 背景Canvas -->
+<canvas id="bgCanvas" style="z-index: -1;"></canvas>
+
+<!-- 背景音乐 -->
+<audio id="bgmAudio" src="./audio/bgm.mp3" loop preload="auto"></audio>
+
+<!-- 透明事件捕获层（覆盖在最上方，接收鼠标事件） -->
+<div id="event-capture" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; cursor: crosshair;"></div>
+
+<!-- 气泡文字标签容器 -->
+<div id="bubble-labels-container"></div>
+
+<!-- 顶部UI -->
+<div class="top-bar">
+  <div class="logo">
+    <div class="logo-icon"></div>
+    <div class="logo-text">
+      <div class="cn">灵感气泡</div>
+      <div class="en">vibe bubble</div>
+    </div>
+  </div>
+  <div class="top-center">
+    <div class="search-box">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="搜索灵感...">
+    </div>
+    <button class="filter-btn" id="filterToggle">筛选</button>
+  </div>
+  <div class="top-right">
+    <a href="about.html" class="top-nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span>项目介绍</span>
+    </a>
+    <button class="sound-toggle" id="soundBtn" title="切换背景音乐">
+      <svg id="soundIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      <svg id="soundIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- 筛选面板 -->
+<div class="filter-panel" id="filterPanel">
+  <div class="filter-section">
+    <h4>平台</h4>
+    <div class="filter-tags" id="platformFilters">
+      <span class="filter-tag" data-type="platform" data-value="xiaohongshu">小红书</span>
+      <span class="filter-tag" data-type="platform" data-value="douyin">抖音</span>
+      <span class="filter-tag" data-type="platform" data-value="bilibili">B站</span>
+      <span class="filter-tag" data-type="platform" data-value="wechat">公众号</span>
+      <span class="filter-tag" data-type="platform" data-value="video">视频号</span>
+      <span class="filter-tag" data-type="platform" data-value="github">GitHub</span>
+      <span class="filter-tag" data-type="platform" data-value="twitter">X</span>
+      <span class="filter-tag" data-type="platform" data-value="reddit">reddit</span>
+      <span class="filter-tag" data-type="platform" data-value="other">其他</span>
+    </div>
+  </div>
+  <div class="filter-section">
+    <h4>项目类型</h4>
+    <div class="filter-tags" id="tagFilters">
+      <span class="filter-tag" data-type="tag" data-value="效率工具">效率工具</span>
+      <span class="filter-tag" data-type="tag" data-value="生活助手">生活助手</span>
+      <span class="filter-tag" data-type="tag" data-value="小游戏">小游戏</span>
+      <span class="filter-tag" data-type="tag" data-value="萌宠">萌宠</span>
+      <span class="filter-tag" data-type="tag" data-value="内容创作">内容创作</span>
+      <span class="filter-tag" data-type="tag" data-value="创意设计">创意设计</span>
+      <span class="filter-tag" data-type="tag" data-value="传统文化">传统文化</span>
+      <span class="filter-tag" data-type="tag" data-value="数据可视化">数据可视化</span>
+      <span class="filter-tag" data-type="tag" data-value="其他">其他</span>
+    </div>
+  </div>
+  <button class="filter-reset" id="filterReset">重置筛选</button>
+</div>
+
+<!-- 底部UI -->
+<div class="bottom-bar">
+  <div class="mode-toggle" id="modeToggle">
+    <span class="mode-option active" data-mode="all">全部灵感</span>
+    <span class="mode-option" data-mode="random">随机灵感</span>
+  </div>
+  <button class="bottom-btn" id="submitBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+    吹个气泡
+  </button>
+</div>
+
+<!-- 空状态 -->
+<div class="empty-state" id="emptyState">
+  <div class="empty-state-icon">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6"/></svg>
+  </div>
+  <p>暂时没有找到符合条件的灵感，换个标签试试</p>
+</div>
+
+<!-- 详情弹窗 -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeDetail()">&times;</button>
+    <h2 id="detailTitle"></h2>
+    <div class="modal-content" id="detailContent"></div>
+    <div class="modal-meta">
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="detailUser"></span></span>
+      <span class="likes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span id="detailLikes"></span></span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg><span id="detailDifficulty"></span></span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg><span id="detailPlatform"></span></span>
+    </div>
+    <div class="modal-tags" id="detailTags"></div>
+    <a class="modal-link" id="detailLink" href="#" target="_blank">查看原链接 &rarr;</a>
+  </div>
+</div>
+
+<!-- 投稿弹窗 -->
+<div class="modal-overlay" id="submitModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSubmit()">&times;</button>
+    <h2>吹个气泡</h2>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">分享你的 Vibe Coding 作品，让它漂浮在灵感海洋中</p>
+    <div class="form-group">
+      <label>标题</label>
+      <input type="text" id="subTitle" placeholder="给你的作品起个名字">
+    </div>
+    <div class="form-group">
+      <label>描述</label>
+      <textarea id="subDesc" placeholder="简单介绍一下你的作品..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>标签（多选）</label>
+      <div class="tag-select" id="subTags">
+        <span class="tag-option">AI应用</span>
+        <span class="tag-option">小程序</span>
+        <span class="tag-option">App</span>
+        <span class="tag-option">Web应用</span>
+        <span class="tag-option">浏览器插件</span>
+        <span class="tag-option">工具脚本</span>
+        <span class="tag-option">游戏</span>
+        <span class="tag-option">设计工具</span>
+        <span class="tag-option">其他</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>平台</label>
+      <select id="subPlatform">
+        <option value="xiaohongshu">小红书</option>
+        <option value="douyin">抖音</option>
+        <option value="bilibili">B站</option>
+        <option value="github">GitHub</option>
+        <option value="twitter">X/Twitter</option>
+        <option value="reddit">reddit</option>
+        <option value="other">其他</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>链接</label>
+      <input type="url" id="subLink" placeholder="https://...">
+    </div>
+    <button class="submit-btn" onclick="handleSubmit()">提交作品</button>
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import { rawCases, platformNames } from './data/cases.js';
+
+// ==================== 全局状态 ====================
+let canvas, ctx;
+let bgCanvas, bgCtx;
+let width, height;
+let bubbles = [];
+let bgBubbles = [];
+let filteredCases = [];
+let activeFilters = { platform: new Set(), tag: new Set() };
+let searchQuery = '';
+let hoveredBubble = null;
+let draggedBubble = null;
+let dragOffset = { x: 0, y: 0 };
+let mouse = { x: -999, y: -999 };
+let randomHighlight = null;
+let isMobile = window.innerWidth <= 768;
+let longPressTimer = null;
+let isLongPress = false;
+
+// ==================== 模式切换状态 ====================
+let viewMode = 'all'; // 'all' | 'random'
+let randomIndex = 0;  // 随机模式下当前展示的气泡索引
+let randomDrag = {
+  isDragging: false,
+  startX: 0,
+  startY: 0,
+  currentX: 0,
+  bubbleX: 0,
+  velocityX: 0,
+  deformX: 1,
+  deformY: 1,
+  isTransitioning: false,
+  transitionDir: 0, // -1 左滑出, 1 右滑出
+};
+const SPRING_K = 0.12;
+const SPRING_DAMP = 0.82;
+const DRAG_THRESHOLD = 120; // 基础切换阈值(px)
+const EDGE_THRESHOLD = 250; // 边缘触发阈值(px)
+const VELOCITY_THRESHOLD = 8; // 速度阈值
+let animationId;
+
+// Three.js 全局变量
+let scene, camera, renderer;
+let bubbles3D = [];
+let raycaster;
+let mouse3D;
+let bubbleLabelsContainer;
+let bubbleLabelElements = [];
+
+// ==================== 背景音乐系统 ====================
+let bgmAudio = null;
+let isSoundOn = true;
+let hasUserInteracted = false;
+
+function initAudio() {
+  if (bgmAudio) {
+    // 已有 audio 元素，仅尝试播放
+    if (hasUserInteracted && isSoundOn) {
+      bgmAudio.play().catch(function() {});
+    }
+    return;
+  }
+  try {
+    bgmAudio = document.getElementById('bgmAudio');
+    if (bgmAudio) {
+      bgmAudio.volume = 0.2;
+      if (hasUserInteracted && isSoundOn) {
+        bgmAudio.play().catch(function() {});
+      }
+    }
+  } catch(e) { console.log('音频初始化失败', e); }
+}
+
+function playPop() {
+  // 点击音效（简化为空）
+}
+
+// 气泡滑动切换音效
+function playSwipe(dir) {
+  if (!isSoundOn || !bgmAudio) return;
+  try {
+    // 使用 Web Audio API 生成短促滑动音效
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    // 向右滑动音高略高，向左略低
+    const baseFreq = dir > 0 ? 520 : 380;
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.3, ctx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15);
+  } catch(e) {}
+}
+
+function toggleSound() {
+  if (!bgmAudio) initAudio();
+  isSoundOn = !isSoundOn;
+  const btn = document.getElementById('soundBtn');
+  const iconOn = document.getElementById('soundIconOn');
+  const iconOff = document.getElementById('soundIconOff');
+  if (iconOn && iconOff) {
+    iconOn.style.display = isSoundOn ? 'block' : 'none';
+    iconOff.style.display = isSoundOn ? 'none' : 'block';
+  }
+  btn.classList.toggle('muted', !isSoundOn);
+  if (bgmAudio) {
+    if (isSoundOn) bgmAudio.play().catch(function() {});
+    else bgmAudio.pause();
+  }
+}
+
+// ==================== 自定义肥皂泡 Shader ====================
+const bubbleVertexShader = `
+varying vec3 vNormal;
+varying vec3 vPosition;
+varying vec2 vUv;
+
+void main() {
+  vNormal = normalize(normalMatrix * normal);
+  vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`;
+
+const bubbleFragmentShader = `
+uniform float uTime;
+uniform vec3 uColor1;
+uniform vec3 uColor2;
+uniform vec3 uColor3;
+uniform float uOpacity;
+
+varying vec3 vNormal;
+varying vec3 vPosition;
+varying vec2 vUv;
+
+// 薄膜干涉 - 产生明显彩虹色
+vec3 thinFilmIridescence(float cosTheta, float filmThickness) {
+  float phase = filmThickness * sqrt(1.0 - cosTheta * cosTheta) * 3.14159;
+  // 三通道相位差增大，产生更明显的彩虹分离效果
+  float r = 0.5 + 0.5 * cos(phase);
+  float g = 0.5 + 0.5 * cos(phase - 2.094);
+  float b = 0.5 + 0.5 * cos(phase - 4.189);
+  return vec3(r, g, b);
+}
+
+void main() {
+  vec3 viewDir = normalize(-vPosition);
+  vec3 normal = normalize(vNormal);
+
+  float ndotv = abs(dot(viewDir, normal));
+
+  // 菲涅尔效应 - 降低幂次让更多区域可见 (3.0 -> 1.5)
+  float fresnel = pow(1.0 - ndotv, 1.5);
+  float fresnelSoft = pow(1.0 - ndotv, 0.8); // 更柔和的版本用于基础颜色
+
+  // 薄膜干涉色 - 增强动画和厚度变化
+  float filmThickness = 6.0 + sin(uTime * 0.8) * 3.0 + sin(uTime * 1.3 + vUv.x * 6.28) * 1.5;
+  vec3 irid = thinFilmIridescence(ndotv, filmThickness);
+
+  // 更饱和的彩虹色
+  vec3 filmColor = mix(uColor1, uColor2, irid.r);
+  filmColor = mix(filmColor, uColor3, irid.g * 0.7);
+  filmColor = mix(filmColor, vec3(0.9, 0.6, 0.3), irid.b * 0.4); // 加入一点金色
+
+  // 主高光（模拟强光源）
+  vec3 lightDir = normalize(vec3(1.0, 1.0, 2.0));
+  vec3 halfDir = normalize(lightDir + viewDir);
+  float spec = pow(max(dot(normal, halfDir), 0.0), 64.0);
+
+  // 次高光（模拟环境光反射）
+  vec3 reflectDir = reflect(-viewDir, normal);
+  float envSpec = pow(max(dot(reflectDir, vec3(0.0, 1.0, 0.0)), 0.0), 2.0);
+
+  // 内部反射模拟
+  vec3 innerReflect = vec3(0.3, 0.2, 0.5) * (1.0 - fresnelSoft) * 0.15;
+
+  // 组合颜色
+  vec3 color = vec3(0.0);
+  color += filmColor * fresnel * 1.5;              // 边缘强虹彩
+  color += vec3(1.0, 0.95, 0.9) * spec * 2.0;      // 强烈主高光
+  color += vec3(0.7, 0.8, 1.0) * envSpec * 0.3;    // 环境反射
+  color += vec3(0.6, 0.3, 0.9) * fresnel * 0.25;   // 紫色边缘增强
+  color += innerReflect;                            // 内部微弱颜色
+
+  // 气泡中心也保留微弱可见度，不完全透明
+  float centerAlpha = fresnel * uOpacity * 1.0 + spec * 0.5 + 0.08;
+  centerAlpha = clamp(centerAlpha, 0.0, 0.92);
+
+  // 在边缘增加一圈明显的高亮环
+  float rim = pow(1.0 - ndotv, 4.0);
+  color += vec3(0.9, 0.85, 1.0) * rim * 0.4;
+
+  gl_FragColor = vec4(color, centerAlpha);
+}
+`;
+
+// ==================== 气泡颜色色板 ====================
+// 10种不同色系，根据标签/索引分配，营造丰富视觉效果
+const BUBBLE_PALETTES = [
+  // 紫粉梦幻
+  [[0.6, 0.2, 0.9], [0.95, 0.4, 0.7], [0.4, 0.6, 1.0]],
+  // 青蓝冰透
+  [[0.2, 0.7, 0.95], [0.3, 0.9, 0.8], [0.1, 0.5, 0.9]],
+  // 翠绿荧光
+  [[0.2, 0.85, 0.5], [0.5, 1.0, 0.3], [0.3, 0.7, 0.9]],
+  // 金橙暖阳
+  [[0.95, 0.6, 0.2], [1.0, 0.4, 0.3], [0.9, 0.8, 0.3]],
+  // 粉红玫瑰
+  [[0.95, 0.3, 0.5], [1.0, 0.6, 0.7], [0.8, 0.3, 0.6]],
+  // 薰衣草紫
+  [[0.5, 0.3, 0.8], [0.7, 0.5, 0.9], [0.9, 0.6, 0.8]],
+  // 天蓝清爽
+  [[0.3, 0.6, 0.95], [0.5, 0.8, 1.0], [0.2, 0.9, 0.7]],
+  // 珊瑚红粉
+  [[1.0, 0.5, 0.4], [0.95, 0.7, 0.5], [1.0, 0.3, 0.5]],
+  // 极光绿
+  [[0.1, 0.9, 0.6], [0.3, 0.5, 0.9], [0.6, 0.9, 0.3]],
+  // 琥珀金
+  [[0.9, 0.7, 0.2], [0.7, 0.5, 0.1], [1.0, 0.85, 0.4]],
+];
+
+// 标签名到色板索引的映射
+const TAG_COLOR_MAP = {
+  'AI应用': 0, '小程序': 1, 'Web应用': 2, '工具脚本': 3,
+  'App': 4, '浏览器插件': 5, '设计工具': 6, '游戏': 7,
+  'AI应用': 0,
+};
+
+function getColorPalette(data) {
+  // 优先根据标签匹配色系
+  const tags = data.tag_list || [];
+  for (const tag of tags) {
+    if (TAG_COLOR_MAP[tag] !== undefined) {
+      return BUBBLE_PALETTES[TAG_COLOR_MAP[tag]];
+    }
+  }
+  // 无标签则根据 likes 等级和 id 哈希分配
+  const hash = (data.id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  return BUBBLE_PALETTES[hash % BUBBLE_PALETTES.length];
+}
+
+// ==================== 3D 气泡类 ====================
+class Bubble3D {
+  constructor(data, x, y, z, scale) {
+    this.data = data;
+    this.baseX = x;
+    this.baseY = y;
+    this.baseZ = z;
+    this.phase = Math.random() * Math.PI * 2;
+    this.speed = 0.5 + Math.random() * 0.5;      // 漂浮速度 0.5~1.0
+    this.amplitude = 3 + Math.random() * 4;      // 漂浮幅度 3~7
+    this.vx = 0;  // 碰撞反弹速度 X
+    this.vy = 0;  // 碰撞反弹速度 Y
+    this.hovered = false;
+    this.dragged = false;
+    this.targetScale = scale;
+    this.currentScale = scale;
+    this.visible = true;
+    this.dimmed = false;
+    this.enterTime = 0; // 随机模式进入动画时间戳
+
+    // 根据likes确定气泡基础大小，再加入随机因子形成大小错落
+    // 参考2D版：直径约100-150px，对应3D中 radius * scale * proj ≈ 50-75px
+    let baseScale;
+    if (data.likes > 50) baseScale = 1.6 + Math.random() * 0.4; // 1.6 - 2.0
+    else if (data.likes >= 20) baseScale = 1.2 + Math.random() * 0.4; // 1.2 - 1.6
+    else baseScale = 0.85 + Math.random() * 0.35; // 0.85 - 1.2
+    this.baseScale = baseScale;
+    this.targetScale = baseScale;
+    this.currentScale = baseScale;
+
+    // 创建球体 - 回归合适的基础半径
+    const geometry = new THREE.SphereGeometry(22, 32, 32);
+
+    // 根据标签分配不同色系，让气泡颜色丰富多样
+    const colorPalette = getColorPalette(data);
+    const material = new THREE.ShaderMaterial({
+      vertexShader: bubbleVertexShader,
+      fragmentShader: bubbleFragmentShader,
+      uniforms: {
+        uTime: { value: 0 },
+        uColor1: { value: new THREE.Vector3(...colorPalette[0]) },
+        uColor2: { value: new THREE.Vector3(...colorPalette[1]) },
+        uColor3: { value: new THREE.Vector3(...colorPalette[2]) },
+        uOpacity: { value: 0.85 }
+      },
+      transparent: true,
+      side: THREE.FrontSide,
+      depthWrite: false
+    });
+
+    this.mesh = new THREE.Mesh(geometry, material);
+    this.mesh.position.set(x, y, z);
+    this.mesh.scale.setScalar(baseScale);
+    this.mesh.userData = { bubble: this };
+  }
+
+  update(time) {
+    if (this.dragged) return;
+
+    const t = time * 0.001;
+
+    // 随机模式下当前气泡的特殊处理
+    const isCurrentRandom = viewMode === 'random' && bubbles3D[randomIndex] === this;
+
+    if (isCurrentRandom && !randomDrag.isTransitioning) {
+      // 随机模式：应用弹簧物理和形变
+      const springTargetX = randomDrag.bubbleX * 0.35; // 像素转3D坐标
+      const force = (springTargetX - this.mesh.position.x) * SPRING_K;
+      randomDrag.velocityX += force;
+      randomDrag.velocityX *= SPRING_DAMP;
+      this.mesh.position.x += randomDrag.velocityX;
+      this.mesh.position.y += (0 - this.mesh.position.y) * 0.08; // 平滑回到中心Y
+      this.mesh.position.z = this.baseZ + 20; // 随机模式下更靠前
+
+      // 进入动画：从正中由小到大弹出，带轻微弹动
+      let enterScale = 1;
+      if (this.enterTime > 0) {
+        const elapsed = Date.now() - this.enterTime;
+        const duration = 700;
+        if (elapsed < duration) {
+          const p = elapsed / duration;
+          // Back Ease Out：先 overshoot 再回弹
+          const c1 = 1.70158;
+          const c3 = c1 + 1;
+          enterScale = 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2);
+        } else {
+          this.enterTime = 0; // 动画结束
+        }
+      }
+
+      // 形变效果：根据速度拉伸/压缩
+      const speed = Math.abs(randomDrag.velocityX);
+      const stretch = Math.min(speed * 0.15, 0.35);
+      randomDrag.deformX = 1 + stretch;
+      randomDrag.deformY = 1 - stretch * 0.4;
+      const randomScale = this.baseScale * 2.6; // 随机模式放大1倍
+      this.mesh.scale.set(
+        randomScale * enterScale * randomDrag.deformX,
+        randomScale * enterScale * randomDrag.deformY,
+        randomScale * enterScale
+      );
+
+      // 随机模式更高透明度
+      this.mesh.material.uniforms.uOpacity.value += (0.95 - this.mesh.material.uniforms.uOpacity.value) * 0.1;
+      this.mesh.visible = true;
+    } else if (isCurrentRandom && randomDrag.isTransitioning) {
+      // 过渡动画：当前气泡滑出
+      const dir = randomDrag.transitionDir;
+      this.mesh.position.x += dir * 15;
+      this.mesh.material.uniforms.uOpacity.value -= 0.06;
+      if (this.mesh.material.uniforms.uOpacity.value <= 0.05) {
+        this.mesh.visible = false;
+      }
+    } else if (viewMode === 'random') {
+      // 随机模式下非当前气泡隐藏
+      this.mesh.visible = false;
+    } else {
+      // 全部灵感模式：正常漂浮动画
+      let targetX = this.baseX + Math.sin(t * this.speed + this.phase) * this.amplitude;
+      let targetY = this.baseY + Math.cos(t * this.speed * 0.7 + this.phase) * this.amplitude * 0.5;
+      this.mesh.position.z = this.baseZ + Math.sin(t * this.speed * 0.3 + this.phase) * 12;
+
+      // 鼠标排斥力 - 鼠标靠近时气泡被轻轻推开
+      if (mouse.x > 0 && mouse.y > 0) {
+        const mx3d = (mouse.x - width / 2) * 0.35;
+        const my3d = -(mouse.y - height / 2) * 0.35;
+        const dx = this.mesh.position.x - mx3d;
+        const dy = this.mesh.position.y - my3d;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const repulseRadius = 80 + 30 * this.baseScale;
+        if (dist < repulseRadius && dist > 0.1) {
+          const force = (1 - dist / repulseRadius) * 20;
+          targetX += (dx / dist) * force;
+          targetY += (dy / dist) * force;
+        }
+      }
+
+      // 平滑移向目标位置 + 应用碰撞反弹速度
+      this.mesh.position.x += (targetX - this.mesh.position.x) * 0.08 + this.vx;
+      this.mesh.position.y += (targetY - this.mesh.position.y) * 0.08 + this.vy;
+      // 碰撞速度衰减
+      this.vx *= 0.92;
+      this.vy *= 0.92;
+
+      // 缩放动画（hover放大）
+      const target = this.hovered ? this.baseScale * 1.2 : (this.dimmed ? this.baseScale * 0.9 : this.baseScale);
+      this.currentScale += (target - this.currentScale) * 0.1;
+      this.mesh.scale.setScalar(this.currentScale);
+
+      // hover时调整透明度
+      const targetOpacity = this.hovered ? 1.0 : (this.dimmed ? 0.5 : 0.85);
+      this.mesh.material.uniforms.uOpacity.value += (targetOpacity - this.mesh.material.uniforms.uOpacity.value) * 0.1;
+
+      this.mesh.visible = true;
+    }
+
+    // 更新 shader time
+    this.mesh.material.uniforms.uTime.value = t;
+  }
+
+  contains(px, py) {
+    // Raycaster 会处理命中检测
+    return false;
+  }
+}
+
+// ==================== 背景 Canvas 粒子气泡（复用 landing.html）====================
+// 注：bgBubbles 数组格式不同，下面的函数兼容处理
+// 文字自动换行（HTML版本）
+function wrapTextToLines(text, maxLen) {
+  const words = text.split('');
+  let line = '';
+  const lines = [];
+  for (let i = 0; i < words.length; i++) {
+    const testLine = line + words[i];
+    if (testLine.length > maxLen && line !== '') {
+      lines.push(line);
+      line = words[i];
+      if (lines.length >= 2) break;
+    } else {
+      line = testLine;
+    }
+  }
+  if (lines.length < 2) lines.push(line);
+  if (lines.length > 2) {
+    lines[1] = lines[1].slice(0, -1) + '...';
+  }
+  return lines.slice(0, 2);
+}
+
+// ==================== 初始化气泡位置 ====================
+function createBubbles() {
+  // 清除旧气泡（只在Three.js初始化后执行）
+  if (scene) {
+    bubbles3D.forEach(b => {
+      scene.remove(b.mesh);
+      b.mesh.geometry.dispose();
+      b.mesh.material.dispose();
+    });
+  }
+  bubbles3D = [];
+  bubbleLabelElements.forEach(({label}) => { if(label && label.remove) label.remove(); });
+  bubbleLabelElements = [];
+
+  const cases = filteredCases;
+  if (cases.length === 0) return;
+
+  const maxCount = isMobile ? 16 : 28; // 参考2D版密度，减少数量避免拥挤
+  const displayCases = cases.slice(0, maxCount);
+
+  const halfW = width / 2;
+  const halfH = height / 2;
+  // 散布区域边界（3D坐标），接近全屏
+  const xMin = -(halfW - 30) * 0.35;
+  const xMax = (halfW - 30) * 0.35;
+  const yMin = -(halfH - 50) * 0.35;
+  const yMax = (halfH - 50) * 0.35;
+  const areaW = xMax - xMin;
+  const areaH = yMax - yMin;
+
+  // 先创建所有 Bubble3D 实例以获知各自半径
+  const tempBubbles = displayCases.map(data => {
+    const b = new Bubble3D(data, 0, 0, 0);
+    return b;
+  });
+
+  // 按大小从大到小排序，大泡泡先放
+  tempBubbles.sort((a, b) => b.baseScale - a.baseScale);
+
+  // 构建松散网格 + 随机偏移的布局
+  const cols = Math.ceil(Math.sqrt(tempBubbles.length * (areaW / areaH)));
+  const rows = Math.ceil(tempBubbles.length / cols);
+  const cellW = areaW / cols;
+  const cellH = areaH / rows;
+
+  // 生成所有网格中心点并打乱，制造不规则感
+  const gridPoints = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      gridPoints.push({
+        cx: xMin + c * cellW + cellW / 2,
+        cy: yMin + r * cellH + cellH / 2
+      });
+    }
+  }
+  // Fisher-Yates 打乱
+  for (let i = gridPoints.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [gridPoints[i], gridPoints[j]] = [gridPoints[j], gridPoints[i]];
+  }
+
+  // 放置气泡：网格基础 + 随机偏移 + 距离检测
+  const placed = [];
+  tempBubbles.forEach((bubble, idx) => {
+    const myR = 22 * bubble.baseScale;
+
+    let placedX = 0, placedY = 0, placedZ = 0;
+    let success = false;
+
+    // 优先尝试打乱的网格点 + 随机偏移
+    const candidates = gridPoints.slice(0, Math.min(gridPoints.length, tempBubbles.length));
+    // 从 idx 位置开始轮询，避免都从第一个开始
+    for (let offset = 0; offset < candidates.length && !success; offset++) {
+      const gp = candidates[(idx + offset) % candidates.length];
+      // 在网格中心附近随机偏移（±20%格子大小）
+      const tx = gp.cx + (Math.random() - 0.5) * cellW * 0.4;
+      const ty = gp.cy + (Math.random() - 0.5) * cellH * 0.4;
+      const tz = (Math.random() - 0.5) * 25;
+
+      let tooClose = false;
+      for (const p of placed) {
+        const dx = tx - p.x;
+        const dy = ty - p.y;
+        const dz = tz - p.z;
+        const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        const required = myR + p.r + 12; // 半径之和 + 间隙
+         if (d < required) {
+           tooClose = true;
+           break;
+         }
+       }
+ 
+       if (!tooClose) {
+         placedX = tx; placedY = ty; placedZ = tz;
+         success = true;
+       }
+     }
+ 
+     // 如果网格都失败了，退到全区域随机搜索
+     if (!success) {
+       for (let attempt = 0; attempt < 100; attempt++) {
+         const tx = xMin + Math.random() * areaW;
+         const ty = yMin + Math.random() * areaH;
+         const tz = (Math.random() - 0.5) * 25;
+ 
+         let tooClose = false;
+         for (const p of placed) {
+           const dx = tx - p.x;
+           const dy = ty - p.y;
+           const dz = tz - p.z;
+           const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+           const required = myR + p.r + 12;
+          if (d < required) {
+            tooClose = true;
+            break;
+          }
+        }
+
+        if (!tooClose) {
+          placedX = tx; placedY = ty; placedZ = tz;
+          success = true;
+          break;
+        }
+      }
+    }
+
+    // 最终fallback：放到最远的空位（找已放置气泡密度最低的区域）
+    if (!success) {
+      let bestX = xMin + Math.random() * areaW;
+      let bestY = yMin + Math.random() * areaH;
+      let bestDist = 0;
+      for (let attempt = 0; attempt < 30; attempt++) {
+        const tx = xMin + Math.random() * areaW;
+        const ty = yMin + Math.random() * areaH;
+        let minDist = Infinity;
+        for (const p of placed) {
+          const dx = tx - p.x;
+          const dy = ty - p.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < minDist) minDist = d;
+        }
+        if (minDist > bestDist) {
+          bestDist = minDist;
+          bestX = tx; bestY = ty;
+        }
+      }
+      placedX = bestX; placedY = bestY;
+      placedZ = (Math.random() - 0.5) * 25;
+    }
+
+    bubble.baseX = placedX;
+    bubble.baseY = placedY;
+    bubble.baseZ = placedZ;
+    bubble.mesh.position.set(placedX, placedY, placedZ);
+    placed.push({ x: placedX, y: placedY, z: placedZ, r: myR });
+
+    scene.add(bubble.mesh);
+    bubbles3D.push(bubble);
+
+    // 创建文字标签
+    const label = document.createElement('div');
+    label.className = 'bubble-label';
+    const lines = wrapTextToLines(bubble.data.title, 10);
+    label.innerHTML = lines.join('<br>');
+    bubbleLabelsContainer.appendChild(label);
+    bubbleLabelElements.push({ label, bubble });
+  });
+
+  // 如果当前在随机模式，确保只有当前气泡可见并居中
+  if (viewMode === 'random' && bubbles3D.length > 0) {
+    if (randomIndex >= bubbles3D.length) {
+      randomIndex = Math.floor(Math.random() * bubbles3D.length);
+    }
+    bubbles3D.forEach((b, i) => {
+      if (i !== randomIndex) {
+        b.mesh.visible = false;
+      } else {
+        b.mesh.visible = true;
+        b.mesh.position.set(0, 0, b.baseZ + 20);
+        b.mesh.material.uniforms.uOpacity.value = 0.95;
+      }
+    });
+  }
+}
+
+// ==================== 更新文字标签位置 ====================
+function updateBubbleLabels() {
+  bubbleLabelElements.forEach(({ label, bubble }) => {
+    // 随机模式下只显示当前气泡的标签
+    if (viewMode === 'random') {
+      if (bubbles3D[randomIndex] !== bubble) {
+        label.style.display = 'none';
+        return;
+      }
+    }
+
+    if (!bubble.visible) {
+      label.style.display = 'none';
+      return;
+    }
+    label.style.display = 'block';
+
+    const pos = bubble.mesh.position.clone();
+    pos.project(camera);
+
+    const x = (pos.x * 0.5 + 0.5) * width;
+    const y = (-pos.y * 0.5 + 0.5) * height;
+
+    label.style.left = x + 'px';
+    label.style.top = y + 'px';
+
+    if (bubble.hovered) {
+      label.classList.add('hovered');
+    } else {
+      label.classList.remove('hovered');
+    }
+
+    // 根据z深度调整透明度
+    label.style.opacity = pos.z < 1 ? 0.8 : 0.3;
+  });
+}
+
+// ==================== 初始化背景气泡（复用 landing.html 粒子效果）====================
+function createBgBubbles() {
+  bgBubbles = [];
+  const count = Math.min(Math.floor((width * height) / 22000), 70);
+  for (let i = 0; i < count; i++) {
+    bgBubbles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 35 + 8,
+      speedX: (Math.random() - 0.5) * 0.25,
+      speedY: -Math.random() * 0.35 - 0.08,
+      opacity: Math.random() * 0.22 + 0.04,
+      hue: Math.random() * 140 + 220,
+      phase: Math.random() * Math.PI * 2,
+    });
+  }
+}
+
+// ==================== Three.js 初始化 ====================
+function initThreeJS() {
+  bubbleLabelsContainer = document.getElementById('bubble-labels-container');
+
+  // 初始化 raycaster 和 mouse3D
+  raycaster = new THREE.Raycaster();
+  mouse3D = new THREE.Vector2(-999, -999);
+
+  // 场景 - 深色背景
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x050510);
+
+  // 相机
+  camera = new THREE.PerspectiveCamera(60, width / height, 1, 2000);
+  camera.position.set(0, 0, 350);
+  camera.lookAt(0, 0, 0);
+
+  // 渲染器
+  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+  renderer.domElement.style.position = 'fixed';
+  renderer.domElement.style.top = '0';
+  renderer.domElement.style.left = '0';
+  renderer.domElement.style.width = '100%';
+  renderer.domElement.style.height = '100%';
+  renderer.domElement.style.zIndex = '-2';
+  renderer.domElement.style.cursor = 'crosshair';
+
+  // 插入到 three-container 中（在bgCanvas之前）
+  const container = document.getElementById('three-container');
+  if (container) {
+    container.appendChild(renderer.domElement);
+  }
+
+  // 加载数据，创建气泡
+  createBubbles();
+
+  // 绑定 Three.js 交互事件
+  setupThreeEvents();
+}
+
+// ==================== Three.js 交互事件 ====================
+function setupThreeEvents() {
+  // 使用顶层透明捕获层接收事件（renderer.domElement 被 z-index:-2 遮挡）
+  const eventLayer = document.getElementById('event-capture');
+
+  // 鼠标移动
+  eventLayer.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+
+    // Three.js NDC 坐标
+    mouse3D.x = (e.clientX / width) * 2 - 1;
+    mouse3D.y = -(e.clientY / height) * 2 + 1;
+
+    // 随机模式：拖拽更新
+    if (viewMode === 'random' && randomDrag.isDragging && !randomDrag.isTransitioning) {
+      randomDrag.currentX = e.clientX;
+      const dx = e.clientX - randomDrag.startX;
+      if (Math.abs(dx) > 3) randomDrag.hasMoved = true;
+      randomDrag.bubbleX = dx;
+    }
+  });
+
+  // 鼠标离开
+  eventLayer.addEventListener('mouseleave', () => {
+    if (hoveredBubble) hoveredBubble.hovered = false;
+    hoveredBubble = null;
+    mouse.x = -999; mouse.y = -999;
+    mouse3D.set(-999, -999, 0);
+
+    // 随机模式：离开屏幕复位
+    if (viewMode === 'random' && randomDrag.isDragging) {
+      randomDrag.isDragging = false;
+      if (!randomDrag.isTransitioning) {
+        randomDrag.bubbleX = 0;
+        randomDrag.velocityX = 0;
+      }
+    }
+  });
+
+  // 鼠标按下
+  eventLayer.addEventListener('mousedown', e => {
+    if (!bgmAudio) initAudio();
+
+    // 随机模式：开始拖拽当前气泡
+    if (viewMode === 'random') {
+      if (randomDrag.isTransitioning) return;
+      randomDrag.isDragging = true;
+      randomDrag.startX = e.clientX;
+      randomDrag.startY = e.clientY;
+      randomDrag.currentX = e.clientX;
+      randomDrag.dragStartTime = Date.now();
+      randomDrag.hasMoved = false;
+      return;
+    }
+
+    if (hoveredBubble) {
+      draggedBubble = hoveredBubble;
+      draggedBubble.dragged = true;
+      dragOffset.x = mouse.x;
+      dragOffset.y = mouse.y;
+      isLongPress = false;
+      longPressTimer = setTimeout(() => { isLongPress = true; }, 300);
+    }
+  });
+
+  // 鼠标松开
+  eventLayer.addEventListener('mouseup', e => {
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+
+    // 随机模式：处理拖拽结束，判断是点击还是切换
+    if (viewMode === 'random' && randomDrag.isDragging) {
+      const dx = randomDrag.currentX - randomDrag.startX;
+      const dt = Date.now() - randomDrag.dragStartTime;
+      const velocity = Math.abs(dx) / (dt + 1) * 100; // 像素/百毫秒
+
+      randomDrag.isDragging = false;
+
+      // 边缘250px直接切换；120~250px根据速度判断；小于120px弹簧复位
+      // 向右拖(dx>0) → dir=1 当前气泡向右滑出，显示下一个
+      // 向左拖(dx<0) → dir=-1 当前气泡向左滑出，显示上一个
+      if (Math.abs(dx) > EDGE_THRESHOLD) {
+        const dir = dx > 0 ? 1 : -1;
+        playSwipe(dir);
+        startTransition(dir);
+      } else if (Math.abs(dx) > DRAG_THRESHOLD && velocity > VELOCITY_THRESHOLD) {
+        const dir = dx > 0 ? 1 : -1;
+        playSwipe(dir);
+        startTransition(dir);
+      } else if (!randomDrag.hasMoved) {
+        // 没有移动，视为点击当前气泡
+        if (bubbles3D[randomIndex]) {
+          playPop();
+          window.location.href = `detail.html?id=${bubbles3D[randomIndex].data.id}`;
+        }
+      } else {
+        // 弹簧复位
+        randomDrag.bubbleX = 0;
+        randomDrag.velocityX = 0;
+      }
+      return;
+    }
+
+    if (draggedBubble) {
+      draggedBubble.dragged = false;
+      draggedBubble = null;
+    }
+  });
+
+  // 点击 - 播放气泡爆破音效（全部模式下）
+  eventLayer.addEventListener('click', e => {
+    if (isLongPress) return;
+
+    // 随机模式：点击由mouseup处理，避免重复
+    if (viewMode === 'random') return;
+
+    if (hoveredBubble) {
+      playPop();
+      window.location.href = `detail.html?id=${hoveredBubble.data.id}`;
+    }
+  });
+
+  // 触摸支持
+  eventLayer.addEventListener('touchstart', e => {
+    if (!bgmAudio) initAudio();
+    e.preventDefault();
+    const touch = e.touches[0];
+    mouse.x = touch.clientX;
+    mouse.y = touch.clientY;
+    mouse3D.x = (touch.clientX / width) * 2 - 1;
+    mouse3D.y = -(touch.clientY / height) * 2 + 1;
+
+    // 随机模式：开始拖拽
+    if (viewMode === 'random') {
+      if (randomDrag.isTransitioning) return;
+      randomDrag.isDragging = true;
+      randomDrag.startX = touch.clientX;
+      randomDrag.startY = touch.clientY;
+      randomDrag.currentX = touch.clientX;
+      randomDrag.dragStartTime = Date.now();
+      randomDrag.hasMoved = false;
+      return;
+    }
+
+    // 触摸时做一次 raycast
+    raycaster.setFromCamera(mouse3D, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+    for (let i = 0; i < intersects.length; i++) {
+      const obj = intersects[i].object;
+      if (obj.userData && obj.userData.bubble) {
+        hoveredBubble = obj.userData.bubble;
+        hoveredBubble.hovered = true;
+        draggedBubble = obj.userData.bubble;
+        draggedBubble.dragged = true;
+        break;
+      }
+    }
+  }, { passive: false });
+
+  eventLayer.addEventListener('touchmove', e => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    mouse.x = touch.clientX;
+    mouse.y = touch.clientY;
+    mouse3D.x = (touch.clientX / width) * 2 - 1;
+    mouse3D.y = -(touch.clientY / height) * 2 + 1;
+
+    // 随机模式：拖拽更新
+    if (viewMode === 'random' && randomDrag.isDragging && !randomDrag.isTransitioning) {
+      randomDrag.currentX = touch.clientX;
+      const dx = touch.clientX - randomDrag.startX;
+      if (Math.abs(dx) > 3) randomDrag.hasMoved = true;
+      randomDrag.bubbleX = dx;
+      return;
+    }
+
+    if (draggedBubble) {
+      // 将屏幕坐标映射到3D世界坐标（近似）
+      const vector = new THREE.Vector3(mouse3D.x, mouse3D.y, 0.5);
+      vector.unproject(camera);
+      const dir = vector.sub(camera.position).normalize();
+      const distance = (draggedBubble.mesh.position.z - camera.position.z) / dir.z;
+      const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+      draggedBubble.mesh.position.x = pos.x;
+      draggedBubble.mesh.position.y = pos.y;
+    }
+  }, { passive: false });
+
+  eventLayer.addEventListener('touchend', e => {
+    // 随机模式：处理拖拽结束
+    if (viewMode === 'random' && randomDrag.isDragging) {
+      const dx = randomDrag.currentX - randomDrag.startX;
+      const dt = Date.now() - randomDrag.dragStartTime;
+      const velocity = Math.abs(dx) / (dt + 1) * 100;
+
+      randomDrag.isDragging = false;
+
+      if (Math.abs(dx) > EDGE_THRESHOLD) {
+        const dir = dx > 0 ? 1 : -1;
+        playSwipe(dir);
+        startTransition(dir);
+      } else if (Math.abs(dx) > DRAG_THRESHOLD && velocity > VELOCITY_THRESHOLD) {
+        const dir = dx > 0 ? 1 : -1;
+        playSwipe(dir);
+        startTransition(dir);
+      } else if (!randomDrag.hasMoved) {
+        // 点击当前气泡
+        if (bubbles3D[randomIndex]) {
+          playPop();
+          window.location.href = `detail.html?id=${bubbles3D[randomIndex].data.id}`;
+        }
+      } else {
+        randomDrag.bubbleX = 0;
+        randomDrag.velocityX = 0;
+      }
+      return;
+    }
+
+    if (draggedBubble) {
+      draggedBubble.dragged = false;
+      draggedBubble = null;
+    }
+    if (hoveredBubble) {
+      hoveredBubble.hovered = false;
+      hoveredBubble = null;
+    }
+  });
+}
+
+// ==================== 动画循环 ====================
+function animate(time) {
+  // 背景 Canvas 粒子气泡（复用 landing.html）
+  bgCtx.clearRect(0, 0, width, height);
+  bgBubbles.forEach(function(b) {
+    b.x += b.speedX + Math.sin(time * 0.0005 + b.phase) * 0.2;
+    b.y += b.speedY;
+    if (b.y < -b.radius * 2) { b.y = height + b.radius * 2; b.x = Math.random() * width; }
+    if (b.x < -b.radius) b.x = width + b.radius;
+    if (b.x > width + b.radius) b.x = -b.radius;
+
+    const wobble = Math.sin(time * 0.001 + b.phase) * 2;
+    const r = b.radius + wobble;
+
+    const grad = bgCtx.createRadialGradient(b.x - r * 0.3, b.y - r * 0.3, 0, b.x, b.y, r);
+    grad.addColorStop(0, 'hsla(' + b.hue + ',80%,75%,' + (b.opacity * 0.6) + ')');
+    grad.addColorStop(0.4, 'hsla(' + (b.hue + 20) + ',70%,60%,' + (b.opacity * 0.3) + ')');
+    grad.addColorStop(0.8, 'hsla(' + (b.hue + 40) + ',60%,50%,' + (b.opacity * 0.15) + ')');
+    grad.addColorStop(1, 'hsla(' + (b.hue + 60) + ',50%,40%,0)');
+
+    bgCtx.beginPath();
+    bgCtx.arc(b.x, b.y, r, 0, Math.PI * 2);
+    bgCtx.fillStyle = grad;
+    bgCtx.fill();
+
+    bgCtx.beginPath();
+    bgCtx.arc(b.x - r * 0.32, b.y - r * 0.32, r * 0.22, 0, Math.PI * 2);
+    bgCtx.fillStyle = 'hsla(' + b.hue + ',30%,95%,' + (b.opacity * 0.5) + ')';
+    bgCtx.fill();
+
+    bgCtx.beginPath();
+    bgCtx.arc(b.x, b.y, r, 0, Math.PI * 2);
+    bgCtx.strokeStyle = 'hsla(' + b.hue + ',60%,70%,' + (b.opacity * 0.3) + ')';
+    bgCtx.lineWidth = 0.8;
+    bgCtx.stroke();
+  });
+
+  // 3D 气泡更新
+  bubbles3D.forEach(b => {
+    b.update(time);
+  });
+
+  // 随机模式：拖动时预显示下一个气泡
+  if (viewMode === 'random' && randomDrag.isDragging && !randomDrag.isTransitioning) {
+    const dx = randomDrag.bubbleX;
+    const absDx = Math.abs(dx);
+    if (absDx > 150 && bubbles3D.length > 1) {
+      const dir = dx > 0 ? 1 : -1; // 向右拖→dir=1，向左拖→dir=-1
+      let nextIdx = dir > 0
+        ? (randomIndex + 1) % bubbles3D.length
+        : (randomIndex - 1 + bubbles3D.length) % bubbles3D.length;
+      const nextBubble = bubbles3D[nextIdx];
+      if (nextBubble) {
+        const previewProgress = Math.min((absDx - 150) / 100, 1); // 150~250px 渐显
+        nextBubble.mesh.visible = true;
+        nextBubble.mesh.material.uniforms.uOpacity.value = previewProgress * 0.5;
+        const edgeX = -dir * (width * 0.4 + (1 - previewProgress) * 200);
+        nextBubble.mesh.position.set(edgeX, 0, nextBubble.baseZ + 15);
+        nextBubble.mesh.scale.setScalar(nextBubble.baseScale * 2.6 * (0.6 + previewProgress * 0.4));
+      }
+    }
+  }
+
+  // 气泡间软碰撞 - 边缘轻弹开
+  if (viewMode !== 'random') {
+    for (let i = 0; i < bubbles3D.length; i++) {
+      const a = bubbles3D[i];
+      if (!a.mesh.visible) continue;
+      const ra = 22 * a.baseScale; // 球体几何半径 × 缩放
+      for (let j = i + 1; j < bubbles3D.length; j++) {
+        const b = bubbles3D[j];
+        if (!b.mesh.visible) continue;
+        const rb = 22 * b.baseScale;
+        const dx = b.mesh.position.x - a.mesh.position.x;
+        const dy = b.mesh.position.y - a.mesh.position.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const minDist = (ra + rb) * 0.85; // 允许少量重叠（气泡半透明）
+        if (dist < minDist && dist > 0.1) {
+          const overlap = minDist - dist;
+          const nx = dx / dist;
+          const ny = dy / dist;
+          const push = overlap * 0.015; // 轻柔弹开力度
+          a.vx -= nx * push;
+          a.vy -= ny * push;
+          b.vx += nx * push;
+          b.vy += ny * push;
+        }
+      }
+    }
+  }
+
+  // Raycaster 检测
+  let hitBubble = null;
+
+  if (viewMode === 'random') {
+    // 随机模式下只检测当前展示的气泡
+    if (bubbles3D[randomIndex] && bubbles3D[randomIndex].mesh.visible) {
+      raycaster.setFromCamera(mouse3D, camera);
+      const intersects = raycaster.intersectObject(bubbles3D[randomIndex].mesh);
+      if (intersects.length > 0) {
+        hitBubble = bubbles3D[randomIndex];
+      }
+    }
+  } else {
+    // 全部模式：检测所有气泡
+    raycaster.setFromCamera(mouse3D, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+    for (let i = 0; i < intersects.length; i++) {
+      const obj = intersects[i].object;
+      if (obj.userData && obj.userData.bubble) {
+        hitBubble = obj.userData.bubble;
+        break;
+      }
+    }
+  }
+
+  if (hitBubble !== hoveredBubble) {
+    if (hoveredBubble) {
+      hoveredBubble.hovered = false;
+    }
+    hoveredBubble = hitBubble;
+    if (hitBubble) {
+      hitBubble.hovered = true;
+    }
+  }
+
+  // 更新文字标签
+  updateBubbleLabels();
+
+  // 渲染
+  renderer.render(scene, camera);
+
+  animationId = requestAnimationFrame(animate);
+}
+
+// ==================== 过滤逻辑 ====================
+function applyFilters() {
+  let result = rawCases;
+
+  // 搜索
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    result = result.filter(c =>
+      c.title.toLowerCase().includes(q) ||
+      c.content.toLowerCase().includes(q) ||
+      c.username.toLowerCase().includes(q) ||
+      (c.tag_list || []).some(t => t.toLowerCase().includes(q))
+    );
+  }
+
+  // 平台筛选
+  if (activeFilters.platform.size > 0) {
+    result = result.filter(c => activeFilters.platform.has(c.source_platform));
+  }
+
+  // 标签筛选
+  if (activeFilters.tag.size > 0) {
+    result = result.filter(c =>
+      (c.tag_list || []).some(t => activeFilters.tag.has(t))
+    );
+  }
+
+  filteredCases = result;
+
+  // 空状态
+  const emptyState = document.getElementById('emptyState');
+  if (result.length === 0) {
+    emptyState.classList.add('show');
+  } else {
+    emptyState.classList.remove('show');
+  }
+
+  createBubbles();
+
+  // 如果当前在随机模式且索引越界，重新随机选择
+  if (viewMode === 'random' && bubbles3D.length > 0) {
+    if (randomIndex >= bubbles3D.length) {
+      randomIndex = Math.floor(Math.random() * bubbles3D.length);
+    }
+    // 确保只有当前气泡可见
+    bubbles3D.forEach((b, i) => {
+      b.mesh.visible = (i === randomIndex);
+      if (i === randomIndex) {
+        b.mesh.position.set(0, 0, b.baseZ + 20);
+        b.mesh.material.uniforms.uOpacity.value = 0.95;
+      }
+    });
+  }
+}
+
+// ==================== 事件监听 ====================
+function setupEvents() {
+  bgCanvas = document.getElementById('bgCanvas');
+  bgCtx = bgCanvas.getContext('2d');
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    bgCanvas.width = width * window.devicePixelRatio;
+    bgCanvas.height = height * window.devicePixelRatio;
+    bgCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    isMobile = width <= 768;
+
+    if (camera && renderer) {
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+
+    if (scene) createBubbles();
+    createBgBubbles();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // 首次用户交互后标记，并尝试播放背景音乐
+  function onFirstInteraction() {
+    if (!hasUserInteracted) {
+      hasUserInteracted = true;
+      if (isSoundOn) initAudio();
+    }
+  }
+  window.addEventListener('mousedown', onFirstInteraction, { once: true });
+  window.addEventListener('touchstart', onFirstInteraction, { once: true });
+  window.addEventListener('keydown', onFirstInteraction, { once: true });
+}
+
+// ==================== 弹窗控制 ====================
+function openDetail(data) {
+  document.getElementById('detailTitle').textContent = data.title;
+  document.getElementById('detailContent').textContent = data.content;
+  document.getElementById('detailUser').textContent = data.username;
+  document.getElementById('detailLikes').textContent = data.likes;
+  document.getElementById('detailDifficulty').textContent = data.difficulty;
+  document.getElementById('detailPlatform').textContent = platformNames[data.source_platform] || data.source_platform;
+  document.getElementById('detailTags').innerHTML = (data.tag_list || []).map(t =>
+    `<span class="modal-tag">${t}</span>`
+  ).join('');
+  document.getElementById('detailLink').href = data.source_url;
+  document.getElementById('detailModal').classList.add('show');
+}
+
+function closeDetail() {
+  document.getElementById('detailModal').classList.remove('show');
+}
+
+function openSubmit() {
+  document.getElementById('submitModal').classList.add('show');
+}
+
+function closeSubmit() {
+  document.getElementById('submitModal').classList.remove('show');
+  // 清空表单
+  document.getElementById('subTitle').value = '';
+  document.getElementById('subDesc').value = '';
+  document.getElementById('subLink').value = '';
+  document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('selected'));
+}
+
+function handleSubmit() {
+  const title = document.getElementById('subTitle').value.trim();
+  if (!title) {
+    alert('请填写标题');
+    return;
+  }
+  const selectedTags = [];
+  document.querySelectorAll('.tag-option.selected').forEach(t => selectedTags.push(t.textContent));
+  // 模拟提交
+  alert(`「${title}」已提交！审核通过后将漂浮在灵感海洋中 🫧`);
+  closeSubmit();
+}
+
+// ==================== 随机高亮 ====================
+function randomInspire() {
+  if (bubbles3D.length === 0) return;
+  if (randomHighlight) {
+    bubbles3D.forEach(b => b.dimmed = false);
+    randomHighlight = null;
+    return;
+  }
+  const idx = Math.floor(Math.random() * bubbles3D.length);
+  randomHighlight = bubbles3D[idx];
+  bubbles3D.forEach(b => { b.dimmed = (b !== randomHighlight); });
+  randomHighlight.hovered = true;
+  setTimeout(() => { randomHighlight.hovered = false; }, 800);
+}
+
+// ==================== 模式切换 ====================
+function switchMode(mode) {
+  if (mode === viewMode) return;
+
+  viewMode = mode;
+
+  // 更新UI
+  document.querySelectorAll('.mode-option').forEach(opt => {
+    opt.classList.toggle('active', opt.dataset.mode === mode);
+  });
+
+  if (mode === 'random') {
+    // 随机选择一个已发布、审核通过的气泡索引
+    if (bubbles3D.length > 0) {
+      randomIndex = Math.floor(Math.random() * bubbles3D.length);
+    }
+    // 重置拖拽状态
+    randomDrag = {
+      isDragging: false,
+      startX: 0,
+      startY: 0,
+      currentX: 0,
+      bubbleX: 0,
+      velocityX: 0,
+      deformX: 1,
+      deformY: 1,
+      isTransitioning: false,
+      transitionDir: 0,
+      dragStartTime: 0,
+      hasMoved: false,
+    };
+    // 清除hover状态
+    if (hoveredBubble) {
+      hoveredBubble.hovered = false;
+      hoveredBubble = null;
+    }
+  } else {
+    // 全部模式：恢复所有气泡位置和可见性
+    bubbles3D.forEach(b => {
+      b.mesh.visible = true;
+      b.mesh.material.uniforms.uOpacity.value = 0.85;
+      b.mesh.position.set(b.baseX, b.baseY, b.baseZ);
+      b.mesh.scale.setScalar(b.baseScale);
+    });
+    randomDrag.isTransitioning = false;
+  }
+}
+
+// ==================== 随机模式过渡动画 ====================
+function startTransition(dir) {
+  if (randomDrag.isTransitioning || bubbles3D.length === 0) return;
+
+  randomDrag.isTransitioning = true;
+  randomDrag.transitionDir = dir;
+
+  // 当前气泡滑出动画（由Bubble3D.update处理）
+  // 短暂延迟后切换索引，新气泡从正中弹出
+  setTimeout(() => {
+    // 计算新索引：dir=1向右滑出显示下一个；dir=-1向左滑出显示上一个
+    let newIndex;
+    if (dir > 0) {
+      newIndex = (randomIndex + 1) % bubbles3D.length;
+    } else {
+      newIndex = (randomIndex - 1 + bubbles3D.length) % bubbles3D.length;
+    }
+
+    randomIndex = newIndex;
+
+    // 新气泡准备：从正中由小到大弹出
+    const newBubble = bubbles3D[randomIndex];
+    newBubble.mesh.visible = true;
+    newBubble.mesh.material.uniforms.uOpacity.value = 0.95;
+    newBubble.mesh.position.set(0, 0, newBubble.baseZ + 20);
+    newBubble.enterTime = Date.now(); // 触发进入弹动动画
+
+    // 重置randomDrag
+    randomDrag.bubbleX = 0;
+    randomDrag.velocityX = 0;
+    randomDrag.isTransitioning = false;
+    randomDrag.deformX = 1;
+    randomDrag.deformY = 1;
+  }, 200);
+}
+
+// ==================== UI 事件绑定 ====================
+function setupUI() {
+  // 搜索
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value.trim();
+    applyFilters();
+  });
+
+  // 筛选面板
+  const filterToggle = document.getElementById('filterToggle');
+  const filterPanel = document.getElementById('filterPanel');
+  filterToggle.addEventListener('click', () => {
+    filterPanel.classList.toggle('show');
+    filterToggle.classList.toggle('active');
+  });
+
+  // 筛选标签点击
+  document.querySelectorAll('.filter-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const type = tag.dataset.type;
+      const value = tag.dataset.value;
+      tag.classList.toggle('active');
+      if (tag.classList.contains('active')) {
+        activeFilters[type].add(value);
+      } else {
+        activeFilters[type].delete(value);
+      }
+      applyFilters();
+    });
+  });
+
+  // 重置筛选
+  document.getElementById('filterReset').addEventListener('click', () => {
+    activeFilters.platform.clear();
+    activeFilters.tag.clear();
+    document.querySelectorAll('.filter-tag.active').forEach(tag => tag.classList.remove('active'));
+    applyFilters();
+  });
+
+  // 模式切换开关
+  document.getElementById('modeToggle').addEventListener('click', e => {
+    const opt = e.target.closest('.mode-option');
+    if (!opt) return;
+    const mode = opt.dataset.mode;
+    if (mode && mode !== viewMode) {
+      if (!bgmAudio) initAudio();
+      switchMode(mode);
+    }
+  });
+
+  // 底部按钮
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    if (!bgmAudio) initAudio();
+    openSubmit();
+  });
+  document.getElementById('soundBtn').addEventListener('click', toggleSound);
+
+  // 投稿标签选择
+  document.querySelectorAll('.tag-option').forEach(opt => {
+    opt.addEventListener('click', () => opt.classList.toggle('selected'));
+  });
+
+  // 点击遮罩关闭弹窗
+  document.getElementById('detailModal').addEventListener('click', e => {
+    if (e.target.id === 'detailModal') closeDetail();
+  });
+  document.getElementById('submitModal').addEventListener('click', e => {
+    if (e.target.id === 'submitModal') closeSubmit();
+  });
+
+  // ESC关闭
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeDetail();
+      closeSubmit();
+      document.getElementById('filterPanel').classList.remove('show');
+      document.getElementById('filterToggle').classList.remove('active');
+    }
+  });
+}
+
+// ==================== 启动 ====================
+function init() {
+  filteredCases = [...rawCases];
+  setupEvents();
+  setupUI();
+  initThreeJS();   // 先初始化 Three.js 场景
+  applyFilters();  // 再创建气泡
+  animationId = requestAnimationFrame(animate);
+
+  // 预初始化音频元素（不播放，等待用户交互）
+  try {
+    bgmAudio = document.getElementById('bgmAudio');
+    if (bgmAudio) bgmAudio.volume = 0.2;
+  } catch(e) {}
+}
+
+// 页面加载完成后启动
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+// 将 HTML onclick 需要调用的函数暴露到全局（ES Module 不会自动全局化）
+window.closeDetail = closeDetail;
+window.closeSubmit = closeSubmit;
+window.handleSubmit = handleSubmit;
+window.toggleSound = toggleSound;
+window.openSubmit = openSubmit;
+window.openDetail = openDetail;
+</script>
+
+</body>
+</html>

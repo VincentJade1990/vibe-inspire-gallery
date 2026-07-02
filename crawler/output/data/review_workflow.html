@@ -302,6 +302,91 @@
     color: #666;
     margin-bottom: 5px;
   }
+
+  /* 新建案例模态框 */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #1a1a2e;
+    border: 1px solid rgba(0,255,255,0.2);
+    border-radius: 12px;
+    padding: 24px;
+    width: 90%;
+    max-width: 520px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .modal h3 {
+    color: #00d4ff;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+  .modal label {
+    font-size: 0.8rem;
+    color: #888;
+    display: block;
+    margin-bottom: 4px;
+    margin-top: 12px;
+  }
+  .modal input, .modal select, .modal textarea {
+    width: 100%;
+    padding: 8px 12px;
+    background: #0a0a15;
+    border: 1px solid rgba(0,255,255,0.2);
+    color: #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+  .modal textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+  .modal .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .modal .modal-actions button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .modal .btn-primary {
+    background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+    color: #fff;
+  }
+  .modal .btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: #ccc;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .btn-create {
+    background: linear-gradient(135deg, #00ff88, #00d4ff) !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    border: none !important;
+  }
+  .btn-import {
+    background: rgba(255,200,0,0.15) !important;
+    color: #ffc800 !important;
+    border: 1px solid rgba(255,200,0,0.4) !important;
+  }
+  .custom-badge {
+    background: rgba(123,44,191,0.3) !important;
+    color: #c084fc !important;
+  }
+
 </style>
 </head>
 <body>
@@ -323,6 +408,7 @@
   <button onclick="filterApproved()" id="btnApproved">有价值</button>
   <button onclick="filterRejected()" id="btnRejected">无价值</button>
   <button onclick="filterWithImages()" id="btnImages">有图片</button>
+  <button onclick="filterCustom()" id="btnCustom">自定义</button>
   <select onchange="filterByPost(this.value)">
     <option value="">所有帖子</option>
   </select>
@@ -331,6 +417,9 @@
   </div>
   <button onclick="expandAll()">展开全部</button>
   <button onclick="collapseAll()">收起全部</button>
+  <button onclick="openCreateModal()" class="btn-create">+ 新建案例</button>
+  <button onclick="document.getElementById('importFile').click()" class="btn-import">导入JSON</button>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="importCases(this)">
 </div>
 
 <div class="content" id="content"></div>
@@ -338,6 +427,41 @@
 <div class="export-bar">
   <div>已标记有价值: <span class="count" id="exportCount">0</span> 条</div>
   <button onclick="exportApproved()">导出审核结果 (JSON)</button>
+</div>
+
+
+<!-- 新建案例模态框 -->
+<div class="modal-overlay" id="createModal">
+  <div class="modal">
+    <h3>+ 新建灵感案例</h3>
+    <label>项目标题 *</label>
+    <input type="text" id="newTitle" placeholder="例如：AI健身教练">
+    <label>用户名 *</label>
+    <input type="text" id="newUsername" placeholder="例如：铁男momo君">
+    <label>评论内容 *</label>
+    <textarea id="newContent" placeholder="详细描述这个项目..."></textarea>
+    <label>点赞数</label>
+    <input type="number" id="newLikes" value="0" min="0">
+    <label>标签 (逗号分隔)</label>
+    <input type="text" id="newTags" placeholder="小程序,AI应用,教育...">
+    <label>难度</label>
+    <select id="newDifficulty">
+      <option value="零基础">零基础</option>
+      <option value="入门" selected>入门</option>
+      <option value="进阶">进阶</option>
+    </select>
+    <label>图片URL (每行一个，可选)</label>
+    <textarea id="newImages" placeholder="http://example.com/image1.jpg
+http://example.com/image2.jpg"></textarea>
+    <label>来源平台</label>
+    <input type="text" id="newPlatform" value="xiaohongshu">
+    <label>来源链接 (可选)</label>
+    <input type="text" id="newSourceUrl" placeholder="https://www.xiaohongshu.com/...">
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveNewCase()">创建案例</button>
+      <button class="btn-secondary" onclick="closeCreateModal()">取消</button>
+    </div>
+  </div>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -1854,6 +1978,29 @@ const postsData = [
 ];
 let reviewStatus = {};
 let editData = {};
+let customCases = []; // 手动创建和导入的案例
+
+// localStorage持久化
+function saveToStorage() {
+  localStorage.setItem('vibe_review_status', JSON.stringify(reviewStatus));
+  localStorage.setItem('vibe_edit_data', JSON.stringify(editData));
+  localStorage.setItem('vibe_custom_cases', JSON.stringify(customCases));
+}
+function loadFromStorage() {
+  try {
+    const rs = localStorage.getItem('vibe_review_status');
+    const ed = localStorage.getItem('vibe_edit_data');
+    const cc = localStorage.getItem('vibe_custom_cases');
+    if (rs) reviewStatus = JSON.parse(rs);
+    if (ed) editData = JSON.parse(ed);
+    if (cc) customCases = JSON.parse(cc);
+  } catch(e) {}
+}
+
+// 生成唯一ID
+function generateId() {
+  return 'custom_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 5);
+}
 
 function render() {
   const container = document.getElementById('content');
@@ -1863,7 +2010,19 @@ function render() {
   let reviewed = 0;
   let approved = 0;
 
-  postsData.forEach((post, postIdx) => {
+  // 合并原始帖子和自定义案例
+  const allPosts = [...postsData];
+  if (customCases.length > 0) {
+    allPosts.push({
+      post_url: '',
+      post_title: '自定义案例',
+      author: '手动创建/导入',
+      screenshot: '',
+      comments: customCases
+    });
+  }
+
+  allPosts.forEach((post, postIdx) => {
     const postEl = document.createElement('div');
     postEl.className = 'post-section';
     postEl.dataset.postId = postIdx;
@@ -1912,7 +2071,7 @@ function render() {
           <span class="username">${escapeHtml(c.username)}</span>
           <span class="likes">❤ ${c.likes}</span>
         </div>
-        <div class="content">${escapeHtml(c.content)}</div>
+        <div class="content">${escapeHtml(editInfo.content || c.content)}</div>
         ${imagesHtml}
         <div class="actions">
           <button class="btn-approve ${status==='approved'?'active':''}" onclick="approve('${c._id}')">✓ 有价值</button>
@@ -1922,6 +2081,8 @@ function render() {
         <div class="edit-panel" id="edit-${c._id}">
           <label>项目标题</label>
           <input type="text" id="title-${c._id}" value="${escapeHtml(editInfo.title || '')}" placeholder="输入项目标题...">
+          <label>评论内容（可直接改写）</label>
+          <textarea id="content-${c._id}" placeholder="评论原文...">${escapeHtml(editInfo.content || c.content)}</textarea>
           <label>标签 (逗号分隔)</label>
           <input type="text" id="tags-${c._id}" value="${escapeHtml((editInfo.tags || []).join(','))}" placeholder="小程序,AI应用,教育...">
           <label>难度</label>
@@ -1962,18 +2123,22 @@ function getFilteredComments(comments) {
     if (activeFilter === 'btnApproved' && status !== 'approved') return false;
     if (activeFilter === 'btnRejected' && status !== 'rejected') return false;
     if (activeFilter === 'btnImages' && (!c.images || c.images.length === 0)) return false;
-    if (searchVal && !c.content.toLowerCase().includes(searchVal) && !c.username.toLowerCase().includes(searchVal)) return false;
+    if (activeFilter === 'btnCustom' && !c._id.startsWith('custom_')) return false;
+    const searchContent = (editData[c._id]?.content || c.content).toLowerCase();
+    if (searchVal && !searchContent.includes(searchVal) && !c.username.toLowerCase().includes(searchVal)) return false;
     return true;
   });
 }
 
 function approve(id) {
   reviewStatus[id] = 'approved';
+  saveToStorage();
   render();
 }
 
 function reject(id) {
   reviewStatus[id] = 'rejected';
+  saveToStorage();
   render();
 }
 
@@ -1985,11 +2150,14 @@ function toggleEdit(id) {
 function saveEdit(id) {
   editData[id] = {
     title: document.getElementById('title-' + id).value,
+    content: document.getElementById('content-' + id).value,
     tags: document.getElementById('tags-' + id).value.split(',').map(t => t.trim()).filter(Boolean),
     difficulty: document.getElementById('diff-' + id).value,
     description: document.getElementById('desc-' + id).value
   };
+  saveToStorage();
   alert('已保存编辑');
+  render();
 }
 
 function filterAll() { setActive('btnAll'); render(); }
@@ -2028,6 +2196,7 @@ function escapeHtml(text) {
 
 function exportApproved() {
   const approved = [];
+  // 导出原始帖子中的已审核案例
   postsData.forEach(post => {
     post.comments.forEach(c => {
       if (reviewStatus[c._id] === 'approved') {
@@ -2035,7 +2204,7 @@ function exportApproved() {
         approved.push({
           id: c._id,
           title: edit.title || c.content.substring(0, 30) + '...',
-          content: c.content,
+          content: edit.content || c.content,
           username: c.username,
           likes: c.likes,
           images: c.images || [],
@@ -2048,6 +2217,26 @@ function exportApproved() {
         });
       }
     });
+  });
+  // 导出自定义案例
+  customCases.forEach(c => {
+    if (reviewStatus[c._id] === 'approved') {
+      const edit = editData[c._id] || {};
+      approved.push({
+        id: c._id,
+        title: edit.title || c.content.substring(0, 30) + '...',
+        content: edit.content || c.content,
+        username: c.username,
+        likes: c.likes,
+        images: c.images || [],
+        tag_list: edit.tags || [],
+        difficulty: edit.difficulty || '入门',
+        description: edit.description || '',
+        source_platform: edit.platform || 'custom',
+        source_url: edit.sourceUrl || '',
+        post_title: '自定义案例'
+      });
+    }
   });
 
   const blob = new Blob([JSON.stringify({
@@ -2064,8 +2253,114 @@ function exportApproved() {
   URL.revokeObjectURL(url);
 }
 
+// 新建案例模态框控制
+function openCreateModal() {
+  document.getElementById('createModal').classList.add('show');
+}
+function closeCreateModal() {
+  document.getElementById('createModal').classList.remove('show');
+  // 清空表单
+  document.getElementById('newTitle').value = '';
+  document.getElementById('newUsername').value = '';
+  document.getElementById('newContent').value = '';
+  document.getElementById('newLikes').value = '0';
+  document.getElementById('newTags').value = '';
+  document.getElementById('newImages').value = '';
+  document.getElementById('newPlatform').value = 'xiaohongshu';
+  document.getElementById('newSourceUrl').value = '';
+}
+function saveNewCase() {
+  const title = document.getElementById('newTitle').value.trim();
+  const username = document.getElementById('newUsername').value.trim();
+  const content = document.getElementById('newContent').value.trim();
+  if (!title || !username || !content) {
+    alert('请填写必填项：项目标题、用户名、评论内容');
+    return;
+  }
+  const images = document.getElementById('newImages').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const newCase = {
+    _id: generateId(),
+    _postId: 'custom',
+    username: username,
+    content: content,
+    likes: parseInt(document.getElementById('newLikes').value) || 0,
+    images: images,
+    time: new Date().toLocaleDateString('zh-CN'),
+    isReply: false
+  };
+  // 预填充编辑数据
+  editData[newCase._id] = {
+    title: title,
+    content: content,
+    tags: document.getElementById('newTags').value.split(',').map(t => t.trim()).filter(Boolean),
+    difficulty: document.getElementById('newDifficulty').value,
+    description: ''
+  };
+  customCases.push(newCase);
+  saveToStorage();
+  closeCreateModal();
+  render();
+  alert('案例创建成功！');
+}
+
+// 导入JSON
+function importCases(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      let cases = [];
+      if (data.cases && Array.isArray(data.cases)) {
+        cases = data.cases;
+      } else if (Array.isArray(data)) {
+        cases = data;
+      }
+      let imported = 0;
+      cases.forEach(c => {
+        const id = c.id || generateId();
+        // 检查是否已存在
+        const exists = customCases.find(x => x._id === id) || postsData.some(p => p.comments.some(x => x._id === id));
+        if (exists) return;
+        const newCase = {
+          _id: id,
+          _postId: 'custom',
+          username: c.username || '未知用户',
+          content: c.content || c.title || '',
+          likes: c.likes || 0,
+          images: c.images || [],
+          time: c.create_time || new Date().toLocaleDateString('zh-CN'),
+          isReply: false
+        };
+        customCases.push(newCase);
+        editData[id] = {
+          title: c.title || (c.content ? c.content.substring(0, 30) + '...' : '未命名'),
+          content: c.content || '',
+          tags: c.tag_list || [],
+          difficulty: c.difficulty || '入门',
+          description: c.description || ''
+        };
+        if (c.reviewed) reviewStatus[id] = 'approved';
+        imported++;
+      });
+      saveToStorage();
+      render();
+      alert(`成功导入 ${imported} 条案例！`);
+    } catch(err) {
+      alert('导入失败：' + err.message);
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// 自定义筛选
+function filterCustom() { setActive('btnCustom'); render(); }
+
 // 初始化
 function init() {
+  loadFromStorage();
   // 填充帖子选择器
   const select = document.querySelector('.controls select');
   postsData.forEach((post, i) => {

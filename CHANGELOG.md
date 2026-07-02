@@ -1,47 +1,47 @@
-# Vibe Coding 灵感库 - 演进日志
+# Changelog
 
-## v0.1 - 项目骨架搭建
-- 搭建前后端分离架构
-  - 前端：Vite + React + TypeScript + TailwindCSS + Framer Motion
-  - 后端：Node.js Express + 本地JSON存储
-  - 爬虫：Python3 + requests + BeautifulSoup4
-- 设计目录规范：`src/views`, `src/components`, `src/store`, `src/api`, `src/utils`
+## v0.8 - 2026-07-02
 
-## v0.2 - 爬虫模块开发
-- 实现多平台爬虫框架（config.py + utils.py + platforms/适配器）
-- 完成小红书、抖音、掘金、B站、X的爬虫适配
-- 输出标准化 `cases.json` 供前端渲染
-- 小红书爬取触发反爬（-412错误），部分平台使用Mock数据兜底
+### 启动页（landing.html）全面改版
+- 新增 WebGL Shader 气泡（Three.js）：彩虹色 Fresnel 边缘 + 流光效果 + 透明内核
+- 气泡尺寸 504px，相机距离同步调整，边缘效果清晰锐利
+- 主标题 "Vibe Bubble" 使用 `clamp(96px, 24vw, 240px)` 响应式大字号，紫蓝青渐变
+- 新增 Canvas 粒子气泡背景（上浮、摇摆、三层径向渐变、高光、描边）
+- "发现灵感"按钮与标题间距 300px，紫色渐变 hover 效果
+- 新增 "灵感气泡" logo + 右上角"项目介绍"入口
+- 呼吸动画周期 8s
 
-## v0.3 - 气泡Demo原型
-- 创建 `bubble_demo.html`：纯Canvas气泡沉浸体验
-- 46条小红书案例数据注入气泡
-- 实现基础交互：漂浮、碰撞、点击破碎、音频反馈
+### 灵感库页（gallery.html）改版
+- 去除右上角"已收录 46 个灵感"统计，替换为"项目介绍"入口
+- 背景气泡效果替换为启动页同款 Canvas 粒子
+- 背景音乐替换为本地 mp3，音量 20%，首次交互后自动播放
+- 底部背景文字去除
+- 气泡漂浮动作加强（速度 0.5~1.0，幅度 3~7）
+- 气泡间软碰撞检测（边缘轻弹开，可配置弹开力度）
+- 随机模式：气泡从正中弹出 + Back Ease Out 弹动效果
+- 随机模式气泡放大 1 倍（2.6x）
+- 随机模式左右滑动：250px 边缘触发 + 惯性自动切换 + 预显示下一个气泡
+- 滑动音效：向右 520Hz，向左 380Hz
 
-## v0.4 - 交互升级
-- 气泡改为完美圆形，移除白色外环
-- 简化气泡内容：仅显示项目标题（移除用户名、点赞数）
-- 新增鼠标交互：滑过扰动水流效果
-- 新增长按拖拽：气泡可被拖动，其他气泡被挤开
-- 移除hover效果
+### 新增项目介绍页（about.html）
+- 复用 detail.html 视觉体系：五彩干涉背景、玻璃拟态卡片
+- 内容包含：项目背景、目标用户、项目定位、开发者介绍、联系方式
+- 滚动入场动画（IntersectionObserver）
+- 联系链接：小红书、抖音、邮箱、微信
 
-## v0.5 - 数据质量与审核体系
-- 用户反馈：数据不符合预期、描述太简单、缺图片
-- 提出「本地JSON + 人工审核」方案，用户接受
-- 建立三级目录：`draft/` / `approved/` / `rejected/` / `screenshots/`
-- 重新抓取 post_01 完整评论（77条 + 图片URL）
-- 剩余11个链接触发反爬（300031），暂用旧文本数据
+### 链接更新
+- landing.html / gallery.html 的"项目介绍"入口统一指向 about.html
 
-## v0.6 - 审核工作台
-- 创建 `review_workflow.html`：暗色主题人工审核界面
-- 功能：筛选（全部/待审核/有价值/无价值/有图片）、搜索、帖子切换
-- 操作：有价值 / 无价值 / 编辑（标题/标签/难度/描述）
-- 图片灯箱预览、JSON导出
-- 注入137条评论供用户审核
-
-## v0.7 - 用户审核与Demo更新
-- 用户完成人工审核，导出 `approved_cases_2026-06-30.json`
-- 标注36条有价值评论
-- 7条含图片（28张），29条纯文本
-- `bubble_demo.html` 数据更新为36条用户审核版
-- 气泡大小按点赞数分层（高赞>20 / 中赞5-20 / 低赞<5）
+### 文件变更
+```
+crawler/output/
+  + about.html          (新增：项目介绍页)
+  + landing.html        (重写：WebGL 气泡 + 全新布局)
+  + gallery.html        (重写：粒子背景 + 碰撞 + 随机模式)
+  + detail.html         (重写：玻璃拟态详情页)
+  + index.html          (修改：重定向 landing.html)
+  + audio/bgm.mp3       (新增：背景音乐)
+  + data/cases.js       (新增：灵感数据)
+  + DEPLOY.md           (新增：部署指南)
+  ~ data/review_workflow.html (修改)
+```
