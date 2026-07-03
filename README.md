@@ -1,6 +1,6 @@
 # Vibe Coding 灵感库 (vibe-inspire-gallery)
 
-聚合全网社媒 Vibe Coding 创意案例浏览平台，双浏览交互模式练手项目。
+VibeBubble 是一个搜集和展示 AI 创作、Vibe Coding 和个人项目灵感 的实验性网站。
 
 ## 技术栈
 
