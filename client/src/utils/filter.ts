@@ -152,3 +152,4 @@ export function formatRelativeTime(dateString: string): string {
   if (diffDay < 365) return `${Math.floor(diffDay / 30)}个月前`;
   return `${Math.floor(diffDay / 365)}年前`;
 }
+export { formatNumber } from '@/utils/pagination';

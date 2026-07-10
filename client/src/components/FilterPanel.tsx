@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import type { SceneTag, Difficulty, SortBy, FilterOptions } from '@/types/case';
-import { DIFFICULTY_LABELS, DIFFICULTY_COLORS } from '@/utils/filter';
+import { DIFFICULTY_LABELS } from '@/utils/filter';
 
 interface FilterPanelProps {
   /** 当前筛选条件 */

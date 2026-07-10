@@ -26,7 +26,7 @@ import {
   DIFFICULTY_LABELS,
   DIFFICULTY_COLORS,
   formatRelativeTime,
-  formatNumber,
+
 } from '@/utils/filter';
 import StarRating from '@/components/StarRating';
 import CaseCard from '@/components/CaseCard';
