@@ -310,7 +310,7 @@ body {
 .mode-option:not(.active):hover {
   color: var(--text);
 }
-.sound-toggle {
+.sound-toggle-removed {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -324,12 +324,12 @@ body {
   transition: all 0.3s;
   backdrop-filter: blur(10px);
 }
-.sound-toggle:hover {
+.sound-toggle-removed:hover {
   border-color: var(--purple);
   background: rgba(168,85,247,0.15);
   color: var(--text);
 }
-.sound-toggle.muted {
+.sound-toggle-removed.muted {
   opacity: 0.4;
 }
 
@@ -605,7 +605,11 @@ body {
   font-weight: 600;
 }
 </style>
+  <script src="./auth.js"></script>
 </head>
+<body>
+  <!-- 用户登录状态（固定右上角） -->
+  <div id="authContainer" style="position:fixed;top:20px;right:24px;z-index:1000;"></div>
 <body>
 
 <!-- Three.js 渲染器容器 -->
@@ -640,14 +644,11 @@ body {
     <button class="filter-btn" id="filterToggle">筛选</button>
   </div>
   <div class="top-right">
-    <a href="about.html" class="top-nav-link">
+    <a href="index.html#developer" class="top-nav-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-      <span>项目介绍</span>
+      <span>关于开发者</span>
     </a>
-    <button class="sound-toggle" id="soundBtn" title="切换背景音乐">
-      <svg id="soundIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-      <svg id="soundIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-    </button>
+    <div id="authContainer"></div>
   </div>
 </div>
 
@@ -814,15 +815,18 @@ async function loadDataFromSupabase() {
     rawCases = data.map(item => ({
       id: item.id || '',
       title: item.title || '无标题',
+      summary: item.summary || '',
+      description: item.description || '',
       content: item.summary || item.description || '',
       username: item.author_name || '',
+      author_url: item.author_url || '',
       likes: item.like_count || 0,
       tag_list: Array.isArray(item.tags) ? item.tags : [],
-      difficulty: item.difficulty === 'beginner' ? '零基础' :
-                  item.difficulty === 'intermediate' ? '入门' :
-                  item.difficulty === 'advanced' ? '进阶' : '入门',
       source_platform: item.source_platform || 'other',
       source_url: item.source_url || '',
+      product_url: item.product_url || '',
+      project_status: item.project_status || '',
+      business_model: item.business_model || '',
       cover_image: item.cover_image_url || '',
       images: Array.isArray(item.gallery_images) && item.gallery_images.length > 0
         ? item.gallery_images
@@ -2212,7 +2216,6 @@ function setupUI() {
     if (!bgmAudio) initAudio();
     openSubmit();
   });
-  document.getElementById('soundBtn').addEventListener('click', toggleSound);
 
   // 投稿标签选择
   document.querySelectorAll('.tag-option').forEach(opt => {
