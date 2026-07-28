@@ -62,6 +62,16 @@ export interface CaseItem {
   description?: string;
   /** 用户平均评分 */
   avgRating?: number;
+  /** 项目状态 */
+  projectStatus?: string;
+  /** 商业模式 */
+  businessModel?: string;
+  /** 开发者主页 */
+  authorUrl?: string;
+  /** 产品链接 */
+  productUrl?: string;
+  /** 原始标签数组（未过滤的完整标签） */
+  tags?: string[];
 }
 
 /** 筛选条件接口 */

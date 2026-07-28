@@ -55,7 +55,12 @@ function mapRowToCaseItem(row: Record<string, unknown>): CaseItem {
     author: String(row.author_name || '') || undefined,
     publishTime: String(row.created_at || new Date().toISOString()),
     description: String(row.description || row.summary || ''),
-    avgRating: 0,
+    avgRating: typeof row.rating === "number" ? row.rating : 0,
+    projectStatus: String(row.project_status || ""),
+    businessModel: String(row.business_model || ""),
+    authorUrl: String(row.author_url || ""),
+    productUrl: String(row.product_url || ""),
+    tags: tags,
   };
 }
 
