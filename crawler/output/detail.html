@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="cache-buster" content="20260729-v2">
 <title>Vibe Bubble 灵感详情</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script type="importmap">
@@ -215,20 +214,24 @@ body::after {
 
 .bubble-title-overlay {
   position: absolute;
-  inset: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 45px;
+  padding: 30px 30px 35px;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.35), 0 0 50px rgba(168,85,247,0.25);
+  text-shadow: 0 2px 16px rgba(0,0,0,0.5), 0 0 40px rgba(168,85,247,0.35);
   line-height: 1.3;
   z-index: 2;
   pointer-events: none;
   letter-spacing: 0.5px;
+  background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%);
+  border-radius: 0 0 50% 50%;
 }
 
 /* 戳破后的碎片粒子 */
@@ -414,7 +417,7 @@ body::after {
 .content-section {
   max-width: 720px;
   margin: 0 auto;
-  padding: 20px 24px 80px;
+  padding: 12px 24px 60px;
   position: relative;
   z-index: 1;
 }
@@ -425,8 +428,8 @@ body::after {
   -webkit-backdrop-filter: blur(28px) saturate(1.6);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
-  padding: 32px;
-  margin-bottom: 20px;
+  padding: 24px;
+  margin-bottom: 12px;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.25),
     0 0 0 1px rgba(255, 255, 255, 0.02) inset,
@@ -983,8 +986,8 @@ body::after {
   }
 
   .bubble-title-overlay {
-    font-size: 18px;
-    padding: 30px;
+    font-size: 16px;
+    padding: 20px 20px 25px;
   }
 
   .action-bar {
@@ -1187,6 +1190,79 @@ body::after {
   transform: scale(1.08);
   filter: brightness(1.2) saturate(1.15);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== 覆盖 auth.js 登录按钮样式 ===== */
+#authContainer .auth-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 28px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(16px) saturate(1.2);
+  letter-spacing: 0.3px;
+}
+#authContainer .auth-login-btn:hover {
+  color: var(--text);
+  border-color: rgba(168,85,247,0.3);
+  background: rgba(168,85,247,0.1);
+}
+
+/* 登录后用户状态：去掉外围样式 */
+#authContainer .auth-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+#authContainer .auth-user-btn:hover {
+  color: var(--text);
+  background: none;
+}
+#authContainer .auth-user-btn .auth-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ===== 内容小标题 ===== */
+.content-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+}
+.content-subtitle .en {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 </style>
   <!-- 用户登录状态 -->
@@ -1891,21 +1967,8 @@ function renderPage(caseData) {
         <div class="bubble-wrapper ${liked ? 'liked' : ''}" id="bubbleWrapper">
           <div id="webglBubbleContainer">
             <canvas id="bubbleCanvas"></canvas>
+            <div class="bubble-title-overlay">${caseData.title}</div>
           </div>
-        </div>
-
-        <h1 style="font-size:22px;font-weight:700;text-align:center;margin-top:16px;color:var(--text);">${caseData.title}</h1>
-
-        ${caseData.username ? `
-        <div class="author-row">
-          <div class="author-avatar">${caseData.username[0]?.toUpperCase() || '?'}</div>
-          <span class="author-name">@${caseData.username}</span>
-        </div>
-        ` : ''}
-
-        <div class="meta-row">
-          <span>${platform} · ${formatTime(caseData.created_at)}</span>
-          <span>🔥 ${caseData.likes}° 热度</span>
         </div>
 
         <div class="action-bar">
@@ -1928,20 +1991,64 @@ function renderPage(caseData) {
     <!-- ====== 模块二：项目信息 ====== -->
     <section class="content-section">
       <div class="glass-card">
-        <div class="section-title">项目信息 <span class="en">Project Info</span></div>
+        <!-- 标题行：项目标题 + 评分 -->
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px;">
+          <h1 style="font-size:20px;font-weight:700;color:var(--text);line-height:1.4;flex:1;">${caseData.title}</h1>
+          ${ratingValue > 0 ? `
+          <div class="rating-display" style="flex-shrink:0;">
+            <div class="rating-bubbles">
+              ${ratingBubbles.map(state => {
+                const cls = state === 'full' ? 'rating-bubble active' : 'rating-bubble';
+                const style = state === 'full' ? '' : state === 'half' ? 'background:linear-gradient(90deg, rgba(168,85,247,0.6) 50%, rgba(255,255,255,0.08) 50%);' : 'background:rgba(255,255,255,0.08);';
+                return `<div class="${cls}" style="width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);${style}"></div>`;
+              }).join('')}
+            </div>
+            <span class="rating-score-text">${ratingValue.toFixed(1)}</span>
+            <span class="rating-max">/ 10</span>
+          </div>
+          ` : ''}
+        </div>
 
-        ${summaryHtml ? `<div style="margin-bottom:20px;">${summaryHtml}</div>` : ''}
-        ${tagsHtml ? `<div style="margin-bottom:20px;">${tagsHtml}</div>` : ''}
-        ${ratingDisplayHtml ? `<div style="margin-bottom:20px;">${ratingDisplayHtml}</div>` : ''}
-        ${imagesHtml ? `<div style="margin-bottom:20px;">${imagesHtml}</div>` : ''}
+        <!-- 项目简介 -->
+        ${summaryHtml}
 
-        ${(statusHtml || businessHtml) ? `
-        <div class="meta-grid">
-          ${statusHtml}
-          ${businessHtml}
+        <!-- 分类标签 -->
+        ${tagsHtml ? `
+        <div style="margin-top:16px;">
+          <div class="content-subtitle">分类标签 <span class="en">Tags</span></div>
+          ${tagsHtml}
         </div>
         ` : ''}
 
+        <!-- 项目状态 -->
+        ${statusHtml ? `
+        <div style="margin-top:16px;">
+          <div class="content-subtitle">项目状态 <span class="en">Status</span></div>
+          <div class="meta-grid" style="margin-bottom:0;">
+            ${statusHtml}
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- 商业模式 -->
+        ${businessHtml ? `
+        <div style="margin-top:16px;">
+          <div class="content-subtitle">商业模式 <span class="en">Business Model</span></div>
+          <div class="meta-grid" style="margin-bottom:0;">
+            ${businessHtml}
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- 项目图片 -->
+        ${imagesHtml ? `
+        <div style="margin-top:16px;">
+          <div class="content-subtitle">项目图片 <span class="en">Project Images</span></div>
+          ${imagesHtml}
+        </div>
+        ` : ''}
+
+        <!-- 详细描述 -->
         ${descHtml}
       </div>
     </section>
