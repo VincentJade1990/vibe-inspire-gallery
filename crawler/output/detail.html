@@ -1189,6 +1189,8 @@ body::after {
   transform: scale(1.08);
   filter: brightness(1.15) saturate(1.1);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 外发光 */
+  box-shadow: 0 0 60px rgba(168,85,247,0.35), 0 0 120px rgba(236,72,153,0.15), inset 0 0 30px rgba(168,85,247,0.1);
 }
 
 /* ===== 气泡弹动动画 ===== */
@@ -1984,7 +1986,7 @@ function renderPage(caseData) {
 
         <div class="action-bar">
           <button class="action-btn ${liked ? 'liked' : ''}" id="likeBtn" title="给气泡充气">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             点亮 <span class="count" id="likeCount">${likeCount}</span>
           </button>
           <button class="action-btn" id="favBtn" title="收藏灵感">
@@ -2121,20 +2123,29 @@ function bindEvents(caseData) {
     const newLiked = !liked;
     setLiked(caseData.id, newLiked);
 
-    // 弹动动效
+    // 弹动动效 + 气泡 liked 状态切换
     const wrapper = document.getElementById('bubbleWrapper');
     if (wrapper) {
       wrapper.classList.add('bouncing');
       setTimeout(() => wrapper.classList.remove('bouncing'), 550);
+      if (newLiked) {
+        wrapper.classList.add('liked');
+      } else {
+        wrapper.classList.remove('liked');
+      }
     }
 
     if (newLiked) {
       playInflateSound();
       setWebGLBubbleScale(1.18);
       likeBtn.classList.add('liked');
+      // 换成实心火花图标
+      likeBtn.querySelector('svg').setAttribute('fill', 'currentColor');
     } else {
       setWebGLBubbleScale(1.0);
       likeBtn.classList.remove('liked');
+      // 换回空心闪电图标
+      likeBtn.querySelector('svg').setAttribute('fill', 'none');
     }
 
     const baseCount = caseData.likes;
