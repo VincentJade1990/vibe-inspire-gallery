@@ -1045,6 +1045,148 @@ body::after {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* ===== 返回按钮 ===== */
+.back-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 28px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(16px) saturate(1.2);
+  z-index: 200;
+  letter-spacing: 0.3px;
+}
+.back-btn:hover {
+  color: var(--text);
+  border-color: rgba(168,85,247,0.3);
+  background: rgba(168,85,247,0.1);
+}
+
+/* ===== 头像+昵称 ===== */
+.author-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.author-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+.author-name {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* ===== 平台/时间/热度 ===== */
+.meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.meta-row svg {
+  width: 14px;
+  height: 14px;
+  vertical-align: -2px;
+  margin-right: 4px;
+}
+
+/* ===== 模块中英文标题 ===== */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-title .en {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+  -webkit-text-fill-color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===== 项目图片 - 方形4列 ===== */
+.project-images-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.project-images-grid .project-image {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 12px;
+}
+@media (max-width: 768px) {
+  .project-images-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* ===== 评分展示（项目信息模块内） ===== */
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rating-display .rating-bubbles {
+  display: flex;
+  gap: 6px;
+}
+.rating-display .rating-score-text {
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.rating-display .rating-max {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* 点亮时气泡放大+光晕效果 */
+.bubble-wrapper.liked {
+  transform: scale(1.08);
+  filter: brightness(1.2) saturate(1.15);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
 </style>
   <!-- 用户登录状态 -->
   <div id="authContainer" style="position:fixed;top:20px;right:24px;z-index:100;"></div>
@@ -1145,7 +1287,9 @@ async function loadDataFromSupabase() {
       cover_image: item.cover_image_url || '',
       images: Array.isArray(item.gallery_images) && item.gallery_images.length > 0
         ? item.gallery_images
-        : (item.cover_image_url ? [item.cover_image_url] : [])
+        : (item.cover_image_url ? [item.cover_image_url] : []),
+      rating: typeof item.rating === 'number' ? item.rating : 0,
+      created_at: item.created_at || '',
     }));
 
     console.log(`[Supabase] 成功加载 ${allCases.length} 条灵感数据`);
@@ -1669,48 +1813,65 @@ function renderPage(caseData) {
     ? `<div class="meta-item"><span class="meta-label">商业模式</span><span class="meta-value">${BUSINESS_MAP[caseData.business_model] || caseData.business_model}</span></div>`
     : '';
 
-  // 项目图片 HTML（无图则不显示）
+  // 项目图片 HTML（无图则不显示，方形4列）
   const imagesHtml = (caseData.images && caseData.images.length > 0)
-    ? `<div class="glass-card">
-        <h2>项目图片</h2>
-        <div class="project-images">
+    ? `<div class="project-images-grid">
           ${caseData.images.map(img => `<img src="${img}" alt="项目截图" class="project-image" loading="lazy">`).join('')}
-        </div>
-      </div>`
+        </div>`
     : '';
 
   // 项目简介 HTML（无内容则不显示）
   const summaryHtml = caseData.summary
-    ? `<div class="glass-card">
-        <h2>项目简介</h2>
-        <p class="description-text">${caseData.summary}</p>
-        ${tagsHtml}
-      </div>`
+    ? `<p class="description-text">${caseData.summary}</p>`
     : '';
 
   // 详细描述 HTML（无内容则不显示）
   const descHtml = caseData.description
-    ? `<div class="glass-card">
-        <h2>详细描述</h2>
-        <p class="description-text">${caseData.description}</p>
+    ? `<p class="description-text" style="margin-top:16px;">${caseData.description}</p>`
+    : '';
+
+  // 评分展示 HTML（5气泡10分制）
+  const ratingValue = Math.min(10, Math.max(0, caseData.rating || 0));
+  const ratingBubbles = [];
+  for (let i = 0; i < 5; i++) {
+    const bubbleVal = ratingValue - i * 2;
+    let state = 'empty';
+    if (bubbleVal >= 2) state = 'full';
+    else if (bubbleVal >= 1) state = 'half';
+    ratingBubbles.push(state);
+  }
+  const ratingDisplayHtml = ratingValue > 0
+    ? `<div class="meta-item" style="grid-column:1/-1;">
+        <span class="meta-label">项目评分</span>
+        <div class="rating-display">
+          <div class="rating-bubbles">
+            ${ratingBubbles.map(state => {
+              const cls = state === 'full' ? 'rating-bubble active' : 'rating-bubble';
+              const style = state === 'full' ? '' : state === 'half' ? 'background:linear-gradient(90deg, rgba(168,85,247,0.6) 50%, rgba(255,255,255,0.08) 50%);' : 'background:rgba(255,255,255,0.08);';
+              return `<div class="${cls}" style="width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);${style}"></div>`;
+            }).join('')}
+          </div>
+          <span class="rating-score-text">${ratingValue.toFixed(1)}</span>
+          <span class="rating-max">/ 10</span>
+        </div>
       </div>`
     : '';
 
-  // 开发者信息模块（所有字段无值则整个模块不显示）
+  // 格式化时间
+  function formatTime(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const now = new Date();
+    const diff = Math.floor((now - d) / 1000);
+    if (diff < 60) return '刚刚';
+    if (diff < 3600) return Math.floor(diff / 60) + '分钟前';
+    if (diff < 86400) return Math.floor(diff / 3600) + '小时前';
+    if (diff < 604800) return Math.floor(diff / 86400) + '天前';
+    return d.toLocaleDateString('zh-CN');
+  }
+
+  // 开发者信息 HTML
   const hasDeveloperInfo = caseData.username || caseData.author_url || caseData.source_url || caseData.product_url;
-  const developerHtml = hasDeveloperInfo ? `
-    <section class="content-section">
-      <div class="glass-card">
-        <h2>开发者信息</h2>
-        <div class="meta-grid">
-          ${caseData.username ? `<div class="meta-item"><span class="meta-label">开发者</span><span class="meta-value">${caseData.username}</span></div>` : ''}
-          ${caseData.author_url ? `<div class="meta-item"><span class="meta-label">开发者主页</span><span class="meta-value"><a href="${caseData.author_url}" target="_blank" rel="noopener">点击访问 &rarr;</a></span></div>` : ''}
-          ${caseData.source_url ? `<div class="meta-item"><span class="meta-label">来源URL</span><span class="meta-value"><a href="${caseData.source_url}" target="_blank" rel="noopener">点击查看 &rarr;</a></span></div>` : ''}
-          ${caseData.product_url ? `<div class="meta-item"><span class="meta-label">产品链接</span><span class="meta-value"><a href="${caseData.product_url}" target="_blank" rel="noopener">点击体验 &rarr;</a></span></div>` : ''}
-        </div>
-      </div>
-    </section>
-  ` : '';
 
   app.innerHTML = `
     <!-- 漂浮背景气泡 -->
@@ -1720,14 +1881,30 @@ function renderPage(caseData) {
 
     <!-- ====== 模块一：头部 ====== -->
     <section class="hero-section">
-      <a href="./gallery.html" class="close-btn" title="返回画廊">&times;</a>
+      <a href="./gallery.html" class="back-btn" title="返回画廊">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        返回
+      </a>
 
       <div class="bubble-container">
-        <div class="bubble-wrapper" id="bubbleWrapper">
+        <div class="bubble-wrapper ${liked ? 'liked' : ''}" id="bubbleWrapper">
           <div id="webglBubbleContainer">
             <canvas id="bubbleCanvas"></canvas>
-            <div class="bubble-title-overlay">${caseData.title}</div>
           </div>
+        </div>
+
+        <h1 style="font-size:22px;font-weight:700;text-align:center;margin-top:16px;color:var(--text);">${caseData.title}</h1>
+
+        ${caseData.username ? `
+        <div class="author-row">
+          <div class="author-avatar">${caseData.username[0]?.toUpperCase() || '?'}</div>
+          <span class="author-name">@${caseData.username}</span>
+        </div>
+        ` : ''}
+
+        <div class="meta-row">
+          <span>${platform} · ${formatTime(caseData.created_at)}</span>
+          <span>🔥 ${caseData.likes}° 热度</span>
         </div>
 
         <div class="action-bar">
@@ -1735,23 +1912,10 @@ function renderPage(caseData) {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
             点亮 <span class="count" id="likeCount">${likeCount}</span>
           </button>
-          <button class="action-btn " id="favBtn" title="收藏灵感">
+          <button class="action-btn" id="favBtn" title="收藏灵感">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
             <span id="favText">收藏</span>
           </button>
-          <div class="rating-module" id="ratingModule" title="点击气泡评分">
-            <div class="rating-bubbles" id="ratingBubbles">
-              <div class="rating-bubble" data-rating="1"></div>
-              <div class="rating-bubble" data-rating="2"></div>
-              <div class="rating-bubble" data-rating="3"></div>
-              <div class="rating-bubble" data-rating="4"></div>
-              <div class="rating-bubble" data-rating="5"></div>
-            </div>
-            <div class="rating-info">
-              <span class="rating-score" id="ratingScore">--</span>
-              <span class="rating-count" id="ratingCount">0人评分</span>
-            </div>
-          </div>
           <button class="action-btn" id="shareBtn" title="分享灵感">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
             分享
@@ -1762,26 +1926,39 @@ function renderPage(caseData) {
 
     <!-- ====== 模块二：项目信息 ====== -->
     <section class="content-section">
-      ${summaryHtml}
-
-      <!-- 项目状态和商业模式 -->
-      ${(statusHtml || businessHtml) ? `
       <div class="glass-card">
-        <h2>项目信息</h2>
+        <div class="section-title">项目信息 <span class="en">Project Info</span></div>
+
+        ${summaryHtml ? `<div style="margin-bottom:20px;">${summaryHtml}</div>` : ''}
+        ${tagsHtml ? `<div style="margin-bottom:20px;">${tagsHtml}</div>` : ''}
+        ${ratingDisplayHtml ? `<div style="margin-bottom:20px;">${ratingDisplayHtml}</div>` : ''}
+        ${imagesHtml ? `<div style="margin-bottom:20px;">${imagesHtml}</div>` : ''}
+
+        ${(statusHtml || businessHtml) ? `
         <div class="meta-grid">
           ${statusHtml}
           ${businessHtml}
         </div>
+        ` : ''}
+
+        ${descHtml}
       </div>
-      ` : ''}
-
-      ${imagesHtml}
-
-      ${descHtml}
     </section>
 
     <!-- ====== 模块三：开发者信息 ====== -->
-    ${developerHtml}
+    ${hasDeveloperInfo ? `
+    <section class="content-section">
+      <div class="glass-card">
+        <div class="section-title">开发者信息 <span class="en">Developer Info</span></div>
+        <div class="meta-grid">
+          ${caseData.username ? `<div class="meta-item"><span class="meta-label">开发者</span><span class="meta-value">${caseData.username}</span></div>` : ''}
+          ${caseData.author_url ? `<div class="meta-item"><span class="meta-label">开发者主页</span><span class="meta-value"><a href="${caseData.author_url}" target="_blank" rel="noopener">点击访问 &rarr;</a></span></div>` : ''}
+          ${caseData.source_url ? `<div class="meta-item"><span class="meta-label">来源URL</span><span class="meta-value"><a href="${caseData.source_url}" target="_blank" rel="noopener">点击查看 &rarr;</a></span></div>` : ''}
+          ${caseData.product_url ? `<div class="meta-item"><span class="meta-label">产品链接</span><span class="meta-value"><a href="${caseData.product_url}" target="_blank" rel="noopener">点击体验 &rarr;</a></span></div>` : ''}
+        </div>
+      </div>
+    </section>
+    ` : ''}
 
     <!-- 评论区 -->
     <section class="comments-section">
@@ -1801,8 +1978,7 @@ function renderPage(caseData) {
   // 初始化收藏按钮状态
   initFavoriteBtn(caseData.id);
 
-  // 初始化评分模块
-  initRatingModule(caseData.id);
+  // 评分模块已移到项目信息展示区（只读展示）
 
   // 绑定事件
   bindEvents(caseData);
@@ -1938,13 +2114,21 @@ function bindEvents(caseData) {
     openShareModal(caseData);
   });
 
-  // 评论提交
+  // 评论提交（需登录）
   submitComment.addEventListener('click', () => {
+    if (!requireAuth()) return;
     const content = commentInput.value.trim();
     if (!content) return;
     addComment(caseData.id, content);
     commentInput.value = '';
     renderComments(caseData.id);
+  });
+
+  // 评论输入框点击时也检查登录
+  commentInput.addEventListener('focus', () => {
+    if (!requireAuth()) {
+      commentInput.blur();
+    }
   });
 
   commentInput.addEventListener('keypress', (e) => {
