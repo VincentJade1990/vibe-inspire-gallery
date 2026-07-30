@@ -1421,6 +1421,7 @@ uniform vec3 uColor1;
 uniform vec3 uColor2;
 uniform vec3 uColor3;
 uniform float uOpacity;
+uniform float uBrightness;
 
 varying vec3 vNormal;
 varying vec3 vPosition;
@@ -1487,6 +1488,7 @@ let webglRenderer = null;
 let webglCamera = null;
 let webglAnimId = null;
 let isWebglPopped = false;
+let webglTargetBrightness = 0.5; // 目标亮度（未点亮0.5，点亮1.0）
 
 /**
  * 初始化 WebGL 气泡（复用 gallery Shader）
@@ -1517,7 +1519,8 @@ function initWebGLBubble() {
       uColor1: { value: new THREE.Vector3(...palette[0]) },
       uColor2: { value: new THREE.Vector3(...palette[1]) },
       uColor3: { value: new THREE.Vector3(...palette[2]) },
-      uOpacity: { value: 0.9 }
+      uOpacity: { value: 0.9 },
+      uBrightness: { value: 0.5 }
     },
     transparent: true,
     side: THREE.FrontSide,
@@ -1551,6 +1554,10 @@ function initWebGLBubble() {
     const t = (performance.now() - startTime) * 0.001;
     material.uniforms.uTime.value = t;
 
+    // 亮度渐变（每帧向目标值靠近）
+    const currentBrightness = material.uniforms.uBrightness.value;
+    material.uniforms.uBrightness.value = currentBrightness + (webglTargetBrightness - currentBrightness) * 0.08;
+
     // 轻微漂浮（极小幅度，不超出圆形容器）
     mesh.position.x = Math.sin(t * 0.5) * 0.6;
     mesh.position.y = Math.cos(t * 0.4) * 0.5;
@@ -1559,6 +1566,13 @@ function initWebGLBubble() {
     webglAnimId = requestAnimationFrame(animate);
   }
   animate();
+}
+
+/**
+ * 设置 WebGL 气泡亮度（点亮/熄灭）
+ */
+function setWebGLBubbleBrightness(brightness) {
+  webglTargetBrightness = brightness;
 }
 
 /**
@@ -2144,11 +2158,13 @@ function bindEvents(caseData) {
     if (newLiked) {
       playInflateSound();
       setWebGLBubbleScale(1.18);
+      setWebGLBubbleBrightness(1.0);
       likeBtn.classList.add('liked');
       // 换成实心火花图标
       likeBtn.querySelector('svg').setAttribute('fill', 'currentColor');
     } else {
       setWebGLBubbleScale(1.0);
+      setWebGLBubbleBrightness(0.5);
       likeBtn.classList.remove('liked');
       // 换回空心闪电图标
       likeBtn.querySelector('svg').setAttribute('fill', 'none');
@@ -2434,6 +2450,8 @@ async function init() {
   renderPage(caseData);
   generateBackgroundEffects();
   initWebGLBubble();
+  // 页面加载时根据已点亮状态设置亮度
+  setWebGLBubbleBrightness(isLiked(caseData.id) ? 1.0 : 0.5);
 }
 
 /**
