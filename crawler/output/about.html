@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>关于 Vibe Bubble</title>
+<title>关于开发者 | Vibe Bubble</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ===== CSS 变量与基础重置 ===== */
@@ -132,7 +132,7 @@ body::after {
 
 /* ===== 页面容器 ===== */
 .page-container {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
   padding: 100px 24px 120px;
   position: relative;
@@ -149,39 +149,66 @@ body::after {
 /* ===== Hero 区域 ===== */
 .hero {
   text-align: center;
-  padding: 60px 0 80px;
+  padding: 40px 0 70px;
 }
 
-.hero-title {
-  font-size: clamp(48px, 10vw, 96px);
+.hero-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  background: radial-gradient(circle at 35% 35%, rgba(200,180,255,0.9), rgba(150,100,255,0.5) 40%, rgba(80,40,180,0.3) 70%, transparent 100%);
+  box-shadow: 0 0 30px rgba(150,100,255,0.3), inset 0 0 15px rgba(255,255,255,0.15);
+  position: relative;
+}
+
+.hero-avatar::after {
+  content: '';
+  position: absolute;
+  top: 12px; left: 12px;
+  width: 24px; height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.6), transparent 70%);
+  transform: rotate(-30deg);
+}
+
+.hero-name {
+  font-size: clamp(36px, 8vw, 64px);
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 12px;
 }
 
-.hero-title span {
+.hero-name span {
   background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 30%, #60a5fa 60%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.hero-subtitle {
-  font-size: 18px;
+.hero-title-text {
+  font-size: 17px;
   color: var(--text-dim);
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.hero-tagline {
+  font-size: 15px;
+  color: var(--text-muted);
   font-weight: 300;
-  letter-spacing: 0.5px;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .hero-line {
   width: 60px;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(168,85,247,0.5), transparent);
-  margin: 48px auto 0;
+  margin: 40px auto 0;
 }
 
 /* ===== 内容卡片 ===== */
@@ -265,7 +292,7 @@ body::after {
 }
 
 .card-body p {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .card-body p:last-child {
@@ -277,32 +304,211 @@ body::after {
   font-weight: 500;
 }
 
-/* 列表 */
-.card-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.card-list li {
+/* ===== 经历时间线 ===== */
+.timeline {
   position: relative;
-  padding-left: 20px;
-  margin-bottom: 14px;
-  color: var(--text-dim);
-  font-size: 15px;
-  line-height: 1.7;
+  padding-left: 28px;
 }
 
-.card-list li::before {
+.timeline::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 10px;
-  width: 6px;
-  height: 6px;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(168,85,247,0.4), rgba(236,72,153,0.2), rgba(59,130,246,0.1), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 36px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 6px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
+  background: var(--bg-deep);
+  border: 2px solid var(--purple);
+  box-shadow: 0 0 10px rgba(168,85,247,0.3);
+}
+
+.timeline-period {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.timeline-company {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.timeline-role {
+  font-size: 13px;
+  color: var(--purple);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.timeline-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.timeline-desc .highlight {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ===== 技能标签 ===== */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text-dim);
+  transition: var(--transition);
+}
+
+.skill-tag:hover {
+  color: var(--text);
+  border-color: rgba(168,85,247,0.3);
+  background: rgba(168,85,247,0.08);
+}
+
+.skill-tag.purple { border-color: rgba(168,85,247,0.2); color: #c4b5fd; }
+.skill-tag.pink { border-color: rgba(236,72,153,0.2); color: #f9a8d4; }
+.skill-tag.blue { border-color: rgba(59,130,246,0.2); color: #93c5fd; }
+.skill-tag.cyan { border-color: rgba(6,182,212,0.2); color: #67e8f9; }
+
+/* ===== 成就亮点 ===== */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.highlight-item {
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.highlight-item:hover {
+  border-color: rgba(168,85,247,0.2);
+  background: rgba(168,85,247,0.04);
+}
+
+.highlight-number {
+  font-size: 28px;
+  font-weight: 800;
   background: linear-gradient(135deg, var(--purple), var(--pink));
-  opacity: 0.7;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.highlight-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* ===== 教育背景 ===== */
+.edu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  margin-bottom: 12px;
+  transition: var(--transition);
+}
+
+.edu-item:last-child {
+  margin-bottom: 0;
+}
+
+.edu-item:hover {
+  border-color: rgba(168,85,247,0.2);
+  background: rgba(168,85,247,0.04);
+}
+
+.edu-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(59,130,246,0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.edu-icon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--purple);
+  opacity: 0.8;
+}
+
+.edu-info {
+  flex: 1;
+}
+
+.edu-school {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.edu-degree {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.edu-period {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.edu-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  line-height: 1.7;
 }
 
 /* 联系链接 */
@@ -360,11 +566,12 @@ body::after {
 @media (max-width: 640px) {
   .nav-bar { padding: 16px 20px; }
   .page-container { padding: 90px 20px 80px; }
-  .hero { padding: 40px 0 60px; }
-  .hero-subtitle { font-size: 16px; }
+  .hero { padding: 30px 0 50px; }
   .glass-card { padding: 28px 24px; }
   .card-title { font-size: 20px; }
   .contact-grid { grid-template-columns: 1fr; }
+  .highlights { grid-template-columns: 1fr; }
+  .edu-item { flex-direction: column; gap: 10px; }
 }
 </style>
 </head>
@@ -387,60 +594,160 @@ body::after {
 
   <!-- Hero -->
   <section class="hero">
-    <h1 class="hero-title"><span>Vibe Bubble</span></h1>
-    <p class="hero-subtitle">一个收集真实 Vibe Coding 案例的灵感库<br>帮你发现灵感，动手实现你自己的小项目</p>
+    <div class="hero-avatar"></div>
+    <h1 class="hero-name"><span>玉绍祖</span></h1>
+    <p class="hero-title-text">高级产品体验设计师</p>
+    <p class="hero-tagline">腾讯 ISUX → 字节跳动剪映 → TikTok Design → AI 实验室<br>8 年产品体验设计经验，正在探索 AI 时代的第二成长曲线</p>
     <div class="hero-line"></div>
   </section>
 
-  <!-- 关于项目 -->
+  <!-- 关于我 -->
   <section class="section">
     <div class="glass-card" data-animate>
-      <div class="card-label">About</div>
+      <div class="card-label">About Me</div>
+      <h2 class="card-title">关于我</h2>
+      <div class="card-body">
+        <p>你好，我是<strong>玉绍祖</strong>，一名拥有 8 年经验的高级产品体验设计师。</p>
+        <p>我曾在<strong>腾讯 ISUX</strong> 参与QQ增值、QQ支付等社交娱乐创新业务，在<strong>字节跳动剪映团队</strong>负责多平台工具设计与团队管理，在 <strong>TikTok Design</strong> 推进国际化创作工具体验优化。目前在<strong>人工智能与数字经济广东省实验室</strong>，负责 AI 大模型产品的整体产品规划和设计。</p>
+        <p>我关注内容创作工具、AI 创新产品、用户体验和数字化创新。现在，我正在重新思考自己在 AI 时代的第二成长曲线：如何把产品设计经验、AI 工具、自媒体表达和个人长期成长方向结合起来，真正做出一些有价值的小产品。</p>
+        <p><strong>VibeBubble</strong> 就是这个过程中的一个小实验。我希望通过它跑通一次从 idea、设计、开发、上线到持续更新的完整流程，也借此观察普通人如何使用 AI 创造作品。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 工作经历 -->
+  <section class="section">
+    <div class="glass-card" data-animate>
+      <div class="card-label">Experience</div>
+      <h2 class="card-title">工作经历</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-period">2024.03 - 至今</div>
+          <div class="timeline-company">人工智能与数字经济广东省实验室</div>
+          <div class="timeline-role">AI大模型与智能认知研究中心 · 主任工程师</div>
+          <div class="timeline-desc">
+            负责团队 <span class="highlight">AI 心理健康、脑电头环和智能眼镜</span>等自研产品的整体产品规划和设计，搭建完整的产品体验链路，提升产品的专业度和可用性，推进产品应用转化落地。跟进团队 ToG、To央国企等外部项目，负责业务对接、需求沟通、功能梳理、研发项目管理等工作，和团队共同探索 AI 大模型在各行业的应用解决方案。
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">2023.01 - 2023.12</div>
+          <div class="timeline-company">字节跳动 · TikTok Design</div>
+          <div class="timeline-role">高级产品体验设计师</div>
+          <div class="timeline-desc">
+            <span class="highlight">创作工具 POC：</span>跟进 TikTok 团队国际化社区创作工具体验设计，提升对欧美、日本、东南亚地区用户习惯及产品设计认知，推进体验优化专项，探索创新出圈功能，提升用户的投稿转化和内容品质。<br><br>
+            <span class="highlight">全链路设计：</span>完成编辑器交互到 UI 全流程设计，把控编辑器包括交互视觉及动效细节产出，提升对海外产品和用户的设计认知，规范化团队协作流程及设计组件。
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">2020.02 - 2023.01</div>
+          <div class="timeline-company">字节跳动 · 剪映</div>
+          <div class="timeline-role">高级产品体验设计师 · Team Leader</div>
+          <div class="timeline-desc">
+            <span class="highlight">剪映多平台工具：</span>独立负责移动端高阶剪辑能力、重点模块迭代、垂类工具交互设计，搭建剪映多平台工具框架（Mac、Windows、Pad、Web）。一年内实现移动端 <span class="highlight">DAU 400万→2000万</span>，专业版 <span class="highlight">WAU 0→800万</span>的数据增长。<br><br>
+            <span class="highlight">剪映 To B 项目：</span>从 0 到 1 搭建剪映多端云盘，跟进多端同步、企业小组、团队协作审片等功能，探索 AI 能力在内容创作链路中的使用场景，初步实现剪映初期商业变现。<br><br>
+            <span class="highlight">团队管理：</span>2年零3月团队管理经验，管理团队成员 12 人。参与影像 UED 团队从 4 人到 40+ 人的搭建，offer 候选人 20+。组建工具线设计团队，规划人才梯队，明确团队目标及设计专项方向。
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">2016.04 - 2020.02</div>
+          <div class="timeline-company">腾讯科技 · ISUX</div>
+          <div class="timeline-role">高级交互设计师（校招）</div>
+          <div class="timeline-desc">
+            校招加入腾讯，先后参与 <span class="highlight">QQ 增值（会员）、QQ 支付、社交娱乐创新</span>等业务交互设计。推动多个红包社交创新玩法，辅助红包玩法在年轻用户群体出圈传播，拉动红包大盘数据提升 <span class="highlight">48%</span>。撰写多项专利，获 1 项腾讯微创新奖。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关键成就 -->
+  <section class="section">
+    <div class="glass-card" data-animate>
+      <div class="card-label">Highlights</div>
+      <h2 class="card-title">关键成就</h2>
+      <div class="highlights">
+        <div class="highlight-item">
+          <div class="highlight-number">8 年+</div>
+          <div class="highlight-label">产品设计经验</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-number">2000万</div>
+          <div class="highlight-label">剪映移动端 DAU</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-number">12 人</div>
+          <div class="highlight-label">团队管理规模</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-number">48%</div>
+          <div class="highlight-label">QQ红包数据增长</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 专业技能 -->
+  <section class="section">
+    <div class="glass-card" data-animate>
+      <div class="card-label">Skills</div>
+      <h2 class="card-title">专业能力</h2>
+      <div class="skill-tags">
+        <span class="skill-tag purple">产品体验设计</span>
+        <span class="skill-tag purple">交互设计</span>
+        <span class="skill-tag pink">全链路设计</span>
+        <span class="skill-tag pink">多平台设计</span>
+        <span class="skill-tag blue">团队管理</span>
+        <span class="skill-tag blue">项目管理</span>
+        <span class="skill-tag cyan">AI 产品规划</span>
+        <span class="skill-tag cyan">数据分析</span>
+        <span class="skill-tag purple">设计组件库</span>
+        <span class="skill-tag blue">国际化设计</span>
+        <span class="skill-tag pink">To B 产品</span>
+        <span class="skill-tag cyan">To G 项目</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 教育背景 -->
+  <section class="section">
+    <div class="glass-card" data-animate>
+      <div class="card-label">Education</div>
+      <h2 class="card-title">教育背景</h2>
+      <div class="edu-item">
+        <div class="edu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="edu-info">
+          <div class="edu-school">华南理工大学</div>
+          <div class="edu-degree">工业设计工程 · 硕士学位</div>
+          <div class="edu-period">2013.09 - 2016.07</div>
+          <div class="edu-desc">在校期间连续 3 年获得一等奖学金，参与面料电商创业团队探索"图像识别"技术应用。获优秀毕业论文和优秀毕业设计。</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="edu-info">
+          <div class="edu-school">广西大学</div>
+          <div class="edu-degree">工业设计 · 学士学位</div>
+          <div class="edu-period">2009.09 - 2013.07</div>
+          <div class="edu-desc">加入机械学院创新实验室，获得授权实用新型专利 3 项，参与研发"自动升降电脑桌"等项目，获省级机械创新大赛荣誉 4 项。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于 VibeBubble -->
+  <section class="section">
+    <div class="glass-card" data-animate>
+      <div class="card-label">Project</div>
       <h2 class="card-title">关于 VibeBubble</h2>
       <div class="card-body">
         <p>VibeBubble 是一个搜集和展示 <strong>AI 创作、Vibe Coding 和个人项目灵感</strong>的实验性网站。</p>
         <p>过去一段时间，我在小红书、抖音、B站、GitHub、X 等平台上看到越来越多普通人开始尝试用 AI 把自己的一些想法实现落地：个人网页、效率工具、生活助手、创意 demo……其中很多的项目和灵感非常有趣，但它们通常散落在不同平台的信息流里，很快就被新的内容冲走。</p>
         <p>VibeBubble 想把这些真实案例整理出来，用<strong>"灵感气泡"</strong>的方式重新呈现，让用户可以发现、捕捉、放大，并尝试孵化一个属于自己的小项目。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 面向人群 -->
-  <section class="section">
-    <div class="glass-card" data-animate>
-      <div class="card-label">For You</div>
-      <h2 class="card-title">这个网站主要面向</h2>
-      <ul class="card-list">
-        <li>刚开始接触 AI 的小白</li>
-        <li>想尝试 Vibe Coding 的新手</li>
-        <li>需要选题和案例的内容创作者</li>
-        <li>关注 AI 产品机会的设计师、产品经理和独立开发者</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 定位 -->
-  <section class="section">
-    <div class="glass-card" data-animate>
-      <div class="card-label">Positioning</div>
-      <h2 class="card-title">项目定位</h2>
-      <div class="card-body">
-        <p>VibeBubble <strong>不是</strong> AI 工具导航站，也<strong>不是</strong>系统课程平台。它更像一个<strong>轻量的 AI 灵感库</strong>：帮你看看别人正在用 AI 做什么，也帮你找到下一个可以动手尝试的小灵感。</p>
         <p>目前它是一个 <strong>非商业性质的实验项目</strong>。本站仅做公开案例的摘要整理、评论式介绍和学习参考，并尽量保留原作者、原平台和原始链接。如有内容需要修改或下架，可以联系我处理。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 关于开发者 -->
-  <section class="section">
-    <div class="glass-card" data-animate>
-      <div class="card-label">Developer</div>
-      <h2 class="card-title">关于开发者</h2>
-      <div class="card-body">
-        <p><strong>Hi there，我是 SHAOZU</strong></p>
-        <p>我曾在腾讯 ISUX、字节跳动剪映团队、TikTok Design 团队，从事产品体验设计相关工作。目前在一个 AI 小型团队，探索大模型在各个垂直领域的应用。</p>
-        <p>我关注内容创作工具、AI 创新产品、用户体验和数字化创新。现在，我正在重新思考自己在 AI 时代的第二成长曲线：如何把产品设计经验、AI 工具、自媒体表达和个人长期成长方向结合起来，真正做出一些有价值的小产品。</p>
-        <p>VibeBubble 是这个过程中的一个小实验。我希望通过它跑通一次从 idea、设计、开发、上线到持续更新的完整流程，也借此观察普通人如何使用 AI 创造作品。</p>
       </div>
     </div>
   </section>
