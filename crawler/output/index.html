@@ -360,6 +360,18 @@
   }
   .about-text p + p { margin-top: 16px; }
 
+  /* ===== 问题标签 ===== */
+  .question-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .question-tags .path-tag {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+
   /* ===== 路径卡片 ===== */
   .path-grid {
     display: grid;
@@ -490,15 +502,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </span>
     </a>
-    <a href="#path" class="cta-btn cta-btn-ghost">
-      <span class="btn-text">开始创造</span>
-    </a>
   </div>
-</div>
-
-<!-- 底部简介 -->
-<div class="bottom-area">
-  <p class="intro">一个面向 AI 创作者的学习与实践平台</p>
 </div>
 
 <!-- ===== 02 VibeBubble 是什么 ===== -->
@@ -507,8 +511,16 @@
   <h2 class="section-title">VibeBubble 是什么？</h2>
   <p class="section-subtitle">一个面向 AI 创作者的学习与实践平台</p>
   <div class="about-text">
-    <p>AI 的快速发展，让"一个人创造一个产品"变得更加接近现实。但对很多人来说，真正的难题并不是："我该用哪个 AI 工具？"，而是："我应该从哪里开始？""我可以创造什么？""如何把一个想法真正变成产品？""上线之后，如何让它被看见？"</p>
-    <p>VibeBubble 希望通过真实项目案例、方法工具和创作路径，帮助更多普通人理解 AI、发现灵感、学习设计与开发方法，并最终完成从想法、上线到运营的全过程。</p>
+    <p>AI 正在改变创造产品的方式。过去，一个产品需要团队协作才能完成。</p>
+    <p>现在，借助 AI，一个人也可以从想法开始，设计、开发并发布自己的产品。</p>
+    <p>但新的问题出现了：</p>
+    <div class="question-tags">
+      <span class="path-tag">我应该从哪里开始？</span>
+      <span class="path-tag">我可以创造什么？</span>
+      <span class="path-tag">如何把一个想法变成产品？</span>
+      <span class="path-tag">如何让产品被更多人看见？</span>
+    </div>
+    <p>VibeBubble 希望帮助每个人探索 AI 创造的可能。通过真实项目案例、创作方法和学习路径，帮助用户完成：从发现灵感，到产品创造，再到上线运营的完整流程。</p>
   </div>
 </section>
 
