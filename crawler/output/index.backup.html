@@ -616,19 +616,6 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
-
-  /* ===== Lenis 平滑滚动必需样式 ===== */
-  html.lenis, html.lenis body { height: auto; }
-  .lenis.lenis-smooth { scroll-behavior: auto !important; }
-  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-  .lenis.lenis-stopped { overflow: hidden; }
-
-  /* ===== 滚动入场动画初始状态（GSAP 接管后自动设为可见）===== */
-  .scroll-reveal { opacity: 0; transform: translateY(40px); will-change: opacity, transform; }
-  .scroll-reveal-parallax { will-change: transform; }
-
-  /* ===== 无 JS 回退：如果库加载失败，内容仍然可见 ===== */
-  .no-js .scroll-reveal { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
@@ -676,10 +663,10 @@
 
 <!-- ===== 02 VibeBubble 是什么 ===== -->
 <section class="section about-center" id="about">
-  <div class="section-label scroll-reveal">About</div>
-  <h2 class="section-title scroll-reveal">VibeBubble 是什么？</h2>
-  <p class="section-subtitle scroll-reveal">一个面向 AI 创作者的学习与实践平台</p>
-  <div class="about-text about-text-center scroll-reveal">
+  <div class="section-label">About</div>
+  <h2 class="section-title">VibeBubble 是什么？</h2>
+  <p class="section-subtitle">一个面向 AI 创作者的学习与实践平台</p>
+  <div class="about-text about-text-center">
     <p>AI 正在改变创造产品的方式。过去，一个产品需要团队协作才能完成。现在，借助 AI，一个人也可以从想法开始，设计、开发并发布自己的产品。但新的问题出现了：</p>
     <div class="question-tags">
       <span class="path-tag">我应该从哪里开始？</span>
@@ -693,14 +680,14 @@
 
 <!-- ===== 03 创造旅程 ===== -->
 <section class="journey-section" id="path">
-  <div class="journey-header scroll-reveal">
+  <div class="journey-header">
     <div class="section-label">Journey</div>
     <h2 class="section-title">从一个灵感，到一个真实产品</h2>
     <p class="journey-desc">Vibe Bubble可以帮助你从发现一个想法开始，通过 AI 分析、产品设计、开发实践和持续迭代，一步步将你的创意变成真实可用的产品。</p>
   </div>
 
   <!-- 顶部流程线 -->
-  <div class="journey-flow scroll-reveal" id="journeyFlow">
+  <div class="journey-flow" id="journeyFlow">
     <span class="journey-flow-item active" data-step="0">Capture</span>
     <span class="journey-flow-arrow">→</span>
     <span class="journey-flow-item" data-step="1">Analyze</span>
@@ -718,7 +705,7 @@
 
   <!-- 卡片轮播 -->
   <div class="journey-wrapper">
-    <div class="journey-track" id="journeyTrack" data-lenis-prevent>
+    <div class="journey-track" id="journeyTrack">
 
       <!-- 01 -->
       <div class="journey-card active" data-step="0">
@@ -885,7 +872,7 @@
   </div>
 
   <!-- 底部导航 -->
-  <div class="journey-nav scroll-reveal">
+  <div class="journey-nav">
     <div class="journey-arrow" id="journeyPrev">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     </div>
@@ -902,16 +889,16 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
   </div>
-  <div class="journey-counter scroll-reveal" id="journeyCounter">01 / 07</div>
+  <div class="journey-counter" id="journeyCounter">01 / 07</div>
 </section>
 
 <!-- ===== 04 开发者介绍 ===== -->
 <section class="section dev-intro-section" id="developer-intro">
   <div class="dev-intro-inner">
-    <div class="section-label scroll-reveal">Developer</div>
-    <h2 class="section-title scroll-reveal">关于开发者，我为什么做这个项目</h2>
-    <p class="dev-intro-subtitle scroll-reveal">一个产品体验设计师的 AI 创造实验</p>
-    <div class="dev-intro-body scroll-reveal">
+    <div class="section-label">Developer</div>
+    <h2 class="section-title">关于开发者，我为什么做这个项目</h2>
+    <p class="dev-intro-subtitle">一个产品体验设计师的 AI 创造实验</p>
+    <div class="dev-intro-body">
       <p>Hi，我是 SHAOZU。一名互联网产品体验设计师，也是一名正在持续探索 AI 创造方式的实践者。</p>
       <p>过去十多年，我参与过多个社交产品、内容创作工具和 AI 相关项目的设计与研发。从腾讯 ISUX，到字节跳动剪映/TikTok 设计中心，再到现在AI的小型团队，我正在重新思考一个问题：</p>
       <p class="dev-intro-highlight">在 AI 时代，普通人如何从一个灵感开始，创造出真正可以被访问、被使用、被传播，给用户带来价值的产品？</p>
@@ -922,10 +909,10 @@
 
 <!-- ===== 05 最终 CTA ===== -->
 <section class="cta-section">
-  <div class="section-divider scroll-reveal"></div>
-  <h2 class="section-title scroll-reveal">每一个伟大的产品，都从一个小小的灵感开始</h2>
-  <p class="section-subtitle scroll-reveal">你不需要懂得编程代码，也不需要搭建一个完整团队。<br>你只需要一个想法，一点探索，以及开始创造的勇气。</p>
-  <div class="btn-group scroll-reveal">
+  <div class="section-divider"></div>
+  <h2 class="section-title">每一个伟大的产品，都从一个小小的灵感开始</h2>
+  <p class="section-subtitle">你不需要懂得编程代码，也不需要搭建一个完整团队。<br>你只需要一个想法，一点探索，以及开始创造的勇气。</p>
+  <div class="btn-group">
     <a href="./gallery.html" class="cta-btn"><span class="btn-text">探索第一个灵感</span></a>
   </div>
 </section>
@@ -1213,161 +1200,6 @@ initHeroBubble();
         updateActive(closestStep);
       }
     }, 100);
-  });
-})();
-</script>
-
-<!-- ===== Lenis 平滑滚动 + GSAP ScrollTrigger 滚动动画 ===== -->
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script>
-(function() {
-  // 检测库是否加载成功
-  if (typeof Lenis === 'undefined' || typeof gsap === 'undefined') {
-    // 回退：移除 scroll-reveal 的隐藏状态，内容直接可见
-    document.querySelectorAll('.scroll-reveal').forEach(function(el) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    });
-    console.warn('Lenis 或 GSAP 加载失败，已回退到普通滚动模式');
-    return;
-  }
-
-  // ===== 1. 初始化 Lenis 平滑滚动 =====
-  var lenis = new Lenis({
-    duration: 1.2,
-    easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-    smoothWheel: true,
-    wheelMultiplier: 1,
-    touchMultiplier: 1.5,
-  });
-
-  // ===== 2. 注册 GSAP ScrollTrigger 插件 =====
-  gsap.registerPlugin(ScrollTrigger);
-
-  // ===== 3. Lenis 与 GSAP 集成 =====
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(function(time) {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
-
-  // ===== 4. 滚动入场动画 =====
-  // 模块二：VibeBubble 是什么
-  var aboutReveals = document.querySelectorAll('#about .scroll-reveal');
-  if (aboutReveals.length > 0) {
-    gsap.to(aboutReveals, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '#about',
-        start: 'top 70%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
-
-  // 模块三：创造旅程
-  var journeyReveals = document.querySelectorAll('#path .scroll-reveal');
-  if (journeyReveals.length > 0) {
-    gsap.to(journeyReveals, {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.1,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '#path',
-        start: 'top 75%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
-
-  // 模块四：开发者介绍
-  var devReveals = document.querySelectorAll('#developer-intro .scroll-reveal');
-  if (devReveals.length > 0) {
-    gsap.to(devReveals, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '#developer-intro',
-        start: 'top 70%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
-
-  // 模块五：CTA
-  var ctaReveals = document.querySelectorAll('.cta-section .scroll-reveal');
-  if (ctaReveals.length > 0) {
-    gsap.to(ctaReveals, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.cta-section',
-        start: 'top 75%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
-
-  // ===== 5. 视差效果（scrub 驱动，使用 yPercent 避免与入场动画 y 冲突）=====
-  // 模块标题视差上移
-  gsap.utils.toArray('.section-title').forEach(function(title) {
-    // 跳过 Hero 区域的标题
-    if (title.closest('.content')) return;
-    gsap.to(title, {
-      yPercent: -15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: title,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-      }
-    });
-  });
-
-  // 模块标签视差
-  gsap.utils.toArray('.section-label').forEach(function(label) {
-    if (label.closest('.content')) return;
-    gsap.to(label, {
-      yPercent: -20,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: label,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-      }
-    });
-  });
-
-  // ===== 6. 滚动进度条 =====
-  // 创建进度条 DOM
-  var progressBar = document.createElement('div');
-  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,#a855f7,#ec4899,#3b82f6);z-index:9999;transition:width 0.1s ease-out;pointer-events:none;';
-  document.body.appendChild(progressBar);
-
-  lenis.on('scroll', function(e) {
-    var scrollPercent = (e.scroll / e.limit) * 100;
-    progressBar.style.width = scrollPercent + '%';
-  });
-
-  // ===== 7. 页面卸载时清理 =====
-  window.addEventListener('beforeunload', function() {
-    lenis.destroy();
   });
 })();
 </script>
