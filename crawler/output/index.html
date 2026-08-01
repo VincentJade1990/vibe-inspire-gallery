@@ -562,6 +562,29 @@
   .dev-text { font-size: 15px; color: var(--text-dim); line-height: 2; margin-top: 28px; max-width: 640px; }
   .dev-text p + p { margin-top: 12px; }
 
+  .dev-intro-text { font-size: 15px; color: var(--text-dim); line-height: 2; max-width: 680px; margin-top: 28px; }
+  .dev-intro-text p + p { margin-top: 14px; }
+  .dev-intro-text strong { color: var(--text); font-weight: 600; }
+
+  .dev-highlights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 36px; }
+  .dev-highlight-item { text-align: center; padding: 24px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; transition: var(--transition); }
+  .dev-highlight-item:hover { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.04); transform: translateY(-2px); }
+  .dev-highlight-number { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #c4b5fd, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
+  .dev-highlight-label { font-size: 12px; color: var(--text-muted); }
+
+  .dev-timeline { margin-top: 36px; position: relative; padding-left: 20px; }
+  .dev-timeline::before { content: ''; position: absolute; left: 4px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(180deg, rgba(168,85,247,0.4), rgba(168,85,247,0.05)); }
+  .dev-timeline-item { position: relative; padding-bottom: 24px; }
+  .dev-timeline-item:last-child { padding-bottom: 0; }
+  .dev-timeline-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 10px rgba(168,85,247,0.5); }
+  .dev-timeline-period { font-size: 12px; color: var(--purple); font-weight: 600; margin-bottom: 4px; }
+  .dev-timeline-company { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .dev-timeline-role { font-size: 13px; color: var(--text-dim); }
+
+  .dev-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 36px; }
+  .dev-contacts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .dev-contacts a, .dev-contacts span { text-decoration: none; }
+
   /* ===== CTA ===== */
   .cta-section { text-align: center; padding: 120px 32px; }
   .cta-section .section-title { max-width: none; margin: 0 auto 16px; font-size: 32px; white-space: nowrap; }
@@ -587,6 +610,10 @@
     .path-grid { grid-template-columns: 1fr; }
     .cta-section { padding: 80px 20px; }
     .cta-section .section-title { font-size: 20px; }
+    /* 开发者模块移动端 */
+    .dev-highlights { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .dev-highlight-item { padding: 18px 12px; }
+    .dev-highlight-number { font-size: 22px; }
     /* 旅程模块移动端 */
     .journey-section { padding: 60px 0 60px; }
     .journey-header { padding: 0 20px; margin-bottom: 32px; }
@@ -626,9 +653,9 @@
 
 <!-- 右上角导航 -->
 <div class="top-nav">
-  <a href="about.html">
+  <a href="#developer">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-    <span>关于开发者</span>
+    <span>开发者介绍</span>
   </a>
 </div>
 
@@ -884,7 +911,78 @@
   <div class="journey-counter" id="journeyCounter">01 / 07</div>
 </section>
 
-<!-- ===== 04 最终 CTA ===== -->
+<!-- ===== 04 开发者介绍 ===== -->
+<section class="section dev-section" id="developer">
+  <div class="section-label">Developer</div>
+  <h2 class="section-title">开发者介绍</h2>
+  <div class="dev-intro-text">
+    <p>你好，我是<strong>玉绍祖</strong>，一名拥有 8 年经验的高级产品体验设计师。</p>
+    <p>我曾在<strong>腾讯 ISUX</strong> 参与QQ增值、QQ支付等社交娱乐创新业务，在<strong>字节跳动剪映团队</strong>负责多平台工具设计与团队管理，在 <strong>TikTok Design</strong> 推进国际化创作工具体验优化。目前在<strong>人工智能与数字经济广东省实验室</strong>，负责 AI 大模型产品的整体产品规划和设计。</p>
+    <p>VibeBubble 是我探索 AI 时代创造方式的一个小实验，希望通过它跑通从 idea、设计、开发到上线的完整流程。</p>
+  </div>
+
+  <div class="dev-highlights">
+    <div class="dev-highlight-item">
+      <div class="dev-highlight-number">8 年+</div>
+      <div class="dev-highlight-label">产品设计经验</div>
+    </div>
+    <div class="dev-highlight-item">
+      <div class="dev-highlight-number">2000万</div>
+      <div class="dev-highlight-label">剪映移动端 DAU</div>
+    </div>
+    <div class="dev-highlight-item">
+      <div class="dev-highlight-number">12 人</div>
+      <div class="dev-highlight-label">团队管理规模</div>
+    </div>
+    <div class="dev-highlight-item">
+      <div class="dev-highlight-number">48%</div>
+      <div class="dev-highlight-label">QQ红包数据增长</div>
+    </div>
+  </div>
+
+  <div class="dev-timeline">
+    <div class="dev-timeline-item">
+      <div class="dev-timeline-period">2024.03 - 至今</div>
+      <div class="dev-timeline-company">人工智能与数字经济广东省实验室</div>
+      <div class="dev-timeline-role">AI大模型与智能认知研究中心 · 主任工程师</div>
+    </div>
+    <div class="dev-timeline-item">
+      <div class="dev-timeline-period">2023.01 - 2023.12</div>
+      <div class="dev-timeline-company">字节跳动 · TikTok Design</div>
+      <div class="dev-timeline-role">高级产品体验设计师</div>
+    </div>
+    <div class="dev-timeline-item">
+      <div class="dev-timeline-period">2020.02 - 2023.01</div>
+      <div class="dev-timeline-company">字节跳动 · 剪映</div>
+      <div class="dev-timeline-role">高级产品体验设计师 · Team Leader</div>
+    </div>
+    <div class="dev-timeline-item">
+      <div class="dev-timeline-period">2016.04 - 2020.02</div>
+      <div class="dev-timeline-company">腾讯科技 · ISUX</div>
+      <div class="dev-timeline-role">高级交互设计师（校招）</div>
+    </div>
+  </div>
+
+  <div class="dev-skills">
+    <span class="path-tag">产品体验设计</span>
+    <span class="path-tag">交互设计</span>
+    <span class="path-tag">全链路设计</span>
+    <span class="path-tag">多平台设计</span>
+    <span class="path-tag">团队管理</span>
+    <span class="path-tag">AI 产品规划</span>
+    <span class="path-tag">国际化设计</span>
+    <span class="path-tag">设计组件库</span>
+  </div>
+
+  <div class="dev-contacts">
+    <a href="https://www.xiaohongshu.com/user/profile/596c71c05e87e71adb01472a" target="_blank" rel="noopener" class="path-tag">小红书</a>
+    <a href="https://www.douyin.com/user/self?from_tab_name=main" target="_blank" rel="noopener" class="path-tag">抖音</a>
+    <a href="mailto:258842828@qq.com" class="path-tag">258842828@qq.com</a>
+    <span class="path-tag">微信：xiaoyutongxue168</span>
+  </div>
+</section>
+
+<!-- ===== 05 最终 CTA ===== -->
 <section class="cta-section">
   <div class="section-divider"></div>
   <h2 class="section-title">每一个伟大的产品，都从一个小小的灵感开始</h2>
