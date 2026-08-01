@@ -424,6 +424,133 @@
 
   .path-card .cta-btn { padding: 10px 20px; font-size: 13px; border-radius: 12px; }
 
+  /* ===== 创造旅程模块 ===== */
+  .journey-section { padding: 100px 0 80px; position: relative; overflow: hidden; }
+
+  .journey-header { max-width: 720px; margin: 0 auto 48px; padding: 0 32px; text-align: center; }
+  .journey-header .section-title { font-size: 32px; margin-bottom: 12px; }
+  .journey-header .journey-subtitle { font-size: 16px; color: var(--text-dim); line-height: 1.8; margin-bottom: 12px; }
+  .journey-header .journey-desc { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+  /* 顶部流程线 */
+  .journey-flow {
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 6px;
+    margin-bottom: 40px; padding: 0 32px;
+  }
+  .journey-flow-item {
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    color: var(--text-muted);
+    padding: 4px 12px; border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .journey-flow-item.active {
+    color: #c4b5fd;
+    border-color: rgba(168,85,247,0.4);
+    background: rgba(168,85,247,0.12);
+    box-shadow: 0 0 16px rgba(168,85,247,0.15);
+  }
+  .journey-flow-arrow { color: var(--text-muted); font-size: 12px; opacity: 0.4; }
+
+  /* 卡片轮播 */
+  .journey-wrapper { position: relative; }
+  .journey-track {
+    display: flex; gap: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 32px 16px;
+    max-width: 1280px;
+    margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .journey-track::-webkit-scrollbar { display: none; }
+
+  .journey-card {
+    flex: 0 0 calc((100% - 64px - 40px) / 3);
+    min-width: 0;
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 32px 24px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    opacity: 0.5;
+  }
+  .journey-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4), transparent);
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .journey-card:hover, .journey-card.active {
+    border-color: rgba(168, 85, 247, 0.3);
+    background: rgba(168, 85, 247, 0.04);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2), 0 0 32px rgba(168,85,247,0.1);
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+  .journey-card.active::before { opacity: 1; }
+
+  .journey-card-num { font-size: 11px; font-weight: 600; color: var(--purple); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .journey-card-en { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 2px; letter-spacing: 0.5px; }
+  .journey-card-cn { font-size: 15px; font-weight: 600; color: var(--text-dim); margin-bottom: 16px; }
+  .journey-card-tagline { font-size: 13px; color: var(--purple); font-weight: 500; margin-bottom: 16px; line-height: 1.6; }
+  .journey-card-desc { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-bottom: 16px; }
+  .journey-card-section { margin-bottom: 14px; }
+  .journey-card-label { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 8px; }
+  .journey-card-list { list-style: none; padding: 0; margin: 0; }
+  .journey-card-list li { font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 14px; position: relative; }
+  .journey-card-list li::before { content: '·'; position: absolute; left: 4px; color: var(--purple); }
+  .journey-card-output { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* 左右箭头 */
+  .journey-nav {
+    display: flex; justify-content: center; align-items: center;
+    gap: 16px; margin-top: 24px;
+  }
+  .journey-arrow {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .journey-arrow:hover {
+    border-color: rgba(168,85,247,0.4);
+    background: rgba(168,85,247,0.08);
+    color: #c4b5fd;
+  }
+  .journey-arrow svg { width: 18px; height: 18px; }
+
+  /* 气泡进度 */
+  .journey-bubbles { display: flex; gap: 8px; }
+  .journey-bubble {
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 1px solid rgba(168,85,247,0.3);
+    background: transparent;
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .journey-bubble.active {
+    background: #a855f7;
+    border-color: #a855f7;
+    box-shadow: 0 0 12px rgba(168,85,247,0.5);
+    transform: scale(1.2);
+  }
+  .journey-counter { font-size: 13px; color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 56px; text-align: center; }
+
   /* ===== 开发者介绍 ===== */
   .dev-section { background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
   .dev-text { font-size: 15px; color: var(--text-dim); line-height: 2; margin-top: 28px; max-width: 640px; }
@@ -454,6 +581,21 @@
     .path-grid { grid-template-columns: 1fr; }
     .cta-section { padding: 80px 20px; }
     .cta-section .section-title { font-size: 26px; }
+    /* 旅程模块移动端 */
+    .journey-section { padding: 60px 0 60px; }
+    .journey-header { padding: 0 20px; margin-bottom: 32px; }
+    .journey-header .section-title { font-size: 24px; }
+    .journey-flow { padding: 0 20px; gap: 4px; }
+    .journey-flow-item { font-size: 10px; padding: 3px 8px; }
+    .journey-flow-arrow { font-size: 10px; }
+    .journey-track { padding: 0 20px 16px; }
+    .journey-card { flex: 0 0 calc(100% - 40px); padding: 28px 20px; opacity: 1; }
+  }
+  @media (max-width: 768px) and (min-width: 481px) {
+    .journey-card { flex: 0 0 calc((100% - 64px - 20px) / 2); opacity: 1; }
+  }
+  @media (min-width: 1200px) {
+    .journey-card { flex: 0 0 calc((100% - 64px - 60px) / 4); }
   }
 
   ::-webkit-scrollbar { width: 6px; }
@@ -524,57 +666,239 @@
   </div>
 </section>
 
-<!-- ===== 03 VibeBubble 如何帮助你 ===== -->
-<section class="section" id="path">
-  <div class="section-label">Path</div>
-  <h2 class="section-title">VibeBubble 如何帮助你？</h2>
-  <p class="section-subtitle">从灵感，到产品的完整创造路径</p>
+<!-- ===== 03 创造旅程 ===== -->
+<section class="journey-section" id="path">
+  <div class="journey-header">
+    <div class="section-label">Journey</div>
+    <h2 class="section-title">从一个灵感，到一个真实产品</h2>
+    <p class="journey-subtitle">VibeBubble 陪伴你完成 AI 创造的完整旅程。</p>
+    <p class="journey-desc">从发现一个想法开始，通过 AI 分析、产品设计、开发实践和持续迭代，一步步将你的创意变成真实可用的产品。</p>
+  </div>
 
-  <div class="path-grid">
-    <div class="glass-card">
-      <div class="path-card-icon explore">&#x1F50D;</div>
-      <div class="path-card-title">Step 01</div>
-      <div class="path-card-name">探索灵感</div>
-      <div class="path-card-desc">探索大家正在用 AI 创造什么。汇聚真实的 AI 项目案例，包括 AI 应用、独立开发项目、创意实验和开源作品。你可以通过观察别人正在创造什么，找到自己的第一个灵感。</div>
-      <div class="path-tags">
-        <span class="path-tag">AI 应用案例</span>
-        <span class="path-tag">独立开发项目</span>
-        <span class="path-tag">创意实验</span>
-        <span class="path-tag">开源作品</span>
-      </div>
-      <a href="./gallery.html" class="cta-btn cta-btn-ghost"><span class="btn-text">探索灵感 &#x2192;</span></a>
-    </div>
+  <!-- 顶部流程线 -->
+  <div class="journey-flow" id="journeyFlow">
+    <span class="journey-flow-item active" data-step="0">Capture</span>
+    <span class="journey-flow-arrow">→</span>
+    <span class="journey-flow-item" data-step="1">Analyze</span>
+    <span class="journey-flow-arrow">→</span>
+    <span class="journey-flow-item" data-step="2">Incubate</span>
+    <span class="journey-flow-arrow">→</span>
+    <span class="journey-flow-item" data-step="3">Design</span>
+    <span class="journey-flow-arrow">→</span>
+    <span class="journey-flow-item" data-step="4">Build</span>
+    <span class="journey-flow-arrow">→</span>
+    <span class="journey-flow-item" data-step="5">Launch</span>
+    <span class="journey-flow-arrow">→</span>
+    <span class="journey-flow-item" data-step="6">Grow</span>
+  </div>
 
-    <div class="glass-card">
-      <div class="path-card-icon build">&#x1F528;</div>
-      <div class="path-card-title">Step 02</div>
-      <div class="path-card-name">学习创造</div>
-      <div class="path-card-desc">沿着完整的创造路径，学习如何把一个想法变成产品。从 AI 基础认知、需求发现、产品设计、视觉审美，到 Vibe Coding、数据库、部署上线，逐步掌握 AI 创作者需要的核心能力。</div>
-      <div class="path-tags">
-        <span class="path-tag">AI 基础认知</span>
-        <span class="path-tag">产品设计</span>
-        <span class="path-tag">视觉审美</span>
-        <span class="path-tag">Vibe Coding</span>
-        <span class="path-tag">部署上线</span>
-      </div>
-      <a href="#" class="cta-btn cta-btn-ghost"><span class="btn-text">学习路径 &#x2192;</span></a>
-    </div>
+  <!-- 卡片轮播 -->
+  <div class="journey-wrapper">
+    <div class="journey-track" id="journeyTrack">
 
-    <div class="glass-card">
-      <div class="path-card-icon launch">&#x1F680;</div>
-      <div class="path-card-title">Step 03</div>
-      <div class="path-card-name">发布成长</div>
-      <div class="path-card-desc">产品上线只是开始。VibeBubble 将继续整理产品发布、内容传播、用户反馈、持续迭代和商业探索的方法，帮助作品被更多人看见、使用和传播。</div>
-      <div class="path-tags">
-        <span class="path-tag">产品展示</span>
-        <span class="path-tag">内容传播</span>
-        <span class="path-tag">用户反馈</span>
-        <span class="path-tag">持续迭代</span>
-        <span class="path-tag">商业探索</span>
+      <!-- 01 Capture -->
+      <div class="journey-card active" data-step="0">
+        <div class="journey-card-num">01 Capture</div>
+        <div class="journey-card-en">Capture</div>
+        <div class="journey-card-cn">探索灵感</div>
+        <div class="journey-card-tagline">捕捉每一个创造的起点</div>
+        <div class="journey-card-desc">好的产品，往往始于一个瞬间的想法。发现别人正在创造什么，记录自己的灵感，让每一个想法都得以保存。</div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">你可以记录：</div>
+          <ul class="journey-card-list">
+            <li>一个突然产生的创意</li>
+            <li>一个值得研究的 AI 项目</li>
+            <li>一个真实存在的问题</li>
+          </ul>
+        </div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">产出物：</div>
+          <div class="journey-card-output">
+            <span class="path-tag">Idea Bubble</span>
+            <span class="path-tag">个人灵感仓库</span>
+            <span class="path-tag">灵感收藏夹</span>
+          </div>
+        </div>
       </div>
-      <a href="#" class="cta-btn cta-btn-ghost" style="opacity:0.5;pointer-events:none;"><span class="btn-text">即将开放</span></a>
+
+      <!-- 02 Analyze -->
+      <div class="journey-card" data-step="1">
+        <div class="journey-card-num">02 Analyze</div>
+        <div class="journey-card-en">Analyze</div>
+        <div class="journey-card-cn">分析拆解</div>
+        <div class="journey-card-tagline">判断一个想法是否值得继续</div>
+        <div class="journey-card-desc">一个想法并不一定是一个好产品。通过 AI 分析和研究，帮助你理解市场机会、用户需求和实现可能。</div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">AI帮助你探索：</div>
+          <ul class="journey-card-list">
+            <li>是否存在类似产品</li>
+            <li>市场中有哪些案例</li>
+            <li>是否有开源方案</li>
+            <li>当前机会与差异化方向</li>
+          </ul>
+        </div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">产出物：</div>
+          <div class="journey-card-output">
+            <span class="path-tag">竞品分析</span>
+            <span class="path-tag">市场洞察</span>
+            <span class="path-tag">趋势判断</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 Incubate -->
+      <div class="journey-card" data-step="2">
+        <div class="journey-card-num">03 Incubate</div>
+        <div class="journey-card-en">Incubate</div>
+        <div class="journey-card-cn">孵化灵感</div>
+        <div class="journey-card-tagline">将模糊想法变成清晰方向</div>
+        <div class="journey-card-desc">从"我有一个想法"，到"我知道要创造什么"。明确你的产品定位和方向后，开始孵化这个灵感。</div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">帮你明确方向：</div>
+          <ul class="journey-card-list">
+            <li>产品定位</li>
+            <li>目标用户</li>
+            <li>使用场景</li>
+            <li>核心价值</li>
+            <li>商业模式</li>
+          </ul>
+        </div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">产出物：</div>
+          <div class="journey-card-output">
+            <span class="path-tag">产品概念文档</span>
+            <span class="path-tag">MVP方案</span>
+            <span class="path-tag">产品路线图</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 Design -->
+      <div class="journey-card" data-step="3">
+        <div class="journey-card-num">04 Design</div>
+        <div class="journey-card-en">Design</div>
+        <div class="journey-card-cn">产品设计</div>
+        <div class="journey-card-tagline">将想法转化为用户体验</div>
+        <div class="journey-card-desc">一个好的产品，不仅需要解决问题，也需要被理解和使用，给用户带来愉悦的视觉和使用体验。</div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">学习并实践：</div>
+          <ul class="journey-card-list">
+            <li>用户需求分析</li>
+            <li>产品结构设计</li>
+            <li>交互体验设计</li>
+            <li>视觉审美提升</li>
+          </ul>
+        </div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">产出物：</div>
+          <div class="journey-card-output">
+            <span class="path-tag">产品架构</span>
+            <span class="path-tag">用户地图</span>
+            <span class="path-tag">视觉规范</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 Build -->
+      <div class="journey-card" data-step="4">
+        <div class="journey-card-num">05 Build</div>
+        <div class="journey-card-en">Build</div>
+        <div class="journey-card-cn">AI开发</div>
+        <div class="journey-card-tagline">借助 AI，把设计变成真实产品</div>
+        <div class="journey-card-desc">AI正在改变产品的创造方式。通过 Vibe Coding，让没有专业开发背景的人，也可以进行产品开发。</div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">学习并实践：</div>
+          <ul class="journey-card-list">
+            <li>AI Coding工具</li>
+            <li>前后端开发</li>
+            <li>数据库设计</li>
+            <li>部署上线</li>
+          </ul>
+        </div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">产出物：</div>
+          <div class="journey-card-output">
+            <span class="path-tag">Demo原型</span>
+            <span class="path-tag">Web应用</span>
+            <span class="path-tag">线上产品</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 Launch -->
+      <div class="journey-card" data-step="5">
+        <div class="journey-card-num">06 Launch</div>
+        <div class="journey-card-en">Launch</div>
+        <div class="journey-card-cn">发布上线</div>
+        <div class="journey-card-tagline">让你的作品被更多人看见</div>
+        <div class="journey-card-desc">创造产品的最后一步，不是完成开发上线，而是如何连接真实用户，获得真实的用户反馈。</div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">学习：</div>
+          <ul class="journey-card-list">
+            <li>产品展示</li>
+            <li>内容传播</li>
+            <li>用户获取</li>
+            <li>发布渠道</li>
+          </ul>
+        </div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">产出物：</div>
+          <div class="journey-card-output">
+            <span class="path-tag">产品主页</span>
+            <span class="path-tag">推广内容</span>
+            <span class="path-tag">用户反馈</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07 Grow -->
+      <div class="journey-card" data-step="6">
+        <div class="journey-card-num">07 Grow</div>
+        <div class="journey-card-en">Grow</div>
+        <div class="journey-card-cn">持续成长</div>
+        <div class="journey-card-tagline">让产品不断进化</div>
+        <div class="journey-card-desc">每一个产品都有一个从小到大的成长过程。通过用户和数据反馈，持续优化和迭代产品，让它变得更好。</div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">持续探索：</div>
+          <ul class="journey-card-list">
+            <li>版本迭代</li>
+            <li>功能优化</li>
+            <li>商业探索</li>
+          </ul>
+        </div>
+        <div class="journey-card-section">
+          <div class="journey-card-label">产出物：</div>
+          <div class="journey-card-output">
+            <span class="path-tag">版本记录</span>
+            <span class="path-tag">用户数据</span>
+            <span class="path-tag">产品成长档案</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <!-- 底部导航 -->
+  <div class="journey-nav">
+    <div class="journey-arrow" id="journeyPrev">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </div>
+    <div class="journey-bubbles" id="journeyBubbles">
+      <div class="journey-bubble active" data-step="0"></div>
+      <div class="journey-bubble" data-step="1"></div>
+      <div class="journey-bubble" data-step="2"></div>
+      <div class="journey-bubble" data-step="3"></div>
+      <div class="journey-bubble" data-step="4"></div>
+      <div class="journey-bubble" data-step="5"></div>
+      <div class="journey-bubble" data-step="6"></div>
+    </div>
+    <div class="journey-arrow" id="journeyNext">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+  <div class="journey-counter" id="journeyCounter">01 / 07</div>
 </section>
 
 <!-- ===== 04 最终 CTA ===== -->
@@ -782,6 +1106,96 @@ initHeroBubble();
   resize();
   window.addEventListener('resize', resize);
   animationId = requestAnimationFrame(animate);
+})();
+</script>
+
+<!-- ===== 旅程模块交互 ===== -->
+<script>
+(function() {
+  var track = document.getElementById('journeyTrack');
+  if (!track) return;
+  var cards = track.querySelectorAll('.journey-card');
+  var flowItems = document.querySelectorAll('.journey-flow-item');
+  var bubbles = document.querySelectorAll('.journey-bubble');
+  var prevBtn = document.getElementById('journeyPrev');
+  var nextBtn = document.getElementById('journeyNext');
+  var counter = document.getElementById('journeyCounter');
+  var total = cards.length;
+  var currentStep = 0;
+
+  function updateActive(step) {
+    currentStep = step;
+    cards.forEach(function(card, i) {
+      card.classList.toggle('active', i === step);
+    });
+    flowItems.forEach(function(item, i) {
+      item.classList.toggle('active', i === step);
+    });
+    bubbles.forEach(function(bubble, i) {
+      bubble.classList.toggle('active', i === step);
+    });
+    if (counter) {
+      counter.textContent = String(step + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    }
+  }
+
+  function scrollToCard(step) {
+    if (step < 0 || step >= total) return;
+    var card = cards[step];
+    var trackRect = track.getBoundingClientRect();
+    var cardRect = card.getBoundingClientRect();
+    var offset = cardRect.left - trackRect.left + track.scrollLeft - 32;
+    track.scrollTo({ left: offset, behavior: 'smooth' });
+    updateActive(step);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      scrollToCard(Math.max(0, currentStep - 1));
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      scrollToCard(Math.min(total - 1, currentStep + 1));
+    });
+  }
+
+  flowItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      var step = parseInt(item.getAttribute('data-step'));
+      scrollToCard(step);
+    });
+  });
+
+  bubbles.forEach(function(bubble) {
+    bubble.addEventListener('click', function() {
+      var step = parseInt(bubble.getAttribute('data-step'));
+      scrollToCard(step);
+    });
+  });
+
+  // 滚动时同步高亮状态
+  var scrollTimer;
+  track.addEventListener('scroll', function() {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function() {
+      var trackRect = track.getBoundingClientRect();
+      var closestStep = 0;
+      var closestDist = Infinity;
+      cards.forEach(function(card, i) {
+        var cardRect = card.getBoundingClientRect();
+        var dist = Math.abs(cardRect.left - trackRect.left - 32);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestStep = i;
+        }
+      });
+      if (closestStep !== currentStep) {
+        updateActive(closestStep);
+      }
+    }, 100);
+  });
 })();
 </script>
 
