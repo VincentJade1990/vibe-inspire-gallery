@@ -363,6 +363,7 @@
   /* 模块二居中样式 */
   .about-center { text-align: center; }
   .about-center .section-label { margin: 0 auto 16px; }
+  .about-center .section-subtitle { margin: 0 auto; }
   .about-center .question-tags { justify-content: center; }
   .about-text-center { max-width: 720px; margin: 28px auto 0; text-align: center; }
 
@@ -431,7 +432,7 @@
   .path-card .cta-btn { padding: 10px 20px; font-size: 13px; border-radius: 12px; }
 
   /* ===== 创造旅程模块 ===== */
-  .journey-section { padding: 100px 0 80px; position: relative; overflow: hidden; }
+  .journey-section { padding: 100px 0 80px; position: relative; overflow-x: clip; }
 
   .journey-header { max-width: 720px; margin: 0 auto 48px; padding: 0 32px; text-align: center; }
   .journey-header .section-title { font-size: 32px; margin-bottom: 12px; }
@@ -467,7 +468,7 @@
     display: flex; gap: 20px;
     overflow-x: auto; scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 0 32px 16px;
+    padding: 12px 32px 16px;
     max-width: 1280px;
     margin: 0 auto;
     -webkit-overflow-scrolling: touch;
@@ -488,7 +489,7 @@
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    opacity: 0.8;
+    opacity: 0.6;
   }
   .journey-card::before {
     content: '';
@@ -703,9 +704,8 @@
         <div class="journey-card-num">01</div>
         <div class="journey-card-cn">探索灵感</div>
         <div class="journey-card-tagline">捕捉每一个创造的起点</div>
-        <div class="journey-card-desc">好的产品，往往始于一个瞬间的想法。发现别人正在创造什么，记录自己的灵感，让每一个想法都得以保存。</div>
+        <div class="journey-card-desc">发现别人正在创造什么，记录自己的瞬间灵感，让每一个想法都得以保存。</div>
         <div class="journey-card-section">
-          <div class="journey-card-label">你可以记录：</div>
           <ul class="journey-card-list">
             <li>一个突然产生的创意</li>
             <li>一个值得研究的 AI 项目</li>
@@ -727,14 +727,12 @@
         <div class="journey-card-num">02</div>
         <div class="journey-card-cn">分析拆解</div>
         <div class="journey-card-tagline">判断一个想法是否值得继续</div>
-        <div class="journey-card-desc">一个想法并不一定是一个好产品。通过 AI 分析和研究，帮助你理解市场机会、用户需求和实现可能。</div>
+        <div class="journey-card-desc">分析、研究、拆解你的灵感，帮助你理解市场机会、用户需求和机会点。</div>
         <div class="journey-card-section">
-          <div class="journey-card-label">AI帮助你探索：</div>
           <ul class="journey-card-list">
-            <li>是否存在类似产品</li>
-            <li>市场中有哪些案例</li>
-            <li>是否有开源方案</li>
-            <li>当前机会与差异化方向</li>
+            <li>是否存在类似产品/案例</li>
+            <li>是否有已开源方案</li>
+            <li>机会点与差异点</li>
           </ul>
         </div>
         <div class="journey-card-section">
@@ -752,15 +750,12 @@
         <div class="journey-card-num">03</div>
         <div class="journey-card-cn">孵化灵感</div>
         <div class="journey-card-tagline">将模糊想法变成清晰方向</div>
-        <div class="journey-card-desc">从"我有一个想法"，到"我知道要创造什么"。明确你的产品定位和方向后，开始孵化这个灵感。</div>
+        <div class="journey-card-desc">明确产品定位，找到清晰的产品方向，分析产品能给用户带来什么核心价值</div>
         <div class="journey-card-section">
-          <div class="journey-card-label">帮你明确方向：</div>
           <ul class="journey-card-list">
             <li>产品定位</li>
-            <li>目标用户</li>
-            <li>使用场景</li>
+            <li>目标用户/场景</li>
             <li>核心价值</li>
-            <li>商业模式</li>
           </ul>
         </div>
         <div class="journey-card-section">
@@ -768,7 +763,7 @@
           <div class="journey-card-output">
             <span class="path-tag">产品概念文档</span>
             <span class="path-tag">MVP方案</span>
-            <span class="path-tag">产品路线图</span>
+            <span class="path-tag">产品价值分析</span>
           </div>
         </div>
       </div>
@@ -782,8 +777,7 @@
         <div class="journey-card-section">
           <div class="journey-card-label">学习并实践：</div>
           <ul class="journey-card-list">
-            <li>用户需求分析</li>
-            <li>产品结构设计</li>
+            <li>产品架构设计</li>
             <li>交互体验设计</li>
             <li>视觉审美提升</li>
           </ul>
@@ -793,7 +787,7 @@
           <div class="journey-card-output">
             <span class="path-tag">产品架构</span>
             <span class="path-tag">用户地图</span>
-            <span class="path-tag">视觉规范</span>
+            <span class="path-tag">交互视觉规范</span>
           </div>
         </div>
       </div>
@@ -803,22 +797,20 @@
         <div class="journey-card-num">05</div>
         <div class="journey-card-cn">AI开发</div>
         <div class="journey-card-tagline">借助 AI，把设计变成真实产品</div>
-        <div class="journey-card-desc">AI正在改变产品的创造方式。通过 Vibe Coding，让没有专业开发背景的人，也可以进行产品开发。</div>
+        <div class="journey-card-desc">梳理标准开发流程，通过 Vibe Coding工具，进行产品开发和代码revie。</div>
         <div class="journey-card-section">
-          <div class="journey-card-label">学习并实践：</div>
           <ul class="journey-card-list">
             <li>AI Coding工具</li>
             <li>前后端开发</li>
             <li>数据库设计</li>
-            <li>部署上线</li>
           </ul>
         </div>
         <div class="journey-card-section">
           <div class="journey-card-label">产出物：</div>
           <div class="journey-card-output">
-            <span class="path-tag">Demo原型</span>
-            <span class="path-tag">Web应用</span>
-            <span class="path-tag">线上产品</span>
+            <span class="path-tag">原型Demo</span>
+            <span class="path-tag">数据库设计</span>
+            <span class="path-tag">开发复盘</span>
           </div>
         </div>
       </div>
@@ -828,11 +820,9 @@
         <div class="journey-card-num">06</div>
         <div class="journey-card-cn">发布上线</div>
         <div class="journey-card-tagline">让你的作品被更多人看见</div>
-        <div class="journey-card-desc">创造产品的最后一步，不是完成开发上线，而是如何连接真实用户，获得真实的用户反馈。</div>
+        <div class="journey-card-desc">完成产品的发布上线，连接真实的用户，获得有价值用户反馈。</div>
         <div class="journey-card-section">
-          <div class="journey-card-label">学习：</div>
           <ul class="journey-card-list">
-            <li>产品展示</li>
             <li>内容传播</li>
             <li>用户获取</li>
             <li>发布渠道</li>
@@ -841,9 +831,9 @@
         <div class="journey-card-section">
           <div class="journey-card-label">产出物：</div>
           <div class="journey-card-output">
-            <span class="path-tag">产品主页</span>
-            <span class="path-tag">推广内容</span>
-            <span class="path-tag">用户反馈</span>
+            <span class="path-tag">服务器部署</span>
+            <span class="path-tag">发布物料</span>
+            <span class="path-tag">推广策略</span>
           </div>
         </div>
       </div>
@@ -853,13 +843,12 @@
         <div class="journey-card-num">07</div>
         <div class="journey-card-cn">持续成长</div>
         <div class="journey-card-tagline">让产品不断进化</div>
-        <div class="journey-card-desc">每一个产品都有一个从小到大的成长过程。通过用户和数据反馈，持续优化和迭代产品，让它变得更好。</div>
+        <div class="journey-card-desc">通过用户反馈和数据分析，持续优化和迭代产品，让产品变得更好。</div>
         <div class="journey-card-section">
-          <div class="journey-card-label">持续探索：</div>
           <ul class="journey-card-list">
             <li>版本迭代</li>
             <li>功能优化</li>
-            <li>商业探索</li>
+            <li>商业模式探索</li>
           </ul>
         </div>
         <div class="journey-card-section">
