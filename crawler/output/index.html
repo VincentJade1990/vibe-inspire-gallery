@@ -360,6 +360,12 @@
   }
   .about-text p + p { margin-top: 16px; }
 
+  /* 模块二居中样式 */
+  .about-center { text-align: center; }
+  .about-center .section-label { margin: 0 auto 16px; }
+  .about-center .question-tags { justify-content: center; }
+  .about-text-center { max-width: 720px; margin: 28px auto 0; text-align: center; }
+
   /* ===== 问题标签 ===== */
   .question-tags {
     display: flex;
@@ -482,7 +488,7 @@
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    opacity: 0.5;
+    opacity: 0.8;
   }
   .journey-card::before {
     content: '';
@@ -502,8 +508,7 @@
   .journey-card.active::before { opacity: 1; }
 
   .journey-card-num { font-size: 11px; font-weight: 600; color: var(--purple); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
-  .journey-card-en { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 2px; letter-spacing: 0.5px; }
-  .journey-card-cn { font-size: 15px; font-weight: 600; color: var(--text-dim); margin-bottom: 16px; }
+  .journey-card-cn { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
   .journey-card-tagline { font-size: 13px; color: var(--purple); font-weight: 500; margin-bottom: 16px; line-height: 1.6; }
   .journey-card-desc { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-bottom: 16px; }
   .journey-card-section { margin-bottom: 14px; }
@@ -648,14 +653,12 @@
 </div>
 
 <!-- ===== 02 VibeBubble 是什么 ===== -->
-<section class="section" id="about">
+<section class="section about-center" id="about">
   <div class="section-label">About</div>
   <h2 class="section-title">VibeBubble 是什么？</h2>
   <p class="section-subtitle">一个面向 AI 创作者的学习与实践平台</p>
-  <div class="about-text">
-    <p>AI 正在改变创造产品的方式。过去，一个产品需要团队协作才能完成。</p>
-    <p>现在，借助 AI，一个人也可以从想法开始，设计、开发并发布自己的产品。</p>
-    <p>但新的问题出现了：</p>
+  <div class="about-text about-text-center">
+    <p>AI 正在改变创造产品的方式。过去，一个产品需要团队协作才能完成。现在，借助 AI，一个人也可以从想法开始，设计、开发并发布自己的产品。但新的问题出现了：</p>
     <div class="question-tags">
       <span class="path-tag">我应该从哪里开始？</span>
       <span class="path-tag">我可以创造什么？</span>
@@ -671,7 +674,6 @@
   <div class="journey-header">
     <div class="section-label">Journey</div>
     <h2 class="section-title">从一个灵感，到一个真实产品</h2>
-    <p class="journey-subtitle">VibeBubble 陪伴你完成 AI 创造的完整旅程。</p>
     <p class="journey-desc">从发现一个想法开始，通过 AI 分析、产品设计、开发实践和持续迭代，一步步将你的创意变成真实可用的产品。</p>
   </div>
 
@@ -696,10 +698,9 @@
   <div class="journey-wrapper">
     <div class="journey-track" id="journeyTrack">
 
-      <!-- 01 Capture -->
+      <!-- 01 -->
       <div class="journey-card active" data-step="0">
-        <div class="journey-card-num">01 Capture</div>
-        <div class="journey-card-en">Capture</div>
+        <div class="journey-card-num">01</div>
         <div class="journey-card-cn">探索灵感</div>
         <div class="journey-card-tagline">捕捉每一个创造的起点</div>
         <div class="journey-card-desc">好的产品，往往始于一个瞬间的想法。发现别人正在创造什么，记录自己的灵感，让每一个想法都得以保存。</div>
@@ -721,10 +722,9 @@
         </div>
       </div>
 
-      <!-- 02 Analyze -->
+      <!-- 02 -->
       <div class="journey-card" data-step="1">
-        <div class="journey-card-num">02 Analyze</div>
-        <div class="journey-card-en">Analyze</div>
+        <div class="journey-card-num">02</div>
         <div class="journey-card-cn">分析拆解</div>
         <div class="journey-card-tagline">判断一个想法是否值得继续</div>
         <div class="journey-card-desc">一个想法并不一定是一个好产品。通过 AI 分析和研究，帮助你理解市场机会、用户需求和实现可能。</div>
@@ -747,10 +747,9 @@
         </div>
       </div>
 
-      <!-- 03 Incubate -->
+      <!-- 03 -->
       <div class="journey-card" data-step="2">
-        <div class="journey-card-num">03 Incubate</div>
-        <div class="journey-card-en">Incubate</div>
+        <div class="journey-card-num">03</div>
         <div class="journey-card-cn">孵化灵感</div>
         <div class="journey-card-tagline">将模糊想法变成清晰方向</div>
         <div class="journey-card-desc">从"我有一个想法"，到"我知道要创造什么"。明确你的产品定位和方向后，开始孵化这个灵感。</div>
@@ -774,10 +773,9 @@
         </div>
       </div>
 
-      <!-- 04 Design -->
+      <!-- 04 -->
       <div class="journey-card" data-step="3">
-        <div class="journey-card-num">04 Design</div>
-        <div class="journey-card-en">Design</div>
+        <div class="journey-card-num">04</div>
         <div class="journey-card-cn">产品设计</div>
         <div class="journey-card-tagline">将想法转化为用户体验</div>
         <div class="journey-card-desc">一个好的产品，不仅需要解决问题，也需要被理解和使用，给用户带来愉悦的视觉和使用体验。</div>
@@ -800,10 +798,9 @@
         </div>
       </div>
 
-      <!-- 05 Build -->
+      <!-- 05 -->
       <div class="journey-card" data-step="4">
-        <div class="journey-card-num">05 Build</div>
-        <div class="journey-card-en">Build</div>
+        <div class="journey-card-num">05</div>
         <div class="journey-card-cn">AI开发</div>
         <div class="journey-card-tagline">借助 AI，把设计变成真实产品</div>
         <div class="journey-card-desc">AI正在改变产品的创造方式。通过 Vibe Coding，让没有专业开发背景的人，也可以进行产品开发。</div>
@@ -826,10 +823,9 @@
         </div>
       </div>
 
-      <!-- 06 Launch -->
+      <!-- 06 -->
       <div class="journey-card" data-step="5">
-        <div class="journey-card-num">06 Launch</div>
-        <div class="journey-card-en">Launch</div>
+        <div class="journey-card-num">06</div>
         <div class="journey-card-cn">发布上线</div>
         <div class="journey-card-tagline">让你的作品被更多人看见</div>
         <div class="journey-card-desc">创造产品的最后一步，不是完成开发上线，而是如何连接真实用户，获得真实的用户反馈。</div>
@@ -852,10 +848,9 @@
         </div>
       </div>
 
-      <!-- 07 Grow -->
+      <!-- 07 -->
       <div class="journey-card" data-step="6">
-        <div class="journey-card-num">07 Grow</div>
-        <div class="journey-card-en">Grow</div>
+        <div class="journey-card-num">07</div>
         <div class="journey-card-cn">持续成长</div>
         <div class="journey-card-tagline">让产品不断进化</div>
         <div class="journey-card-desc">每一个产品都有一个从小到大的成长过程。通过用户和数据反馈，持续优化和迭代产品，让它变得更好。</div>
