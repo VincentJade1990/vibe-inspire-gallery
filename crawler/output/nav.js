@@ -136,6 +136,37 @@
       '  width: 13px; height: 13px;',
       '}',
       '',
+      '/* 音效静音按钮 */',
+      '.vb-sound-btn {',
+      '  width: 32px;',
+      '  height: 32px;',
+      '  border-radius: 50%;',
+      '  border: 1px solid rgba(255,255,255,0.08);',
+      '  background: rgba(255,255,255,0.04);',
+      '  color: rgba(255,255,255,0.5);',
+      '  cursor: pointer;',
+      '  display: flex;',
+      '  align-items: center;',
+      '  justify-content: center;',
+      '  transition: all 240ms ease;',
+      '  flex-shrink: 0;',
+      '}',
+      '.vb-sound-btn:hover {',
+      '  border-color: rgba(168,85,247,0.4);',
+      '  background: rgba(168,85,247,0.1);',
+      '  color: #c4b5fd;',
+      '}',
+      '.vb-sound-btn.muted {',
+      '  opacity: 0.4;',
+      '}',
+      '.vb-sound-btn svg {',
+      '  width: 14px; height: 14px;',
+      '}',
+      '.vb-sound-on { display: block; }',
+      '.vb-sound-off { display: none; }',
+      '.vb-sound-btn.muted .vb-sound-on { display: none; }',
+      '.vb-sound-btn.muted .vb-sound-off { display: block; }',
+      '',
       '/* 已登录用户按钮 */',
       '.vb-user-btn {',
       '  display: inline-flex;',
@@ -290,17 +321,37 @@
     return name.charAt(0).toUpperCase();
   }
 
-  // 渲染右上角区域（Create 按钮 或 用户状态）
+  // 音效按钮 SVG 图标
+  var soundIconOn = '<svg class="vb-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+  var soundIconOff = '<svg class="vb-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>';
+
+  // 检测当前页面是否有音效（仅 gallery.html 有）
+  function hasAudio() {
+    var path = window.location.pathname;
+    var file = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
+    return file === 'gallery.html';
+  }
+
+  // 渲染右上角区域（音效按钮 + Create 按钮 或 用户状态）
   function renderRightArea(user, isMobile) {
+    var soundBtn = '';
+    if (hasAudio()) {
+      soundBtn = '<button class="vb-sound-btn" aria-label="音效开关">' +
+        soundIconOn + soundIconOff +
+        '</button>';
+    }
+
     if (user) {
       // 已登录：头像 + 昵称，点击进入 profile.html
-      return '<a href="./profile.html" class="vb-user-btn">' +
+      return soundBtn +
+        '<a href="./profile.html" class="vb-user-btn">' +
         '<span class="vb-user-avatar">' + getInitial(user.nickname) + '</span>' +
         '<span>' + escapeHtml(user.nickname) + '</span>' +
         '</a>';
     }
     // 未登录：Create 按钮
-    return '<button class="vb-create-btn" id="vb-create-trigger">' +
+    return soundBtn +
+      '<button class="vb-create-btn" id="vb-create-trigger">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>' +
       'CREATE</button>';
   }
@@ -400,6 +451,16 @@
         });
       }
     }
+
+    // 音效静音按钮
+    var soundBtns = document.querySelectorAll('.vb-sound-btn');
+    soundBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (typeof toggleSound === 'function') {
+          toggleSound();
+        }
+      });
+    });
   }
 
   // ===== 主入口 =====
