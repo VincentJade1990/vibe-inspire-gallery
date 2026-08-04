@@ -147,6 +147,7 @@ body::after {
 
 /* ===== 页面进入动画 ===== */
 .page-enter {
+  padding-top: 20px;
   animation: pageEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -1281,14 +1282,13 @@ body::after {
   text-transform: uppercase;
 }
 </style>
-  <!-- 用户登录状态 -->
-  <div id="authContainer" style="position:fixed;top:20px;right:24px;z-index:100;"></div>
   <script src="./auth.js"></script>
+  <script>window.VBNavConfig = { mode: 'sub', backHref: './gallery.html', backLabel: 'BACK' };</script>
+  <script src="./nav.js"></script>
 </head>
 <body>
-  <!-- 用户登录状态（固定右上角） -->
-  <div id="authContainer" style="position:fixed;top:20px;right:24px;z-index:1000;"></div>
-<body>
+<!-- 子页面返回按钮挂载点 -->
+<div id="vb-nav-mount"></div>
 
 <!-- 页面内容容器 -->
 <div id="app" class="page-enter">
@@ -1991,10 +1991,7 @@ function renderPage(caseData) {
 
     <!-- ====== 模块一：头部 ====== -->
     <section class="hero-section">
-      <a href="./gallery.html" class="back-btn" title="返回画廊">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-        返回
-      </a>
+
 
       <div class="bubble-container">
         <div class="bubble-wrapper ${liked ? 'liked' : ''}" id="bubbleWrapper">

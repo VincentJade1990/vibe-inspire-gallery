@@ -8,8 +8,8 @@
     name="description"
     content="SHAOZU — Product Designer × AI Creator，探索 AI 时代如何把想法变成真实产品。"
   >
-  <link rel="canonical" href="https://vibebubble.co/about.html">
-  <title>About SHAOZU | VibeBubble Studio</title>
+  <link rel="canonical" href="https://vibebubble.co/studio.html">
+  <title>Studio | VibeBubble</title>
   <script>document.documentElement.classList.add('motion-ready');</script>
 
   <style>
@@ -54,6 +54,7 @@
       overflow-x: hidden;
       color: var(--text);
       background: var(--bg);
+      padding-top: 68px;
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -1250,6 +1251,8 @@
       }
     }
   </style>
+<script src="./auth.js"></script>
+<script src="./nav.js"></script>
 </head>
 
 <body>
@@ -1258,20 +1261,8 @@
   <!-- =======================================================
        NAV：主站导航
        ======================================================= -->
-  <header class="site-nav">
-    <a class="brand" href="./index.html" aria-label="返回 VibeBubble 首页">
-      <span class="brand-dot" aria-hidden="true"></span>
-      VIBEBUBBLE
-    </a>
-
-    <nav aria-label="页面导航">
-      <a href="#about">ABOUT</a>
-      <a href="#experience">EXPERIENCE</a>
-      <a href="#work">WORK</a>
-    </nav>
-
-    <a class="nav-contact" href="#contact">LET&apos;S CREATE</a>
-  </header>
+  <!-- 统一导航栏 -->
+  <div id="vb-nav-mount"></div>
 
   <main>
     <!-- =====================================================
