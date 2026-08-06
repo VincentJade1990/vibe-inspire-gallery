@@ -12,6 +12,7 @@
     { label: 'Home', href: './index.html', key: 'home' },
     { label: 'Explore', href: './gallery.html', key: 'explore' },
     { label: 'Learning', href: './learning.html', key: 'learning' },
+    { label: 'Space', href: './space.html', key: 'space' },
     { label: 'Studio', href: './studio.html', key: 'studio' }
   ];
 
@@ -23,6 +24,7 @@
     if (file === '' || file === 'index.html') return 'home';
     if (file === 'gallery.html') return 'explore';
     if (file === 'learning.html') return 'learning';
+    if (file === 'space.html' || file === 'profile.html') return 'space';
     if (file === 'studio.html' || file === 'about.html') return 'studio';
     return '';
   }

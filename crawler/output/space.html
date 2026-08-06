@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Space - Vibe Bubble</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="./auth.js"></script>
+<script src="./nav.js"></script>
+<style>
+/* ===== CSS 变量与基础重置 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #050a14;
+  --bg-mid: #0a0f1a;
+  --bg-surface: rgba(255, 255, 255, 0.02);
+  --purple: #a855f7;
+  --pink: #ec4899;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --amber: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --text: #f8fafc;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.05);
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 40px rgba(168, 85, 247, 0.15);
+  --radius: 20px;
+  --radius-lg: 24px;
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  padding-top: 68px;
+}
+
+/* ===== 背景效果（虹彩旋转渐变，与 profile.html 一致） ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -120px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(236, 72, 153, 0.18),
+    rgba(168, 85, 247, 0.18),
+    rgba(59, 130, 246, 0.18),
+    rgba(6, 182, 212, 0.16),
+    rgba(245, 158, 11, 0.12),
+    rgba(236, 72, 153, 0.18)
+  );
+  animation: iridescentRotate 20s linear infinite;
+  z-index: -2;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+@keyframes iridescentRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(168, 85, 247, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 60% at 85% 75%, rgba(236, 72, 153, 0.10) 0%, transparent 45%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #040814 0%, #0a0f1a 35%, #080c18 70%, #0d0818 100%);
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* ===== 页面容器 ===== */
+.space-container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 48px 24px 100px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== 页面头部 ===== */
+.space-header {
+  margin-bottom: 40px;
+}
+
+.space-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #c4b5fd 0%, var(--purple) 40%, var(--pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.space-welcome {
+  font-size: 18px;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.space-welcome .welcome-name {
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.space-subtitle {
+  font-size: 14px;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+/* ===== 标签栏 ===== */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  width: fit-content;
+}
+
+.tab {
+  padding: 10px 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  border-radius: 11px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.tab:hover:not(.disabled) {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(99, 102, 241, 0.2));
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.tab.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 标签闪烁高亮（飞行气泡到达时） */
+.tab.tab-flash {
+  animation: tabFlash 1.5s ease;
+}
+
+@keyframes tabFlash {
+  0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+  20%, 60% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6), 0 0 80px rgba(168, 85, 247, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15); }
+}
+
+/* ===== 标签内容面板 ===== */
+.tab-panel {
+  display: none;
+  animation: panelFadeIn 0.4s ease;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 灵感气泡卡片 ===== */
+.idea-bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+/* 渐变边框（mask 技法） */
+.idea-bubble::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.3), rgba(59, 130, 246, 0.2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.idea-bubble:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(168, 85, 247, 0.08);
+}
+
+.idea-bubble:hover::before {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.7), rgba(236, 72, 153, 0.5), rgba(59, 130, 246, 0.4));
+}
+
+.idea-bubble.expanded {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), 0 0 40px rgba(168, 85, 247, 0.12);
+}
+
+.idea-bubble.expanded::before {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(236, 72, 153, 0.6));
+}
+
+/* 圆形渐变气泡图标 */
+.bubble-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.4), var(--stage-color, var(--purple)) 65%);
+  box-shadow: 0 0 24px var(--stage-glow, rgba(168, 85, 247, 0.35)), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  animation: bubbleFloat 4s ease-in-out infinite;
+}
+
+.bubble-icon::after {
+  content: '';
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  filter: blur(2px);
+}
+
+@keyframes bubbleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* 气泡内容区 */
+.bubble-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.bubble-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bubble-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* 阶段标签（彩虹药丸） */
+.stage-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: var(--stage-color, var(--purple));
+  background: var(--stage-bg, rgba(168, 85, 247, 0.12));
+  border: 1px solid var(--stage-border, rgba(168, 85, 247, 0.25));
+}
+
+.stage-badge .stage-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--stage-color, var(--purple));
+  box-shadow: 0 0 8px var(--stage-color, var(--purple));
+}
+
+/* 删除按钮（hover 显示） */
+.idea-delete-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.08);
+  color: #f87171;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: var(--transition);
+}
+
+.idea-bubble:hover .idea-delete-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.idea-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: scale(1.1);
+}
+
+/* ===== 展开区域（阶段进度条） ===== */
+.bubble-expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.idea-bubble.expanded .bubble-expand {
+  max-height: 400px;
+}
+
+.expand-inner {
+  padding: 4px 0 4px 70px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 18px;
+}
+
+.expand-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* 阶段进度条 */
+.stage-progress {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: 18px;
+}
+
+.stage-segment {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.stage-segment:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 0;
+}
+
+.stage-segment.completed:not(:last-child)::after {
+  background: var(--segment-color);
+  opacity: 0.5;
+}
+
+.stage-segment.current:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stage-dot-lg {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  position: relative;
+  z-index: 1;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-segment.completed .stage-dot-lg {
+  background: var(--segment-color);
+  border-color: var(--segment-color);
+  box-shadow: 0 0 12px var(--segment-color);
+}
+
+.stage-segment.current .stage-dot-lg {
+  background: var(--segment-color);
+  border-color: var(--segment-color);
+  box-shadow: 0 0 16px var(--segment-color), 0 0 32px var(--segment-color);
+  animation: stagePulse 2s ease-in-out infinite;
+}
+
+@keyframes stagePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.stage-segment:hover .stage-dot-lg {
+  transform: scale(1.2);
+  border-color: var(--segment-color);
+}
+
+.stage-num {
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.stage-segment.current .stage-num,
+.stage-segment.completed .stage-num {
+  color: var(--segment-color);
+}
+
+.stage-zh {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 70px;
+}
+
+.stage-segment.current .stage-zh {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* 展开区删除按钮 */
+.expand-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.08);
+  color: #f87171;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.expand-delete:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: translateY(-1px);
+}
+
+/* ===== 空状态 ===== */
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.empty-bubble {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.15), rgba(168, 85, 247, 0.1) 60%, transparent);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  animation: bubbleFloat 4s ease-in-out infinite;
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.1);
+}
+
+.empty-text {
+  font-size: 16px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.empty-hint {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.empty-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--purple), #6366f1);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+}
+
+.empty-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.45);
+}
+
+/* ===== 即将上线 ===== */
+.coming-soon {
+  text-align: center;
+  padding: 100px 24px;
+}
+
+.coming-soon-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  animation: bubbleFloat 4s ease-in-out infinite;
+}
+
+.coming-soon-text {
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.coming-soon-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ===== 飞行气泡到达动画 ===== */
+.incoming-bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  margin-bottom: 14px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.1));
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.3);
+  overflow: hidden;
+  animation: bubbleLand 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  pointer-events: none;
+}
+
+.incoming-bubble .inc-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.5), var(--purple) 65%);
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.6);
+  animation: bubbleFloat 2s ease-in-out infinite;
+}
+
+.incoming-bubble .inc-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes bubbleLand {
+  0% {
+    transform: scale(0.3) translateY(-30px);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(168, 85, 247, 0);
+  }
+  25% {
+    transform: scale(1.12) translateY(0);
+    opacity: 1;
+    box-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
+  }
+  55% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.35);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(168, 85, 247, 0);
+  }
+}
+
+/* 列表项淡入 */
+.idea-bubble.fresh {
+  animation: freshGlow 1.5s ease;
+}
+
+@keyframes freshGlow {
+  0% { box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
+  30% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.4), 0 0 80px rgba(168, 85, 247, 0.2); }
+  100% { box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
+}
+
+/* ===== 加载骨架 ===== */
+.skeleton-bubble {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+}
+
+.skeleton-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite;
+  flex-shrink: 0;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite;
+  margin-bottom: 8px;
+}
+
+@keyframes skeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 640px) {
+  .space-container {
+    padding: 32px 16px 80px;
+  }
+
+  .space-title {
+    font-size: 28px;
+  }
+
+  .space-welcome {
+    font-size: 16px;
+  }
+
+  .tabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .tab {
+    padding: 9px 20px;
+    font-size: 13px;
+  }
+
+  .idea-bubble {
+    padding: 16px 18px;
+    gap: 14px;
+  }
+
+  .bubble-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .bubble-title {
+    font-size: 14px;
+  }
+
+  .stage-badge {
+    padding: 3px 10px;
+    font-size: 10px;
+  }
+
+  .expand-inner {
+    padding-left: 58px;
+  }
+
+  .stage-zh {
+    font-size: 9px;
+    max-width: 50px;
+  }
+
+  .idea-delete-btn {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== 滚动条 ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+</style>
+</head>
+<body>
+<!-- 统一导航挂载点（主导航模式） -->
+<div id="vb-nav-mount"></div>
+
+<!-- 页面内容 -->
+<div class="space-container">
+  <!-- 头部 -->
+  <header class="space-header">
+    <h1 class="space-title">Creative Space</h1>
+    <p class="space-welcome">Welcome back, <span class="welcome-name" id="userNickname">...</span></p>
+    <p class="space-subtitle">Your creative journey with AI</p>
+  </header>
+
+  <!-- 标签栏 -->
+  <div class="tabs">
+    <button class="tab active" data-tab="ideas">Ideas</button>
+    <button class="tab" data-tab="projects">Projects</button>
+    <button class="tab" data-tab="activity">Activity</button>
+  </div>
+
+  <!-- 标签内容 -->
+  <div class="tab-content">
+    <!-- Ideas -->
+    <div id="ideasTab" class="tab-panel active">
+      <div id="ideasList">
+        <!-- 骨架屏 / 灵感气泡由 JS 渲染 -->
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div id="projectsTab" class="tab-panel">
+      <div class="coming-soon">
+        <div class="coming-soon-icon">&#x1F680;</div>
+        <div class="coming-soon-text">即将上线</div>
+        <div class="coming-soon-sub">项目管理功能正在开发中，敬请期待</div>
+      </div>
+    </div>
+
+    <!-- Activity -->
+    <div id="activityTab" class="tab-panel">
+      <div class="coming-soon">
+        <div class="coming-soon-icon">&#x1F4CA;</div>
+        <div class="coming-soon-text">即将上线</div>
+        <div class="coming-soon-sub">活动动态功能正在开发中，敬请期待</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== 阶段定义 ====================
+const STAGES = [
+  { num: '01', en: 'Explore Ideas',   zh: '探索灵感', status: 'explore_ideas',   color: '#a855f7' },
+  { num: '02', en: 'Discover Needs',  zh: '需求分析', status: 'discover_needs',  color: '#ec4899' },
+  { num: '03', en: 'Define Product',  zh: '产品定位', status: 'define_product',  color: '#3b82f6' },
+  { num: '04', en: 'Design Product',  zh: '产品设计', status: 'design_product',  color: '#06b6d4' },
+  { num: '05', en: 'Build Product',   zh: '产品构建', status: 'build_product',   color: '#f59e0b' },
+  { num: '06', en: 'Launch Product',  zh: '发布运营', status: 'launch_product',  color: '#10b981' },
+  { num: '07', en: 'Grow Users',      zh: '用户增长', status: 'grow_users',      color: '#ef4444' }
+];
+
+// 获取阶段索引（根据 status 字段）
+function getStageIndex(status) {
+  const idx = STAGES.findIndex(s => s.status === status);
+  return idx >= 0 ? idx : 0;
+}
+
+// 将十六进制颜色转为 rgba
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
+}
+
+// 格式化日期为相对时间
+function formatDate(isoString) {
+  if (!isoString) return '';
+  const date = new Date(isoString);
+  const now = new Date();
+  const diff = now - date;
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (minutes < 1) return '刚刚';
+  if (minutes < 60) return minutes + ' 分钟前';
+  if (hours < 24) return hours + ' 小时前';
+  if (days < 30) return days + ' 天前';
+  return date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+}
+
+// HTML 转义
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+// ==================== 页面初始化 ====================
+
+async function init() {
+  // 等待 auth 初始化完成
+  let attempts = 0;
+  while (!authReady && attempts < 50) {
+    await new Promise(r => setTimeout(r, 100));
+    attempts++;
+  }
+
+  // 获取当前用户
+  const user = typeof window.currentUser === 'function' ? window.currentUser() : currentUser;
+
+  // 未登录则重定向
+  if (!user) {
+    window.location.href = './gallery.html';
+    return;
+  }
+
+  // 渲染昵称
+  const nickEl = document.getElementById('userNickname');
+  if (nickEl) {
+    nickEl.textContent = user.nickname || (user.email ? user.email.split('@')[0] : 'Creator');
+  }
+
+  // 绑定标签切换
+  bindTabs();
+
+  // 加载灵感列表
+  loadIdeas();
+}
+
+// ==================== 标签切换 ====================
+
+function bindTabs() {
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      switchTab(target);
+    });
+  });
+}
+
+function switchTab(target) {
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === target);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === target + 'Tab');
+  });
+}
+
+// ==================== 加载灵感列表 ====================
+
+async function loadIdeas(freshTitle) {
+  const container = document.getElementById('ideasList');
+  if (!container) return;
+
+  const user = typeof window.currentUser === 'function' ? window.currentUser() : currentUser;
+  if (!user) return;
+
+  // 显示骨架屏
+  container.innerHTML = renderSkeleton();
+
+  try {
+    const ideas = await getUserIdeas(user.id);
+
+    if (!ideas || ideas.length === 0) {
+      container.innerHTML = renderEmptyState();
+      return;
+    }
+
+    container.innerHTML = ideas.map(function(idea) { return renderIdeaCard(idea); }).join('');
+
+    // 绑定卡片交互（事件委托）
+    bindIdeaEvents(container);
+
+    // 如果有新保存的灵感，高亮第一条
+    if (freshTitle) {
+      const firstCard = container.querySelector('.idea-bubble');
+      if (firstCard) {
+        firstCard.classList.add('fresh');
+        setTimeout(function() { firstCard.classList.remove('fresh'); }, 1600);
+      }
+    }
+  } catch (e) {
+    console.error('[Space] Load ideas error:', e);
+    container.innerHTML = renderEmptyState();
+  }
+}
+
+// 渲染骨架屏
+function renderSkeleton() {
+  let html = '';
+  for (let i = 0; i < 3; i++) {
+    html += '<div class="skeleton-bubble">' +
+      '<div class="skeleton-circle"></div>' +
+      '<div style="flex:1;">' +
+        '<div class="skeleton-line" style="width:' + (60 + Math.random() * 30) + '%;"></div>' +
+        '<div class="skeleton-line" style="width:30%;height:10px;"></div>' +
+      '</div>' +
+    '</div>';
+  }
+  return html;
+}
+
+// 渲染空状态
+function renderEmptyState() {
+  return '<div class="empty-state">' +
+    '<div class="empty-bubble">&#x1F4AD;</div>' +
+    '<div class="empty-text">还没有记录任何灵感</div>' +
+    '<div class="empty-hint">开始你的创意之旅吧</div>' +
+    '<a href="./gallery.html" class="empty-link">' +
+      '去 Explore 记录你的第一个灵感 &#x2192;' +
+    '</a>' +
+  '</div>';
+}
+
+// 渲染单个灵感气泡卡片
+function renderIdeaCard(idea) {
+  const stageIdx = getStageIndex(idea.status);
+  const stage = STAGES[stageIdx];
+  const color = stage.color;
+  const dateText = formatDate(idea.created_at);
+
+  // 构建阶段进度条
+  const progressHtml = STAGES.map(function(s, i) {
+    let segClass = 'stage-segment';
+    if (i < stageIdx) segClass += ' completed';
+    if (i === stageIdx) segClass += ' current';
+    return '<div class="' + segClass + '" data-idea-id="' + idea.id + '" data-stage-status="' + s.status + '"' +
+      ' style="--segment-color:' + s.color + ';">' +
+      '<div class="stage-dot-lg"></div>' +
+      '<div class="stage-num">' + s.num + '</div>' +
+      '<div class="stage-zh">' + s.zh + '</div>' +
+    '</div>';
+  }).join('');
+
+  return '<div class="idea-bubble" data-idea-id="' + idea.id + '"' +
+    ' style="--stage-color:' + color + '; --stage-glow:' + hexToRgba(color, 0.35) + '; --stage-bg:' + hexToRgba(color, 0.12) + '; --stage-border:' + hexToRgba(color, 0.25) + ';">' +
+    '<div class="bubble-icon"></div>' +
+    '<div class="bubble-content">' +
+      '<div class="bubble-title">' + escapeHtml(idea.title) + '</div>' +
+      '<div class="bubble-date">' + dateText + '</div>' +
+    '</div>' +
+    '<span class="stage-badge">' +
+      '<span class="stage-dot"></span>' +
+      stage.num + ' ' + stage.zh +
+    '</span>' +
+    '<button class="idea-delete-btn" data-action="delete" data-idea-id="' + idea.id + '" title="删除灵感">&#x2715;</button>' +
+    '<div class="bubble-expand">' +
+      '<div class="expand-inner">' +
+        '<div class="expand-label">Creative Journey &middot; ' + stage.num + ' ' + stage.en + ' / ' + stage.zh + '</div>' +
+        '<div class="stage-progress">' + progressHtml + '</div>' +
+        '<button class="expand-delete" data-action="delete" data-idea-id="' + idea.id + '">' +
+          '&#x1F5D1; 删除这个灵感' +
+        '</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// 绑定灵感卡片交互（事件委托）
+function bindIdeaEvents(container) {
+  container.addEventListener('click', async function(e) {
+    // 删除按钮
+    const deleteBtn = e.target.closest('[data-action="delete"]');
+    if (deleteBtn) {
+      e.stopPropagation();
+      const ideaId = deleteBtn.dataset.ideaId;
+      handleDeleteIdea(ideaId);
+      return;
+    }
+
+    // 阶段进度条点击（切换阶段）
+    const stageSeg = e.target.closest('.stage-segment');
+    if (stageSeg) {
+      e.stopPropagation();
+      const ideaId = stageSeg.dataset.ideaId;
+      const status = stageSeg.dataset.stageStatus;
+      if (ideaId && status) {
+        await setIdeaStage(ideaId, status);
+      }
+      return;
+    }
+
+    // 点击卡片展开/收起
+    const card = e.target.closest('.idea-bubble');
+    if (card) {
+      card.classList.toggle('expanded');
+    }
+  });
+}
+
+// ==================== 删除灵感 ====================
+
+async function handleDeleteIdea(id) {
+  if (!id) return;
+  if (!confirm('确定要删除这个灵感吗？删除后不可恢复。')) return;
+
+  const result = await deleteIdea(id);
+  if (result.success) {
+    loadIdeas();
+  } else {
+    alert(result.error || '删除失败，请稍后重试');
+  }
+}
+
+// ==================== 更新灵感阶段 ====================
+
+async function setIdeaStage(ideaId, status) {
+  if (typeof updateIdeaStatus !== 'function') return;
+  const result = await updateIdeaStatus(ideaId, status);
+  if (result.success) {
+    loadIdeas();
+  } else {
+    console.error('[Space] Update stage error:', result.error);
+  }
+}
+
+// ==================== 飞行气泡到达动画 ====================
+
+function receiveFlyingBubble(title) {
+  // 切换到 Ideas 标签
+  switchTab('ideas');
+
+  // 高亮 Ideas 标签
+  const ideasTab = document.querySelector('.tab[data-tab="ideas"]');
+  if (ideasTab) {
+    ideasTab.classList.add('tab-flash');
+    setTimeout(function() { ideasTab.classList.remove('tab-flash'); }, 1500);
+  }
+
+  const container = document.getElementById('ideasList');
+  if (!container) return;
+
+  // 如果当前是空状态或骨架屏，先清空
+  const emptyOrSkeleton = container.querySelector('.empty-state, .skeleton-bubble');
+  if (emptyOrSkeleton) {
+    container.innerHTML = '';
+  }
+
+  // 创建到达气泡动画元素
+  const displayText = title && title.length > 24 ? title.substring(0, 24) + '...' : (title || '新灵感');
+  const bubble = document.createElement('div');
+  bubble.className = 'incoming-bubble';
+  bubble.innerHTML = '<div class="inc-dot"></div><div class="inc-text">' + escapeHtml(displayText) + '</div>';
+  container.prepend(bubble);
+
+  // 动画结束后移除气泡并刷新列表
+  setTimeout(function() {
+    bubble.remove();
+    loadIdeas(displayText);
+  }, 1150);
+}
+
+// ==================== 暴露到全局 ====================
+
+window.loadIdeas = loadIdeas;
+window.handleDeleteIdea = handleDeleteIdea;
+window.receiveFlyingBubble = receiveFlyingBubble;
+
+// ==================== 启动 ====================
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+
+</body>
+</html>

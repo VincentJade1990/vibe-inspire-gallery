@@ -900,3 +900,171 @@ async function updateNickname(newNickname) {
 window.getUserFavorites = getUserFavorites;
 window.getUserStats = getUserStats;
 window.updateNickname = updateNickname;
+
+// ==================== Ideas API（用户灵感记录）====================
+
+/**
+ * 保存用户灵感
+ */
+async function saveIdea(title, tags) {
+  const token = getAccessToken();
+  if (!token || !currentUser) return { error: '未登录' };
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/ideas`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify({
+        user_id: currentUser.id,
+        title: title,
+        tags: tags || [],
+        status: 'explore_ideas'
+      })
+    });
+
+    if (res.ok || res.status === 201) {
+      const data = await res.json();
+      return { success: true, data: data[0] };
+    } else {
+      const err = await res.json().catch(() => ({}));
+      return { error: err.message || '保存失败' };
+    }
+  } catch (e) {
+    console.error('[Ideas] Save error:', e);
+    return { error: '网络错误' };
+  }
+}
+
+/**
+ * 获取用户灵感列表
+ */
+async function getUserIdeas(userId) {
+  const token = getAccessToken();
+  if (!token || !userId) return [];
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/ideas?user_id=eq.${userId}&order=created_at.desc&select=*`,
+      {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (e) {
+    console.error('[Ideas] Get list error:', e);
+  }
+  return [];
+}
+
+/**
+ * 删除用户灵感
+ */
+async function deleteIdea(ideaId) {
+  const token = getAccessToken();
+  if (!token || !currentUser) return { error: '未登录' };
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/ideas?id=eq.${ideaId}&user_id=eq.${currentUser.id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+
+    if (res.ok) {
+      return { success: true };
+    }
+    return { error: '删除失败' };
+  } catch (e) {
+    console.error('[Ideas] Delete error:', e);
+    return { error: '网络错误' };
+  }
+}
+
+/**
+ * 更新灵感状态
+ */
+async function updateIdeaStatus(ideaId, status) {
+  const token = getAccessToken();
+  if (!token || !currentUser) return { error: '未登录' };
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/ideas?id=eq.${ideaId}&user_id=eq.${currentUser.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ status })
+      }
+    );
+
+    if (res.ok) {
+      return { success: true };
+    }
+    return { error: '更新失败' };
+  } catch (e) {
+    console.error('[Ideas] Update error:', e);
+    return { error: '网络错误' };
+  }
+}
+
+/**
+ * 获取用户灵感数量
+ */
+async function getUserIdeaCount(userId) {
+  const token = getAccessToken();
+  if (!token || !userId) return 0;
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/ideas?user_id=eq.${userId}&select=id`,
+      {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`,
+          'Prefer': 'count=exact'
+        }
+      }
+    );
+
+    if (res.ok) {
+      const count = res.headers.get('content-range');
+      if (count) {
+        const parts = count.split('/');
+        return parseInt(parts[1]) || 0;
+      }
+      const data = await res.json();
+      return data.length;
+    }
+  } catch (e) {
+    console.error('[Ideas] Count error:', e);
+  }
+  return 0;
+}
+
+// 暴露 Ideas API
+window.saveIdea = saveIdea;
+window.getUserIdeas = getUserIdeas;
+window.deleteIdea = deleteIdea;
+window.updateIdeaStatus = updateIdeaStatus;
+window.getUserIdeaCount = getUserIdeaCount;
