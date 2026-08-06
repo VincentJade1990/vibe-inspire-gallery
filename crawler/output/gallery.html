@@ -292,6 +292,27 @@ body {
   background: rgba(6,182,212,0.15);
   transform: translateY(-2px);
 }
+/* 紫色实体按钮样式（和首页 Create 一致） */
+.bottom-btn.vb-create-style {
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 10px 22px;
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+}
+.bottom-btn.vb-create-style:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(168, 85, 247, 0.45);
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  border-color: transparent;
+}
+.bottom-btn.vb-create-style:active {
+  transform: scale(0.97);
+}
 .mode-toggle {
   display: flex;
   align-items: center;
@@ -519,17 +540,22 @@ body {
 }
 .inspire-input {
   width: 100%;
-  height: 48px;
-  padding: 0 16px;
+  padding: 14px 16px;
   border-radius: 14px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
   color: var(--text);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   font-family: inherit;
   outline: none;
   transition: border-color 0.2s;
+  line-height: 1.6;
+  resize: none;
+}
+.inspire-textarea {
+  min-height: 68px;
+  height: auto;
 }
 .inspire-input:focus {
   border-color: var(--purple);
@@ -845,9 +871,9 @@ body {
     <span class="mode-option active" data-mode="all">全部灵感</span>
     <span class="mode-option" data-mode="random">随机灵感</span>
   </div>
-  <button class="bottom-btn" id="submitBtn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-    Record Idea
+  <button class="bottom-btn vb-create-style" id="submitBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    记录灵感
   </button>
 </div>
 
@@ -880,16 +906,15 @@ body {
 <div class="modal-overlay" id="submitModal">
   <div class="modal inspire-modal">
     <button class="modal-close" onclick="closeSubmit()">&times;</button>
-    <h2>Record New Idea</h2>
+    <h2>记录你的灵感火花</h2>
     <div class="inspire-input-wrap">
-      <input type="text" id="inspireInput" class="inspire-input" placeholder="给你的灵感起个名字..." />
+      <textarea id="inspireInput" class="inspire-input inspire-textarea" placeholder="此刻你的脑海浮现了什么产品灵感？" rows="2"></textarea>
       <div class="inspire-tags-section">
         <div class="inspire-tags-label">Tags</div>
         <div class="inspire-tags-select" id="inspireTagsSelect"></div>
       </div>
       <button class="inspire-submit-btn" id="inspireSubmitBtn" onclick="handleInspireSubmit()">
-        <span>Save Idea</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span>记录灵感</span>
       </button>
     </div>
   </div>
@@ -2496,7 +2521,7 @@ async function handleInspireSubmit() {
   var submitBtn = document.getElementById('inspireSubmitBtn');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.querySelector('span').textContent = 'Saving...';
+    submitBtn.querySelector('span').textContent = '保存中...';
   }
 
   // 保存到 Supabase
@@ -2505,7 +2530,7 @@ async function handleInspireSubmit() {
   // 恢复按钮
   if (submitBtn) {
     submitBtn.disabled = false;
-    submitBtn.querySelector('span').textContent = 'Save Idea';
+    submitBtn.querySelector('span').textContent = '记录灵感';
   }
 
   if (result.error) {
@@ -2844,11 +2869,11 @@ function setupUI() {
     openSubmit();
   });
 
-  // 灵感输入框 Enter 快捷提交
+  // 灵感输入框 Ctrl+Enter 快捷提交
   var inspireInput = document.getElementById('inspireInput');
   if (inspireInput) {
     inspireInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         e.preventDefault();
         handleInspireSubmit();
       }
