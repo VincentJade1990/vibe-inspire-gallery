@@ -608,6 +608,62 @@ body::after {
   background: rgba(255, 255, 255, 0.01);
 }
 
+/* 工具选择芯片 */
+.output-tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.output-tool-chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.output-tool-chip:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  color: var(--text);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.output-tool-chip.active {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: var(--purple-light);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.15);
+}
+
+.output-tool-chip.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 查看模式下的工具标签 */
+.output-tools-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.output-tool-tag {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--purple-light);
+  font-size: 12px;
+  font-weight: 500;
+}
+
 /* 查看模式 */
 .output-field-view {
   font-size: 14px;
@@ -1190,7 +1246,7 @@ var STAGE_VISUAL = {
 // 核心产出模板（每个阶段一组字段，每个字段 { label, placeholder }）
 var OUTPUT_TEMPLATES = {
   basic_cognition: [
-    { label: '目标AI工具', placeholder: '你计划使用哪些AI工具？如 ChatGPT、Claude、Midjourney...' },
+    { type: 'tools', label: '选择AI工具', options: ['Codex', 'Trae', 'WorkBuddy', 'Cursor', 'Windsurf', 'Bolt', 'v0', 'Lovable', 'Replit', 'GitHub Copilot', 'Claude Code', 'Gemini Code Assist'] },
     { label: '工具能力边界', placeholder: '这些工具擅长什么？不擅长什么？' },
     { label: '使用场景匹配', placeholder: '你的产品场景适合用哪些工具？为什么？' }
   ],
@@ -1243,6 +1299,7 @@ var isEditingOutput = false;
 var currentOutputData = null;
 var isSavingOutput = false;
 var hasSavedOutput = false; // 当前阶段是否已保存产出
+var viewingStageStatus = null; // 正在查看的历史阶段（null = 当前阶段）
 
 // ==================== 工具函数 ====================
 
@@ -1581,14 +1638,25 @@ function handleStageClick(targetIdx, targetStatus) {
   var idea = ideasList[currentIdeaIndex];
   var currentStageIdx = getStageIndex(idea.status);
 
-  // 点击已完成节点 → 查看（不改变当前阶段）
+  // 点击已完成节点 → 查看该阶段产出（不改变当前阶段）
   if (targetIdx < currentStageIdx) {
-    showToast(STAGES[targetIdx].zh + ' — 已完成');
+    viewStageOutput(targetStatus);
     return;
   }
 
-  // 点击当前节点 → 无操作
-  if (targetIdx === currentStageIdx) return;
+  // 点击当前节点 → 切换编辑/查看模式
+  if (targetIdx === currentStageIdx) {
+    if (viewingStageStatus) {
+      // 正在查看历史阶段，返回当前阶段
+      viewingStageStatus = null;
+      loadOutputForCurrentIdea();
+    } else if (hasSavedOutput && !isEditingOutput) {
+      enterEditMode();
+    } else if (!isEditingOutput) {
+      enterEditMode();
+    }
+    return;
+  }
 
   // 点击未完成节点 → 需要先保存当前阶段产出
   if (!hasSavedOutput) {
@@ -1621,6 +1689,7 @@ async function handleStageSwitch(newStatus) {
     idea.status = newStatus;
     hasSavedOutput = false;
     isEditingOutput = false;
+    viewingStageStatus = null;
     currentOutputData = null;
     var container = document.getElementById('ideasContent');
     renderIdeaStage(container);
@@ -1630,17 +1699,70 @@ async function handleStageSwitch(newStatus) {
   }
 }
 
+// ==================== 查看已完成阶段产出 ====================
+
+async function viewStageOutput(stageStatus) {
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  viewingStageStatus = stageStatus;
+
+  if (typeof getIdeaOutput !== 'function') return;
+
+  var outputData = await getIdeaOutput(idea.id, stageStatus);
+  var outputBody = document.getElementById('outputBody');
+  var outputFooter = document.getElementById('outputFooter');
+  var outputStageTag = document.getElementById('outputStageTag');
+
+  if (!outputBody) return;
+
+  // 更新阶段标签
+  var stageIdx = getStageIndex(stageStatus);
+  var stage = STAGES[stageIdx];
+  if (outputStageTag) {
+    outputStageTag.textContent = stage.num + ' ' + stage.zh + '（查看）';
+  }
+
+  // 显示查看模式
+  if (outputData && outputData.content) {
+    renderOutputView(outputData.content, stageStatus);
+  } else {
+    outputBody.innerHTML = '<div class="output-placeholder-text">该阶段暂无产出记录</div>';
+  }
+
+  // 隐藏保存/下一步按钮，显示返回按钮
+  if (outputFooter) {
+    outputFooter.style.display = 'flex';
+    outputFooter.innerHTML = '<button class="output-btn output-btn-save edit-mode" id="outputBackBtn">返回当前阶段</button>';
+    var backBtn = document.getElementById('outputBackBtn');
+    if (backBtn) {
+      backBtn.addEventListener('click', function() {
+        viewingStageStatus = null;
+        loadOutputForCurrentIdea();
+      });
+    }
+  }
+}
+
 // ==================== 核心产出加载 ====================
 
 async function loadOutputForCurrentIdea() {
   if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  viewingStageStatus = null;
 
   var idea = ideasList[currentIdeaIndex];
   var stageIdx = getStageIndex(idea.status);
   var stage = STAGES[stageIdx];
   var outputBody = document.getElementById('outputBody');
   var outputFooter = document.getElementById('outputFooter');
+  var outputStageTag = document.getElementById('outputStageTag');
   if (!outputBody) return;
+
+  // 恢复阶段标签
+  if (outputStageTag) {
+    outputStageTag.textContent = stage.num + ' ' + stage.zh;
+  }
 
   if (typeof getIdeaOutput !== 'function') return;
 
@@ -1682,30 +1804,56 @@ function renderOutputEditor() {
   }
 
   for (var i = 0; i < fields.length; i++) {
-    var val = (savedContent && savedContent[i]) ? savedContent[i] : '';
-    html += '<div class="output-field">' +
-      '<div class="output-field-label">' + fields[i].label + '</div>' +
-      '<textarea class="output-field-input" data-field-idx="' + i + '" placeholder="' + escapeHtml(fields[i].placeholder) + '" rows="2">' + escapeHtml(val) + '</textarea>' +
-    '</div>';
+    var field = fields[i];
+    if (field.type === 'tools') {
+      // 工具选择芯片
+      var selectedTools = [];
+      if (savedContent && savedContent[i]) {
+        try { selectedTools = JSON.parse(savedContent[i]); } catch (e) { selectedTools = []; }
+      }
+      html += '<div class="output-field">' +
+        '<div class="output-field-label">' + field.label + '</div>' +
+        '<div class="output-tools-grid" data-field-idx="' + i + '">';
+      for (var t = 0; t < field.options.length; t++) {
+        var toolName = field.options[t];
+        var isActive = selectedTools.indexOf(toolName) > -1;
+        html += '<span class="output-tool-chip' + (isActive ? ' active' : '') + '" data-tool="' + escapeHtml(toolName) + '">' + escapeHtml(toolName) + '</span>';
+      }
+      html += '</div></div>';
+    } else {
+      var val = (savedContent && savedContent[i]) ? savedContent[i] : '';
+      html += '<div class="output-field">' +
+        '<div class="output-field-label">' + field.label + '</div>' +
+        '<textarea class="output-field-input" data-field-idx="' + i + '" placeholder="' + escapeHtml(field.placeholder) + '" rows="2">' + escapeHtml(val) + '</textarea>' +
+      '</div>';
+    }
   }
 
   outputBody.innerHTML = html;
   if (outputFooter) outputFooter.style.display = 'flex';
+
+  // 绑定工具芯片点击事件
+  outputBody.querySelectorAll('.output-tool-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      chip.classList.toggle('active');
+    });
+  });
 
   updateFooterButtons();
 }
 
 // ==================== 渲染核心产出查看模式 ====================
 
-function renderOutputView(contentJson) {
+function renderOutputView(contentJson, optStageStatus) {
   var outputBody = document.getElementById('outputBody');
   var outputFooter = document.getElementById('outputFooter');
   if (!outputBody) return;
 
   var idea = ideasList[currentIdeaIndex];
-  var stageIdx = getStageIndex(idea.status);
+  var stageStatus = optStageStatus || idea.status;
+  var stageIdx = getStageIndex(stageStatus);
   var stage = STAGES[stageIdx];
-  var fields = OUTPUT_TEMPLATES[stage.status] || [];
+  var fields = OUTPUT_TEMPLATES[stageStatus] || [];
 
   var savedContent = null;
   try {
@@ -1716,11 +1864,32 @@ function renderOutputView(contentJson) {
 
   var html = '';
   for (var i = 0; i < fields.length; i++) {
-    var val = (savedContent && savedContent[i]) ? savedContent[i] : '';
-    html += '<div class="output-field">' +
-      '<div class="output-field-label">' + fields[i].label + '</div>' +
-      '<div class="output-field-view">' + (val ? escapeHtml(val) : '<span style="color:var(--text-muted);font-style:italic;">未填写</span>') + '</div>' +
-    '</div>';
+    var field = fields[i];
+    if (field.type === 'tools') {
+      // 工具标签展示
+      var selectedTools = [];
+      if (savedContent && savedContent[i]) {
+        try { selectedTools = JSON.parse(savedContent[i]); } catch (e) { selectedTools = []; }
+      }
+      html += '<div class="output-field">' +
+        '<div class="output-field-label">' + field.label + '</div>';
+      if (selectedTools.length > 0) {
+        html += '<div class="output-tools-tags">';
+        for (var t = 0; t < selectedTools.length; t++) {
+          html += '<span class="output-tool-tag">' + escapeHtml(selectedTools[t]) + '</span>';
+        }
+        html += '</div>';
+      } else {
+        html += '<div class="output-field-view"><span style="color:var(--text-muted);font-style:italic;">未选择</span></div>';
+      }
+      html += '</div>';
+    } else {
+      var val = (savedContent && savedContent[i]) ? savedContent[i] : '';
+      html += '<div class="output-field">' +
+        '<div class="output-field-label">' + field.label + '</div>' +
+        '<div class="output-field-view">' + (val ? escapeHtml(val) : '<span style="color:var(--text-muted);font-style:italic;">未填写</span>') + '</div>' +
+      '</div>';
+    }
   }
 
   outputBody.innerHTML = html;
@@ -1775,6 +1944,7 @@ function updateFooterButtons() {
 
 function enterEditMode() {
   if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+  if (viewingStageStatus) return; // 正在查看历史阶段，不允许编辑
   isEditingOutput = true;
   renderOutputEditor();
   updateFooterButtons();
@@ -1791,12 +1961,31 @@ async function handleSaveOutput() {
   var stage = STAGES[stageIdx];
 
   // 收集所有字段值
-  var inputs = document.querySelectorAll('.output-field-input');
+  var fields = OUTPUT_TEMPLATES[stage.status] || [];
   var values = [];
-  inputs.forEach(function(inp) { values.push(inp.value.trim()); });
+  var allEmpty = true;
 
-  // 检查是否全部为空
-  var allEmpty = values.every(function(v) { return !v; });
+  for (var i = 0; i < fields.length; i++) {
+    var field = fields[i];
+    if (field.type === 'tools') {
+      // 收集选中的工具芯片
+      var grid = document.querySelector('.output-tools-grid[data-field-idx="' + i + '"]');
+      var selected = [];
+      if (grid) {
+        grid.querySelectorAll('.output-tool-chip.active').forEach(function(chip) {
+          selected.push(chip.dataset.tool);
+        });
+      }
+      values.push(JSON.stringify(selected));
+      if (selected.length > 0) allEmpty = false;
+    } else {
+      var input = document.querySelector('.output-field-input[data-field-idx="' + i + '"]');
+      var val = input ? input.value.trim() : '';
+      values.push(val);
+      if (val) allEmpty = false;
+    }
+  }
+
   if (allEmpty) {
     showToast('请至少填写一项内容');
     return;
