@@ -84,7 +84,7 @@ body::after {
 .space-container {
   max-width: 720px;
   margin: 0 auto;
-  padding: 40px 24px 120px;
+  padding: 100px 24px 120px;
   position: relative;
   z-index: 1;
 }
@@ -114,13 +114,7 @@ body::after {
   letter-spacing: 0.02em;
 }
 
-.space-welcome .welcome-name {
-  background: linear-gradient(90deg, var(--purple), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
+
 
 /* ===== 胶囊分段标签栏 ===== */
 .tabs {
@@ -184,9 +178,9 @@ body::after {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  min-height: 380px;
+  min-height: 340px;
   position: relative;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 /* 导航箭头 */
@@ -472,7 +466,7 @@ body::after {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-top: 32px;
+  margin-top: 64px;
 }
 
 .ai-btn {
@@ -528,7 +522,7 @@ body::after {
 /* ===== 核心产出卡片 ===== */
 .output-card {
   max-width: 520px;
-  margin: 32px auto 0;
+  margin: 64px auto 0;
   background: rgba(255, 255, 255, 0.025);
   backdrop-filter: blur(20px) saturate(1.4);
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
@@ -732,7 +726,7 @@ body::after {
 /* ===== 底部删除 ===== */
 .delete-area {
   text-align: center;
-  margin-top: 48px;
+  margin-top: 64px;
   padding-bottom: 20px;
 }
 
@@ -1067,11 +1061,11 @@ body::after {
 
 /* ===== 响应式 ===== */
 @media (max-width: 640px) {
-  .space-container { padding: 28px 16px 100px; }
+  .space-container { padding: 80px 16px 100px; }
   .space-title { font-size: clamp(48px, 12vw, 80px); }
   .tabs { gap: 4px; }
   .tab { padding: 8px 16px; font-size: 13px; }
-  .bubble-stage { gap: 8px; min-height: 340px; }
+  .bubble-stage { gap: 8px; min-height: 300px; }
   .nav-arrow { width: 36px; height: 36px; font-size: 14px; }
   .center-bubble {
     width: calc(var(--bubble-size, 360px) * 0.75) !important;
@@ -1100,7 +1094,7 @@ body::after {
 <div class="space-container">
   <header class="space-header">
     <h1 class="space-title">Creative Space</h1>
-    <p class="space-welcome">Welcome back, <span class="welcome-name" id="userNickname">...</span>, your creative journey starts here.</p>
+    <p class="space-welcome">Your creative journey starts here</p>
   </header>
 
   <div class="tabs">
@@ -1163,14 +1157,14 @@ var STAGES = [
 
 // 阶段视觉映射（气泡大小/光晕/透明度/字体/行数）
 var STAGE_VISUAL = {
-  basic_cognition: { size: 140, glow: 20, opacity: 0.50, fontSize: 11, lineClamp: 3 },
-  explore_ideas:   { size: 160, glow: 24, opacity: 0.55, fontSize: 12, lineClamp: 3 },
-  discover_needs:  { size: 185, glow: 30, opacity: 0.62, fontSize: 13, lineClamp: 4 },
-  define_product:  { size: 210, glow: 38, opacity: 0.70, fontSize: 14, lineClamp: 4 },
-  design_product:  { size: 240, glow: 46, opacity: 0.78, fontSize: 15, lineClamp: 5 },
-  build_product:   { size: 270, glow: 56, opacity: 0.85, fontSize: 16, lineClamp: 5 },
-  launch_product:  { size: 310, glow: 68, opacity: 0.92, fontSize: 18, lineClamp: 6 },
-  grow_users:      { size: 360, glow: 90, opacity: 1.0,  fontSize: 20, lineClamp: 6 }
+  basic_cognition: { size: 125, glow: 18, opacity: 0.50, fontSize: 11, lineClamp: 3 },
+  explore_ideas:   { size: 140, glow: 21, opacity: 0.55, fontSize: 12, lineClamp: 3 },
+  discover_needs:  { size: 165, glow: 27, opacity: 0.62, fontSize: 13, lineClamp: 4 },
+  define_product:  { size: 185, glow: 34, opacity: 0.70, fontSize: 14, lineClamp: 4 },
+  design_product:  { size: 215, glow: 41, opacity: 0.78, fontSize: 15, lineClamp: 5 },
+  build_product:   { size: 240, glow: 50, opacity: 0.85, fontSize: 16, lineClamp: 5 },
+  launch_product:  { size: 275, glow: 60, opacity: 0.92, fontSize: 18, lineClamp: 6 },
+  grow_users:      { size: 320, glow: 80, opacity: 1.0,  fontSize: 20, lineClamp: 6 }
 };
 
 // 核心产出模板（每个阶段一组字段，每个字段 { label, placeholder }）
@@ -1268,9 +1262,6 @@ async function init() {
 
   var user = (typeof window.currentUser === 'function') ? window.currentUser() : (typeof currentUser !== 'undefined' ? currentUser : null);
   if (!user) { window.location.href = './gallery.html'; return; }
-
-  var nickEl = document.getElementById('userNickname');
-  if (nickEl) { nickEl.textContent = user.nickname || (user.email ? user.email.split('@')[0] : 'Creator'); }
 
   bindTabs();
   await loadIdeas();
