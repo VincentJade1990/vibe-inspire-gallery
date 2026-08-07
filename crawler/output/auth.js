@@ -793,7 +793,7 @@ async function getUserFavorites(userId) {
 
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/favorites?user_id=eq.${userId}&select=inspiration_id,inspirations(id,title,summary,tags,cover_image_url,source_platform,author_name,status,created_at)&order=created_at.desc`,
+      `${SUPABASE_URL}/rest/v1/favorites?user_id=eq.${userId}&select=inspiration_id,inspirations(id,title,summary,tags,cover_image_url,source_platform,author_name,status,created_at)&order=updated_at.desc`,
       {
         headers: {
           'apikey': SUPABASE_ANON_KEY,
@@ -923,7 +923,7 @@ async function saveIdea(title, tags) {
         user_id: currentUser.id,
         title: title,
         tags: tags || [],
-        status: 'explore_ideas'
+        status: 'basic_cognition'
       })
     });
 
@@ -949,7 +949,7 @@ async function getUserIdeas(userId) {
 
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/ideas?user_id=eq.${userId}&order=created_at.desc&select=*`,
+      `${SUPABASE_URL}/rest/v1/ideas?user_id=eq.${userId}&order=updated_at.desc&select=*`,
       {
         headers: {
           'apikey': SUPABASE_ANON_KEY,
@@ -1062,9 +1062,107 @@ async function getUserIdeaCount(userId) {
   return 0;
 }
 
+
+// ==================== Idea Outputs API（阶段核心产出）====================
+
+/**
+ * 获取某个灵感某阶段的核心产出
+ */
+async function getIdeaOutput(ideaId, stage) {
+  const token = getAccessToken();
+  if (!token || !ideaId) return null;
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/idea_outputs?idea_id=eq.${ideaId}&stage=eq.${stage}&select=*`,
+      {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+
+    if (res.ok) {
+      const data = await res.json();
+      return data.length > 0 ? data[0] : null;
+    }
+  } catch (e) {
+    console.error('[IdeaOutputs] Get error:', e);
+  }
+  return null;
+}
+
+/**
+ * 保存（upsert）某个灵感某阶段的核心产出
+ */
+async function saveIdeaOutput(ideaId, stage, content, templateType) {
+  const token = getAccessToken();
+  if (!token || !currentUser) return { error: '未登录' };
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/idea_outputs`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates,return=representation'
+      },
+      body: JSON.stringify({
+        idea_id: ideaId,
+        stage: stage,
+        content: content,
+        template_type: templateType || null
+      })
+    });
+
+    if (res.ok || res.status === 201) {
+      await touchIdeaUpdated(ideaId);
+      const data = await res.json();
+      return { success: true, data: data[0] };
+    } else {
+      const err = await res.json().catch(() => ({}));
+      return { error: err.message || '保存失败' };
+    }
+  } catch (e) {
+    console.error('[IdeaOutputs] Save error:', e);
+    return { error: '网络错误' };
+  }
+}
+
+/**
+ * 更新灵感的 updated_at（触摸时间戳，用于排序）
+ */
+async function touchIdeaUpdated(ideaId) {
+  const token = getAccessToken();
+  if (!token || !currentUser) return;
+
+  try {
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/ideas?id=eq.${ideaId}&user_id=eq.${currentUser.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ updated_at: new Date().toISOString() })
+      }
+    );
+  } catch (e) {
+    console.error('[Ideas] Touch updated_at error:', e);
+  }
+}
+
 // 暴露 Ideas API
 window.saveIdea = saveIdea;
 window.getUserIdeas = getUserIdeas;
 window.deleteIdea = deleteIdea;
 window.updateIdeaStatus = updateIdeaStatus;
 window.getUserIdeaCount = getUserIdeaCount;
+window.getIdeaOutput = getIdeaOutput;
+window.saveIdeaOutput = saveIdeaOutput;
+window.touchIdeaUpdated = touchIdeaUpdated;

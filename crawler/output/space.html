@@ -8,30 +8,25 @@
 <script src="./auth.js"></script>
 <script src="./nav.js"></script>
 <style>
-/* ===== CSS 变量与基础重置 ===== */
+/* ===== 基础重置与变量 ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg-deep: #050a14;
-  --bg-mid: #0a0f1a;
-  --bg-surface: rgba(255, 255, 255, 0.02);
-  --purple: #a855f7;
-  --pink: #ec4899;
+  --bg-deep: #0a0a0f;
+  --bg-mid: #0f0f1a;
+  --purple: #8b5cf6;
+  --purple-light: #a78bfa;
   --blue: #3b82f6;
+  --pink: #ec4899;
   --cyan: #06b6d4;
   --amber: #f59e0b;
   --green: #10b981;
   --red: #ef4444;
+  --indigo: #6366f1;
   --text: #f8fafc;
   --text-dim: #94a3b8;
   --text-muted: #64748b;
-  --glass: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.05);
-  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.25);
-  --shadow-glow: 0 0 40px rgba(168, 85, 247, 0.15);
-  --radius: 20px;
-  --radius-lg: 24px;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -48,27 +43,26 @@ body {
   padding-top: 68px;
 }
 
-/* ===== 背景效果（虹彩旋转渐变，与 profile.html 一致） ===== */
+/* ===== 深色宇宙背景 ===== */
 body::before {
   content: '';
   position: fixed;
   inset: -120px;
   background: conic-gradient(
     from 0deg,
-    rgba(236, 72, 153, 0.18),
-    rgba(168, 85, 247, 0.18),
-    rgba(59, 130, 246, 0.18),
-    rgba(6, 182, 212, 0.16),
-    rgba(245, 158, 11, 0.12),
-    rgba(236, 72, 153, 0.18)
+    rgba(139, 92, 246, 0.12),
+    rgba(59, 130, 246, 0.12),
+    rgba(236, 72, 153, 0.10),
+    rgba(6, 182, 212, 0.08),
+    rgba(139, 92, 246, 0.12)
   );
-  animation: iridescentRotate 20s linear infinite;
+  animation: cosmicRotate 30s linear infinite;
   z-index: -2;
-  filter: blur(80px);
+  filter: blur(100px);
   pointer-events: none;
 }
 
-@keyframes iridescentRotate {
+@keyframes cosmicRotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
@@ -78,360 +72,325 @@ body::after {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(168, 85, 247, 0.14) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 85% 75%, rgba(236, 72, 153, 0.10) 0%, transparent 45%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
-    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
-    linear-gradient(180deg, #040814 0%, #0a0f1a 35%, #080c18 70%, #0d0818 100%);
+    radial-gradient(ellipse 60% 60% at 20% 20%, rgba(139, 92, 246, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 40%),
+    linear-gradient(180deg, #08080f 0%, #0a0a0f 50%, #0c0815 100%);
   z-index: -3;
   pointer-events: none;
 }
 
 /* ===== 页面容器 ===== */
 .space-container {
-  max-width: 820px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 48px 24px 100px;
+  padding: 40px 24px 120px;
   position: relative;
   z-index: 1;
 }
 
-/* ===== 页面头部 ===== */
+/* ===== 巨大渐变标题 ===== */
 .space-header {
-  margin-bottom: 40px;
+  text-align: center;
+  margin-bottom: 36px;
 }
 
 .space-title {
-  font-size: 38px;
+  font-size: clamp(64px, 8vw, 120px);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 14px;
-  background: linear-gradient(135deg, #c4b5fd 0%, var(--purple) 40%, var(--pink) 100%);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #c4b5fd 0%, var(--purple) 35%, var(--blue) 70%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .space-welcome {
-  font-size: 18px;
-  color: var(--text);
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.space-welcome .welcome-name {
-  background: linear-gradient(90deg, var(--purple), var(--pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
-}
-
-.space-subtitle {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-dim);
+  font-weight: 400;
   letter-spacing: 0.02em;
 }
 
-/* ===== 标签栏 ===== */
+.space-welcome .welcome-name {
+  background: linear-gradient(90deg, var(--purple), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* ===== 胶囊分段标签栏 ===== */
 .tabs {
   display: flex;
-  gap: 8px;
-  margin-bottom: 32px;
-  padding: 6px;
+  gap: 6px;
+  margin: 0 auto 40px;
+  padding: 5px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: 999px;
   backdrop-filter: blur(20px) saturate(1.4);
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
   width: fit-content;
 }
 
 .tab {
-  padding: 10px 28px;
+  padding: 9px 24px;
   border: none;
   background: transparent;
   color: var(--text-dim);
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
-  letter-spacing: 0.06em;
-  border-radius: 11px;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
   cursor: pointer;
   transition: var(--transition);
-  position: relative;
 }
 
-.tab:hover:not(.disabled) {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
-}
+.tab:hover:not(.disabled) { color: var(--text); }
 
 .tab.active {
   color: #fff;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(99, 102, 241, 0.2));
-  border: 1px solid rgba(168, 85, 247, 0.35);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.25));
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.tab.disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+.tab.disabled { opacity: 0.4; cursor: not-allowed; }
 
-/* 标签闪烁高亮（飞行气泡到达时） */
 .tab.tab-flash {
   animation: tabFlash 1.5s ease;
 }
 
 @keyframes tabFlash {
-  0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
-  20%, 60% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6), 0 0 80px rgba(168, 85, 247, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15); }
+  0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.15); }
+  20%, 60% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 80px rgba(139, 92, 246, 0.3); }
 }
 
-/* ===== 标签内容面板 ===== */
-.tab-panel {
-  display: none;
-  animation: panelFadeIn 0.4s ease;
-}
-
-.tab-panel.active {
-  display: block;
-}
+/* ===== 标签面板 ===== */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: panelFadeIn 0.4s ease; }
 
 @keyframes panelFadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== 灵感气泡卡片 ===== */
-.idea-bubble {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 20px 24px;
-  margin-bottom: 14px;
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(28px) saturate(1.5);
-  -webkit-backdrop-filter: blur(28px) saturate(1.5);
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: var(--transition);
-  overflow: hidden;
-}
-
-/* 渐变边框（mask 技法） */
-.idea-bubble::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.3), rgba(59, 130, 246, 0.2));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  transition: var(--transition);
-}
-
-.idea-bubble:hover {
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(168, 85, 247, 0.08);
-}
-
-.idea-bubble:hover::before {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.7), rgba(236, 72, 153, 0.5), rgba(59, 130, 246, 0.4));
-}
-
-.idea-bubble.expanded {
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), 0 0 40px rgba(168, 85, 247, 0.12);
-}
-
-.idea-bubble.expanded::before {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(236, 72, 153, 0.6));
-}
-
-/* 圆形渐变气泡图标 */
-.bubble-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  position: relative;
+/* ===== 气泡舞台区域 ===== */
+.bubble-stage {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.4), var(--stage-color, var(--purple)) 65%);
-  box-shadow: 0 0 24px var(--stage-glow, rgba(168, 85, 247, 0.35)), inset 0 1px 2px rgba(255, 255, 255, 0.3);
-  animation: bubbleFloat 4s ease-in-out infinite;
+  gap: 20px;
+  min-height: 380px;
+  position: relative;
+  padding: 20px 0;
 }
 
-.bubble-icon::after {
+/* 导航箭头 */
+.nav-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-dim);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+.nav-arrow:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: var(--text);
+  transform: scale(1.1);
+}
+
+.nav-arrow:active { transform: scale(0.92); }
+
+.nav-arrow.disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.bubble-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== 核心玻璃态气泡 ===== */
+.center-bubble {
+  width: var(--bubble-size, 360px);
+  height: var(--bubble-size, 360px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.12)),
+    rgba(139, 92, 246, calc(var(--bubble-opacity, 1) * 0.10)) 40%,
+    rgba(59, 130, 246, calc(var(--bubble-opacity, 1) * 0.06)) 70%,
+    rgba(10, 10, 15, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.12));
+  box-shadow:
+    0 0 var(--bubble-glow, 60px) rgba(139, 92, 246, calc(var(--bubble-opacity, 1) * 0.25)),
+    inset 0 0 60px rgba(139, 92, 246, calc(var(--bubble-opacity, 1) * 0.10)),
+    inset 0 2px 4px rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.08));
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  transition:
+    width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+    height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.8s ease,
+    opacity 0.6s ease;
+  animation: bubbleFloat 5s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.center-bubble::before {
   content: '';
   position: absolute;
-  top: 18%;
-  left: 22%;
-  width: 30%;
-  height: 30%;
+  top: 12%;
+  left: 18%;
+  width: 32%;
+  height: 28%;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.45);
-  filter: blur(2px);
+  background: rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.2));
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.center-bubble.iridescent::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(236, 72, 153, 0.10),
+    rgba(139, 92, 246, 0.10),
+    rgba(59, 130, 246, 0.10),
+    rgba(6, 182, 212, 0.10),
+    rgba(245, 158, 11, 0.08),
+    rgba(236, 72, 153, 0.10)
+  );
+  animation: iridescentSpin 8s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+@keyframes iridescentSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes bubbleFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-8px); }
 }
 
-/* 气泡内容区 */
-.bubble-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.bubble-title {
-  font-size: 16px;
+.bubble-title-inner {
+  font-size: var(--bubble-font-size, 16px);
   font-weight: 600;
-  color: var(--text);
-  margin-bottom: 4px;
+  text-align: center;
+  padding: 0 18%;
+  color: rgba(255, 255, 255, 0.95);
+  word-break: break-word;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--bubble-line-clamp, 5);
+  -webkit-box-orient: vertical;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  position: relative;
+  line-height: 1.4;
 }
 
-.bubble-date {
-  font-size: 12px;
-  color: var(--text-muted);
+.center-bubble.subtle-glow {
+  animation: bubbleFloat 5s ease-in-out infinite, subtleGlow 1.2s ease;
 }
 
-/* 阶段标签（彩虹药丸） */
-.stage-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  flex-shrink: 0;
-  color: var(--stage-color, var(--purple));
-  background: var(--stage-bg, rgba(168, 85, 247, 0.12));
-  border: 1px solid var(--stage-border, rgba(168, 85, 247, 0.25));
+@keyframes subtleGlow {
+  0% { filter: brightness(1); }
+  30% { filter: brightness(1.2) saturate(1.3); }
+  100% { filter: brightness(1); }
 }
 
-.stage-badge .stage-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--stage-color, var(--purple));
-  box-shadow: 0 0 8px var(--stage-color, var(--purple));
+.center-bubble.grow-in {
+  animation: bubbleFloat 5s ease-in-out infinite, bubbleGrowIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* 删除按钮（hover 显示） */
-.idea-delete-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  background: rgba(239, 68, 68, 0.08);
-  color: #f87171;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  flex-shrink: 0;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: var(--transition);
+@keyframes bubbleGrowIn {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-.idea-bubble:hover .idea-delete-btn {
-  opacity: 1;
-  transform: scale(1);
+/* ===== 产品阶段节点（8节点） ===== */
+.stage-bar-wrap {
+  max-width: 560px;
+  margin: 28px auto 0;
 }
 
-.idea-delete-btn:hover {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: rgba(239, 68, 68, 0.5);
-  transform: scale(1.1);
-}
-
-/* ===== 展开区域（阶段进度条） ===== */
-.bubble-expand {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100%;
-}
-
-.idea-bubble.expanded .bubble-expand {
-  max-height: 400px;
-}
-
-.expand-inner {
-  padding: 4px 0 4px 70px;
-  margin-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 18px;
-}
-
-.expand-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-/* 阶段进度条 */
-.stage-progress {
+.stage-bar {
   display: flex;
   align-items: flex-start;
   gap: 0;
-  margin-bottom: 18px;
 }
 
-.stage-segment {
+.stage-seg {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   cursor: pointer;
+  padding: 4px 0;
 }
 
-.stage-segment:not(:last-child)::after {
+.stage-seg:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 11px;
+  top: 14px;
   left: 50%;
   width: 100%;
   height: 2px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
   z-index: 0;
 }
 
-.stage-segment.completed:not(:last-child)::after {
-  background: var(--segment-color);
+.stage-seg.completed:not(:last-child)::after {
+  background: var(--seg-color, var(--purple));
   opacity: 0.5;
 }
 
-.stage-segment.current:not(:last-child)::after {
-  background: rgba(255, 255, 255, 0.08);
+.stage-seg.current:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.stage-dot-lg {
-  width: 22px;
-  height: 22px;
+.stage-dot {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.03);
   position: relative;
   z-index: 1;
@@ -441,17 +400,22 @@ body::after {
   justify-content: center;
 }
 
-.stage-segment.completed .stage-dot-lg {
-  background: var(--segment-color);
-  border-color: var(--segment-color);
-  box-shadow: 0 0 12px var(--segment-color);
+.stage-seg.completed .stage-dot {
+  background: var(--seg-color, var(--purple));
+  border-color: var(--seg-color, var(--purple));
+  box-shadow: 0 0 12px var(--seg-color, var(--purple));
 }
 
-.stage-segment.current .stage-dot-lg {
-  background: var(--segment-color);
-  border-color: var(--segment-color);
-  box-shadow: 0 0 16px var(--segment-color), 0 0 32px var(--segment-color);
+.stage-seg.current .stage-dot {
+  background: var(--seg-color, var(--purple));
+  border-color: var(--seg-color, var(--purple));
+  box-shadow: 0 0 18px var(--seg-color, var(--purple)), 0 0 36px var(--seg-color, var(--purple));
   animation: stagePulse 2s ease-in-out infinite;
+}
+
+.stage-seg.locked .stage-dot {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 @keyframes stagePulse {
@@ -459,112 +423,425 @@ body::after {
   50% { transform: scale(1.15); }
 }
 
-.stage-segment:hover .stage-dot-lg {
-  transform: scale(1.2);
-  border-color: var(--segment-color);
+.stage-seg:hover .stage-dot {
+  transform: scale(1.25);
+  border-color: var(--seg-color, var(--purple));
 }
 
-.stage-num {
-  font-size: 9px;
-  color: var(--text-muted);
-  margin-top: 6px;
-  font-weight: 600;
+.stage-seg.locked:hover .stage-dot {
+  transform: scale(1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-.stage-segment.current .stage-num,
-.stage-segment.completed .stage-num {
-  color: var(--segment-color);
+.stage-dot-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.stage-seg.current .stage-dot-num,
+.stage-seg.completed .stage-dot-num {
+  color: #fff;
 }
 
 .stage-zh {
   font-size: 10px;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-top: 6px;
   text-align: center;
   line-height: 1.2;
-  max-width: 70px;
+  max-width: 56px;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-.stage-segment.current .stage-zh {
+.stage-seg.current .stage-zh {
   color: var(--text);
   font-weight: 600;
 }
 
-/* 展开区删除按钮 */
-.expand-delete {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
-  border-radius: 10px;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  background: rgba(239, 68, 68, 0.08);
-  color: #f87171;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: var(--transition);
+.stage-seg.completed .stage-zh {
+  color: var(--text-dim);
 }
 
-.expand-delete:hover {
-  background: rgba(239, 68, 68, 0.18);
-  border-color: rgba(239, 68, 68, 0.5);
+/* ===== AI分析 + 前往学习 按钮 ===== */
+.action-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.ai-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 40px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.2);
+  letter-spacing: 0.04em;
+}
+
+.ai-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.35);
+}
+
+.ai-btn:active { transform: scale(0.97); }
+
+.learn-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.learn-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--text);
   transform: translateY(-1px);
 }
+
+/* ===== 核心产出卡片 ===== */
+.output-card {
+  max-width: 520px;
+  margin: 28px auto 0;
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.output-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.output-stage-tag {
+  font-size: 11px;
+  color: var(--text-dim);
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.output-body {
+  padding: 18px 22px 0;
+}
+
+/* 拆分输入框 */
+.output-field {
+  margin-bottom: 16px;
+}
+
+.output-field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  letter-spacing: 0.03em;
+}
+
+.output-field-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.6;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  resize: none;
+}
+
+.output-field-input:focus {
+  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.output-field-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.output-field-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+/* 查看模式 */
+.output-field-view {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: pre-wrap;
+  min-height: 44px;
+}
+
+.output-placeholder-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 28px 16px;
+  line-height: 1.8;
+}
+
+/* 保存 / 下一阶段 按钮 */
+.output-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 22px;
+}
+
+.output-btn {
+  padding: 10px 32px;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.output-btn-save {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: #fff;
+}
+
+.output-btn-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+}
+
+.output-btn-save.edit-mode {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.output-btn-next {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.output-btn-next:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-1px);
+}
+
+.output-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ===== 底部删除 ===== */
+.delete-area {
+  text-align: center;
+  margin-top: 32px;
+  padding-bottom: 20px;
+}
+
+.delete-link {
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  padding-bottom: 2px;
+}
+
+.delete-link:hover {
+  color: #f87171;
+  border-bottom-color: rgba(248, 113, 113, 0.4);
+}
+
+/* ===== 灵感导航点 ===== */
+.idea-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.idea-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.idea-dot:hover { background: rgba(255, 255, 255, 0.3); }
+
+.idea-dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--purple), var(--blue));
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+.idea-dot-new {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px dashed rgba(139, 92, 246, 0.4);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(139, 92, 246, 0.7);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.idea-dot-new:hover {
+  border-color: rgba(139, 92, 246, 0.7);
+  background: rgba(139, 92, 246, 0.08);
+  transform: scale(1.1);
+}
+
+.idea-dot-new.active {
+  border-style: solid;
+  border-color: var(--purple);
+  background: rgba(139, 92, 246, 0.12);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+/* ===== 新灵感种子入口 ===== */
+.new-idea-seed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.seed-bubble {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px dashed rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: rgba(139, 92, 246, 0.5);
+  transition: var(--transition);
+  animation: bubbleFloat 5s ease-in-out infinite;
+}
+
+.new-idea-seed:hover .seed-bubble {
+  border-color: rgba(139, 92, 246, 0.6);
+  background: rgba(139, 92, 246, 0.08);
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+}
+
+.seed-text { font-size: 15px; font-weight: 500; color: var(--text-dim); }
+.seed-hint { font-size: 12px; color: var(--text-muted); }
 
 /* ===== 空状态 ===== */
 .empty-state {
   text-align: center;
-  padding: 80px 24px;
+  padding: 60px 24px;
 }
 
-.empty-bubble {
+.empty-bubble-icon {
   width: 80px;
   height: 80px;
   margin: 0 auto 24px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.15), rgba(168, 85, 247, 0.1) 60%, transparent);
-  border: 1px solid rgba(168, 85, 247, 0.15);
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.1), rgba(139, 92, 246, 0.08) 60%, transparent);
+  border: 1px solid rgba(139, 92, 246, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 32px;
   animation: bubbleFloat 4s ease-in-out infinite;
-  box-shadow: 0 0 40px rgba(168, 85, 247, 0.1);
 }
 
-.empty-text {
-  font-size: 16px;
-  color: var(--text-dim);
-  margin-bottom: 8px;
-  font-weight: 500;
-}
+.empty-text { font-size: 18px; color: var(--text-dim); margin-bottom: 8px; font-weight: 500; }
+.empty-hint { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
 
-.empty-hint {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-}
-
-.empty-link {
+.empty-record-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 28px;
+  gap: 8px;
+  padding: 14px 36px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--purple), #6366f1);
+  border: none;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  text-decoration: none;
-  transition: var(--transition);
-  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.25);
 }
 
-.empty-link:hover {
+.empty-record-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.45);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.4);
 }
 
 /* ===== 即将上线 ===== */
@@ -581,118 +858,219 @@ body::after {
 }
 
 .coming-soon-text {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  background: linear-gradient(90deg, var(--purple), var(--pink));
+  background: linear-gradient(90deg, var(--purple), var(--blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 8px;
 }
 
-.coming-soon-sub {
-  font-size: 14px;
-  color: var(--text-muted);
+.coming-soon-sub { font-size: 14px; color: var(--text-muted); }
+
+/* ===== 记录灵感弹窗 ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  animation: overlayFade 0.2s ease;
 }
 
-/* ===== 飞行气泡到达动画 ===== */
-.incoming-bubble {
+.modal-overlay.show { display: flex; }
+
+@keyframes overlayFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: rgba(15, 15, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  animation: modalSlide 0.3s ease;
   position: relative;
+}
+
+@keyframes modalSlide {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal h2 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--purple-light), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.inspire-input-wrap { display: flex; flex-direction: column; gap: 16px; }
+
+.inspire-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.6;
+  resize: none;
+}
+
+.inspire-textarea { min-height: 68px; }
+
+.inspire-input:focus {
+  border-color: var(--purple);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.inspire-input::placeholder { color: rgba(255, 255, 255, 0.25); }
+
+.inspire-tags-section { display: flex; flex-direction: column; gap: 10px; }
+
+.inspire-tags-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+
+.inspire-tags-select { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.inspire-tag-chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.inspire-tag-chip:hover { border-color: rgba(139, 92, 246, 0.4); color: var(--text); }
+
+.inspire-tag-chip.active {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: var(--purple-light);
+}
+
+.inspire-submit-btn {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px 24px;
-  margin-bottom: 14px;
-  border-radius: var(--radius);
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.1));
-  border: 1px solid rgba(168, 85, 247, 0.4);
-  box-shadow: 0 0 50px rgba(168, 85, 247, 0.3);
-  overflow: hidden;
-  animation: bubbleLand 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  pointer-events: none;
-}
-
-.incoming-bubble .inc-dot {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.5), var(--purple) 65%);
-  box-shadow: 0 0 24px rgba(168, 85, 247, 0.6);
-  animation: bubbleFloat 2s ease-in-out infinite;
-}
-
-.incoming-bubble .inc-text {
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: #fff;
   font-size: 15px;
   font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.inspire-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+}
+
+.inspire-submit-btn:active { transform: scale(0.97); }
+.inspire-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: rgba(15, 15, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: toastIn 0.3s ease, toastOut 0.3s ease 2.5s forwards;
 }
 
-@keyframes bubbleLand {
-  0% {
-    transform: scale(0.3) translateY(-30px);
-    opacity: 0;
-    box-shadow: 0 0 0 rgba(168, 85, 247, 0);
-  }
-  25% {
-    transform: scale(1.12) translateY(0);
-    opacity: 1;
-    box-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
-  }
-  55% {
-    transform: scale(1) translateY(0);
-    box-shadow: 0 0 40px rgba(168, 85, 247, 0.35);
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 0;
-    box-shadow: 0 0 0 rgba(168, 85, 247, 0);
-  }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-/* 列表项淡入 */
-.idea-bubble.fresh {
-  animation: freshGlow 1.5s ease;
+@keyframes toastOut {
+  to { opacity: 0; transform: translateX(-50%) translateY(10px); }
 }
 
-@keyframes freshGlow {
-  0% { box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
-  30% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.4), 0 0 80px rgba(168, 85, 247, 0.2); }
-  100% { box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
-}
-
-/* ===== 加载骨架 ===== */
-.skeleton-bubble {
+/* ===== 骨架屏 ===== */
+.skeleton-bubble-area {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 18px;
-  padding: 20px 24px;
-  margin-bottom: 14px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: var(--radius);
-  border: 1px solid var(--glass-border);
+  gap: 20px;
+  padding: 40px 0;
 }
 
-.skeleton-circle {
-  width: 52px;
-  height: 52px;
+.skeleton-circle-lg {
+  width: 240px;
+  height: 240px;
   border-radius: 50%;
-  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
   background-size: 200% 100%;
   animation: skeleton 1.5s infinite;
-  flex-shrink: 0;
 }
 
-.skeleton-line {
+.skeleton-line-sm {
+  width: 120px;
   height: 14px;
   border-radius: 7px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
   background-size: 200% 100%;
   animation: skeleton 1.5s infinite;
-  margin-bottom: 8px;
 }
 
 @keyframes skeleton {
@@ -702,111 +1080,53 @@ body::after {
 
 /* ===== 响应式 ===== */
 @media (max-width: 640px) {
-  .space-container {
-    padding: 32px 16px 80px;
+  .space-container { padding: 28px 16px 100px; }
+  .space-title { font-size: clamp(48px, 12vw, 80px); }
+  .tabs { gap: 4px; }
+  .tab { padding: 8px 16px; font-size: 13px; }
+  .bubble-stage { gap: 8px; min-height: 340px; }
+  .nav-arrow { width: 36px; height: 36px; font-size: 14px; }
+  .center-bubble {
+    width: calc(var(--bubble-size, 360px) * 0.75) !important;
+    height: calc(var(--bubble-size, 360px) * 0.75) !important;
   }
-
-  .space-title {
-    font-size: 28px;
-  }
-
-  .space-welcome {
-    font-size: 16px;
-  }
-
-  .tabs {
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  .tab {
-    padding: 9px 20px;
-    font-size: 13px;
-  }
-
-  .idea-bubble {
-    padding: 16px 18px;
-    gap: 14px;
-  }
-
-  .bubble-icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .bubble-title {
-    font-size: 14px;
-  }
-
-  .stage-badge {
-    padding: 3px 10px;
-    font-size: 10px;
-  }
-
-  .expand-inner {
-    padding-left: 58px;
-  }
-
-  .stage-zh {
-    font-size: 9px;
-    max-width: 50px;
-  }
-
-  .idea-delete-btn {
-    opacity: 1;
-    transform: scale(1);
-  }
+  .stage-zh { font-size: 8px; max-width: 40px; }
+  .stage-dot { width: 24px; height: 24px; }
+  .stage-dot-num { font-size: 9px; }
+  .action-area { flex-direction: column; gap: 8px; }
+  .ai-btn, .learn-btn { width: 100%; justify-content: center; }
+  .output-card { margin: 20px 0 0; }
+  .output-footer { flex-direction: column; }
+  .output-btn { width: 100%; text-align: center; }
+  .idea-dots { gap: 6px; }
 }
 
 /* ===== 滚动条 ===== */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 </style>
 </head>
 <body>
-<!-- 统一导航挂载点（主导航模式） -->
 <div id="vb-nav-mount"></div>
 
-<!-- 页面内容 -->
 <div class="space-container">
-  <!-- 头部 -->
   <header class="space-header">
     <h1 class="space-title">Creative Space</h1>
     <p class="space-welcome">Welcome back, <span class="welcome-name" id="userNickname">...</span></p>
-    <p class="space-subtitle">Your creative journey with AI</p>
   </header>
 
-  <!-- 标签栏 -->
   <div class="tabs">
-    <button class="tab active" data-tab="ideas">Ideas</button>
-    <button class="tab" data-tab="projects">Projects</button>
-    <button class="tab" data-tab="activity">Activity</button>
+    <button class="tab active" data-tab="ideas">我的灵感</button>
+    <button class="tab" data-tab="projects">发布的项目</button>
+    <button class="tab" data-tab="activity">我的互动</button>
   </div>
 
-  <!-- 标签内容 -->
   <div class="tab-content">
-    <!-- Ideas -->
     <div id="ideasTab" class="tab-panel active">
-      <div id="ideasList">
-        <!-- 骨架屏 / 灵感气泡由 JS 渲染 -->
-      </div>
+      <div id="ideasContent"></div>
     </div>
-
-    <!-- Projects -->
     <div id="projectsTab" class="tab-panel">
       <div class="coming-soon">
         <div class="coming-soon-icon">&#x1F680;</div>
@@ -814,329 +1134,827 @@ body::after {
         <div class="coming-soon-sub">项目管理功能正在开发中，敬请期待</div>
       </div>
     </div>
-
-    <!-- Activity -->
     <div id="activityTab" class="tab-panel">
       <div class="coming-soon">
-        <div class="coming-soon-icon">&#x1F4CA;</div>
+        <div class="coming-soon-icon">&#x1F4AC;</div>
         <div class="coming-soon-text">即将上线</div>
-        <div class="coming-soon-sub">活动动态功能正在开发中，敬请期待</div>
+        <div class="coming-soon-sub">互动动态功能正在开发中，敬请期待</div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- 记录灵感弹窗 -->
+<div class="modal-overlay" id="submitModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSpaceRecord()">&times;</button>
+    <h2>记录你的灵感火花</h2>
+    <div class="inspire-input-wrap">
+      <textarea id="inspireInput" class="inspire-input inspire-textarea" placeholder="此刻你的脑海浮现了什么产品灵感？" rows="2"></textarea>
+      <div class="inspire-tags-section">
+        <div class="inspire-tags-label">Tags</div>
+        <div class="inspire-tags-select" id="inspireTagsSelect"></div>
+      </div>
+      <button class="inspire-submit-btn" id="inspireSubmitBtn" onclick="handleSpaceRecordSubmit()">
+        <span>记录灵感</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ==================== 阶段定义 ====================
-const STAGES = [
-  { num: '01', en: 'Explore Ideas',   zh: '探索灵感', status: 'explore_ideas',   color: '#a855f7' },
-  { num: '02', en: 'Discover Needs',  zh: '需求分析', status: 'discover_needs',  color: '#ec4899' },
-  { num: '03', en: 'Define Product',  zh: '产品定位', status: 'define_product',  color: '#3b82f6' },
-  { num: '04', en: 'Design Product',  zh: '产品设计', status: 'design_product',  color: '#06b6d4' },
-  { num: '05', en: 'Build Product',   zh: '产品构建', status: 'build_product',   color: '#f59e0b' },
-  { num: '06', en: 'Launch Product',  zh: '发布运营', status: 'launch_product',  color: '#10b981' },
-  { num: '07', en: 'Grow Users',      zh: '用户增长', status: 'grow_users',      color: '#ef4444' }
+// ==================== 8 阶段定义（与 learning 对应）====================
+var STAGES = [
+  { num: '01', en: 'Basic Cognition', zh: '基础认知', status: 'basic_cognition', color: '#6366f1' },
+  { num: '02', en: 'Explore Ideas',    zh: '探索灵感', status: 'explore_ideas',    color: '#8b5cf6' },
+  { num: '03', en: 'Discover Needs',   zh: '需求分析', status: 'discover_needs',   color: '#ec4899' },
+  { num: '04', en: 'Define Product',   zh: '产品定位', status: 'define_product',   color: '#3b82f6' },
+  { num: '05', en: 'Design Product',   zh: '产品设计', status: 'design_product',   color: '#06b6d4' },
+  { num: '06', en: 'Build Product',    zh: '产品构建', status: 'build_product',    color: '#f59e0b' },
+  { num: '07', en: 'Launch Product',   zh: '发布运营', status: 'launch_product',   color: '#10b981' },
+  { num: '08', en: 'Grow Users',       zh: '用户增长', status: 'grow_users',       color: '#ef4444' }
 ];
 
-// 获取阶段索引（根据 status 字段）
+// 阶段视觉映射（气泡大小/光晕/透明度/字体/行数）
+var STAGE_VISUAL = {
+  basic_cognition: { size: 140, glow: 20, opacity: 0.50, fontSize: 11, lineClamp: 3 },
+  explore_ideas:   { size: 160, glow: 24, opacity: 0.55, fontSize: 12, lineClamp: 3 },
+  discover_needs:  { size: 185, glow: 30, opacity: 0.62, fontSize: 13, lineClamp: 4 },
+  define_product:  { size: 210, glow: 38, opacity: 0.70, fontSize: 14, lineClamp: 4 },
+  design_product:  { size: 240, glow: 46, opacity: 0.78, fontSize: 15, lineClamp: 5 },
+  build_product:   { size: 270, glow: 56, opacity: 0.85, fontSize: 16, lineClamp: 5 },
+  launch_product:  { size: 310, glow: 68, opacity: 0.92, fontSize: 18, lineClamp: 6 },
+  grow_users:      { size: 360, glow: 90, opacity: 1.0,  fontSize: 20, lineClamp: 6 }
+};
+
+// 核心产出模板（每个阶段一组字段，每个字段 { label, placeholder }）
+var OUTPUT_TEMPLATES = {
+  basic_cognition: [
+    { label: '目标AI工具', placeholder: '你计划使用哪些AI工具？如 ChatGPT、Claude、Midjourney...' },
+    { label: '工具能力边界', placeholder: '这些工具擅长什么？不擅长什么？' },
+    { label: '使用场景匹配', placeholder: '你的产品场景适合用哪些工具？为什么？' }
+  ],
+  explore_ideas: [
+    { label: '灵感来源', placeholder: '这个想法从哪里来？看到了什么？' },
+    { label: '核心问题', placeholder: '它试图解决什么问题？' },
+    { label: '初步构思', placeholder: '你脑海中的产品是什么样的？' }
+  ],
+  discover_needs: [
+    { label: '目标用户', placeholder: '谁会使用这个产品？' },
+    { label: '用户痛点', placeholder: '他们现在遇到了什么问题？' },
+    { label: '使用场景', placeholder: '用户在什么场景下使用？' },
+    { label: '竞品参考', placeholder: '有没有类似的产品可以参考？' }
+  ],
+  define_product: [
+    { label: '产品名称', placeholder: '给你的产品起个名字' },
+    { label: '目标用户', placeholder: '面向哪些用户群体？' },
+    { label: '核心价值', placeholder: '一句话说清楚这个产品的核心价值' },
+    { label: 'MVP功能', placeholder: '第一个版本需要包含哪些功能？' }
+  ],
+  design_product: [
+    { label: '用户流程', placeholder: '描述用户使用产品的主要流程' },
+    { label: '设计方案', placeholder: '产品界面和交互的设计思路' },
+    { label: '参考链接', placeholder: '设计参考链接（Figma、Dribbble等）' }
+  ],
+  build_product: [
+    { label: '技术方案', placeholder: '使用什么技术栈？为什么？' },
+    { label: 'Demo链接', placeholder: '产品Demo或预览链接' },
+    { label: '代码仓库', placeholder: 'GitHub 或其他代码仓库链接' }
+  ],
+  launch_product: [
+    { label: '产品链接', placeholder: '产品正式访问链接' },
+    { label: '发布渠道', placeholder: '在哪些平台发布？Product Hunt、小红书...' },
+    { label: '用户反馈', placeholder: '收集到的用户反馈摘要' }
+  ],
+  grow_users: [
+    { label: '增长策略', placeholder: '你计划如何获取更多用户？' },
+    { label: '关键指标', placeholder: '关注哪些数据指标？' },
+    { label: '优化方向', placeholder: '下一步优化计划是什么？' }
+  ]
+};
+
+var FALLBACK_TAGS = ['AI应用', '工具脚本', 'Web应用', '设计工具', '小游戏', '教育学习'];
+
+// ==================== 状态 ====================
+var ideasList = [];
+var currentIdeaIndex = 0;
+var selectedIdeaTags = [];
+var isEditingOutput = false;
+var currentOutputData = null;
+var isSavingOutput = false;
+var hasSavedOutput = false; // 当前阶段是否已保存产出
+
+// ==================== 工具函数 ====================
+
 function getStageIndex(status) {
-  const idx = STAGES.findIndex(s => s.status === status);
-  return idx >= 0 ? idx : 0;
+  for (var i = 0; i < STAGES.length; i++) {
+    if (STAGES[i].status === status) return i;
+  }
+  return 0;
 }
 
-// 将十六进制颜色转为 rgba
-function hexToRgba(hex, alpha) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
-}
-
-// 格式化日期为相对时间
-function formatDate(isoString) {
-  if (!isoString) return '';
-  const date = new Date(isoString);
-  const now = new Date();
-  const diff = now - date;
-  const minutes = Math.floor(diff / 60000);
-  const hours = Math.floor(diff / 3600000);
-  const days = Math.floor(diff / 86400000);
-
-  if (minutes < 1) return '刚刚';
-  if (minutes < 60) return minutes + ' 分钟前';
-  if (hours < 24) return hours + ' 小时前';
-  if (days < 30) return days + ' 天前';
-  return date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' });
-}
-
-// HTML 转义
 function escapeHtml(str) {
-  const div = document.createElement('div');
+  var div = document.createElement('div');
   div.textContent = str || '';
   return div.innerHTML;
+}
+
+function showToast(msg) {
+  var existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function() { toast.remove(); }, 3000);
 }
 
 // ==================== 页面初始化 ====================
 
 async function init() {
-  // 等待 auth 初始化完成
-  let attempts = 0;
-  while (!authReady && attempts < 50) {
-    await new Promise(r => setTimeout(r, 100));
+  var attempts = 0;
+  while (typeof authReady === 'undefined' || !authReady) {
+    if (attempts >= 50) break;
+    await new Promise(function(r) { setTimeout(r, 100); });
     attempts++;
   }
 
-  // 获取当前用户
-  const user = typeof window.currentUser === 'function' ? window.currentUser() : currentUser;
+  var user = (typeof window.currentUser === 'function') ? window.currentUser() : (typeof currentUser !== 'undefined' ? currentUser : null);
+  if (!user) { window.location.href = './gallery.html'; return; }
 
-  // 未登录则重定向
-  if (!user) {
-    window.location.href = './gallery.html';
-    return;
-  }
+  var nickEl = document.getElementById('userNickname');
+  if (nickEl) { nickEl.textContent = user.nickname || (user.email ? user.email.split('@')[0] : 'Creator'); }
 
-  // 渲染昵称
-  const nickEl = document.getElementById('userNickname');
-  if (nickEl) {
-    nickEl.textContent = user.nickname || (user.email ? user.email.split('@')[0] : 'Creator');
-  }
-
-  // 绑定标签切换
   bindTabs();
-
-  // 加载灵感列表
-  loadIdeas();
+  await loadIdeas();
 }
 
-// ==================== 标签切换 ====================
-
 function bindTabs() {
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      switchTab(target);
-    });
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() { switchTab(tab.dataset.tab); });
   });
 }
 
 function switchTab(target) {
-  document.querySelectorAll('.tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.tab === target);
-  });
-  document.querySelectorAll('.tab-panel').forEach(p => {
-    p.classList.toggle('active', p.id === target + 'Tab');
-  });
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.toggle('active', t.dataset.tab === target); });
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.toggle('active', p.id === target + 'Tab'); });
 }
 
 // ==================== 加载灵感列表 ====================
 
-async function loadIdeas(freshTitle) {
-  const container = document.getElementById('ideasList');
+async function loadIdeas(growInIndex) {
+  var container = document.getElementById('ideasContent');
   if (!container) return;
 
-  const user = typeof window.currentUser === 'function' ? window.currentUser() : currentUser;
+  var user = (typeof window.currentUser === 'function') ? window.currentUser() : (typeof currentUser !== 'undefined' ? currentUser : null);
   if (!user) return;
 
-  // 显示骨架屏
   container.innerHTML = renderSkeleton();
 
   try {
-    const ideas = await getUserIdeas(user.id);
+    ideasList = await getUserIdeas(user.id);
 
-    if (!ideas || ideas.length === 0) {
+    if (!ideasList || ideasList.length === 0) {
+      currentIdeaIndex = -1;
       container.innerHTML = renderEmptyState();
+      bindEmptyStateEvents();
       return;
     }
 
-    container.innerHTML = ideas.map(function(idea) { return renderIdeaCard(idea); }).join('');
-
-    // 绑定卡片交互（事件委托）
-    bindIdeaEvents(container);
-
-    // 如果有新保存的灵感，高亮第一条
-    if (freshTitle) {
-      const firstCard = container.querySelector('.idea-bubble');
-      if (firstCard) {
-        firstCard.classList.add('fresh');
-        setTimeout(function() { firstCard.classList.remove('fresh'); }, 1600);
-      }
+    if (typeof growInIndex === 'number') {
+      currentIdeaIndex = growInIndex;
+    } else if (currentIdeaIndex >= ideasList.length) {
+      currentIdeaIndex = 0;
     }
+
+    renderIdeaStage(container, typeof growInIndex === 'number');
+    await loadOutputForCurrentIdea();
   } catch (e) {
     console.error('[Space] Load ideas error:', e);
     container.innerHTML = renderEmptyState();
+    bindEmptyStateEvents();
   }
 }
 
-// 渲染骨架屏
 function renderSkeleton() {
-  let html = '';
-  for (let i = 0; i < 3; i++) {
-    html += '<div class="skeleton-bubble">' +
-      '<div class="skeleton-circle"></div>' +
-      '<div style="flex:1;">' +
-        '<div class="skeleton-line" style="width:' + (60 + Math.random() * 30) + '%;"></div>' +
-        '<div class="skeleton-line" style="width:30%;height:10px;"></div>' +
+  return '<div class="skeleton-bubble-area"><div class="skeleton-circle-lg"></div><div class="skeleton-line-sm"></div></div>';
+}
+
+function renderEmptyState() {
+  return '<div class="empty-state">' +
+    '<div class="empty-bubble-icon">&#x1F4AD;</div>' +
+    '<div class="empty-text">还没有记录任何灵感</div>' +
+    '<div class="empty-hint">开始你的创意之旅吧</div>' +
+    '<button class="empty-record-btn" id="emptyRecordBtn">记录灵感</button></div>';
+}
+
+function bindEmptyStateEvents() {
+  var btn = document.getElementById('emptyRecordBtn');
+  if (btn) btn.addEventListener('click', function() { openSpaceRecord(); });
+}
+
+// ==================== 渲染气泡舞台 ====================
+
+function renderIdeaStage(container, growIn) {
+  var isNewIdeaEntry = (currentIdeaIndex === -1 || currentIdeaIndex >= ideasList.length);
+
+  if (isNewIdeaEntry) {
+    container.innerHTML = renderNewIdeaSeed();
+    bindSeedEvents();
+    bindIdeaDots();
+    return;
+  }
+
+  var idea = ideasList[currentIdeaIndex];
+  var stageIdx = getStageIndex(idea.status);
+  var stage = STAGES[stageIdx];
+  var visual = STAGE_VISUAL[stage.status] || STAGE_VISUAL.basic_cognition;
+  var isMature = stageIdx >= 6;
+  var growClass = growIn ? ' grow-in' : '';
+
+  var html = '';
+
+  // 气泡舞台
+  html += '<div class="bubble-stage">' +
+    '<button class="nav-arrow nav-prev' + (currentIdeaIndex === 0 ? ' disabled' : '') + '" id="navPrev">&#x2039;</button>' +
+    '<div class="bubble-center">' +
+      '<div class="center-bubble' + (isMature ? ' iridescent' : '') + growClass + '" id="centerBubble"' +
+        ' style="--bubble-size:' + visual.size + 'px;--bubble-glow:' + visual.glow + 'px;' +
+        '--bubble-opacity:' + visual.opacity + ';--bubble-font-size:' + visual.fontSize + 'px;' +
+        '--bubble-line-clamp:' + visual.lineClamp + ';">' +
+        '<span class="bubble-title-inner">' + escapeHtml(idea.title) + '</span>' +
       '</div>' +
+    '</div>' +
+    '<button class="nav-arrow nav-next" id="navNext">&#x203A;</button>' +
+  '</div>';
+
+  // 8 节点产品阶段
+  html += '<div class="stage-bar-wrap"><div class="stage-bar" id="stageBar">';
+  for (var i = 0; i < STAGES.length; i++) {
+    var s = STAGES[i];
+    var segClass = 'stage-seg';
+    if (i < stageIdx) segClass += ' completed';
+    if (i === stageIdx) segClass += ' current';
+    // 未完成的节点（非当前、非已完成）标记为锁定
+    if (i > stageIdx) segClass += ' locked';
+    html += '<div class="' + segClass + '" data-stage-idx="' + i + '" data-stage-status="' + s.status + '"' +
+      ' style="--seg-color:' + s.color + ';">' +
+      '<div class="stage-dot"><span class="stage-dot-num">' + s.num + '</span></div>' +
+      '<div class="stage-zh">' + s.zh + '</div>' +
     '</div>';
   }
+  html += '</div></div>';
+
+  // AI分析 + 前往学习 按钮
+  html += '<div class="action-area">';
+  html += '<button class="ai-btn" id="aiAnalysisBtn">&#x2728; AI 分析</button>';
+  html += '<a class="learn-btn" id="learnBtn" href="./learning.html" target="_blank">&#x1F4DA; 前往学习</a>';
+  html += '</div>';
+
+  // 核心产出
+  html += '<div class="output-card" id="outputCard">' +
+    '<div class="output-header">' +
+      '<span class="output-title">核心产出</span>' +
+      '<span class="output-stage-tag" id="outputStageTag">' + stage.num + ' ' + stage.zh + '</span>' +
+    '</div>' +
+    '<div class="output-body" id="outputBody">' +
+      '<div class="output-placeholder-text">加载中...</div>' +
+    '</div>' +
+    '<div class="output-footer" id="outputFooter" style="display:none;">' +
+      '<button class="output-btn output-btn-save" id="outputSaveBtn">保存</button>' +
+      '<button class="output-btn output-btn-next" id="outputNextBtn" disabled>下一阶段</button>' +
+    '</div>' +
+  '</div>';
+
+  // 底部删除
+  html += '<div class="delete-area"><span class="delete-link" id="deleteIdeaBtn">删除这个灵感</span></div>';
+
+  // 灵感导航点
+  html += renderIdeaDots();
+
+  container.innerHTML = html;
+
+  bindBubbleStageEvents();
+  bindIdeaDots();
+}
+
+function renderNewIdeaSeed() {
+  return '<div class="bubble-stage">' +
+    '<button class="nav-arrow nav-prev" id="navPrev">&#x2039;</button>' +
+    '<div class="bubble-center">' +
+      '<div class="new-idea-seed" id="newIdeaSeed">' +
+        '<div class="seed-bubble">+</div>' +
+        '<div class="seed-text">记录新灵感</div>' +
+        '<div class="seed-hint">点击创建一个新的灵感气泡</div>' +
+      '</div>' +
+    '</div>' +
+    '<button class="nav-arrow nav-next disabled">&#x203A;</button>' +
+  '</div>' + renderIdeaDots();
+}
+
+function bindSeedEvents() {
+  var seed = document.getElementById('newIdeaSeed');
+  if (seed) seed.addEventListener('click', function() { openSpaceRecord(); });
+  var prevBtn = document.getElementById('navPrev');
+  if (prevBtn) prevBtn.addEventListener('click', function() {
+    currentIdeaIndex = ideasList.length - 1;
+    var container = document.getElementById('ideasContent');
+    renderIdeaStage(container);
+    loadOutputForCurrentIdea();
+  });
+}
+
+// ==================== 灵感导航点 ====================
+
+function renderIdeaDots() {
+  var html = '<div class="idea-dots" id="ideaDots">';
+  for (var i = 0; i < ideasList.length; i++) {
+    html += '<div class="idea-dot' + (i === currentIdeaIndex ? ' active' : '') + '" data-index="' + i + '"></div>';
+  }
+  html += '<div class="idea-dot-new' + (currentIdeaIndex === -1 || currentIdeaIndex >= ideasList.length ? ' active' : '') + '" data-index="-1" title="记录新灵感">+</div>';
+  html += '</div>';
   return html;
 }
 
-// 渲染空状态
-function renderEmptyState() {
-  return '<div class="empty-state">' +
-    '<div class="empty-bubble">&#x1F4AD;</div>' +
-    '<div class="empty-text">还没有记录任何灵感</div>' +
-    '<div class="empty-hint">开始你的创意之旅吧</div>' +
-    '<a href="./gallery.html" class="empty-link">' +
-      '去 Explore 记录你的第一个灵感 &#x2192;' +
-    '</a>' +
-  '</div>';
-}
-
-// 渲染单个灵感气泡卡片
-function renderIdeaCard(idea) {
-  const stageIdx = getStageIndex(idea.status);
-  const stage = STAGES[stageIdx];
-  const color = stage.color;
-  const dateText = formatDate(idea.created_at);
-
-  // 构建阶段进度条
-  const progressHtml = STAGES.map(function(s, i) {
-    let segClass = 'stage-segment';
-    if (i < stageIdx) segClass += ' completed';
-    if (i === stageIdx) segClass += ' current';
-    return '<div class="' + segClass + '" data-idea-id="' + idea.id + '" data-stage-status="' + s.status + '"' +
-      ' style="--segment-color:' + s.color + ';">' +
-      '<div class="stage-dot-lg"></div>' +
-      '<div class="stage-num">' + s.num + '</div>' +
-      '<div class="stage-zh">' + s.zh + '</div>' +
-    '</div>';
-  }).join('');
-
-  return '<div class="idea-bubble" data-idea-id="' + idea.id + '"' +
-    ' style="--stage-color:' + color + '; --stage-glow:' + hexToRgba(color, 0.35) + '; --stage-bg:' + hexToRgba(color, 0.12) + '; --stage-border:' + hexToRgba(color, 0.25) + ';">' +
-    '<div class="bubble-icon"></div>' +
-    '<div class="bubble-content">' +
-      '<div class="bubble-title">' + escapeHtml(idea.title) + '</div>' +
-      '<div class="bubble-date">' + dateText + '</div>' +
-    '</div>' +
-    '<span class="stage-badge">' +
-      '<span class="stage-dot"></span>' +
-      stage.num + ' ' + stage.zh +
-    '</span>' +
-    '<button class="idea-delete-btn" data-action="delete" data-idea-id="' + idea.id + '" title="删除灵感">&#x2715;</button>' +
-    '<div class="bubble-expand">' +
-      '<div class="expand-inner">' +
-        '<div class="expand-label">Creative Journey &middot; ' + stage.num + ' ' + stage.en + ' / ' + stage.zh + '</div>' +
-        '<div class="stage-progress">' + progressHtml + '</div>' +
-        '<button class="expand-delete" data-action="delete" data-idea-id="' + idea.id + '">' +
-          '&#x1F5D1; 删除这个灵感' +
-        '</button>' +
-      '</div>' +
-    '</div>' +
-  '</div>';
-}
-
-// 绑定灵感卡片交互（事件委托）
-function bindIdeaEvents(container) {
-  container.addEventListener('click', async function(e) {
-    // 删除按钮
-    const deleteBtn = e.target.closest('[data-action="delete"]');
-    if (deleteBtn) {
-      e.stopPropagation();
-      const ideaId = deleteBtn.dataset.ideaId;
-      handleDeleteIdea(ideaId);
-      return;
-    }
-
-    // 阶段进度条点击（切换阶段）
-    const stageSeg = e.target.closest('.stage-segment');
-    if (stageSeg) {
-      e.stopPropagation();
-      const ideaId = stageSeg.dataset.ideaId;
-      const status = stageSeg.dataset.stageStatus;
-      if (ideaId && status) {
-        await setIdeaStage(ideaId, status);
+function bindIdeaDots() {
+  document.querySelectorAll('.idea-dot, .idea-dot-new').forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(dot.dataset.index);
+      currentIdeaIndex = idx;
+      var container = document.getElementById('ideasContent');
+      if (idx === -1) {
+        renderIdeaStage(container);
+      } else {
+        renderIdeaStage(container);
+        loadOutputForCurrentIdea();
       }
-      return;
+    });
+  });
+}
+
+// ==================== 绑定气泡舞台事件 ====================
+
+function bindBubbleStageEvents() {
+  // 上一个灵感
+  var prevBtn = document.getElementById('navPrev');
+  if (prevBtn && !prevBtn.classList.contains('disabled')) {
+    prevBtn.addEventListener('click', function() {
+      if (currentIdeaIndex === -1 || currentIdeaIndex >= ideasList.length) {
+        currentIdeaIndex = ideasList.length - 1;
+      } else {
+        currentIdeaIndex = Math.max(0, currentIdeaIndex - 1);
+      }
+      var container = document.getElementById('ideasContent');
+      renderIdeaStage(container);
+      loadOutputForCurrentIdea();
+    });
+  }
+
+  // 下一个灵感
+  var nextBtn = document.getElementById('navNext');
+  if (nextBtn && !nextBtn.classList.contains('disabled')) {
+    nextBtn.addEventListener('click', function() {
+      if (currentIdeaIndex < ideasList.length - 1) {
+        currentIdeaIndex++;
+        var container = document.getElementById('ideasContent');
+        renderIdeaStage(container);
+        loadOutputForCurrentIdea();
+      } else {
+        currentIdeaIndex = -1;
+        var container = document.getElementById('ideasContent');
+        renderIdeaStage(container);
+      }
+    });
+  }
+
+  // 阶段节点点击
+  var stageBar = document.getElementById('stageBar');
+  if (stageBar) {
+    stageBar.querySelectorAll('.stage-seg').forEach(function(seg) {
+      seg.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var targetIdx = parseInt(seg.dataset.stageIdx);
+        var targetStatus = seg.dataset.stageStatus;
+        handleStageClick(targetIdx, targetStatus);
+      });
+    });
+  }
+
+  // AI分析
+  var aiBtn = document.getElementById('aiAnalysisBtn');
+  if (aiBtn) {
+    aiBtn.addEventListener('click', function() {
+      showToast('AI 分析功能即将上线');
+      // 自动进入编辑模式
+      if (!isEditingOutput) enterEditMode();
+    });
+  }
+
+  // 前往学习
+  var learnBtn = document.getElementById('learnBtn');
+  if (learnBtn) {
+    learnBtn.addEventListener('click', function(e) {
+      // 允许跳转（新标签页打开，不阻止默认行为）
+    });
+  }
+
+  // 删除
+  var deleteBtn = document.getElementById('deleteIdeaBtn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', function() { handleDeleteIdea(); });
+  }
+
+  // 气泡点击 → 编辑核心产出
+  var bubble = document.getElementById('centerBubble');
+  if (bubble) {
+    bubble.addEventListener('click', function() {
+      if (!isEditingOutput) enterEditMode();
+    });
+  }
+}
+
+// ==================== 阶段节点点击逻辑 ====================
+
+function handleStageClick(targetIdx, targetStatus) {
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  var currentStageIdx = getStageIndex(idea.status);
+
+  // 点击已完成节点 → 查看（不改变当前阶段）
+  if (targetIdx < currentStageIdx) {
+    showToast(STAGES[targetIdx].zh + ' — 已完成');
+    return;
+  }
+
+  // 点击当前节点 → 无操作
+  if (targetIdx === currentStageIdx) return;
+
+  // 点击未完成节点 → 需要先保存当前阶段产出
+  if (!hasSavedOutput) {
+    showToast('先填写当前阶段核心产出');
+    return;
+  }
+
+  // 只能推进到下一步（不能跳跃）
+  if (targetIdx !== currentStageIdx + 1) {
+    showToast('先填写当前阶段核心产出');
+    return;
+  }
+
+  // 推进阶段
+  handleStageSwitch(targetStatus);
+}
+
+// ==================== 阶段切换 ====================
+
+async function handleStageSwitch(newStatus) {
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  if (idea.status === newStatus) return;
+
+  if (typeof updateIdeaStatus !== 'function') return;
+
+  var result = await updateIdeaStatus(idea.id, newStatus);
+  if (result.success) {
+    idea.status = newStatus;
+    hasSavedOutput = false;
+    isEditingOutput = false;
+    currentOutputData = null;
+    var container = document.getElementById('ideasContent');
+    renderIdeaStage(container);
+    await loadOutputForCurrentIdea();
+  } else {
+    showToast('阶段切换失败');
+  }
+}
+
+// ==================== 核心产出加载 ====================
+
+async function loadOutputForCurrentIdea() {
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  var stageIdx = getStageIndex(idea.status);
+  var stage = STAGES[stageIdx];
+  var outputBody = document.getElementById('outputBody');
+  var outputFooter = document.getElementById('outputFooter');
+  if (!outputBody) return;
+
+  if (typeof getIdeaOutput !== 'function') return;
+
+  currentOutputData = await getIdeaOutput(idea.id, stage.status);
+  isEditingOutput = false;
+
+  if (currentOutputData && currentOutputData.content) {
+    hasSavedOutput = true;
+    renderOutputView(currentOutputData.content);
+  } else {
+    hasSavedOutput = false;
+    isEditingOutput = true;
+    renderOutputEditor();
+  }
+
+  updateFooterButtons();
+}
+
+// ==================== 渲染核心产出编辑模式 ====================
+
+function renderOutputEditor() {
+  var outputBody = document.getElementById('outputBody');
+  var outputFooter = document.getElementById('outputFooter');
+  if (!outputBody) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  var stageIdx = getStageIndex(idea.status);
+  var stage = STAGES[stageIdx];
+  var fields = OUTPUT_TEMPLATES[stage.status] || [];
+
+  var html = '';
+  var savedContent = null;
+  if (currentOutputData && currentOutputData.content) {
+    try {
+      savedContent = JSON.parse(currentOutputData.content);
+    } catch (e) {
+      savedContent = null;
+    }
+  }
+
+  for (var i = 0; i < fields.length; i++) {
+    var val = (savedContent && savedContent[i]) ? savedContent[i] : '';
+    html += '<div class="output-field">' +
+      '<div class="output-field-label">' + fields[i].label + '</div>' +
+      '<textarea class="output-field-input" data-field-idx="' + i + '" placeholder="' + escapeHtml(fields[i].placeholder) + '" rows="2">' + escapeHtml(val) + '</textarea>' +
+    '</div>';
+  }
+
+  outputBody.innerHTML = html;
+  if (outputFooter) outputFooter.style.display = 'flex';
+
+  updateFooterButtons();
+}
+
+// ==================== 渲染核心产出查看模式 ====================
+
+function renderOutputView(contentJson) {
+  var outputBody = document.getElementById('outputBody');
+  var outputFooter = document.getElementById('outputFooter');
+  if (!outputBody) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  var stageIdx = getStageIndex(idea.status);
+  var stage = STAGES[stageIdx];
+  var fields = OUTPUT_TEMPLATES[stage.status] || [];
+
+  var savedContent = null;
+  try {
+    savedContent = JSON.parse(contentJson);
+  } catch (e) {
+    savedContent = null;
+  }
+
+  var html = '';
+  for (var i = 0; i < fields.length; i++) {
+    var val = (savedContent && savedContent[i]) ? savedContent[i] : '';
+    html += '<div class="output-field">' +
+      '<div class="output-field-label">' + fields[i].label + '</div>' +
+      '<div class="output-field-view">' + (val ? escapeHtml(val) : '<span style="color:var(--text-muted);font-style:italic;">未填写</span>') + '</div>' +
+    '</div>';
+  }
+
+  outputBody.innerHTML = html;
+  if (outputFooter) outputFooter.style.display = 'flex';
+
+  updateFooterButtons();
+}
+
+// ==================== 底部按钮 ====================
+
+function updateFooterButtons() {
+  var saveBtn = document.getElementById('outputSaveBtn');
+  var nextBtn = document.getElementById('outputNextBtn');
+
+  if (saveBtn) {
+    if (isEditingOutput) {
+      saveBtn.textContent = '保存';
+      saveBtn.className = 'output-btn output-btn-save';
+      saveBtn.disabled = false;
+    } else {
+      saveBtn.textContent = '编辑';
+      saveBtn.className = 'output-btn output-btn-save edit-mode';
+      saveBtn.disabled = false;
+    }
+    // 移除旧事件，重新绑定
+    var newSaveBtn = saveBtn.cloneNode(true);
+    saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
+    newSaveBtn.addEventListener('click', function() {
+      if (isEditingOutput) {
+        handleSaveOutput();
+      } else {
+        enterEditMode();
+      }
+    });
+  }
+
+  if (nextBtn) {
+    if (hasSavedOutput && !isEditingOutput) {
+      nextBtn.disabled = false;
+    } else {
+      nextBtn.disabled = true;
+    }
+    var newNextBtn = nextBtn.cloneNode(true);
+    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+    newNextBtn.addEventListener('click', function() {
+      if (hasSavedOutput && !isEditingOutput) {
+        handleNextStage();
+      }
+    });
+  }
+}
+
+function enterEditMode() {
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+  isEditingOutput = true;
+  renderOutputEditor();
+  updateFooterButtons();
+}
+
+// ==================== 保存核心产出 ====================
+
+async function handleSaveOutput() {
+  if (isSavingOutput) return;
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  var stageIdx = getStageIndex(idea.status);
+  var stage = STAGES[stageIdx];
+
+  // 收集所有字段值
+  var inputs = document.querySelectorAll('.output-field-input');
+  var values = [];
+  inputs.forEach(function(inp) { values.push(inp.value.trim()); });
+
+  // 检查是否全部为空
+  var allEmpty = values.every(function(v) { return !v; });
+  if (allEmpty) {
+    showToast('请至少填写一项内容');
+    return;
+  }
+
+  var content = JSON.stringify(values);
+  var saveBtn = document.querySelector('#outputSaveBtn');
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '保存中...'; }
+  isSavingOutput = true;
+
+  var result = await saveIdeaOutput(idea.id, stage.status, content, stage.status);
+
+  isSavingOutput = false;
+
+  if (result && result.success) {
+    currentOutputData = result.data;
+    hasSavedOutput = true;
+    isEditingOutput = false;
+    renderOutputView(content);
+
+    // 气泡微亮动画
+    var bubble = document.getElementById('centerBubble');
+    if (bubble) {
+      bubble.classList.add('subtle-glow');
+      setTimeout(function() { bubble.classList.remove('subtle-glow'); }, 1200);
     }
 
-    // 点击卡片展开/收起
-    const card = e.target.closest('.idea-bubble');
-    if (card) {
-      card.classList.toggle('expanded');
-    }
-  });
+    updateFooterButtons();
+    showToast('核心产出已保存');
+
+    // 重新加载列表（updated_at 变了）
+    setTimeout(function() { loadIdeas(); }, 500);
+  } else {
+    showToast('保存失败: ' + (result && result.error ? result.error : '未知错误'));
+    updateFooterButtons();
+  }
+}
+
+// ==================== 下一阶段 ====================
+
+async function handleNextStage() {
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  var idea = ideasList[currentIdeaIndex];
+  var stageIdx = getStageIndex(idea.status);
+  if (stageIdx >= STAGES.length - 1) {
+    showToast('已经是最后一个阶段');
+    return;
+  }
+
+  var nextStatus = STAGES[stageIdx + 1].status;
+  await handleStageSwitch(nextStatus);
 }
 
 // ==================== 删除灵感 ====================
 
-async function handleDeleteIdea(id) {
-  if (!id) return;
+async function handleDeleteIdea() {
+  if (currentIdeaIndex < 0 || currentIdeaIndex >= ideasList.length) return;
+
+  var idea = ideasList[currentIdeaIndex];
   if (!confirm('确定要删除这个灵感吗？删除后不可恢复。')) return;
 
-  const result = await deleteIdea(id);
+  var result = await deleteIdea(idea.id);
   if (result.success) {
-    loadIdeas();
+    currentIdeaIndex = 0;
+    await loadIdeas();
   } else {
-    alert(result.error || '删除失败，请稍后重试');
+    showToast(result.error || '删除失败');
   }
 }
 
-// ==================== 更新灵感阶段 ====================
+// ==================== Space 内记录灵感弹窗 ====================
 
-async function setIdeaStage(ideaId, status) {
-  if (typeof updateIdeaStatus !== 'function') return;
-  const result = await updateIdeaStatus(ideaId, status);
-  if (result.success) {
-    loadIdeas();
-  } else {
-    console.error('[Space] Update stage error:', result.error);
-  }
+function openSpaceRecord() {
+  var modal = document.getElementById('submitModal');
+  if (!modal) return;
+  modal.classList.add('show');
+  selectedIdeaTags = [];
+  renderSpaceTags();
+  setTimeout(function() {
+    var input = document.getElementById('inspireInput');
+    if (input) input.focus();
+  }, 300);
 }
 
-// ==================== 飞行气泡到达动画 ====================
+function closeSpaceRecord() {
+  var modal = document.getElementById('submitModal');
+  if (modal) modal.classList.remove('show');
+  var input = document.getElementById('inspireInput');
+  if (input) input.value = '';
+  selectedIdeaTags = [];
+}
+
+function renderSpaceTags() {
+  var container = document.getElementById('inspireTagsSelect');
+  if (!container) return;
+  var tags = (typeof allTags !== 'undefined' && allTags.length > 0) ? allTags.slice(0, 12) : FALLBACK_TAGS;
+  container.innerHTML = tags.map(function(t) {
+    return '<span class="inspire-tag-chip" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>';
+  }).join('');
+  container.querySelectorAll('.inspire-tag-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var tag = chip.dataset.tag;
+      var idx = selectedIdeaTags.indexOf(tag);
+      if (idx > -1) { selectedIdeaTags.splice(idx, 1); chip.classList.remove('active'); }
+      else { selectedIdeaTags.push(tag); chip.classList.add('active'); }
+    });
+  });
+}
+
+async function handleSpaceRecordSubmit() {
+  var input = document.getElementById('inspireInput');
+  if (!input) return;
+  var text = input.value.trim();
+  if (!text) {
+    input.style.borderColor = 'rgba(239,68,68,0.5)';
+    input.focus();
+    setTimeout(function() { input.style.borderColor = ''; }, 1500);
+    return;
+  }
+
+  var user = (typeof window.currentUser === 'function') ? window.currentUser() : (typeof currentUser !== 'undefined' ? currentUser : null);
+  if (!user) { closeSpaceRecord(); if (typeof showAuthModal === 'function') showAuthModal('login'); return; }
+
+  var submitBtn = document.getElementById('inspireSubmitBtn');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.querySelector('span').textContent = '保存中...'; }
+
+  var result = await saveIdea(text, selectedIdeaTags);
+
+  if (submitBtn) { submitBtn.disabled = false; submitBtn.querySelector('span').textContent = '记录灵感'; }
+
+  if (result.error) { showToast('保存失败: ' + result.error); return; }
+
+  input.value = '';
+  selectedIdeaTags = [];
+  closeSpaceRecord();
+  await loadIdeas(0);
+}
+
+// ==================== 飞行气泡到达（从 gallery 页面来） ====================
 
 function receiveFlyingBubble(title) {
-  // 切换到 Ideas 标签
   switchTab('ideas');
-
-  // 高亮 Ideas 标签
-  const ideasTab = document.querySelector('.tab[data-tab="ideas"]');
+  var ideasTab = document.querySelector('.tab[data-tab="ideas"]');
   if (ideasTab) {
     ideasTab.classList.add('tab-flash');
     setTimeout(function() { ideasTab.classList.remove('tab-flash'); }, 1500);
   }
-
-  const container = document.getElementById('ideasList');
-  if (!container) return;
-
-  // 如果当前是空状态或骨架屏，先清空
-  const emptyOrSkeleton = container.querySelector('.empty-state, .skeleton-bubble');
-  if (emptyOrSkeleton) {
-    container.innerHTML = '';
-  }
-
-  // 创建到达气泡动画元素
-  const displayText = title && title.length > 24 ? title.substring(0, 24) + '...' : (title || '新灵感');
-  const bubble = document.createElement('div');
-  bubble.className = 'incoming-bubble';
-  bubble.innerHTML = '<div class="inc-dot"></div><div class="inc-text">' + escapeHtml(displayText) + '</div>';
-  container.prepend(bubble);
-
-  // 动画结束后移除气泡并刷新列表
-  setTimeout(function() {
-    bubble.remove();
-    loadIdeas(displayText);
-  }, 1150);
+  loadIdeas(0);
 }
 
 // ==================== 暴露到全局 ====================
 
 window.loadIdeas = loadIdeas;
-window.handleDeleteIdea = handleDeleteIdea;
 window.receiveFlyingBubble = receiveFlyingBubble;
+window.openSpaceRecord = openSpaceRecord;
+window.closeSpaceRecord = closeSpaceRecord;
+window.handleSpaceRecordSubmit = handleSpaceRecordSubmit;
 
 // ==================== 启动 ====================
 
@@ -1146,6 +1964,5 @@ if (document.readyState === 'loading') {
   init();
 }
 </script>
-
 </body>
 </html>
