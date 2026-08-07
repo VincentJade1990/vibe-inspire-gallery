@@ -92,11 +92,11 @@ body::after {
 /* ===== 巨大渐变标题 ===== */
 .space-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 64px;
 }
 
 .space-title {
-  font-size: clamp(42px, 5vw, 64px);
+  font-size: clamp(56px, 6vw, 98px);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -177,8 +177,8 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  min-height: 340px;
+  gap: 24px;
+  min-height: 320px;
   position: relative;
   padding: 10px 0;
 }
@@ -223,6 +223,11 @@ body::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 300px;
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .bubble-center { width: auto; }
 }
 
 /* ===== 核心玻璃态气泡 ===== */
@@ -756,8 +761,8 @@ body::after {
 }
 
 .seed-bubble {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   border: 2px dashed rgba(139, 92, 246, 0.3);
   background: rgba(139, 92, 246, 0.04);
@@ -1065,11 +1070,11 @@ body::after {
   .space-title { font-size: clamp(48px, 12vw, 80px); }
   .tabs { gap: 4px; }
   .tab { padding: 8px 16px; font-size: 13px; }
-  .bubble-stage { gap: 8px; min-height: 300px; }
+  .bubble-stage { gap: 8px; min-height: 280px; }
   .nav-arrow { width: 36px; height: 36px; font-size: 14px; }
   .center-bubble {
-    width: calc(var(--bubble-size, 360px) * 0.75) !important;
-    height: calc(var(--bubble-size, 360px) * 0.75) !important;
+    width: calc(var(--bubble-size, 300px) * 0.75) !important;
+    height: calc(var(--bubble-size, 300px) * 0.75) !important;
   }
   .stage-zh { font-size: 10px; max-width: 48px; }
   .stage-dot { width: 30px; height: 30px; }
@@ -1157,14 +1162,14 @@ var STAGES = [
 
 // 阶段视觉映射（气泡大小/光晕/透明度/字体/行数）
 var STAGE_VISUAL = {
-  basic_cognition: { size: 125, glow: 18, opacity: 0.50, fontSize: 11, lineClamp: 3 },
-  explore_ideas:   { size: 140, glow: 21, opacity: 0.55, fontSize: 12, lineClamp: 3 },
-  discover_needs:  { size: 165, glow: 27, opacity: 0.62, fontSize: 13, lineClamp: 4 },
-  define_product:  { size: 185, glow: 34, opacity: 0.70, fontSize: 14, lineClamp: 4 },
-  design_product:  { size: 215, glow: 41, opacity: 0.78, fontSize: 15, lineClamp: 5 },
-  build_product:   { size: 240, glow: 50, opacity: 0.85, fontSize: 16, lineClamp: 5 },
-  launch_product:  { size: 275, glow: 60, opacity: 0.92, fontSize: 18, lineClamp: 6 },
-  grow_users:      { size: 320, glow: 80, opacity: 1.0,  fontSize: 20, lineClamp: 6 }
+  basic_cognition: { size: 140, glow: 20, opacity: 0.50, fontSize: 12, lineClamp: 3 },
+  explore_ideas:   { size: 160, glow: 24, opacity: 0.55, fontSize: 13, lineClamp: 3 },
+  discover_needs:  { size: 185, glow: 30, opacity: 0.62, fontSize: 13, lineClamp: 4 },
+  define_product:  { size: 210, glow: 38, opacity: 0.70, fontSize: 14, lineClamp: 4 },
+  design_product:  { size: 240, glow: 46, opacity: 0.78, fontSize: 15, lineClamp: 5 },
+  build_product:   { size: 265, glow: 54, opacity: 0.85, fontSize: 16, lineClamp: 5 },
+  launch_product:  { size: 290, glow: 64, opacity: 0.92, fontSize: 18, lineClamp: 6 },
+  grow_users:      { size: 300, glow: 72, opacity: 1.0,  fontSize: 20, lineClamp: 6 }
 };
 
 // 核心产出模板（每个阶段一组字段，每个字段 { label, placeholder }）
