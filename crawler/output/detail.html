@@ -1930,16 +1930,10 @@ function renderPage(caseData) {
         </div>`
     : '';
 
-  // 项目简介 HTML（无内容则不显示）
-  const summaryHtml = caseData.summary
-    ? `<p class="description-text">${caseData.summary}</p>`
+  // 项目描述 HTML：优先显示 description，description 为空时回退到 summary，避免重复
+  const descHtml = caseData.description || caseData.summary
+    ? `<p class="description-text">${caseData.description || caseData.summary}</p>`
     : '';
-
-  // 详细描述 HTML（无内容则不显示）
-  const descHtml = caseData.description
-    ? `<p class="description-text" style="margin-top:16px;">${caseData.description}</p>`
-    : '';
-
   // 评分展示 HTML（5气泡10分制）
   const ratingValue = Math.min(10, Math.max(0, caseData.rating || 0));
   const ratingBubbles = [];
@@ -2040,7 +2034,6 @@ function renderPage(caseData) {
         </div>
 
         <!-- 项目简介 -->
-        ${summaryHtml}
         ${descHtml}
 
         <!-- 分类标签 -->
