@@ -490,10 +490,14 @@
         document.body.insertBefore(mount, document.body.firstChild);
       }
 
-      // 获取用户状态
+      // 获取用户状态：优先从 localStorage 读取缓存，避免异步 auth 导致的 CREATE/头像闪烁
       var user = null;
-      if (typeof currentUser === 'function') {
-        user = currentUser();
+      try {
+        var cached = localStorage.getItem('vb_user');
+        if (cached) user = JSON.parse(cached);
+      } catch (e) { /* ignore */ }
+      if (!user && typeof window.currentUser === 'function') {
+        user = window.currentUser();
       }
 
       mount.innerHTML = buildNavHTML(user);
