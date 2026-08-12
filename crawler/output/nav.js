@@ -37,6 +37,7 @@
     style.id = 'vb-nav-styles';
     style.textContent = [
       '/* ===== VibeBubble 统一导航栏 ===== */',
+      'html { scrollbar-gutter: stable; }',
       '.vb-site-nav {',
       '  position: fixed;',
       '  top: 0; right: 0; left: 0;',
