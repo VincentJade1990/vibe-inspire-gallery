@@ -1265,8 +1265,11 @@ async function init() {
     attempts++;
   }
 
-  var user = (typeof window.currentUser === 'function') ? window.currentUser() : (typeof currentUser !== 'undefined' ? currentUser : null);
-  if (!user) { window.location.href = './gallery.html'; return; }
+  // 优先从 localStorage 读取缓存用户信息，避免异步 auth 未完成导致的误跳转
+  var user = null;
+  try { var cached = localStorage.getItem('vb_user'); if (cached) user = JSON.parse(cached); } catch (e) {}
+  if (!user && typeof window.currentUser === 'function') user = window.currentUser();
+  if (!user) { window.location.href = './gallery'; return; }
 
   bindTabs();
   await loadIdeas();

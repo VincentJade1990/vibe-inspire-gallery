@@ -6,7 +6,7 @@
 <title>个人中心 - Vibe Bubble</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script src="./auth.js"></script>
-<script>window.VBNavConfig = { mode: 'sub', backHref: './gallery.html', backLabel: 'BACK' };</script>
+<script>window.VBNavConfig = { mode: 'sub', backHref: './gallery', backLabel: 'BACK' };</script>
 <script src="./nav.js"></script>
 <style>
 /* ===== CSS 变量与基础重置 ===== */
@@ -674,9 +674,13 @@ async function init() {
   }
 
   // 检查登录状态
-  if (!currentUser) {
+  // 优先从 localStorage 读取缓存用户信息，避免异步 auth 未完成导致的误跳转
+  var cachedUser = null;
+  try { var c = localStorage.getItem('vb_user'); if (c) cachedUser = JSON.parse(c); } catch (e) {}
+  if (!cachedUser) cachedUser = currentUser;
+  if (!cachedUser) {
     // 未登录，重定向到首页
-    window.location.href = './gallery.html';
+    window.location.href = './gallery';
     return;
   }
 

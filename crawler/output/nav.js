@@ -9,23 +9,24 @@
 
   // ===== 导航配置 =====
   var NAV_ITEMS = [
-    { label: 'Home', href: './index.html', key: 'home' },
-    { label: 'Explore', href: './gallery.html', key: 'explore' },
-    { label: 'Learning', href: './learning.html', key: 'learning' },
-    { label: 'Space', href: './space.html', key: 'space' },
-    { label: 'Studio', href: './studio.html', key: 'studio' }
+    { label: 'Home', href: './', key: 'home' },
+    { label: 'Explore', href: './gallery', key: 'explore' },
+    { label: 'Learning', href: './learning', key: 'learning' },
+    { label: 'Space', href: './space', key: 'space' },
+    { label: 'Studio', href: './studio', key: 'studio' }
   ];
 
   // 根据当前页面文件名推断 active key
+  // 兼容 Cloudflare Pages 的 clean URL（无 .html 后缀）和本地开发（有 .html 后缀）
   function getActiveKey() {
     var path = window.location.pathname;
     var file = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
 
-    if (file === '' || file === 'index.html') return 'home';
-    if (file === 'gallery.html') return 'explore';
-    if (file === 'learning.html') return 'learning';
-    if (file === 'space.html' || file === 'profile.html') return 'space';
-    if (file === 'studio.html' || file === 'about.html') return 'studio';
+    if (file === '' || file === 'index.html' || file === 'index') return 'home';
+    if (file === 'gallery.html' || file === 'gallery') return 'explore';
+    if (file === 'learning.html' || file === 'learning') return 'learning';
+    if (file === 'space.html' || file === 'space' || file === 'profile.html' || file === 'profile') return 'space';
+    if (file === 'studio.html' || file === 'studio' || file === 'about.html' || file === 'about') return 'studio';
     return '';
   }
 
@@ -333,7 +334,7 @@
   function hasAudio() {
     var path = window.location.pathname;
     var file = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
-    return file === 'gallery.html';
+    return file === 'gallery.html' || file === 'gallery';
   }
 
   // 渲染右上角区域（音效按钮 + Create 按钮 或 用户状态）
@@ -386,7 +387,7 @@
 
     return '' +
       '<header class="vb-site-nav">' +
-        '<a class="vb-nav-brand" href="./index.html" aria-label="VibeBubble 首页">' +
+        '<a class="vb-nav-brand" href="./" aria-label="VibeBubble 首页">' +
           '<span class="vb-nav-brand-dot" aria-hidden="true"></span>' +
           'VIBEBUBBLE' +
         '</a>' +
@@ -406,7 +407,7 @@
 
   // 构建子页面返回按钮 HTML
   function buildSubBackHTML(backHref, backLabel) {
-    backHref = backHref || './gallery.html';
+    backHref = backHref || './gallery';
     backLabel = backLabel || 'BACK';
     return '<a class="vb-sub-back" href="' + backHref + '">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>' +
@@ -523,7 +524,7 @@
 
   // 自动初始化（DOM 就绪后）
   // 页面可通过 window.VBNavConfig 设置初始化参数
-  // 子页面：window.VBNavConfig = { mode: 'sub', backHref: './gallery.html', backLabel: 'BACK' };
+  // 子页面：window.VBNavConfig = { mode: 'sub', backHref: './gallery', backLabel: 'BACK' };
   function autoInit() {
     if (window.VBNav && !window.VBNav._initialized) {
       window.VBNav._initialized = true;
