@@ -164,6 +164,9 @@
       '.vb-sound-btn.muted {',
       '  opacity: 0.4;',
       '}',
+      '.vb-sound-btn.vb-sound-hidden {',
+      '  visibility: hidden;',
+      '}',
       '.vb-sound-btn svg {',
       '  width: 14px; height: 14px;',
       '}',
@@ -338,13 +341,12 @@
   }
 
   // 渲染右上角区域（音效按钮 + Create 按钮 或 用户状态）
+  // 音效按钮始终渲染，非 gallery 页面用 visibility: hidden 隐藏但保留占位
   function renderRightArea(user, isMobile) {
-    var soundBtn = '';
-    if (hasAudio()) {
-      soundBtn = '<button class="vb-sound-btn" aria-label="音效开关">' +
-        soundIconOn + soundIconOff +
-        '</button>';
-    }
+    var soundHidden = hasAudio() ? '' : ' vb-sound-hidden';
+    var soundBtn = '<button class="vb-sound-btn' + soundHidden + '" aria-label="音效开关">' +
+      soundIconOn + soundIconOff +
+      '</button>';
 
     if (user) {
       // 已登录：头像 + 昵称，点击进入 profile.html
@@ -457,15 +459,17 @@
       }
     }
 
-    // 音效静音按钮
-    var soundBtns = document.querySelectorAll('.vb-sound-btn');
-    soundBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        if (typeof toggleSound === 'function') {
-          toggleSound();
-        }
+    // 音效静音按钮（仅 gallery 页面绑定事件）
+    if (hasAudio()) {
+      var soundBtns = document.querySelectorAll('.vb-sound-btn');
+      soundBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (typeof toggleSound === 'function') {
+            toggleSound();
+          }
+        });
       });
-    });
+    }
   }
 
   // ===== 主入口 =====
