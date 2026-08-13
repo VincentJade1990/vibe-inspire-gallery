@@ -31,6 +31,15 @@
   }
 
   // 注入 CSS（仅一次）
+  // 注入 View Transitions meta 标签（跨页面导航平滑过渡，消除白屏闪动）
+  function injectViewTransition() {
+    if (document.querySelector('meta[name=view-transition]')) return;
+    var meta = document.createElement('meta');
+    meta.name = 'view-transition';
+    meta.content = 'same-origin';
+    document.head.appendChild(meta);
+  }
+
   function injectStyles() {
     if (document.getElementById('vb-nav-styles')) return;
     var style = document.createElement('style');
@@ -482,6 +491,7 @@
     init: function (options) {
       options = options || {};
       injectStyles();
+      injectViewTransition();
 
       if (options.mode === 'sub') {
         // 子页面模式：只渲染返回按钮
