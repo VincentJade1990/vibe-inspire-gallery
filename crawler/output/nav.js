@@ -709,16 +709,10 @@
       // SPA: 设置 popstate 处理器（浏览器前进/后退）
       window.addEventListener('popstate', function (event) {
         if (isNavigating) return;
-        var state = event.state;
-        if (state && state.url) {
-          loadPage(state.url, state.key, false);
-        } else {
-          // 无 state（首次加载或外部跳转）：根据 URL 推断
-          var key = getActiveKey();
-          if (key) {
-            var url = window.location.pathname;
-            loadPage(url, key, false);
-          }
+        // 直接使用浏览器已更新的 URL，不依赖 state 中的相对路径
+        var key = getActiveKey();
+        if (key && SPA_NAV_KEYS.indexOf(key) !== -1) {
+          loadPage(window.location.href, key, false);
         }
       });
 
