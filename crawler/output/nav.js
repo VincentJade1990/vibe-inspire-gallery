@@ -488,8 +488,12 @@
           history.pushState({ url: url, key: key }, '', url);
         }
 
-        // 6. 重新执行脚本
-        executeScripts(scriptsToRun);
+        // 6. 重新执行脚本（即使失败也不影响内容展示）
+        try {
+          executeScripts(scriptsToRun);
+        } catch (scriptErr) {
+          console.warn('Script execution warning:', scriptErr);
+        }
 
         // 7. 更新导航栏右侧区域（音效按钮可见性等）
         updateNavAfterRoute(key);
@@ -501,8 +505,15 @@
       })
       .catch(function (err) {
         console.error('SPA navigation error:', err);
+        isNavigating = false;
         // 出错时回退到传统页面跳转
-        window.location.href = url;
+        // URL 已相同（如 popstate 场景）时强制刷新
+        var targetUrl = new URL(url, window.location.href).href;
+        if (window.location.href === targetUrl) {
+          window.location.reload();
+        } else {
+          window.location.href = url;
+        }
       });
   }
 
