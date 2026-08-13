@@ -47,6 +47,9 @@
     style.textContent = [
       '/* ===== VibeBubble 统一导航栏 ===== */',
       'html { scrollbar-gutter: stable; }',
+      '/* View Transitions: 仅交叉淡入淡出，禁用 morph，避免页面切换位移 */',
+      '::view-transition-old(root) { animation: 0.12s ease both fade-out; }',
+      '::view-transition-new(root) { animation: 0.12s ease both fade-in; }',
       '.vb-site-nav {',
       '  position: fixed;',
       '  top: 0; right: 0; left: 0;',
