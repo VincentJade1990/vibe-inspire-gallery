@@ -564,6 +564,10 @@
       Object.keys(s.attrs).forEach(function (name) {
         script.setAttribute(name, s.attrs[name]);
       });
+      // 安全网：内联脚本含 import 但未标记 type=module 时自动补上
+      if (!s.src && s.content && /\bimport\s/.test(s.content) && !s.attrs.type) {
+        script.type = 'module';
+      }
       // 内联脚本设置内容
       if (!s.src && s.content) {
         script.textContent = s.content;
