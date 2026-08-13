@@ -483,13 +483,13 @@
         // 4. 替换 body 内容（保留导航栏 DOM）
         swapBodyContent(doc);
 
-        // 5. 重新执行脚本
-        executeScripts(scriptsToRun);
-
-        // 6. 更新浏览器 URL
+        // 5. 更新浏览器 URL（在执行脚本之前，确保相对路径 import 正确解析）
         if (pushState) {
           history.pushState({ url: url, key: key }, '', url);
         }
+
+        // 6. 重新执行脚本
+        executeScripts(scriptsToRun);
 
         // 7. 更新导航栏右侧区域（音效按钮可见性等）
         updateNavAfterRoute(key);
@@ -524,29 +524,37 @@
     });
   }
 
-  // 收集页面脚本（跳过 auth.js 和 nav.js）
+  // 收集页面脚本（跳过 auth.js 和 nav.js，保留所有原始属性如 type="module"）
   function collectScripts(doc) {
     var scripts = [];
     doc.querySelectorAll('script').forEach(function (s) {
       var src = s.getAttribute('src') || '';
       // 跳过已加载的核心脚本
       if (src.indexOf('auth.js') !== -1 || src.indexOf('nav.js') !== -1) return;
-      scripts.push({ src: src || null, content: s.textContent || null });
+      // 收集所有属性（type, crossorigin, integrity 等）
+      var attrs = {};
+      for (var i = 0; i < s.attributes.length; i++) {
+        attrs[s.attributes[i].name] = s.attributes[i].value;
+      }
+      scripts.push({ src: src || null, content: s.textContent || null, attrs: attrs });
     });
     return scripts;
   }
 
-  // 执行收集的脚本
+  // 执行收集的脚本（保留原始属性，外部脚本去重）
   function executeScripts(scripts) {
     scripts.forEach(function (s) {
+      // 外部脚本去重
+      if (s.src && loadedExternalScripts[s.src]) return;
+      if (s.src) loadedExternalScripts[s.src] = true;
+
       var script = document.createElement('script');
-      if (s.src) {
-        // 外部脚本仅加载一次
-        if (loadedExternalScripts[s.src]) return;
-        loadedExternalScripts[s.src] = true;
-        script.src = s.src;
-        script.async = false;
-      } else if (s.content) {
+      // 复制所有原始属性（type="module", crossorigin 等）
+      Object.keys(s.attrs).forEach(function (name) {
+        script.setAttribute(name, s.attrs[name]);
+      });
+      // 内联脚本设置内容
+      if (!s.src && s.content) {
         script.textContent = s.content;
       }
       document.body.appendChild(script);
@@ -573,8 +581,8 @@
     var newBody = newDoc.body.cloneNode(true);
     var newNavMount = newBody.querySelector('#vb-nav-mount');
     if (newNavMount) newNavMount.remove();
-    // 移除 auth.js / nav.js 引用（已加载）
-    newBody.querySelectorAll('script[src*="auth.js"], script[src*="nav.js"]').forEach(function (s) { s.remove(); });
+    // 移除所有脚本（由 executeScripts 统一处理，避免 innerHTML 插入的不执行脚本残留）
+    newBody.querySelectorAll('script').forEach(function (s) { s.remove(); });
 
     // 5. 将新内容追加到 body
     var temp = document.createElement('div');
