@@ -410,11 +410,16 @@
     .content-section {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 150px var(--page-padding);
+      padding: 70px var(--page-padding);
     }
 
     .split-section {
       display: grid;
+      grid-template-columns: 0.22fr 1fr 0.78fr;
+      gap: 4vw;
+    }
+
+    .split-section.split-two {
       grid-template-columns: 0.4fr 1.6fr;
       gap: 7vw;
     }
@@ -439,7 +444,7 @@
 
     .section-title {
       max-width: 1120px;
-      font-size: clamp(48px, 6.4vw, 98px);
+      font-size: clamp(36px, 4.8vw, 72px);
       line-height: 0.96;
     }
 
@@ -450,27 +455,41 @@
 
     .section-lede {
       max-width: 800px;
-      margin-top: 44px;
+      margin-top: 24px;
       color: var(--text-dim);
-      font-size: 17px;
-      line-height: 1.9;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .about-image {
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .ability-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      margin-top: 80px;
+      margin-top: 36px;
       border-top: 1px solid var(--line);
     }
 
     .ability-grid article {
-      min-height: 280px;
-      padding: 30px 30px 40px 0;
+      min-height: auto;
+      padding: 20px 20px 24px 0;
       border-right: 1px solid var(--line);
     }
 
     .ability-grid article:not(:first-child) {
-      padding-left: 30px;
+      padding-left: 20px;
     }
 
     .ability-grid article:last-child {
@@ -484,15 +503,15 @@
     }
 
     .ability-grid h3 {
-      margin: 88px 0 16px;
-      font-size: 23px;
+      margin: 32px 0 10px;
+      font-size: 18px;
       letter-spacing: -0.035em;
     }
 
     .ability-grid p {
       color: #8f8695;
-      font-size: 13px;
-      line-height: 1.75;
+      font-size: 12px;
+      line-height: 1.65;
     }
 
     /* =========================================================
@@ -507,14 +526,33 @@
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       align-items: end;
-      gap: 8vw;
-      margin: 72px 0 88px;
+      gap: 4vw;
+      margin: 8px 0 48px;
     }
 
     .experience-heading p {
       color: var(--text-dim);
-      font-size: 15px;
-      line-height: 1.8;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .experience-heading .section-title {
+      font-size: clamp(48px, 6.4vw, 98px);
+      line-height: 0.96;
+      margin-bottom: 10px;
+    }
+
+    .experience-image {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .experience-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .timeline {
@@ -525,13 +563,13 @@
 
     .timeline-item {
       position: relative;
-      min-height: 300px;
-      padding: 30px 18px 10px 0;
+      min-height: 150px;
+      padding: 20px 14px 8px 0;
       border-right: 1px solid var(--line);
     }
 
     .timeline-item:not(:first-child) {
-      padding-left: 18px;
+      padding-left: 14px;
     }
 
     .timeline-item:last-child {
@@ -550,47 +588,46 @@
     }
 
     .timeline-item:not(:first-child) .timeline-mark {
-      left: 18px;
+      left: 14px;
     }
 
     .timeline-years {
-      margin-bottom: 44px;
+      margin-bottom: 20px;
       color: var(--purple-light);
       font-size: 9px;
       letter-spacing: 0.10em;
     }
 
     .timeline-item h3 {
-      font-size: 19px;
+      font-size: 16px;
       letter-spacing: -0.035em;
     }
 
     .timeline-role {
-      margin-top: 8px;
+      margin-top: 6px;
       color: #bbb0c1;
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .timeline-note {
-      margin-top: 28px;
+      margin-top: 14px;
       color: #817887;
-      font-size: 12px;
-      line-height: 1.7;
+      font-size: 11px;
+      line-height: 1.6;
     }
 
     /* =========================================================
        TRAE 编辑入口 04：剪映明星产品案例
-       案例文案在 HTML 的 “04 FEATURED WORK” 区域修改。
+       案例文案在 HTML 的 "03 FEATURED WORK" 区域修改。
        ========================================================= */
     .work-intro {
       position: relative;
-      min-height: 920px;
       overflow: hidden;
       display: grid;
       grid-template-columns: 0.35fr 1.65fr;
       align-content: center;
       gap: 6vw;
-      padding: 150px max(5vw, calc((100vw - var(--max-width)) / 2 + 5vw));
+      padding: 100px max(5vw, calc((100vw - var(--max-width)) / 2 + 5vw));
       background:
         radial-gradient(ellipse 60% 75% at 85% 75%, rgba(168, 85, 247, 0.12), transparent 68%),
         var(--panel);
@@ -629,16 +666,30 @@
       line-height: 1.85;
     }
 
+    .work-main-image {
+      margin-top: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .work-main-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      object-fit: cover;
+    }
+
     .platform-strip {
       grid-column: 2;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      margin-top: 80px;
+      margin-top: 32px;
       border-top: 1px solid var(--line-purple);
     }
 
     .platform-strip span {
-      padding: 24px 0;
+      padding: 14px 0;
       color: #cbbbd3;
       border-right: 1px solid var(--line);
       font-size: 10px;
@@ -649,218 +700,241 @@
       border-right: 0;
     }
 
-    .case-list {
+    /* =========================================================
+       横向轮播：剪映各端产品
+       ========================================================= */
+    .platform-carousel {
+      position: relative;
       background: #070512;
-    }
-
-    .case-item {
-      min-height: 850px;
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .case-item:nth-child(even) .case-media {
-      order: 2;
-    }
-
-    .case-media {
-      min-width: 0;
-      padding: 8vw 5vw;
-      background: rgba(255, 255, 255, 0.012);
-    }
-
-    .case-image-wrap {
-      position: sticky;
-      top: 120px;
       overflow: hidden;
-      border: 1px solid var(--line);
-      box-shadow: 0 40px 110px rgba(73, 26, 120, 0.26);
     }
 
-    .case-image-wrap img {
-      display: block;
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 560px;
+    }
+
+    .carousel-media {
+      overflow: hidden;
+    }
+
+    .carousel-media img {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      height: 100%;
       object-fit: cover;
-      transition: transform 1.2s var(--ease), filter 600ms ease;
     }
 
-    .case-image-wrap:hover img {
-      transform: scale(1.04);
-      filter: saturate(1.12);
-    }
-
-    .case-caption {
-      margin-top: 18px;
-      color: var(--text-muted);
-      font-size: 9px;
-      letter-spacing: 0.14em;
-    }
-
-    .case-copy {
+    .carousel-copy {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 9vw 7vw;
+      padding: 50px 5vw;
     }
 
-    .case-topline {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 46px;
+    .carousel-copy h3 {
+      font-size: clamp(36px, 4vw, 60px);
+      letter-spacing: -0.04em;
     }
 
-    .case-topline span {
+    .carousel-copy .case-english {
+      margin-top: 10px;
       color: var(--purple-light);
-      font-size: 15px;
-    }
-
-    .case-topline p {
-      color: #8d8293;
-      font-size: 9px;
-      letter-spacing: 0.14em;
-    }
-
-    .case-copy h3 {
-      font-size: clamp(44px, 5vw, 78px);
-      letter-spacing: -0.06em;
-    }
-
-    .case-english {
-      margin-top: 9px;
-      color: var(--purple-light);
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       letter-spacing: -0.02em;
     }
 
-    .case-intro {
-      margin-top: 42px;
+    .carousel-copy .case-intro {
+      margin-top: 28px;
       color: #d2c6d8;
-      font-size: 16px;
-      line-height: 1.85;
-    }
-
-    .case-detail {
-      margin-top: 22px;
-      color: #918698;
-      font-size: 14px;
-      line-height: 1.9;
-    }
-
-    .case-meta {
-      margin-top: 36px;
-    }
-
-    .case-support {
-      margin-top: 40px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-    }
-
-    .case-support img {
-      display: block;
-      width: 100%;
-    }
-
-    /* =========================================================
-       腾讯阶段作为辅助证明
-       ========================================================= */
-    .impact-section {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .impact-title {
-      font-size: clamp(48px, 6vw, 92px);
-      line-height: 0.95;
-    }
-
-    .impact-description {
-      max-width: 760px;
-      margin-top: 38px;
-      color: var(--text-dim);
       font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .carousel-copy .case-detail {
+      margin-top: 14px;
+      color: #918698;
+      font-size: 13px;
       line-height: 1.85;
     }
 
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin-top: 72px;
-      border-top: 1px solid var(--line);
+    .carousel-copy .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
     }
 
-    .metrics article {
-      padding: 30px 28px 20px 0;
-      border-right: 1px solid var(--line);
+    .carousel-copy .case-meta span {
+      padding: 8px 12px;
+      color: #d9cbea;
+      background: rgba(10, 6, 22, 0.72);
+      border: 1px solid rgba(196, 181, 253, 0.28);
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
     }
 
-    .metrics article:not(:first-child) {
-      padding-left: 28px;
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(5, 5, 16, 0.7);
+      backdrop-filter: blur(12px);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 240ms ease;
     }
 
-    .metrics article:last-child {
-      border-right: 0;
+    .carousel-arrow:hover {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(196, 181, 253, 0.4);
+      color: #c4b5fd;
     }
 
-    .metrics strong {
-      display: block;
-      color: var(--purple-light);
-      font-size: clamp(48px, 5vw, 76px);
-      letter-spacing: -0.06em;
+    .carousel-arrow.prev { left: 16px; }
+    .carousel-arrow.next { right: 16px; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
     }
 
-    .metrics span {
-      display: block;
-      margin-top: 12px;
-      color: #8f8595;
-      font-size: 12px;
+    .carousel-dots button {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 240ms ease;
+      padding: 0;
     }
 
-    .impact-image {
-      margin-top: 50px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-    }
-
-    .impact-image img {
-      display: block;
-      width: 100%;
+    .carousel-dots button.active {
+      background: var(--purple-light);
+      width: 18px;
+      border-radius: 3px;
     }
 
     /* =========================================================
-       Stay curious
+       04 STAY CURIOUS：图片轮播 + 文字
        ========================================================= */
     .life-section {
-      min-height: 760px;
+      min-height: 560px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       background: var(--panel);
+      border-top: 1px solid var(--line);
     }
 
-    .life-image {
+    .life-carousel {
+      position: relative;
       overflow: hidden;
     }
 
-    .life-image img {
+    .life-carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .life-carousel-slide {
+      flex: 0 0 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .life-carousel-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: hue-rotate(10deg) saturate(0.82);
-      transition: transform 1.4s var(--ease);
     }
 
-    .life-image.is-visible img {
-      transform: scale(1.025);
+    .life-carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(5, 5, 16, 0.7);
+      backdrop-filter: blur(12px);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 240ms ease;
+    }
+
+    .life-carousel-arrow:hover {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(196, 181, 253, 0.4);
+      color: #c4b5fd;
+    }
+
+    .life-carousel-arrow.prev { left: 14px; }
+    .life-carousel-arrow.next { right: 14px; }
+
+    .life-carousel-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .life-carousel-dots button {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 240ms ease;
+      padding: 0;
+    }
+
+    .life-carousel-dots button.active {
+      background: var(--purple-light);
+      width: 16px;
+      border-radius: 3px;
     }
 
     .life-copy {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 8vw;
+      padding: 6vw;
     }
 
     .life-title {
@@ -870,10 +944,10 @@
 
     .life-description {
       max-width: 600px;
-      margin-top: 38px;
+      margin-top: 24px;
       color: var(--text-dim);
-      font-size: 15px;
-      line-height: 1.9;
+      font-size: 14px;
+      line-height: 1.8;
     }
 
     /* =========================================================
@@ -1052,6 +1126,14 @@
         grid-column: 1;
       }
 
+      .about-image {
+        display: none;
+      }
+
+      .experience-image {
+        display: none;
+      }
+
       .timeline {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -1068,25 +1150,20 @@
         font-size: 13px;
       }
 
-      .case-item {
+      .carousel-slide {
         grid-template-columns: 1fr;
       }
 
-      .case-item:nth-child(even) .case-media {
-        order: 0;
-      }
-
-      .case-image-wrap {
-        position: relative;
-        top: auto;
+      .carousel-copy {
+        padding: 30px 22px;
       }
 
       .life-section {
         grid-template-columns: 1fr;
       }
 
-      .life-image {
-        min-height: 560px;
+      .life-carousel {
+        min-height: 400px;
       }
     }
 
@@ -1143,35 +1220,31 @@
 
       .section-title,
       .work-title,
-      .impact-title,
       .life-title {
-        font-size: 49px;
+        font-size: 36px;
       }
 
       .section-lede {
-        font-size: 15px;
+        font-size: 14px;
       }
 
       .ability-grid,
-      .timeline,
-      .metrics {
+      .timeline {
         grid-template-columns: 1fr;
       }
 
       .ability-grid article,
       .ability-grid article:not(:first-child),
       .timeline-item,
-      .timeline-item:not(:first-child),
-      .metrics article,
-      .metrics article:not(:first-child) {
+      .timeline-item:not(:first-child) {
         min-height: auto;
-        padding: 30px 0 42px;
+        padding: 24px 0 32px;
         border-right: 0;
         border-bottom: 1px solid var(--line);
       }
 
       .ability-grid h3 {
-        margin-top: 52px;
+        margin-top: 32px;
       }
 
       .timeline-item:not(:first-child) .timeline-mark {
@@ -1179,8 +1252,7 @@
       }
 
       .work-intro {
-        min-height: 780px;
-        padding: 110px 22px;
+        padding: 60px 22px;
       }
 
       .platform-strip {
@@ -1191,32 +1263,16 @@
         border-bottom: 1px solid var(--line);
       }
 
-      .case-item {
-        min-height: auto;
+      .carousel-copy h3 {
+        font-size: 28px;
       }
 
-      .case-media {
-        padding: 70px 22px 28px;
-      }
-
-      .case-copy {
-        padding: 48px 22px 92px;
-      }
-
-      .case-copy h3 {
-        font-size: 46px;
-      }
-
-      .case-intro {
-        font-size: 15px;
-      }
-
-      .life-image {
-        min-height: 390px;
+      .life-carousel {
+        min-height: 300px;
       }
 
       .life-copy {
-        padding: 90px 22px;
+        padding: 60px 22px;
       }
 
       .footer {
@@ -1333,9 +1389,9 @@
     </div>
 
     <!-- =====================================================
-         02 ABOUT：在 Trae 中修改个人定位
+         01 ABOUT：个人定位
          ===================================================== -->
-    <section class="content-section split-section" id="about">
+    <section class="content-section split-section split-two" id="about">
       <div class="section-index reveal">
         <span>01</span>
         <p>WHO I AM</p>
@@ -1350,8 +1406,7 @@
         </h2>
 
         <p class="section-lede">
-          我拥有 10 年+ To C 产品设计经验，参与过腾讯社交产品，与字节全球化视频创作工具，
-          也带领设计团队服务亿级用户的明星产品。现在，我把产品思维、设计体验、创作者视角与 AI 能力放进同一个工作流，探索新的可能。
+          我拥有 10 年+ To C 产品设计经验，参与过腾讯社交产品，与字节全球化视频创作工具，带领设计团队服务千万级用户的产品。现在，我把产品思维、设计体验、创作者视角与 AI 能力放进同一个工作流，探索新的可能。
         </p>
 
         <div class="ability-grid">
@@ -1377,7 +1432,7 @@
     </section>
 
     <!-- =====================================================
-         03 EXPERIENCE：在 Trae 中修改履历
+         02 EXPERIENCE：个人履历
          ===================================================== -->
     <section class="content-section experience-section" id="experience">
       <div class="section-index reveal">
@@ -1386,8 +1441,13 @@
       </div>
 
       <div class="experience-heading reveal">
-        <h2 class="section-title">Five chapters.<br>One evolving identity.</h2>
-        <p>从设计产品，到设计系统，走向海外，深入 AI，再到建立自己的创造方式。</p>
+        <div>
+          <h2 class="section-title">Five chapters.<br>One evolving identity.</h2>
+          <p>从设计产品，到设计系统，走向海外，深入 AI，再到建立自己的创造方式。</p>
+        </div>
+        <div class="experience-image">
+          <img src="./assets/about/udesign-week-02.jpeg" alt="SHAOZU 在 U Design Week 演讲">
+        </div>
       </div>
 
       <div class="timeline">
@@ -1425,7 +1485,7 @@
           <p class="timeline-years">2024—2026</p>
           <span class="timeline-mark" aria-hidden="true"></span>
           <h3>AI Lab</h3>
-          <p class="timeline-role">Product Design Expert / Senior AI Engineer</p>
+          <p class="timeline-role">Senior AI Engineer</p>
           <p class="timeline-note">
             推进垂直领域AI大模型，结合各种业务场景更好的落地，提供完整的解决方案。
           </p>
@@ -1444,8 +1504,8 @@
     </section>
 
     <!-- =====================================================
-         04 FEATURED WORK：剪映明星产品
-         ===================================================== -->
+         03 FEATURED WORK：剪映明星产品
+         ========================================================= -->
     <section class="work-intro" id="work">
       <div class="work-bubbles" aria-hidden="true">
         <img src="./assets/about/vibebubble-hero.png" alt="">
@@ -1460,173 +1520,121 @@
         <p class="eyebrow">Jianying / CapCut · FLAGSHIP CREATION PRODUCT</p>
         <h2 class="work-title">Designing a product<br>used to create.</h2>
         <p class="work-description">
-          剪映是我职业经历中最重要的明星产品。它让我从一个功能、一块屏幕，
-          走向多端系统、全球市场与 AI 创作的完整视角。
+          剪映是我职业生涯中最重要的产品。它让我有机会把兴趣和工作相结合，获得从一个功能、一块屏幕，走向多端系统、全球市场与 AI 创作的完整视角。
         </p>
       </div>
 
       <div class="platform-strip reveal">
+        <span>ALL PLATFORMS</span>
         <span>MOBILE</span>
-        <span>PAD</span>
         <span>DESKTOP</span>
-        <span>WEB</span>
-        <span>CAPCUT</span>
+        <span>PAD</span>
+        <span>WEBSITE</span>
       </div>
     </section>
 
-    <section class="case-list" aria-label="剪映明星产品案例">
-      <!-- CASE 01 -->
-      <article class="case-item">
-        <div class="case-media">
-          <div class="case-image-wrap reveal">
-            <img src="./assets/about/jianying-mobile.jpg" alt="剪映移动端核心创作工具">
-          </div>
-          <p class="case-caption">FLAGSHIP PRODUCT · MOBILE</p>
-        </div>
-
-        <div class="case-copy reveal" style="--delay: 120ms">
-          <div class="case-topline">
-            <span>01</span>
-            <p>FLAGSHIP PRODUCT · MOBILE</p>
-          </div>
-
-          <h3>剪映移动端</h3>
-          <p class="case-english">Designing the creative engine.</p>
-          <p class="case-intro">
-            作为剪映早期设计成员与工具线设计 Leader，持续参与明星产品的核心创作体验建设。
-          </p>
-          <p class="case-detail">
-            覆盖关键帧、抠像、防抖、美颜美体、调色滤镜、字幕与图文成片等重点能力，
-            同时推动首页改版与导出流程优化，让复杂的视频编辑能力更易学、更高效、更流畅。
-          </p>
-
-          <div class="case-meta">
-            <span>核心工具能力</span>
-            <span>创作流程体验</span>
-            <span>设计 Lead</span>
+    <!-- 横向轮播：剪映各端产品 -->
+    <section class="platform-carousel" aria-label="剪映各端产品">
+      <div class="carousel-track" id="platform-carousel-track">
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="./assets/about/capcut-all-platform01.jpeg" alt="剪映全平台产品"></div>
+          <div class="carousel-copy">
+            <h3>剪映全平台设计</h3>
+            <p class="case-english">One product. Every creative surface.</p>
+            <p class="case-intro">让剪辑体验跨越 Mobile、Pad、Desktop 与 Web，也跨越国内与海外市场。</p>
+            <p class="case-detail">从 0 到 1 搭建 Desktop 与 Web 的交互框架，推动 Pad 从适配走向发挥大屏优势，并在 CapCut 中持续探索海外用户习惯与本地化体验，让产品在不同平台和市场中保持一致且优质的创作体验。</p>
+            <div class="case-meta">
+              <span>全平台系统</span>
+              <span>交互框架</span>
+              <span>Global Design</span>
+            </div>
           </div>
         </div>
-      </article>
-
-      <!-- CASE 02 -->
-      <article class="case-item">
-        <div class="case-media">
-          <div class="case-image-wrap reveal">
-            <img src="./assets/about/capcut-all-platform.jpg" alt="剪映与 CapCut 全平台产品">
-          </div>
-          <p class="case-caption">MULTI-PLATFORM SYSTEM</p>
-        </div>
-
-        <div class="case-copy reveal" style="--delay: 120ms">
-          <div class="case-topline">
-            <span>02</span>
-            <p>MULTI-PLATFORM SYSTEM</p>
-          </div>
-
-          <h3>从 Mobile 到全平台</h3>
-          <p class="case-english">One product. Every creative surface.</p>
-          <p class="case-intro">
-            让剪辑体验跨越 Mobile、Pad、Desktop 与 Web，也跨越国内与海外市场。
-          </p>
-          <p class="case-detail">
-            从 0 到 1 搭建 Desktop 与 Web 的交互框架，推动 Pad 从适配走向发挥大屏优势，
-            并在 CapCut 中持续探索海外用户习惯与本地化体验。
-          </p>
-
-          <div class="case-meta">
-            <span>Mobile / Pad</span>
-            <span>Desktop / Web</span>
-            <span>Global Design</span>
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="./assets/about/jianying-mobile.jpeg" alt="剪映移动端"></div>
+          <div class="carousel-copy">
+            <h3>剪映移动端</h3>
+            <p class="case-english">Designing the creative engine.</p>
+            <p class="case-intro">作为剪映早期设计成员与工具线设计 Leader，负责剪映移动端重点功能模块和高阶剪辑功能设计。</p>
+            <p class="case-detail">跟进 Capcut 初期出海本地化设计，探索 AI 能力在剪辑流程中的应用。覆盖关键帧、抠像、防抖、美颜美体、调色滤镜、字幕与图文成片等重点能力，提升剪辑工具整体易用性和流畅体验。</p>
+            <div class="case-meta">
+              <span>核心工具能力</span>
+              <span>高阶剪辑</span>
+              <span>Capcut 出海</span>
+            </div>
           </div>
         </div>
-      </article>
-
-      <!-- CASE 03 -->
-      <article class="case-item">
-        <div class="case-media">
-          <div class="case-image-wrap reveal">
-            <img src="./assets/about/capcut-tool-system.jpg" alt="剪映工具标准化建设">
-          </div>
-          <p class="case-caption">DESIGN SYSTEM × AI</p>
-        </div>
-
-        <div class="case-copy reveal" style="--delay: 120ms">
-          <div class="case-topline">
-            <span>03</span>
-            <p>DESIGN SYSTEM × AI</p>
-          </div>
-
-          <h3>让明星产品持续进化</h3>
-          <p class="case-english">Build the system behind the product.</p>
-          <p class="case-intro">
-            明星产品的稳定体验，不只来自单点功能，也来自背后可延展的系统与团队协作方式。
-          </p>
-          <p class="case-detail">
-            推动工具标准化、跨端组件库与一致性原则建设；进一步梳理策划、拍摄、素材、
-            剪辑、发布、运营全流程，识别 AI 在视频创作中的真实机会点。
-          </p>
-
-          <div class="case-meta">
-            <span>工具标准化</span>
-            <span>跨端组件库</span>
-            <span>AI 创作机会</span>
-          </div>
-
-          <div class="case-support">
-            <img src="./assets/about/capcut-ai-opportunity.jpg" alt="视频创作全流程中的 AI 机会梳理">
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="./assets/about/jianying-desktop.jpeg" alt="剪映桌面端"></div>
+          <div class="carousel-copy">
+            <h3>剪映专业版</h3>
+            <p class="case-english">From zero to desktop creation.</p>
+            <p class="case-intro">从 0 到 1 搭建设计了 Mac 和 Windows 双端工具，定义了可延续的交互框架和交互逻辑。</p>
+            <p class="case-detail">后续带领团队，完成了多个版本的重点能力迭代，和多端的草稿打通，让桌面端创作体验持续进化。</p>
+            <div class="case-meta">
+              <span>Mac / Windows</span>
+              <span>交互框架</span>
+              <span>多端草稿打通</span>
+            </div>
           </div>
         </div>
-      </article>
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="./assets/about/jianying-pad.jpeg" alt="剪映Pad端"></div>
+          <div class="carousel-copy">
+            <h3>剪映 Pad 端</h3>
+            <p class="case-english">Bigger screen, better creation.</p>
+            <p class="case-intro">独立完成剪映 Pad 端适配，保证横屏状态下的可用性。</p>
+            <p class="case-detail">第二阶段作为设计 Owner 角色，带领团队开启全新版本的 Pad 剪辑工具设计，保证剪辑工具发挥移动大屏优势，提供更高效的创作体验。</p>
+            <div class="case-meta">
+              <span>横屏适配</span>
+              <span>大屏优势</span>
+              <span>设计 Owner</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="./assets/about/jianying-website.jpeg" alt="剪映Web端"></div>
+          <div class="carousel-copy">
+            <h3>剪映 Web 端</h3>
+            <p class="case-english">Creation in the browser.</p>
+            <p class="case-intro">从 0 到 1 设计搭建剪映 Web MVP 1.0 版本，定义 Web 长期交互框架。</p>
+            <p class="case-detail">包括工作台云空间、在线剪辑、剪同款等模块，研究 Web 特性，推进 Web 体验专项，发挥 Web 端工具优势，让创作不受设备限制。</p>
+            <div class="case-meta">
+              <span>Web MVP</span>
+              <span>云空间</span>
+              <span>在线剪辑</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-arrow prev" aria-label="上一个">&#10094;</button>
+      <button class="carousel-arrow next" aria-label="下一个">&#10095;</button>
+      <div class="carousel-dots" id="platform-carousel-dots"></div>
     </section>
 
     <!-- =====================================================
-         05 EARLIER IMPACT：腾讯阶段作为辅助证明
-         ===================================================== -->
-    <section class="content-section split-section impact-section">
-      <div class="section-index reveal">
-        <span>04</span>
-        <p>EARLIER IMPACT</p>
-      </div>
-
-      <div class="reveal">
-        <p class="eyebrow">BEFORE JIANYING · TENCENT ISUX</p>
-        <h2 class="impact-title">Design should create value,<br>not just receive requirements.</h2>
-        <p class="impact-description">
-          在腾讯，我通过 QQ 红包玩法与 QQ 游戏中心改版，建立了主动发现机会、
-          用设计推动业务、再用数据验证价值的工作方式。
-        </p>
-
-        <div class="metrics">
-          <article>
-            <strong>18.6%</strong>
-            <span>总点击 PV 提升</span>
-          </article>
-          <article>
-            <strong>65%</strong>
-            <span>王者专区平均 UV 提升</span>
-          </article>
-          <article>
-            <strong>28%</strong>
-            <span>普通专区平均 UV 提升</span>
-          </article>
-        </div>
-
-        <div class="impact-image">
-          <img src="./assets/about/qq-game-center-results.jpg" alt="QQ 游戏中心改版前后数据结果">
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         06 STAY CURIOUS：个人创造方式
-         ===================================================== -->
+         04 STAY CURIOUS：图片轮播 + 文字
+         ========================================================= -->
     <section class="life-section">
-      <div class="life-image reveal">
-        <img src="./assets/about/stay-curious.jpg" alt="站在山顶眺望城市的 SHAOZU">
+      <div class="life-carousel reveal" id="life-carousel">
+        <div class="life-carousel-track" id="life-carousel-track">
+          <div class="life-carousel-slide"><img src="./assets/about/stay-curious01.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="./assets/about/stay-curious02.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="./assets/about/stay-curious03.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="./assets/about/stay-curious04.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="./assets/about/stay-curious05.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="./assets/about/stay-curious07.jpeg" alt=""></div>
+        </div>
+        <button class="life-carousel-arrow prev" aria-label="上一个">&#10094;</button>
+        <button class="life-carousel-arrow next" aria-label="下一个">&#10095;</button>
+        <div class="life-carousel-dots" id="life-carousel-dots"></div>
       </div>
 
       <div class="life-copy reveal">
-        <p class="eyebrow">STAY CURIOUS · KEEP EXPLORING</p>
+        <div class="section-index" style="margin-bottom: 20px;">
+          <span>04</span>
+          <p>STAY CURIOUS · KEEP EXPLORING</p>
+        </div>
         <h2 class="life-title">Creation is<br>a way of living.</h2>
         <p class="life-description">
           我持续体验新的硬件、模型与媒介，也用影像记录家人、旅行和不断出现的灵感。
@@ -1754,6 +1762,76 @@
           }, 1800);
         });
       }
+
+      /* =========================================================
+         通用轮播组件
+         ========================================================= */
+      function createCarousel(options) {
+        var track = document.getElementById(options.trackId);
+        var dotsContainer = document.getElementById(options.dotsId);
+        var section = track.closest(options.containerSelector);
+        if (!track || !section) return;
+
+        var prevBtn = section.querySelector(options.prevSelector);
+        var nextBtn = section.querySelector(options.nextSelector);
+        var slides = track.children;
+        var total = slides.length;
+        var current = 0;
+
+        /* 生成指示点 */
+        if (dotsContainer) {
+          for (var i = 0; i < total; i++) {
+            (function (idx) {
+              var dot = document.createElement("button");
+              if (idx === 0) dot.classList.add("active");
+              dot.addEventListener("click", function () {
+                goTo(idx);
+              });
+              dotsContainer.appendChild(dot);
+            })(i);
+          }
+        }
+
+        function updateDots() {
+          if (!dotsContainer) return;
+          var dots = dotsContainer.children;
+          for (var i = 0; i < dots.length; i++) {
+            dots[i].classList.toggle("active", i === current);
+          }
+        }
+
+        function goTo(index) {
+          current = (index + total) % total;
+          track.style.transform = "translateX(-" + current * 100 + "%)";
+          updateDots();
+        }
+
+        function next() { goTo(current + 1); }
+        function prev() { goTo(current - 1); }
+
+        if (nextBtn) nextBtn.addEventListener("click", function () { next(); });
+        if (prevBtn) prevBtn.addEventListener("click", function () { prev(); });
+      }
+
+      /* 初始化：剪映各端产品轮播 */
+      createCarousel({
+        trackId: "platform-carousel-track",
+        dotsId: "platform-carousel-dots",
+        containerSelector: ".platform-carousel",
+        prevSelector: ".carousel-arrow.prev",
+        nextSelector: ".carousel-arrow.next",
+        interval: 5000
+      });
+
+      /* 初始化：Stay Curious 图片轮播 */
+      createCarousel({
+        trackId: "life-carousel-track",
+        dotsId: "life-carousel-dots",
+        containerSelector: ".life-carousel",
+        prevSelector: ".life-carousel-arrow.prev",
+        nextSelector: ".life-carousel-arrow.next",
+        interval: 4000
+      });
     });
   </script>
 </body>
