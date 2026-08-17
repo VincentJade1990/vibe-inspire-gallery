@@ -340,6 +340,28 @@ body {
 .mode-option:not(.active):hover {
   color: var(--text);
 }
+.shuffle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text);
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s;
+  user-select: none;
+}
+.shuffle-btn:hover {
+  border-color: var(--cyan);
+  background: rgba(6,182,212,0.15);
+}
+.shuffle-btn:active {
+  transform: scale(0.95);
+}
 /* 音效静音按钮样式由 nav.js 管理 */
 
 /* ===== 弹窗遮罩 ===== */
@@ -708,8 +730,21 @@ body {
     gap: 10px;
   }
   .bottom-btn {
-    padding: 10px 14px;
-    font-size: 13px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .shuffle-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  .shuffle-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+  .mode-option {
+    padding: 6px 10px;
+    font-size: 11px;
   }
 
   .modal { padding: 20px; max-height: 80vh; }
@@ -867,6 +902,10 @@ body {
 
 <!-- 底部UI -->
 <div class="bottom-bar">
+  <button class="shuffle-btn" id="shuffleBtn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+    换一批
+  </button>
   <div class="mode-toggle" id="modeToggle">
     <span class="mode-option active" data-mode="all">全部灵感</span>
     <span class="mode-option" data-mode="random">随机灵感</span>
@@ -943,10 +982,11 @@ const platformNames = {
 
 // ==================== 从 Supabase 加载数据 ====================
 let rawCases = [];
+let displayOffset = 0; // 换一批翻页偏移量
 
 async function loadDataFromSupabase() {
   try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/inspirations?status=eq.published&select=*`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/inspirations?status=eq.published&select=*&order=created_at.desc`, {
       method: 'GET',
       headers: {
         'apikey': SUPABASE_ANON_KEY,
@@ -964,6 +1004,7 @@ async function loadDataFromSupabase() {
     // 字段映射：Supabase -> gallery.html 格式
     rawCases = data.map(item => ({
       id: item.id || '',
+      created_at: item.created_at || '',
       title: item.title || '无标题',
       summary: item.summary || '',
       description: item.description || '',
@@ -1629,8 +1670,16 @@ function createBubbles() {
   const cases = filteredCases;
   if (cases.length === 0) return;
 
-  const maxCount = isMobile ? 16 : 28; // 参考2D版密度，减少数量避免拥挤
-  const displayCases = cases.slice(0, maxCount);
+  const maxCount = isMobile ? 20 : 40; // 首屏展示数量
+  let displayCases;
+  if (cases.length <= maxCount) {
+    displayCases = cases.slice(0, maxCount);
+  } else {
+    displayCases = [];
+    for (let i = 0; i < maxCount; i++) {
+      displayCases.push(cases[(displayOffset + i) % cases.length]);
+    }
+  }
 
   const halfW = width / 2;
   const halfH = height / 2;
@@ -2367,6 +2416,7 @@ function applyFilters() {
   }
 
   filteredCases = result;
+  displayOffset = 0; // 筛选变化时重置翻页偏移
 
   // 空状态
   const emptyState = document.getElementById('emptyState');
@@ -2861,6 +2911,27 @@ function setupUI() {
       if (!audioCtx) initAudio();
       switchMode(mode);
     }
+  });
+
+  // 换一批按钮
+  document.getElementById('shuffleBtn').addEventListener('click', () => {
+    const maxCount = window.innerWidth <= 768 ? 20 : 40;
+    if (filteredCases.length <= maxCount) {
+      // 总数不超过一屏：随机打乱
+      for (let i = filteredCases.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filteredCases[i], filteredCases[j]] = [filteredCases[j], filteredCases[i]];
+      }
+      displayOffset = 0;
+    } else {
+      // 翻页：offset 前进
+      displayOffset += maxCount;
+      if (displayOffset >= filteredCases.length) {
+        displayOffset = 0;
+      }
+    }
+    if (!audioCtx) initAudio();
+    createBubbles();
   });
 
   // 底部按钮
