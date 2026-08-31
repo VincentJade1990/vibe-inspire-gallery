@@ -453,18 +453,84 @@ body::after {
 .company-products { display: flex; flex-wrap: wrap; gap: 8px; }
 .product-tag { font-size: 12px; padding: 4px 10px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); color: var(--text-dim); }
 
-/* 基础概念表 */
-.concepts-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.concepts-table th {
-  text-align: left; padding: 10px 14px;
-  background: rgba(168, 85, 247, 0.06); color: var(--purple-light);
-  font-weight: 600; font-size: 12px;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+/* 基础概念卡片 */
+.concept-tabs {
+  display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
 }
-.concepts-table td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-dim); line-height: 1.7; vertical-align: top; }
-.concepts-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
-.concepts-table tr:hover td { background: rgba(168, 85, 247, 0.02); }
-.concept-en { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; font-weight: 400; }
+.concept-tab {
+  padding: 8px 18px; border-radius: 20px;
+  font-size: 13px; font-weight: 500; color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer; transition: var(--transition);
+}
+.concept-tab:hover { color: var(--text); border-color: rgba(168,85,247,0.2); }
+.concept-tab.active {
+  color: var(--purple-light); font-weight: 600;
+  background: rgba(168,85,247,0.08);
+  border-color: rgba(168,85,247,0.25);
+}
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.concept-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.concept-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), transparent);
+}
+.concept-card:hover {
+  border-color: rgba(168,85,247,0.2);
+  background: rgba(168,85,247,0.03);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.concept-card h4 {
+  font-size: 16px; font-weight: 600; color: var(--text);
+  margin-bottom: 2px;
+}
+.concept-card .concept-en-name {
+  font-size: 14px; color: var(--text-dim); margin-bottom: 14px;
+}
+.concept-card .concept-label {
+  font-size: 10px; font-weight: 600; color: var(--purple);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.concept-card .concept-desc {
+  font-size: 13px; color: var(--text-dim); line-height: 1.7;
+  margin-bottom: 12px;
+}
+.concept-card .concept-key {
+  font-size: 13px; color: var(--text); line-height: 1.7;
+  margin-bottom: 12px;
+}
+.concept-card .concept-example {
+  font-size: 12px; color: var(--text-muted); line-height: 1.6;
+  padding: 10px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border-left: 2px solid rgba(168,85,247,0.3);
+  margin-bottom: 12px;
+}
+.concept-card .concept-related {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.concept-card .concept-related span {
+  font-size: 11px; color: var(--text-muted);
+  padding: 2px 8px; border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+}
 
 /* Coming Soon */
 .coming-soon-panel { text-align: center; padding: 80px 32px; }
@@ -477,8 +543,7 @@ body::after {
 @media (max-width: 768px) {
   .person-grid { grid-template-columns: 1fr; }
   .company-card { grid-template-columns: 1fr; gap: 12px; }
-  .concepts-table { font-size: 12px; }
-  .concepts-table td { padding: 10px 10px; }
+  .concept-grid { grid-template-columns: 1fr; }
   .path-bar { padding: 20px 16px 16px; gap: 2px; }
   .path-btn { padding: 5px 10px; font-size: 11px; }
   .tl-event { flex: 0 0 200px; }
@@ -599,25 +664,36 @@ const PATH_01_DATA = {
       id: 'concepts',
       title: '基础概念',
       type: 'concepts',
-      items: [
-        { term: '人工智能', en: 'Artificial Intelligence (AI)', desc: '使计算机系统模拟人类智能过程的科学。' },
-        { term: 'AIGC', en: 'AI Generated Content', desc: '基于生成对抗网络、大型预训练模型等技术，通过已有数据的学习和识别，生成相关内容的技术。' },
-        { term: '通用人工智能', en: 'AGI', desc: '创造一个能像人类一样思考、学习、执行多种任务的系统。' },
-        { term: '智能体', en: 'Agents', desc: '能够感知环境、做出决策并采取行动以实现特定目标的自主实体。' },
-        { term: '模型上下文协议', en: 'MCP', desc: 'Anthropic 在2024年11月推出的开放协议，统一规范大语言模型与外部数据源和工具之间的通信。' },
-        { term: '自然语言处理', en: 'NLP', desc: 'AI 的一个领域，让计算机能够理解、解释和生成人类语言。' },
-        { term: '大语言模型', en: 'LLM', desc: '基于 Transformer 架构，在大规模文本数据上预训练的神经网络模型。' },
-        { term: 'GPT', en: 'Generative Pre-trained Transformer', desc: '由 OpenAI 开发的预训练语言模型技术，生成人类可读的文本。' },
-        { term: '深度学习', en: 'Deep Learning', desc: '机器学习的子集，使用多层神经网络来学习数据的复杂模式。' },
-        { term: '神经网络', en: 'Neural Network', desc: '模拟人脑神经元的计算系统，是深度学习的基础。' },
-        { term: '参数', en: 'Parameter', desc: 'AI 模型在训练过程中学习和调整的变量。参数数量决定模型的复杂度和性能。' },
-        { term: 'Token', en: 'Token', desc: '模型处理的基本数据单位，可以是单词、字符、短语甚至图像片段。' },
-        { term: '上下文', en: 'Context', desc: '模型在处理当前输入时所参考的之前的信息和知识。' },
-        { term: '提示语', en: 'Prompt', desc: '向模型提供输入以引导其生成特定输出的文本或指令。' },
-        { term: '强化学习', en: 'Reinforcement Learning', desc: '机器通过试错来学习如何实现特定目标的方法。' },
-        { term: '多模态', en: 'Multi-Modal', desc: '从多个模态（视觉、听觉、文本等）表达或感知事物。' },
-        { term: '图灵测试', en: 'Turing Test', desc: '由艾伦·图灵开发，用于评估机器表现出与人类相同智能行为的能力。' },
-        { term: '推理', en: 'Inference', desc: '通过将经训练的模型运用到新的未标记实例来进行预测的过程。' },
+      categories: [
+        {
+          name: 'AI 整体认知',
+          items: [
+            { cn: '人工智能', en: 'AI（Artificial Intelligence）', desc: '人工智能是让计算机系统具备感知、学习、语言处理、推理、生成内容和辅助决策等能力的技术领域。它是一个总称，包含机器学习、深度学习、大语言模型、计算机视觉等多种技术。', key: 'AI不等于ChatGPT，也不等于某一种模型。ChatGPT是AI产品，大语言模型是其能力基础，而人工智能是覆盖这些技术与应用的更大范围。', related: ['算法','模型','机器学习','AIGC','智能体'] },
+            { cn: '算法', en: 'Algorithm', desc: '算法是解决问题的一组明确步骤和规则。计算机按照算法接收输入、完成计算并产生输出。传统算法的规则主要由人编写，机器学习算法则可以利用数据调整模型，使系统从数据中发现规律。', key: '算法是实现AI的组成部分，但算法本身不等于AI。一个完整的AI系统通常还需要数据、模型、算力、软件和具体产品。', example: '导航软件通过算法比较多条路线；推荐系统通过算法分析用户行为并预测可能感兴趣的内容。', related: ['人工智能','机器学习','模型','数据'] },
+            { cn: '自动化', en: 'Automation', desc: '自动化是利用程序、设备或流程，在较少人工参与的情况下重复完成任务。传统自动化通常按照预先设定的规则运行；加入AI后，系统还可以处理语言、图像和复杂数据，并根据不同情况作出一定调整。', key: '自动化强调"自动执行"，AI增加了识别、生成和判断等能力。两者可以结合：AI负责分析和决策，自动化系统负责触发和执行后续动作。', example: '每天定时发送邮件属于自动化；先由AI分析邮件内容，再判断转发给谁，属于AI与自动化结合。', related: ['算法','人工智能','工作流','智能体','工具调用'] },
+            { cn: '模型', en: 'Model / AI Model', desc: '模型是AI系统处理输入并产生输出的核心组件。机器学习模型通过训练，从数据中学习参数和规律，再利用这些规律处理新的文字、图片、声音或其他输入。', key: '模型提供能力，产品负责把模型、界面、数据和工具组合成可以使用的服务。同一个模型可以被多个产品调用，一个产品也可以同时调用多个模型。', related: ['训练','参数','推理','大语言模型','AI产品'] },
+            { cn: '机器学习', en: 'ML（Machine Learning）', desc: '机器学习是实现人工智能的一类方法。开发者提供数据、学习目标和训练方法，让系统从数据中寻找统计规律，并利用学到的模型对新数据进行分类、预测或生成结果。', key: '机器学习学到的是数据中的模式，并不天然理解现实世界。模型表现会受到数据质量、训练方法、任务定义和使用环境影响。', example: '利用历史邮件训练垃圾邮件识别模型，再判断新邮件是否属于垃圾邮件。', related: ['数据集','训练','模型','监督学习','深度学习'] },
+            { cn: '神经网络', en: 'Neural Network / Artificial Neural Network', desc: '神经网络是一类由许多相互连接的计算单元组成的机器学习模型。输入数据经过多层计算和参数转换，模型逐步提取特征，并学习输入与输出之间的复杂关系。', key: '神经网络受到生物神经系统的启发，但它不是人脑的复制品，也不能因此被认为拥有人的意识和理解能力。', related: ['神经元','参数','机器学习','深度学习','训练'] },
+            { cn: '深度学习', en: 'DL（Deep Learning）', desc: '深度学习是使用多层神经网络进行学习的机器学习方法。不同网络层可以逐步提取更复杂的特征，使系统能够处理图像、语音和语言等难以通过简单规则描述的数据。', key: '"深度"主要指神经网络具有较多处理层，不代表模型拥有更深的人类思想。深度学习的进步同时依赖模型架构、训练数据、计算方法和算力。', related: ['机器学习','神经网络','参数','GPU','Transformer'] },
+            { cn: '大语言模型', en: 'LLM（Large Language Model）', desc: '大语言模型是使用大量文本及相关数据训练的语言模型。它把内容转换为Token，根据上下文预测接下来可能出现的Token，从而完成问答、写作、总结、翻译和编程等任务。', key: '大语言模型生成的是概率结果，并非从权威数据库中提取标准答案。它可以产生连贯、有逻辑但事实错误的内容，因此重要信息仍需核查。上下文窗口决定模型一次能够处理多少信息。', related: ['模型','Transformer','Token','上下文窗口','推理','幻觉'] },
+            { cn: '人工智能生成内容', en: 'AIGC（Artificial Intelligence Generated Content）', desc: 'AIGC是由人工智能生成或辅助生成的文字、图片、音频、视频和代码等内容，也可以指使用AI进行内容生产的方式。实现这些能力的模型和技术通常被统称为生成式人工智能。', key: 'AI生成降低了部分内容的生产门槛，但不自动保证内容准确、原创或可以自由商用。使用者仍需检查事实、版权、隐私和内容来源。', related: ['大语言模型','扩散模型','提示词','深度伪造','版权'] },
+            { cn: '智能体', en: 'AI Agent', desc: '智能体是围绕特定目标进行规划和行动的AI系统。它可以分析任务、安排步骤、调用搜索、文件、软件等工具，观察执行结果并继续调整，直到完成任务或需要人工介入。', key: '普通聊天机器人主要生成回答，智能体还会执行行动。智能体的自主程度并不固定，能使用工具也不代表它可以完全脱离人工监督。', example: '用户提出"整理会议材料"，智能体可以查找文件、提取信息、生成摘要并创建待办事项。', related: ['大语言模型','任务规划','工具调用','工作流','人在回路'] },
+            { cn: '通用人工智能', en: 'AGI（Artificial General Intelligence）', desc: '通用人工智能通常指能够跨领域学习、理解和解决多种复杂问题，并把已有能力迁移到陌生任务中的高度通用AI。目前不同机构对AGI的定义并不完全一致，也没有获得广泛认可的统一测试标准。', key: 'AGI是研究目标和未来设想，不能直接等同于当前的大语言模型或智能体。', related: ['人工智能','大语言模型','智能体','AI对齐','AI安全'] },
+          ]
+        },
+        {
+          name: 'AI 如何学习',
+          items: [
+            { cn: '训练数据', en: 'Training Data', desc: '训练数据是模型在训练过程中接触的文字、图片、音频、视频或其他信息。模型通过分析大量数据中的规律，逐渐形成识别、预测和生成内容的能力。', key: '训练数据的数量很重要，质量、代表性和合法性同样重要。数据中的错误、缺失和偏见，也可能被模型学习并反映在输出中。', example: '一个识别猫的模型，需要通过大量不同品种、角度和环境中的猫图片进行学习。', related: ['数据标注','训练','数据偏差','预训练'] },
+            { cn: '数据标注', en: 'Data Annotation', desc: '数据标注是为文字、图片、声音等数据添加名称、类别、答案或其他说明。标注后的数据可以告诉模型"什么是什么"或"什么结果更符合要求"。', key: '标注质量会直接影响模型的学习效果。数据标注可以由人工完成，也可以借助程序或AI辅助处理，但通常仍需要检查和校正。', example: '在图片中框出汽车、行人和红绿灯，并分别写上名称，就是一种数据标注。', related: ['训练数据','监督学习','人类反馈'] },
+            { cn: '训练', en: 'Training', desc: '训练是让模型反复处理数据，并根据结果调整内部参数的过程。随着参数不断调整，模型会逐渐提高识别规律、预测结果或生成内容的能力。', key: '模型训练通常需要大量数据、算力和时间。普通用户上传文件或与AI聊天，一般不会让基础模型立即重新训练或永久记住这些内容。', related: ['训练数据','参数','预训练','微调','算力'] },
+            { cn: '预训练', en: 'Pre-training', desc: '预训练是模型形成通用能力的早期训练阶段。大语言模型会处理大规模文本等数据，通过预测缺失内容或下一个Token等方式，学习语言规律和广泛的知识关联。', key: '预训练让模型获得广泛能力，但模型学到的主要是数据中的统计规律。它生成流畅内容，并不代表每个答案都真实准确。', related: ['训练','训练数据','自监督学习','大语言模型','Token'] },
+            { cn: '微调', en: 'Fine-tuning', desc: '微调是在已经完成预训练的模型基础上，使用规模较小、目标更明确的数据继续训练，使模型更适合某类任务、专业领域或表达方式。指令微调是常见的微调方式之一。', key: '微调主要用于调整模型的能力重点和行为表现，并不能保证模型掌握的所有知识都正确，也不一定适合处理需要频繁更新的信息。', example: '通用模型经过医疗文本微调后，可以更熟悉医疗术语和专业表达，但其回答仍需专业人员核查。', related: ['预训练','指令微调','训练数据','大语言模型'] },
+            { cn: '监督学习', en: 'Supervised Learning', desc: '监督学习是让模型通过带有参考答案的数据进行学习。模型先尝试判断结果，再与正确答案比较，并不断调整，从而提高后续预测的准确性。', key: '监督学习依赖数量充足且标注准确的数据。参考答案存在错误或覆盖不全面时，模型的判断也会受到影响。', example: '向模型提供大量已经标明"垃圾邮件"和"正常邮件"的样本，训练它判断新的邮件。', related: ['数据标注','训练数据','训练','分类'] },
+            { cn: '强化学习', en: 'RL（Reinforcement Learning）', desc: '强化学习是一种通过行动结果和奖励信号改进行为的学习方法。模型在环境中尝试不同选择，根据获得的奖励或惩罚，逐渐学习更有可能实现目标的策略。', key: '强化学习的效果取决于目标和奖励如何设定。如果奖励设计不合理，AI可能找到意料之外的方法获得高分，却没有真正完成预期目标。', example: '游戏AI通过不断尝试，根据输赢和得分调整策略，逐渐提高游戏表现。', related: ['奖励','策略','人类反馈','RLHF','智能体'] },
+            { cn: '人类反馈', en: 'Human Feedback', desc: '人类反馈是由人对AI的多个回答进行比较、评价或纠正，帮助模型学习哪些结果更有用、更安全、更符合人类要求。基于人类反馈的强化学习通常称为RLHF。', key: '人类反馈会受到评价标准、文化背景和个人判断影响。用户的一次点赞、点踩或纠正，通常不会让当前基础模型立即完成重新训练。', related: ['强化学习','RLHF','微调','对齐','数据标注'] },
+          ]
+        }
       ]
     }
   ]
@@ -740,12 +816,32 @@ function renderContent(data) {
     }
 
     if (section.type === 'concepts') {
-      html += '<div class="intro-card" style="padding:0;overflow:hidden;">';
-      html += '<table class="concepts-table"><thead><tr><th>术语</th><th>解释</th></tr></thead><tbody>';
-      section.items.forEach(c => {
-        html += `<tr><td>${c.term}<span class="concept-en">${c.en}</span></td><td>${c.desc}</td></tr>`;
+      const cid = section.id;
+      html += `<div class="concept-tabs" id="${cid}-tabs">`;
+      section.categories.forEach((cat, i) => {
+        html += `<button class="concept-tab ${i === 0 ? 'active' : ''}" data-cat="${i}">${cat.name}</button>`;
       });
-      html += '</tbody></table></div>';
+      html += `</div>`;
+      section.categories.forEach((cat, i) => {
+        html += `<div class="concept-grid" id="${cid}-cat-${i}" style="${i === 0 ? '' : 'display:none;'}">`;
+        cat.items.forEach(c => {
+          html += `<div class="concept-card">
+            <h4>${c.cn}</h4>
+            <div class="concept-en-name">${c.en}</div>
+            <div class="concept-label">概念解释</div>
+            <div class="concept-desc">${c.desc}</div>
+            <div class="concept-label">关键认识</div>
+            <div class="concept-key">${c.key}</div>`;
+          if (c.example) {
+            html += `<div class="concept-label">实例</div>
+            <div class="concept-example">${c.example}</div>`;
+          }
+          html += `<div class="concept-related">`;
+          c.related.forEach(r => { html += `<span>${r}</span>`; });
+          html += `</div></div>`;
+        });
+        html += '</div>';
+      });
     }
 
     html += '</div>';
@@ -767,6 +863,24 @@ function renderContent(data) {
       });
     });
   }
+
+  // 绑定概念分类tab点击
+  document.querySelectorAll('.concept-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const catIdx = tab.dataset.cat;
+      const tabsContainer = tab.parentElement;
+      const sectionId = tabsContainer.id.replace('-tabs', '');
+      // 切换tab高亮
+      tabsContainer.querySelectorAll('.concept-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      // 切换grid显示
+      document.querySelectorAll(`.concept-grid[id^="${sectionId}-cat-"]`).forEach(grid => {
+        grid.style.display = 'none';
+      });
+      const target = document.getElementById(`${sectionId}-cat-${catIdx}`);
+      if (target) target.style.display = '';
+    });
+  });
 }
 
 // ===== Coming Soon =====
