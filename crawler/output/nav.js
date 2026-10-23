@@ -28,7 +28,7 @@
 
     if (file === '' || file === 'index.html' || file === 'index') return 'home';
     if (file === 'gallery.html' || file === 'gallery') return 'explore';
-    if (file === 'learning.html' || file === 'learning') return 'learning';
+    if (file === 'learning.html' || file === 'learning' || file === 'learning-ai.html' || file === 'learning-ai' || file === 'learning-creation-loop.html' || file === 'learning-creation-loop') return 'learning';
     if (file === 'space.html' || file === 'space' || file === 'profile.html' || file === 'profile') return 'space';
     if (file === 'studio.html' || file === 'studio' || file === 'about.html' || file === 'about') return 'studio';
     return '';

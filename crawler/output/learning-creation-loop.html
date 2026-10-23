@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八步创造法 · VibeBubble</title>
+<meta name="description" content="从认知到迭代，八步创造法结合产品设计经验与AI实践，帮助你把想法逐步变成现实。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./auth.js"></script>
+<script src="./nav.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #050a14;
+  --bg-mid: #0a0f1a;
+  --purple: #a855f7;
+  --purple-soft: rgba(168, 85, 247, 0.08);
+  --pink: #ec4899;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --text: #f8fafc;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.8;
+  padding-top: 108px;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: -120px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(236, 72, 153, 0.08),
+    rgba(168, 85, 247, 0.10),
+    rgba(59, 130, 246, 0.06),
+    rgba(6, 182, 212, 0.05),
+    rgba(236, 72, 153, 0.08)
+  );
+  animation: iridescentRotate 30s linear infinite;
+  z-index: -2;
+  filter: blur(120px);
+  pointer-events: none;
+}
+@keyframes iridescentRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(168, 85, 247, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 60% at 85% 75%, rgba(236, 72, 153, 0.05) 0%, transparent 45%),
+    linear-gradient(180deg, #040814 0%, #0a0f1a 40%, #080c18 70%, #0d0818 100%);
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* ===== 子页面顶部子导航 ===== */
+.page-sub-nav {
+  position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
+  background: rgba(5, 5, 16, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex; align-items: center; justify-content: center;
+  gap: 20px; padding: 10px 24px; font-size: 13px;
+}
+.page-sub-nav a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none; letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+.page-sub-nav a:hover { color: var(--purple); }
+.page-sub-nav a.active { color: var(--purple); font-weight: 600; }
+.page-sub-nav .sep { color: rgba(255,255,255,0.15); }
+
+/* ===== Page Header ===== */
+.page-wrap {
+  max-width: 960px; margin: 0 auto;
+  padding: 64px 32px 120px;
+}
+.page-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 4px; color: var(--purple);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.page-label::before, .page-label::after {
+  content: ''; width: 24px; height: 1px;
+  background: var(--purple); opacity: 0.5;
+}
+.page-title {
+  font-size: 48px; font-weight: 800;
+  letter-spacing: -0.02em; margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff 0%, #c4b5fd 60%, #a855f7 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.page-subtitle-en {
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 3px; color: var(--purple);
+  text-transform: uppercase; opacity: 0.8;
+  margin-bottom: 6px;
+}
+.page-tagline {
+  font-size: 17px; font-weight: 600;
+  color: var(--text-dim); margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+.page-intro {
+  font-size: 15px; color: var(--text-dim);
+  line-height: 1.9; max-width: 640px;
+  margin-bottom: 64px;
+}
+
+/* ===== 八步总览（环状简化） ===== */
+.loop-overview {
+  margin-bottom: 72px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+}
+.loop-overview-title {
+  font-size: 16px; font-weight: 700;
+  color: var(--text); margin-bottom: 28px;
+  display: flex; align-items: center; gap: 10px;
+}
+.loop-overview-title::before {
+  content: ''; width: 28px; height: 2px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  border-radius: 1px;
+}
+.loop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px 16px;
+}
+.loop-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--text-dim);
+  text-decoration: none; transition: var(--transition);
+  padding: 8px 10px; border-radius: 8px;
+}
+.loop-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.loop-num {
+  font-size: 11px; font-weight: 700;
+  color: var(--purple); letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+  min-width: 20px;
+}
+.loop-name {
+  color: var(--text); font-weight: 600;
+  margin-right: 4px;
+}
+.loop-en {
+  font-size: 11px; letter-spacing: 0.5px;
+  opacity: 0.55;
+}
+.loop-cycled {
+  margin-top: 24px; padding-top: 20px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  font-size: 12px; color: var(--text-muted);
+  text-align: center;
+}
+
+/* ===== 8 张阶段概览卡片 ===== */
+.steps-header {
+  font-size: 18px; font-weight: 700;
+  color: var(--text); margin-bottom: 32px;
+}
+
+.phase-cards {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 4px 4px 20px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168,85,247,0.3) transparent;
+}
+.phase-cards::-webkit-scrollbar { height: 4px; }
+.phase-cards::-webkit-scrollbar-track { background: transparent; }
+.phase-cards::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 2px; }
+.phase-card {
+  flex: 0 0 380px;
+  scroll-snap-align: start;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 28px 26px;
+  transition: var(--transition);
+  position: relative;
+}
+.phase-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  opacity: 0;
+  transition: var(--transition);
+}
+.phase-card:hover {
+  border-color: rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.04);
+  transform: translateY(-2px);
+}
+.phase-card:hover::before { opacity: 0.8; }
+
+.phase-head {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin-bottom: 16px;
+}
+.phase-num {
+  font-size: 11px; font-weight: 700;
+  color: var(--purple); letter-spacing: 3px;
+  font-variant-numeric: tabular-nums;
+  padding: 4px 10px;
+  background: rgba(168, 85, 247, 0.12);
+  border-radius: 6px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  flex-shrink: 0;
+}
+.phase-title-block .phase-name {
+  font-size: 20px; font-weight: 700;
+  color: var(--text); margin-bottom: 2px;
+  line-height: 1.25;
+}
+.phase-title-block .phase-en {
+  font-size: 12px; font-weight: 600;
+  color: var(--purple); letter-spacing: 2px;
+  text-transform: uppercase; opacity: 0.75;
+}
+.phase-claim {
+  font-size: 13px; font-weight: 600;
+  color: var(--cyan); letter-spacing: 0.02em;
+  padding: 8px 12px;
+  background: rgba(6, 182, 212, 0.06);
+  border-left: 2px solid var(--cyan);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 14px;
+}
+.phase-intro {
+  font-size: 14px; color: var(--text-dim);
+  line-height: 1.8; margin-bottom: 18px;
+}
+.phase-field {
+  margin-bottom: 14px;
+}
+.phase-field-label {
+  font-size: 11px; font-weight: 700;
+  color: var(--text-muted); letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.phase-content-list {
+  list-style: none; padding: 0;
+}
+.phase-content-list li {
+  font-size: 13px; color: var(--text-dim);
+  line-height: 1.8; padding-left: 14px;
+  position: relative;
+}
+.phase-content-list li::before {
+  content: '·'; position: absolute; left: 4px;
+  color: var(--purple);
+}
+.phase-output {
+  font-size: 13px; color: var(--text-dim);
+  line-height: 1.75;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+}
+.phase-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 16px;
+}
+.phase-tag {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 12px;
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  color: var(--purple); letter-spacing: 0.02em;
+}
+
+/* ===== 如何使用 ===== */
+.usage-section {
+  margin-top: 80px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+}
+.usage-title {
+  font-size: 18px; font-weight: 700;
+  color: var(--text); margin-bottom: 28px;
+}
+.usage-item {
+  margin-bottom: 24px;
+}
+.usage-item:last-of-type { margin-bottom: 32px; }
+.usage-item h4 {
+  font-size: 13px; font-weight: 700;
+  color: var(--purple); margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.usage-item p {
+  font-size: 14px; color: var(--text-dim);
+  line-height: 1.8;
+}
+.scenarios {
+  margin-bottom: 32px;
+}
+.scenarios-label {
+  font-size: 11px; font-weight: 700;
+  color: var(--text-muted); letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.scenarios-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.scenarios-tag {
+  font-size: 12px; padding: 5px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+.usage-status {
+  font-size: 13px; color: var(--text-muted);
+  padding-top: 24px; margin-bottom: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.usage-cta {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.usage-cta a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 0.04em; text-decoration: none;
+  transition: var(--transition);
+}
+.cta-primary {
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  color: #fff;
+}
+.cta-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(168,85,247,0.35); }
+.cta-secondary {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-dim);
+}
+.cta-secondary:hover { border-color: rgba(168,85,247,0.3); color: var(--purple); }
+
+/* ===== 响应式 ===== */
+@media (max-width: 860px) {
+  .page-wrap { padding: 48px 24px 80px; }
+  .page-title { font-size: 36px; }
+  .phase-cards { gap: 12px; padding: 4px 20px 20px; }
+  .phase-card { flex: 0 0 300px; }
+  .loop-grid { grid-template-columns: repeat(2, 1fr); }
+  .loop-overview, .usage-section { padding: 28px 22px; }
+}
+@media (max-width: 480px) {
+  .page-title { font-size: 28px; }
+  .page-tagline { font-size: 15px; }
+  .loop-grid { grid-template-columns: 1fr; }
+  .usage-cta { flex-direction: column; }
+  .usage-cta a { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="vb-nav-mount"></div>
+
+<!-- 子导航 -->
+<div class="page-sub-nav">
+  <a class="sub-nav-back" href="./learning.html">← 返回学习入口</a>
+  <div class="sub-nav-tabs">
+    <a class="sub-tab" href="./learning-ai.html">AI 通识</a>
+    <a class="sub-tab active" href="./learning-creation-loop.html">八步创造法</a>
+  </div>
+  <div style="width:100px"></div>
+</div>
+<style>
+  .page-sub-nav { justify-content: space-between; }
+  .page-sub-nav .sub-nav-back { color: rgba(255,255,255,0.55); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+  .page-sub-nav .sub-nav-back:hover { color: var(--text); }
+  .page-sub-nav .sub-nav-tabs { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 999px; padding: 3px; }
+  .page-sub-nav .sub-tab { padding: 5px 16px; border-radius: 999px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 12px; letter-spacing: 0.04em; transition: all 0.25s ease; }
+  .page-sub-nav .sub-tab:hover:not(.active) { color: rgba(255,255,255,0.85); }
+  .page-sub-nav .sub-tab.active { color: #050a14; background: linear-gradient(135deg, #a855f7, #06b6d4); font-weight: 600; }
+</style>
+
+<div class="page-wrap">
+
+  <!-- 标题区 -->
+  <header class="page-hero">
+    <div class="page-label">8-Step Creation Loop</div>
+    <h1 class="page-title">八步创造法</h1>
+    <div class="page-subtitle-en">From Idea to Reality, with AI.</div>
+    <p class="page-intro">从一个模糊的想法，到可以被使用、体验和验证的成果，需要不断理解、探索、选择与行动。八步创造法结合产品设计经验与AI实践，帮助你梳理创造过程，找到下一步可以采取的行动。</p>
+  </header>
+
+  <!-- 八步总览 -->
+  <section class="loop-overview" aria-label="八步循环总览">
+    <div class="loop-overview-title">八步循环 · 点击跳转</div>
+    <div class="loop-grid">
+      <a class="loop-item" href="#phase-01"><span class="loop-num">01</span><span class="loop-name">认知</span><span class="loop-en">Understand</span></a>
+      <a class="loop-item" href="#phase-02"><span class="loop-num">02</span><span class="loop-name">探索</span><span class="loop-en">Explore</span></a>
+      <a class="loop-item" href="#phase-03"><span class="loop-num">03</span><span class="loop-name">定位</span><span class="loop-en">Position</span></a>
+      <a class="loop-item" href="#phase-04"><span class="loop-num">04</span><span class="loop-name">分析</span><span class="loop-en">Analyze</span></a>
+      <a class="loop-item" href="#phase-05"><span class="loop-num">05</span><span class="loop-name">设计</span><span class="loop-en">Design</span></a>
+      <a class="loop-item" href="#phase-06"><span class="loop-num">06</span><span class="loop-name">实现</span><span class="loop-en">Build</span></a>
+      <a class="loop-item" href="#phase-07"><span class="loop-num">07</span><span class="loop-name">运营</span><span class="loop-en">Grow</span></a>
+      <a class="loop-item" href="#phase-08"><span class="loop-num">08</span><span class="loop-name">迭代</span><span class="loop-en">Iterate</span></a>
+    </div>
+    <div class="loop-cycled">08 迭代 → 01 认知 · 八步构成持续循环</div>
+  </section>
+
+  <!-- 八张阶段卡片 -->
+  <section class="phase-cards">
+
+    <!-- 01 认知 -->
+    <article class="phase-card" id="phase-01">
+      <div class="phase-head">
+        <div class="phase-num">01</div>
+        <div class="phase-title-block">
+          <div class="phase-name">认知</div>
+          <div class="phase-en">Understand</div>
+        </div>
+      </div>
+      <div class="phase-claim">理解领域，建立创造的认知基础</div>
+      <p class="phase-intro">了解一个领域的基本机制、关键要素与能力边界，梳理已有经验和知识缺口，为后续探索建立判断基础。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>认识领域的基础概念与运作方式</li>
+          <li>梳理关键要素、规则与约束</li>
+          <li>建立知识结构与学习方向</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">领域认知地图、学习清单与待解答的问题。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">概念解释</span>
+        <span class="phase-tag">资料梳理</span>
+        <span class="phase-tag">知识关联</span>
+        <span class="phase-tag">学习支持</span>
+      </div>
+    </article>
+
+    <!-- 02 探索 -->
+    <article class="phase-card" id="phase-02">
+      <div class="phase-head">
+        <div class="phase-num">02</div>
+        <div class="phase-title-block">
+          <div class="phase-name">探索</div>
+          <div class="phase-en">Explore</div>
+        </div>
+      </div>
+      <div class="phase-claim">打开视野，发现值得关注的新可能</div>
+      <p class="phase-intro">从真实案例、技术变化、生活观察与跨领域启发中寻找线索，积累灵感，形成可供下一阶段选择的机会方向。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>发现创新案例与技术应用</li>
+          <li>观察问题、变化与未被满足的需要</li>
+          <li>汇集灵感并整理机会线索</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">灵感与案例集合、候选机会方向。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">案例发现</span>
+        <span class="phase-tag">趋势梳理</span>
+        <span class="phase-tag">灵感发散</span>
+        <span class="phase-tag">跨域联想</span>
+      </div>
+    </article>
+
+    <!-- 03 定位 -->
+    <article class="phase-card" id="phase-03">
+      <div class="phase-head">
+        <div class="phase-num">03</div>
+        <div class="phase-title-block">
+          <div class="phase-name">定位</div>
+          <div class="phase-en">Position</div>
+        </div>
+      </div>
+      <div class="phase-claim">聚焦一个方向，明确值得解决的问题</div>
+      <p class="phase-intro">在探索结果中，结合自身优势、资源与约束，选择本轮推进的方向，明确希望为谁创造什么价值。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>筛选候选方向与问题</li>
+          <li>明确目标人群与价值主张</li>
+          <li>确定当前范围与优先级</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">方向定位、问题定义与初步价值主张。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">方向比较</span>
+        <span class="phase-tag">优势梳理</span>
+        <span class="phase-tag">定位推敲</span>
+        <span class="phase-tag">价值表达</span>
+      </div>
+    </article>
+
+    <!-- 04 分析 -->
+    <article class="phase-card" id="phase-04">
+      <div class="phase-head">
+        <div class="phase-num">04</div>
+        <div class="phase-title-block">
+          <div class="phase-name">分析</div>
+          <div class="phase-en">Analyze</div>
+        </div>
+      </div>
+      <div class="phase-claim">深入研究，为关键决策建立依据</div>
+      <p class="phase-intro">围绕已经确定的方向，研究用户、需求、场景、市场与可行性，识别关键假设，让后续方案建立在更充分的依据上。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>理解用户需求与实际使用场景</li>
+          <li>研究已有方案与差异化空间</li>
+          <li>判断可行性、风险与验证重点</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">研究洞察、关键假设与设计依据。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">研究整理</span>
+        <span class="phase-tag">竞品对比</span>
+        <span class="phase-tag">信息归纳</span>
+        <span class="phase-tag">假设审视</span>
+      </div>
+    </article>
+
+    <!-- 05 设计 -->
+    <article class="phase-card" id="phase-05">
+      <div class="phase-head">
+        <div class="phase-num">05</div>
+        <div class="phase-title-block">
+          <div class="phase-name">设计</div>
+          <div class="phase-en">Design</div>
+        </div>
+      </div>
+      <div class="phase-claim">组织想法，形成清晰可执行的方案</div>
+      <p class="phase-intro">将定位与分析结果转化为具体方案，明确内容、功能、结构、体验与表现方式，为实现做好准备。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>构思并比较不同解决方案</li>
+          <li>设计结构、流程与关键体验</li>
+          <li>明确视觉表达与交付要求</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">设计方案、原型与实现说明。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">方案构思</span>
+        <span class="phase-tag">结构梳理</span>
+        <span class="phase-tag">原型辅助</span>
+        <span class="phase-tag">视觉探索</span>
+      </div>
+    </article>
+
+    <!-- 06 实现 -->
+    <article class="phase-card" id="phase-06">
+      <div class="phase-head">
+        <div class="phase-num">06</div>
+        <div class="phase-title-block">
+          <div class="phase-name">实现</div>
+          <div class="phase-en">Build</div>
+        </div>
+      </div>
+      <div class="phase-claim">动手构建，让方案成为可用的成果</div>
+      <p class="phase-intro">根据方案选择合适的工具与实现方式，通过开发、制作、搭建或打样，完成能够被体验和验证的版本。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>选择工具并安排实现任务</li>
+          <li>完成开发、制作与资源整合</li>
+          <li>检查功能、体验与交付质量</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">可用版本、作品或实体样品。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">代码开发</span>
+        <span class="phase-tag">内容制作</span>
+        <span class="phase-tag">问题排查</span>
+        <span class="phase-tag">测试辅助</span>
+      </div>
+    </article>
+
+    <!-- 07 运营 -->
+    <article class="phase-card" id="phase-07">
+      <div class="phase-head">
+        <div class="phase-num">07</div>
+        <div class="phase-title-block">
+          <div class="phase-name">运营</div>
+          <div class="phase-en">Grow</div>
+        </div>
+      </div>
+      <div class="phase-claim">连接真实用户，让成果持续产生价值</div>
+      <p class="phase-intro">将成果带入真实场景，建立触达与使用路径，了解用户反应，探索持续使用、传播与商业转化的方式。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>明确渠道与传播表达</li>
+          <li>推进用户获取、使用与留存</li>
+          <li>探索收入模式与持续运营方式</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">运营计划、渠道实践与用户数据。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">传播策划</span>
+        <span class="phase-tag">内容生产</span>
+        <span class="phase-tag">数据分析</span>
+        <span class="phase-tag">流程提效</span>
+      </div>
+    </article>
+
+    <!-- 08 迭代 -->
+    <article class="phase-card" id="phase-08">
+      <div class="phase-head">
+        <div class="phase-num">08</div>
+        <div class="phase-title-block">
+          <div class="phase-name">迭代</div>
+          <div class="phase-en">Iterate</div>
+        </div>
+      </div>
+      <div class="phase-claim">回应真实反馈，开启下一轮创造</div>
+      <p class="phase-intro">结合用户反馈、使用数据和实践结果，判断哪些值得保留、哪些需要调整，更新认知并安排下一轮行动。</p>
+      <div class="phase-field">
+        <div class="phase-field-label">阶段内容</div>
+        <ul class="phase-content-list">
+          <li>汇总反馈与实际表现</li>
+          <li>识别问题并确定改进重点</li>
+          <li>更新方向、方案与行动安排</li>
+        </ul>
+      </div>
+      <div class="phase-field">
+        <div class="phase-field-label">预期输出</div>
+        <div class="phase-output">阶段复盘、改进清单与下一轮计划。</div>
+      </div>
+      <div class="phase-field-label" style="margin-top:14px">AI 辅助</div>
+      <div class="phase-tags">
+        <span class="phase-tag">反馈归纳</span>
+        <span class="phase-tag">问题诊断</span>
+        <span class="phase-tag">复盘辅助</span>
+        <span class="phase-tag">迭代规划</span>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- 如何使用 -->
+  <section class="usage-section">
+    <h3 class="usage-title">如何使用</h3>
+
+    <div class="usage-item">
+      <h4>从当前需要的地方开始</h4>
+      <p>已有项目可以直接进入分析、运营或迭代，再补充必要的认知与探索。</p>
+    </div>
+    <div class="usage-item">
+      <h4>根据反馈往返调整</h4>
+      <p>实现时可能发现设计问题，分析后也可能需要重新定位。</p>
+    </div>
+    <div class="usage-item">
+      <h4>让每轮实践积累经验</h4>
+      <p>成果进入真实场景后，反馈会更新认知，推动下一轮创造。</p>
+    </div>
+
+    <div class="scenarios">
+      <div class="scenarios-label">适用场景</div>
+      <div class="scenarios-tags">
+        <span class="scenarios-tag">产品与工具开发</span>
+        <span class="scenarios-tag">内容创作</span>
+        <span class="scenarios-tag">品牌与IP设计</span>
+        <span class="scenarios-tag">课程与服务设计</span>
+      </div>
+    </div>
+
+    <div class="usage-status">我们正在为每个阶段整理实践方法、AI协作提示与案例，详细内容将逐步开放。</div>
+
+    <div class="usage-cta">
+      <a class="cta-primary" href="./gallery.html">
+        探索真实案例
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a class="cta-secondary" href="./learning-ai.html">
+        补充AI基础
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// 锚点跳转偏移（避开子导航遮挡）
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 120, behavior: 'smooth' });
+    }
+  });
+});
+
+// 强制设置 Learning 导航高亮（子页面 SPA 路由不经过主导航拦截）
+(function forceNavActive() {
+  function setActive() {
+    setTimeout(function() {
+      document.querySelectorAll('.vb-nav-links a, .vb-mobile-panel a').forEach(function(a) {
+        a.classList.remove('vb-active');
+        if ((a.textContent || '').trim() === 'Learning') a.classList.add('vb-active');
+      });
+    }, 50);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setActive);
+  } else {
+    setActive();
+  }
+  setTimeout(setActive, 300);
+})();
+</script>
+</body>
+</html>

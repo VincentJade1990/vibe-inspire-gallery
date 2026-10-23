@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibe Bubble - 从一个灵感开始，创造你的第一个真实产品</title>
+<title>VibeBubble · 发现创新灵感，让想法成为现实</title>
+<meta name="description" content="VibeBubble 收集数字产品、智能硬件与创意产品，分享它们如何被想到、如何被做出来的过程。同时整理 AI 工具与创造方法，帮助你从灵感到现实，完成自己的创造。">
+<meta name="keywords" content="VibeBubble,AI创造,产品设计,创新灵感,从零到一,AI工具,创造方法,数字产品,智能硬件">
 <script src="./auth.js"></script>
 <script src="./nav.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { overflow-x: hidden; width: 100%; }
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
@@ -357,14 +361,14 @@
   .about-text {
     font-size: 15px;
     color: var(--text-dim);
-    line-height: 2;
+    line-height: 1.8;
     margin-top: 28px;
     max-width: 640px;
   }
-  .about-text p + p { margin-top: 16px; }
+  .about-text p + p { margin-top: 22px; }
 
   /* 模块二居中样式 */
-  .about-center { text-align: center; }
+  .about-center { text-align: center; padding-bottom: 60px; }
   .about-center .section-label { margin: 0 auto 16px; }
   .about-center .section-subtitle { margin: 0 auto; }
   .about-center .question-tags { justify-content: center; }
@@ -375,7 +379,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 16px 0;
+    margin: 28px 0 0;
   }
   .question-tags .path-tag {
     font-size: 13px;
@@ -632,6 +636,115 @@
 
   /* ===== 无 JS 回退：如果库加载失败，内容仍然可见 ===== */
   .no-js .scroll-reveal { opacity: 1; transform: none; }
+  /* ===== Hero 双行副标题 ===== */
+  .subtitle-en {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    margin-top: 24px;
+    background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 40%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle-zh {
+    font-size: clamp(15px, 2.4vw, 18px);
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 48px;
+    animation: fadeIn 0.6s ease-out 0.8s forwards;
+    opacity: 0;
+  }
+
+  /* ===== 八步横向流程 ===== */
+  .steps-section { text-align: center; }
+  .steps-section .section-title { margin-bottom: 12px; }
+  .steps-section .section-subtitle { margin: 0 auto 48px; text-align: center; }
+
+  .steps-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding: 4px 4px 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(168,85,247,0.3) transparent;
+  }
+  .steps-flow::-webkit-scrollbar { height: 4px; }
+  .steps-flow::-webkit-scrollbar-track { background: transparent; }
+  .steps-flow::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 2px; }
+
+  .step-card {
+    flex: 0 0 218px;
+    scroll-snap-align: start;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 22px 20px;
+    text-align: left;
+    transition: var(--transition);
+  }
+  .step-card:hover {
+    border-color: rgba(168,85,247,0.3);
+    background: rgba(168,85,247,0.04);
+    transform: translateY(-2px);
+  }
+  .step-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .step-icon {
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .step-icon svg { width: 46px; height: 46px; }
+  .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple);
+    opacity: 0.75;
+    letter-spacing: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .step-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .step-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--purple);
+    opacity: 0.45;
+    flex-shrink: 0;
+    padding: 0 2px;
+  }
+
+  @media (max-width: 680px) {
+    .hero-bubble-wrap { width: 320px; height: 320px; }
+  }
+  @media (max-width: 680px) {
+    .step-card { flex: 0 0 182px; padding: 18px 16px; }
+    .step-icon svg { width: 40px; height: 40px; }
+    .step-name { font-size: 15px; }
+    .step-desc { font-size: 12px; }
+  }
+
 </style>
 </head>
 <body>
@@ -651,7 +764,8 @@
     <h1 class="main-title"><span>Vibe Bubble</span></h1>
   </div>
 
-  <p class="subtitle">从一个灵感开始，创造你的第一个真实产品</p>
+  <p class="subtitle subtitle-en">From Idea to Reality.</p>
+  <p class="subtitle-zh">从一个灵感开始，让想法成为现实</p>
 
   <div class="btn-group">
     <a href="./gallery.html" class="cta-btn">
@@ -666,278 +780,107 @@
 <!-- ===== 02 VibeBubble 是什么 ===== -->
 <section class="section about-center" id="about">
   <div class="section-label scroll-reveal">About</div>
-  <h2 class="section-title scroll-reveal">VibeBubble 是什么？</h2>
-  <p class="section-subtitle scroll-reveal">一个面向 AI 创作者的学习与实践平台</p>
+  <h2 class="section-title scroll-reveal">VibeBubble是什么？</h2>
   <div class="about-text about-text-center scroll-reveal">
-    <p>AI 正在改变创造产品的方式。过去，一个产品需要团队协作才能完成。现在，借助 AI，一个人也可以从想法开始，设计、开发并发布自己的产品。但新的问题出现了：</p>
-    <div class="question-tags">
-      <span class="path-tag">我应该从哪里开始？</span>
-      <span class="path-tag">我可以创造什么？</span>
-      <span class="path-tag">如何把一个想法变成产品？</span>
-      <span class="path-tag">如何让产品被更多人看见？</span>
-    </div>
-    <p>VibeBubble 希望帮助每个人探索 AI 创造的可能。通过真实项目案例、创作方法和学习路径，帮助用户完成：从发现灵感，到产品创造，再到上线运营的完整流程。</p>
+    <p>VibeBubble源于一个简单的好奇：那些有意思的产品，最初是怎样被想到，又如何被做出来的？</p>
+    <p>这里收集数字产品、智能硬件与创意产品，关注它们解决的问题、独特的设计，以及背后的创造过程。同时，我们也在整理AI工具与创造方法，帮助你从别人的实践中获得启发，逐步推进自己的想法。</p>
+  </div>
+  <div class="question-tags scroll-reveal">
+    <span class="path-tag">我应该从哪里开始？</span>
+    <span class="path-tag">我可以创造什么？</span>
+    <span class="path-tag">如何把一个想法变成产品？</span>
+    <span class="path-tag">如何让产品被更多人看见？</span>
   </div>
 </section>
 
-<!-- ===== 03 创造旅程 ===== -->
-<section class="journey-section" id="path">
-  <div class="journey-header scroll-reveal">
-    <div class="section-label">Journey</div>
-    <h2 class="section-title">从一个灵感，到一个真实产品</h2>
-    <p class="journey-desc">VibeBubble 通过成熟的产品方法论，结合AI工具，帮助你完成从理解 AI、发现需求，定义产品、设计开发、到发布运营的完整创造旅程，让每一个灵感都有机会成长为真实上线的产品。</p>
-  </div>
+<!-- ===== 03 八步创造路径 ===== -->
+<section class="section steps-section" id="path">
+  <div class="section-label scroll-reveal">Path</div>
+  <h2 class="section-title scroll-reveal">从灵感到现实，探索一条创造路径</h2>
+  <p class="section-subtitle scroll-reveal">想法的实现，需要不断理解、探索、选择与行动。我正在结合产品设计经验与AI实践，整理一套AI八步创造法，让创造过程更清晰，也更容易开始。</p>
 
-  <!-- 顶部流程线 -->
-  <div class="journey-flow scroll-reveal" id="journeyFlow">
-    <span class="journey-flow-item active" data-step="0">Understand</span>
-    <span class="journey-flow-arrow">→</span>
-    <span class="journey-flow-item" data-step="1">Explore</span>
-    <span class="journey-flow-arrow">→</span>
-    <span class="journey-flow-item" data-step="2">Discover</span>
-    <span class="journey-flow-arrow">→</span>
-    <span class="journey-flow-item" data-step="3">Define</span>
-    <span class="journey-flow-arrow">→</span>
-    <span class="journey-flow-item" data-step="4">Design</span>
-    <span class="journey-flow-arrow">→</span>
-    <span class="journey-flow-item" data-step="5">Build</span>
-    <span class="journey-flow-arrow">→</span>
-    <span class="journey-flow-item" data-step="6">Launch</span>
-    <span class="journey-flow-arrow">→</span>
-    <span class="journey-flow-item" data-step="7">Grow</span>
-  </div>
-
-  <!-- 卡片轮播 -->
-  <div class="journey-wrapper">
-    <div class="journey-track" id="journeyTrack" data-lenis-prevent>
-
-      <!-- 01 -->
-      <div class="journey-card active" data-step="0">
-        <div class="journey-card-num">01</div>
-        <div class="journey-card-cn">基础认知</div>
-        <div class="journey-card-tagline">认识 AI，理解 AI 时代的创造方式</div>
-        <div class="journey-card-desc">了解 AI 发展历史、基础概念、能力边界，以及如何利用 AI 开启新的创造方式。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>理解 AI 基础概念</li>
-            <li>建立个人 AI 知识体系</li>
-            <li>明确个人学习方向</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">AI知识库</span>
-            <span class="path-tag">学习路线</span>
-            <span class="path-tag">工具选型</span>
-          </div>
-        </div>
+  <div class="steps-flow scroll-reveal">
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 42v-4.5c-4.8-2.7-7.5-7.2-7.5-12A13.5 13.5 0 0 1 22 12h2a13.5 13.5 0 0 1 13.5 13.5c0 4.8-2.7 9.3-7.5 12V42"/><path d="M16 42h16" opacity="0.45"/><circle cx="23" cy="24" r="5" stroke="#06b6d4"/><path d="M20.5 31h5M21.5 34h3" stroke="#06b6d4"/><path d="M23 15v2.5M15 18.8l2 2M31 18.8l-2 2" opacity="0.45"/></svg></div>
+        <div class="step-num">01</div>
       </div>
-
-      <!-- 02 -->
-      <div class="journey-card" data-step="1">
-        <div class="journey-card-num">02</div>
-        <div class="journey-card-cn">探索灵感</div>
-        <div class="journey-card-tagline">捕捉每一个创造的起点</div>
-        <div class="journey-card-desc">发现别人正在创造什么，记录自己的瞬间灵感，让每一个想法都得以保存。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>AI应用案例</li>
-            <li>用户真实需求</li>
-            <li>个人灵感创意</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">灵感气泡</span>
-            <span class="path-tag">灵感收藏夹</span>
-            <span class="path-tag">个人灵感库</span>
-          </div>
-        </div>
+      <div class="step-name">认知 · Understand</div>
+      <div class="step-desc">理解领域，建立判断基础。</div>
+    </div>
+    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24l18-9 4 8-18 9z"/><path d="M12 25l4-2 2.5 5-4 2z" opacity="0.45"/><path d="M20 32l-5 12M26 30l5 14M23 31v13" opacity="0.7"/><path d="M38 6l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" stroke="#06b6d4"/><circle cx="43" cy="19" r="1" stroke="#06b6d4"/><circle cx="9" cy="11" r="1" opacity="0.45"/></svg></div>
+        <div class="step-num">02</div>
       </div>
-
-      <!-- 03 -->
-      <div class="journey-card" data-step="2">
-        <div class="journey-card-num">03</div>
-        <div class="journey-card-cn">需求分析</div>
-        <div class="journey-card-tagline">AI分析拆解你的灵感和市场</div>
-        <div class="journey-card-desc">AI分析拆解你的灵感、用户、市场和已有产品，判断一个方向是否值得继续探索。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>用户需求分析</li>
-            <li>竞品研究</li>
-            <li>市场洞察</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">用户画像</span>
-            <span class="path-tag">需求分析</span>
-            <span class="path-tag">竞品分析</span>
-            <span class="path-tag">机会判断</span>
-          </div>
-        </div>
+      <div class="step-name">探索 · Explore</div>
+      <div class="step-desc">打开视野，发现新的可能。</div>
+    </div>
+    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14l11-4 12 4 11-4v26l-11 4-12-4-11 4z"/><path d="M18 10v26M30 14v26" opacity="0.45"/><path d="M24 20c-3 0-5.5 2.4-5.5 5.4 0 4.2 5.5 9.6 5.5 9.6s5.5-5.4 5.5-9.6c0-3-2.5-5.4-5.5-5.4z" stroke="#06b6d4"/><circle cx="24" cy="25.4" r="1.8" stroke="#06b6d4"/></svg></div>
+        <div class="step-num">03</div>
       </div>
-
-      <!-- 04 -->
-      <div class="journey-card" data-step="3">
-        <div class="journey-card-num">04</div>
-        <div class="journey-card-cn">产品定位</div>
-        <div class="journey-card-tagline">明确产品价值与MVP范围</div>
-        <div class="journey-card-desc">明确产品价值、目标用户和 MVP 范围，为后续设计开发做好准备。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>产品价值定位</li>
-            <li>产品策略分析</li>
-            <li>PRD撰写</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">产品定位</span>
-            <span class="path-tag">MVP方案</span>
-            <span class="path-tag">产品文档</span>
-          </div>
-        </div>
+      <div class="step-name">定位 · Position</div>
+      <div class="step-desc">结合自身条件，确定方向。</div>
+    </div>
+    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="M29.5 29.5L40 40"/><path d="M14 25l5-6 3.5 3.5 5.5-7" stroke="#06b6d4"/><path d="M24.5 15.5H28V19" stroke="#06b6d4"/><circle cx="14" cy="25" r="1" stroke="#06b6d4"/><circle cx="19" cy="19" r="1" stroke="#06b6d4"/><circle cx="22.5" cy="22.5" r="1" stroke="#06b6d4"/></svg></div>
+        <div class="step-num">04</div>
       </div>
-
-      <!-- 05 -->
-      <div class="journey-card" data-step="4">
-        <div class="journey-card-num">05</div>
-        <div class="journey-card-cn">产品设计</div>
-        <div class="journey-card-tagline">创造简单易用、体验愉悦的产品</div>
-        <div class="journey-card-desc">通过产品设计方法流程，创造简单、易用、视觉和体验愉悦的产品。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>用户流程设计</li>
-            <li>交互设计</li>
-            <li>UI设计</li>
-            <li>视觉审美提升</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">用户流程</span>
-            <span class="path-tag">产品原型</span>
-            <span class="path-tag">UI方案</span>
-            <span class="path-tag">设计规范</span>
-          </div>
-        </div>
+      <div class="step-name">分析 · Analyze</div>
+      <div class="step-desc">深入研究，形成关键洞察。</div>
+    </div>
+    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="26" height="32" rx="3"/><path d="M11 14h9M11 19h15M11 24h7" opacity="0.45"/><rect x="11" y="28" width="10" height="7" rx="1" opacity="0.45"/><path d="M28.5 30.5L41 18a2.83 2.83 0 0 1 4 4L32.5 34.5 27 36z" stroke="#06b6d4"/><path d="M37.5 21.5l4 4" stroke="#06b6d4"/></svg></div>
+        <div class="step-num">05</div>
       </div>
-
-      <!-- 06 -->
-      <div class="journey-card" data-step="5">
-        <div class="journey-card-num">06</div>
-        <div class="journey-card-cn">产品开发</div>
-        <div class="journey-card-tagline">借助AI开发工具构建真实产品</div>
-        <div class="journey-card-desc">借助强大 AI 开发工具，将灵感创意、设计原型快速构建成真实产品。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>前后端开发</li>
-            <li>数据库设计</li>
-            <li>API调用</li>
-            <li>产品部署</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">产品代码生成</span>
-            <span class="path-tag">Bug审查修复</span>
-            <span class="path-tag">产品应用上线</span>
-          </div>
-        </div>
+      <div class="step-name">设计 · Design</div>
+      <div class="step-desc">将想法组织成可执行方案。</div>
+    </div>
+    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="28" height="24" rx="3"/><path d="M6 16h28" opacity="0.45"/><circle cx="10.5" cy="13" r="0.9" opacity="0.45"/><circle cx="14.5" cy="13" r="0.9" opacity="0.45"/><path d="M14 22l-3.5 3.5L14 29M21 22l3.5 3.5L21 29" stroke="#06b6d4"/><circle cx="36" cy="36" r="5.5"/><path d="M36 27.5v3M36 41.5v3M27.5 36h3M41.5 36h3M30 30l2 2M40 40l2 2M30 42l2-2M40 32l2-2" opacity="0.7"/></svg></div>
+        <div class="step-num">06</div>
       </div>
-
-      <!-- 07 -->
-      <div class="journey-card" data-step="6">
-        <div class="journey-card-num">07</div>
-        <div class="journey-card-cn">发布运营</div>
-        <div class="journey-card-tagline">让产品连接真实用户</div>
-        <div class="journey-card-desc">产品上线只是开始，需要通过展示、传播和反馈，让产品连接真实用户。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>内容传播</li>
-            <li>用户反馈</li>
-            <li>社交推广</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">内容生成</span>
-            <span class="path-tag">营销素材制作</span>
-            <span class="path-tag">用户反馈分析</span>
-          </div>
-        </div>
+      <div class="step-name">实现 · Build</div>
+      <div class="step-desc">通过开发与制作，让方案成为现实。</div>
+    </div>
+    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 32h18l-2.5 10h-13z"/><path d="M11 32h22" opacity="0.45"/><path d="M22 32V20"/><path d="M22 26c-5 0-8-3-8-8 5 0 8 3 8 8z"/><path d="M22 22c0-5 3-8 8-8 0 5-3 8-8 8z" stroke="#06b6d4"/><circle cx="38" cy="13" r="3.5" stroke="#06b6d4"/><path d="M38 6.5v2M31.5 13h2M44.5 13h-2M33.4 8.4l1.4 1.4M42.6 8.4l-1.4 1.4" stroke="#06b6d4" opacity="0.5"/></svg></div>
+        <div class="step-num">07</div>
       </div>
-
-      <!-- 08 -->
-      <div class="journey-card" data-step="7">
-        <div class="journey-card-num">08</div>
-        <div class="journey-card-cn">用户增长</div>
-        <div class="journey-card-tagline">让创造产生长期价值</div>
-        <div class="journey-card-desc">通过用户反馈和数据分析，不断完善产品，让创造产生长期价值。</div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">学习内容：</div>
-          <ul class="journey-card-list">
-            <li>数据分析</li>
-            <li>用户增长</li>
-            <li>产品迭代</li>
-            <li>商业模式</li>
-          </ul>
-        </div>
-        <div class="journey-card-section">
-          <div class="journey-card-label">AI辅助：</div>
-          <div class="journey-card-output">
-            <span class="path-tag">数据洞察</span>
-            <span class="path-tag">用户行为分析</span>
-            <span class="path-tag">产品优化建议</span>
-          </div>
-        </div>
+      <div class="step-name">运营 · Grow</div>
+      <div class="step-desc">进入真实场景，持续创造价值。</div>
+    </div>
+    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24a18 18 0 0 1 30-13.4L42 16"/><polyline points="42 6 42 16 32 16"/><path d="M42 24a18 18 0 0 1-30 13.4L6 32"/><polyline points="6 42 6 32 16 32"/><path d="M24 17l1.8 5.2L31 24l-5.2 1.8L24 31l-1.8-5.2L17 24l5.2-1.8z" stroke="#06b6d4"/></svg></div>
+        <div class="step-num">08</div>
       </div>
-
+      <div class="step-name">迭代 · Iterate</div>
+      <div class="step-desc">根据反馈改进，开启下一轮创造。</div>
     </div>
   </div>
 
-  <!-- 底部导航 -->
-  <div class="journey-nav scroll-reveal">
-    <div class="journey-arrow" id="journeyPrev">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-    </div>
-    <div class="journey-bubbles" id="journeyBubbles">
-      <div class="journey-bubble active" data-step="0"></div>
-      <div class="journey-bubble" data-step="1"></div>
-      <div class="journey-bubble" data-step="2"></div>
-      <div class="journey-bubble" data-step="3"></div>
-      <div class="journey-bubble" data-step="4"></div>
-      <div class="journey-bubble" data-step="5"></div>
-      <div class="journey-bubble" data-step="6"></div>
-      <div class="journey-bubble" data-step="7"></div>
-    </div>
-    <div class="journey-arrow" id="journeyNext">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
+  <div style="margin-top:28px;text-align:center;">
+    <a href="./learning-creation-loop.html" class="cta-btn" style="display:inline-flex;"><span class="btn-text">了解八步创造法</span></a>
   </div>
-  <div class="journey-counter scroll-reveal" id="journeyCounter">01 / 08</div>
 </section>
-
-<!-- ===== 04 开发者介绍 ===== -->
 <section class="section dev-intro-section" id="developer-intro">
   <div class="dev-intro-inner">
     <div class="section-label scroll-reveal">Developer</div>
-    <h2 class="section-title scroll-reveal">关于开发者，我为什么做这个项目</h2>
+    <h2 class="section-title scroll-reveal">我为什么做VibeBubble</h2>
     <p class="dev-intro-subtitle scroll-reveal">一个产品体验设计师的 AI 创造实验</p>
     <div class="dev-intro-body scroll-reveal">
       <p>Hi，我是 SHAOZU。一名互联网产品体验设计师，也是一名正在持续探索 AI 创造方式的实践者。</p>
@@ -951,10 +894,10 @@
 <!-- ===== 05 最终 CTA ===== -->
 <section class="cta-section">
   <div class="section-divider scroll-reveal"></div>
-  <h2 class="section-title scroll-reveal">每一个伟大的产品，都从一个小小的灵感开始</h2>
-  <p class="section-subtitle scroll-reveal">你不需要懂得编程代码，也不需要搭建一个完整团队。<br>你只需要一个想法，一点探索，以及开始创造的勇气。</p>
+  <h2 class="section-title scroll-reveal">发现一个灵感，让想法成为现实</h2>
+  <p class="section-subtitle scroll-reveal">这里有数字产品、智能硬件与创意产品的真实案例，<br>也有正在整理的 AI 工具与创造方法。</p>
   <div class="btn-group scroll-reveal">
-    <a href="./gallery.html" class="cta-btn"><span class="btn-text">探索第一个灵感</span></a>
+    <a href="./gallery.html" class="cta-btn"><span class="btn-text">探索创新案例</span></a>
   </div>
 </section>
 
@@ -1155,95 +1098,7 @@ initHeroBubble();
 })();
 </script>
 
-<!-- ===== 旅程模块交互 ===== -->
-<script>
-(function() {
-  var track = document.getElementById('journeyTrack');
-  if (!track) return;
-  var cards = track.querySelectorAll('.journey-card');
-  var flowItems = document.querySelectorAll('.journey-flow-item');
-  var bubbles = document.querySelectorAll('.journey-bubble');
-  var prevBtn = document.getElementById('journeyPrev');
-  var nextBtn = document.getElementById('journeyNext');
-  var counter = document.getElementById('journeyCounter');
-  var total = cards.length;
-  var currentStep = 0;
-
-  function updateActive(step) {
-    currentStep = step;
-    cards.forEach(function(card, i) {
-      card.classList.toggle('active', i === step);
-    });
-    flowItems.forEach(function(item, i) {
-      item.classList.toggle('active', i === step);
-    });
-    bubbles.forEach(function(bubble, i) {
-      bubble.classList.toggle('active', i === step);
-    });
-    if (counter) {
-      counter.textContent = String(step + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-    }
-  }
-
-  function scrollToCard(step) {
-    if (step < 0 || step >= total) return;
-    var card = cards[step];
-    var trackRect = track.getBoundingClientRect();
-    var cardRect = card.getBoundingClientRect();
-    var offset = cardRect.left - trackRect.left + track.scrollLeft - 32;
-    track.scrollTo({ left: offset, behavior: 'smooth' });
-    updateActive(step);
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', function() {
-      scrollToCard(Math.max(0, currentStep - 1));
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', function() {
-      scrollToCard(Math.min(total - 1, currentStep + 1));
-    });
-  }
-
-  flowItems.forEach(function(item) {
-    item.addEventListener('click', function() {
-      var step = parseInt(item.getAttribute('data-step'));
-      scrollToCard(step);
-    });
-  });
-
-  bubbles.forEach(function(bubble) {
-    bubble.addEventListener('click', function() {
-      var step = parseInt(bubble.getAttribute('data-step'));
-      scrollToCard(step);
-    });
-  });
-
-  // 滚动时同步高亮状态
-  var scrollTimer;
-  track.addEventListener('scroll', function() {
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function() {
-      var trackRect = track.getBoundingClientRect();
-      var closestStep = 0;
-      var closestDist = Infinity;
-      cards.forEach(function(card, i) {
-        var cardRect = card.getBoundingClientRect();
-        var dist = Math.abs(cardRect.left - trackRect.left - 32);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestStep = i;
-        }
-      });
-      if (closestStep !== currentStep) {
-        updateActive(closestStep);
-      }
-    }, 100);
-  });
-})();
-</script>
+<!-- 旧旅程轮播JS已移除 -->
 
 <!-- ===== Lenis 平滑滚动 + GSAP ScrollTrigger 滚动动画 ===== -->
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
