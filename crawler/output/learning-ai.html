@@ -193,7 +193,7 @@ body::after {
 }
 .page-subtitle { font-size: 15px; color: var(--text-dim); line-height: 1.8; max-width: 640px; }
 
-.content-section { margin-bottom: 64px; scroll-margin-top: 100px; }
+.content-section { margin-bottom: 64px; scroll-margin-top: 120px; }
 .section-title {
   font-size: 26px; font-weight: 700; margin-bottom: 24px;
   display: flex; align-items: center; gap: 12px;
@@ -485,8 +485,6 @@ body::after {
   .tl-event { flex: 0 0 200px; }
 }
 </style>
-  .content-section { scroll-margin-top: 130px; }
-</style>
 <body>
 
 <div id="vb-nav-mount"></div>
@@ -767,7 +765,7 @@ function renderPath(pathId) {
 
 function initScrollSpy() {
   const tocLinks = document.querySelectorAll('.toc-link');
-  const offset = 130;
+  const offset = 120;
   function updateActive() {
     let current = '';
     document.querySelectorAll('.content-section').forEach(section => {
