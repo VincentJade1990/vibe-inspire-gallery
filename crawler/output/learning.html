@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Learning - Vibe Bubble</title>
+<title>学习与创造 · VibeBubble</title>
+<meta name="description" content="理解AI，探索可能，把想法逐步变成现实。VibeBubble 整理 AI 通识与八步创造法，帮助你获得启发、推进想法。">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="./auth.js"></script>
 <script src="./nav.js"></script>
@@ -13,26 +14,19 @@
 :root {
   --bg-deep: #050a14;
   --bg-mid: #0a0f1a;
-  --bg-card: rgba(255, 255, 255, 0.035);
   --purple: #a855f7;
-  --purple-light: #c4b5fd;
   --pink: #ec4899;
   --blue: #3b82f6;
   --cyan: #06b6d4;
-  --green: #10b981;
-  --orange: #f59e0b;
   --text: #f8fafc;
   --text-dim: #94a3b8;
   --text-muted: #64748b;
   --glass-border: rgba(255, 255, 255, 0.08);
   --radius-lg: 20px;
-  --radius-md: 14px;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --sidebar-width: 200px;
 }
 
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg-deep);
@@ -50,884 +44,293 @@ body::before {
   inset: -120px;
   background: conic-gradient(
     from 0deg,
-    rgba(236, 72, 153, 0.10),
+    rgba(236, 72, 153, 0.08),
     rgba(168, 85, 247, 0.10),
-    rgba(59, 130, 246, 0.08),
-    rgba(6, 182, 212, 0.06),
-    rgba(245, 158, 11, 0.06),
-    rgba(236, 72, 153, 0.10)
+    rgba(59, 130, 246, 0.07),
+    rgba(6, 182, 212, 0.05),
+    rgba(236, 72, 153, 0.08)
   );
-  animation: iridescentRotate 25s linear infinite;
+  animation: iridescentRotate 30s linear infinite;
   z-index: -2;
   filter: blur(120px);
   pointer-events: none;
 }
-
 @keyframes iridescentRotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(168, 85, 247, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 60% at 85% 75%, rgba(236, 72, 153, 0.06) 0%, transparent 45%),
-    linear-gradient(180deg, #040814 0%, #0a0f1a 40%, #080c18 70%, #0d0818 100%);
-  z-index: -3;
+    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(168,85,247,0.10), transparent 50%),
+    radial-gradient(ellipse 60% 60% at 85% 75%, rgba(6,182,212,0.08), transparent 50%);
+  z-index: -1;
   pointer-events: none;
 }
 
-/* ===== 路径按钮栏 ===== */
-.path-bar {
-  padding: 28px 32px 20px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+.page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 32px 120px;
 }
 
-.path-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+/* ===== Header ===== */
+.page-head {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.page-label {
+  display: inline-block;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--text-muted);
-  padding: 6px 14px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
-  cursor: pointer;
-  transition: var(--transition);
-  white-space: nowrap;
-}
-
-.path-btn:hover {
-  color: var(--text-dim);
-  border-color: rgba(168,85,247,0.2);
-  background: rgba(168,85,247,0.06);
-}
-
-.path-btn.active {
-  color: var(--purple-light);
-  border-color: rgba(168,85,247,0.4);
-  background: rgba(168,85,247,0.12);
-  box-shadow: 0 0 16px rgba(168,85,247,0.15);
-}
-
-.path-btn.locked { cursor: not-allowed; opacity: 0.4; }
-.path-btn.locked:hover { color: var(--text-muted); border-color: rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); }
-.path-arrow { color: var(--text-muted); font-size: 11px; opacity: 0.3; }
-
-/* ===== 内容布局 ===== */
-.learning-layout {
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 32px 80px;
-  gap: 40px;
-  position: relative;
-  z-index: 1;
-  opacity: 0;
-  animation: pageEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
-}
-
-@keyframes pageEnter {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 左侧导航（无标题） */
-.toc-sidebar {
-  width: var(--sidebar-width);
-  flex-shrink: 0;
-  position: sticky;
-  top: 100px;
-  align-self: flex-start;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(168,85,247,0.2) transparent;
-}
-.toc-sidebar::-webkit-scrollbar { width: 3px; }
-.toc-sidebar::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.15); border-radius: 2px; }
-
-.toc-list { list-style: none; }
-.toc-item { margin-bottom: 2px; }
-.toc-link {
-  display: block;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: var(--transition);
-  border-left: 2px solid transparent;
-}
-.toc-link:hover { color: var(--text-dim); background: rgba(255, 255, 255, 0.02); }
-.toc-link.active { color: var(--purple-light); border-left-color: var(--purple); background: rgba(168, 85, 247, 0.06); }
-
-/* 主内容区 */
-.content-main { flex: 1; min-width: 0; }
-
-.page-header { margin-bottom: 48px; }
-.page-label {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 600; color: var(--purple);
-  text-transform: uppercase; letter-spacing: 2px;
-  margin-bottom: 14px; padding: 5px 12px; border-radius: 16px;
-  background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.2);
+  letter-spacing: 4px;
+  color: var(--purple);
+  padding: 6px 18px;
+  background: rgba(168, 85, 247, 0.10);
+  border: 1px solid rgba(168, 85, 247, 0.20);
+  border-radius: 999px;
+  margin-bottom: 20px;
 }
 .page-title {
-  font-size: clamp(32px, 4vw, 42px); font-weight: 800;
-  letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px;
-  background: linear-gradient(90deg, var(--text) 30%, var(--text-dim) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #f8fafc 0%, #a855f7 55%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
 }
-.page-subtitle { font-size: 15px; color: var(--text-dim); line-height: 1.8; max-width: 640px; }
-
-.content-section { margin-bottom: 64px; scroll-margin-top: 100px; }
-.section-title {
-  font-size: 26px; font-weight: 700; margin-bottom: 24px;
-  display: flex; align-items: center; gap: 12px;
-}
-.section-title::before {
-  content: ''; width: 4px; height: 24px;
-  background: linear-gradient(180deg, var(--purple), var(--pink));
-  border-radius: 2px; flex-shrink: 0;
-}
-
-/* 导览卡片 */
-.intro-card {
-  background: var(--bg-card); backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
-  padding: 32px 28px; position: relative; overflow: hidden;
-}
-.intro-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(168,85,247,0.3), transparent);
-}
-.intro-text { font-size: 15px; color: var(--text-dim); line-height: 2; }
-
-/* ===== 横向时间轴 ===== */
-.timeline-phases {
-  display: flex; gap: 6px; margin-bottom: 28px;
-  flex-wrap: nowrap; overflow-x: auto;
-  scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.15) transparent;
-  -webkit-overflow-scrolling: touch;
-}
-.timeline-phases::-webkit-scrollbar { height: 3px; }
-.timeline-phases::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.15); border-radius: 2px; }
-
-.phase-tab {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 11px; font-weight: 500; color: var(--text-muted);
-  padding: 6px 12px; border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
-  cursor: pointer; transition: var(--transition);
-  white-space: nowrap; flex-shrink: 0;
+.page-intro {
+  font-size: 17px;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.9;
 }
 
-.phase-tab .phase-num {
-  width: 20px; height: 20px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; flex-shrink: 0;
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+/* ===== Entry Cards ===== */
+.entry-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
 }
-
-.phase-tab[data-phase="1"] .phase-num { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.3); color: var(--purple-light); }
-.phase-tab[data-phase="2"] .phase-num { background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3); color: var(--pink); }
-.phase-tab[data-phase="3"] .phase-num { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); color: var(--blue); }
-.phase-tab[data-phase="4"] .phase-num { background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); color: var(--cyan); }
-
-.phase-tab:hover { color: var(--text-dim); border-color: rgba(255,255,255,0.12); }
-
-.timeline-scroll {
-  overflow-x: auto; overflow-y: visible;
-  padding: 0 0 12px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(168,85,247,0.2) transparent;
-  -webkit-overflow-scrolling: touch;
-}
-.timeline-scroll::-webkit-scrollbar { height: 4px; }
-.timeline-scroll::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.15); border-radius: 2px; }
-.timeline-scroll::-webkit-scrollbar-track { background: transparent; }
-
-.timeline-track {
-  display: flex;
-  min-width: max-content;
+.entry-card {
+  display: block;
   position: relative;
-  padding: 48px 0 0;
+  padding: 40px 36px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+  overflow: hidden;
+  cursor: pointer;
 }
-
-/* 横线贯穿 */
-.timeline-track::before {
+.entry-card::before {
   content: '';
   position: absolute;
-  top: 44px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,
-    rgba(168,85,247,0.4),
-    rgba(236,72,153,0.4),
-    rgba(59,130,246,0.4),
-    rgba(6,182,212,0.4)
-  );
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  opacity: 0;
+  transition: var(--transition);
+}
+.entry-card:hover,
+.entry-card:focus-visible {
+  border-color: rgba(168, 85, 247, 0.35);
+  background: rgba(168, 85, 247, 0.04);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -20px rgba(168, 85, 247, 0.25);
+  outline: none;
+}
+.entry-card:hover::before,
+.entry-card:focus-visible::before { opacity: 1; }
+
+.entry-card.accent-2::before {
+  background: linear-gradient(90deg, var(--pink), var(--purple));
 }
 
-.tl-event {
-  flex: 0 0 260px;
-  position: relative;
-  padding: 0 8px;
+.entry-head {
+  margin-bottom: 20px;
 }
-
-.tl-year {
-  position: absolute;
-  top: -38px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 12px;
+.entry-label {
+  font-size: 11px;
   font-weight: 700;
-  color: var(--purple-light);
-  white-space: nowrap;
+  letter-spacing: 2px;
+  color: var(--purple);
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
-
-.tl-event[data-phase="2"] .tl-year { color: var(--pink); }
-.tl-event[data-phase="3"] .tl-year { color: var(--blue); }
-.tl-event[data-phase="4"] .tl-year { color: var(--cyan); }
-
-.tl-node {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--bg-deep);
-  border: 2px solid var(--purple);
-  box-shadow: 0 0 10px rgba(168,85,247,0.3);
-  z-index: 1;
-}
-
-.tl-event[data-phase="2"] .tl-node { border-color: var(--pink); box-shadow: 0 0 10px rgba(236,72,153,0.3); }
-.tl-event[data-phase="3"] .tl-node { border-color: var(--blue); box-shadow: 0 0 10px rgba(59,130,246,0.3); }
-.tl-event[data-phase="4"] .tl-node { border-color: var(--cyan); box-shadow: 0 0 10px rgba(6,182,212,0.3); }
-
-.tl-card {
-  margin-top: 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 20px 16px;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.tl-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--purple), transparent);
-}
-.tl-event[data-phase="2"] .tl-card::before { background: linear-gradient(90deg, var(--pink), transparent); }
-.tl-event[data-phase="3"] .tl-card::before { background: linear-gradient(90deg, var(--blue), transparent); }
-.tl-event[data-phase="4"] .tl-card::before { background: linear-gradient(90deg, var(--cyan), transparent); }
-
-.tl-card:hover {
-  border-color: rgba(168,85,247,0.2);
-  background: rgba(168,85,247,0.04);
-  transform: scale(1.06);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 24px rgba(168,85,247,0.08);
-  z-index: 2;
-}
-
-.tl-event[data-phase="2"] .tl-card:hover { border-color: rgba(236,72,153,0.2); box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 24px rgba(236,72,153,0.08); }
-.tl-event[data-phase="3"] .tl-card:hover { border-color: rgba(59,130,246,0.2); box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 24px rgba(59,130,246,0.08); }
-.tl-event[data-phase="4"] .tl-card:hover { border-color: rgba(6,182,212,0.2); box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 24px rgba(6,182,212,0.08); }
-
-.tl-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
-.tl-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
-.tl-link {
-  display: inline-block; margin-top: 8px; font-size: 11px;
-  color: var(--purple-light); text-decoration: none;
-  border-bottom: 1px dashed rgba(168,85,247,0.3); transition: var(--transition);
-}
-.tl-link:hover { color: var(--purple); border-bottom-color: var(--purple); }
-
-/* ===== 人物卡片 ===== */
-.person-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.person-card {
-  background: var(--bg-card);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 24px 20px;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-.person-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-}
-.person-card:hover {
-  border-color: rgba(168, 85, 247, 0.2);
-  background: rgba(168, 85, 247, 0.03);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-
-.person-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
-
-.person-num {
-  width: 28px; height: 28px; border-radius: 8px;
-  background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.1));
-  border: 1px solid rgba(168,85,247,0.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: var(--purple-light); flex-shrink: 0;
-}
-
-.person-name { flex: 1; }
-.person-name-cn { font-size: 19px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
-.person-name-en { font-size: 12px; color: var(--text-muted); }
-
-.person-title { font-size: 12px; color: var(--purple-light); margin-bottom: 10px; font-weight: 500; }
-.person-contrib { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-bottom: 12px; }
-.person-works { font-size: 12px; color: var(--text-muted); padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); }
-.person-works strong { color: var(--text-dim); font-weight: 500; }
-
-/* ===== 公司卡片 ===== */
-.company-list { display: flex; flex-direction: column; gap: 16px; }
-
-.company-card {
-  background: var(--bg-card);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  transition: var(--transition);
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 24px;
-  align-items: flex-start;
-}
-.company-card:hover { border-color: rgba(168, 85, 247, 0.2); background: rgba(168, 85, 247, 0.03); }
-
-.company-logo {
-  width: 48px; height: 48px;
-  border-radius: 12px;
-  background: #ffffff;
-  border: 1px solid rgba(255,255,255,0.12);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden; flex-shrink: 0;
-  padding: 8px;
-}
-.company-logo img { width: 100%; height: 100%; object-fit: contain; }
-.company-logo-fallback {
-  font-size: 20px; font-weight: 700; color: var(--purple-light);
-}
-
-.company-num {
-  width: 28px; height: 28px; border-radius: 8px;
-  background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(59,130,246,0.08));
-  border: 1px solid rgba(168,85,247,0.15);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: var(--purple-light); flex-shrink: 0;
-}
-
-.company-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-.company-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
-.company-desc { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-bottom: 12px; }
-.company-products { display: flex; flex-wrap: wrap; gap: 8px; }
-.product-tag { font-size: 12px; padding: 4px 10px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); color: var(--text-dim); }
-
-/* 基础概念卡片 */
-.concept-tabs {
-  display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
-}
-.concept-tab {
-  padding: 8px 18px; border-radius: 20px;
-  font-size: 13px; font-weight: 500; color: var(--text-muted);
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  cursor: pointer; transition: var(--transition);
-}
-.concept-tab:hover { color: var(--text); border-color: rgba(168,85,247,0.2); }
-.concept-tab.active {
-  color: var(--purple-light); font-weight: 600;
-  background: rgba(168,85,247,0.08);
-  border-color: rgba(168,85,247,0.25);
-}
-.concept-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-}
-.concept-card {
-  background: var(--bg-card);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-.concept-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--purple), transparent);
-}
-.concept-card:hover {
-  border-color: rgba(168,85,247,0.2);
-  background: rgba(168,85,247,0.03);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-.concept-card h4 {
-  font-size: 16px; font-weight: 600; color: var(--text);
-  margin-bottom: 2px;
-}
-.concept-card .concept-en-name {
-  font-size: 14px; color: var(--text-dim); margin-bottom: 14px;
-}
-.concept-card .concept-label {
-  font-size: 10px; font-weight: 600; color: var(--purple);
-  text-transform: uppercase; letter-spacing: 0.05em;
+.entry-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text);
   margin-bottom: 4px;
+  line-height: 1.2;
 }
-.concept-card .concept-desc {
-  font-size: 13px; color: var(--text-dim); line-height: 1.7;
-  margin-bottom: 12px;
-}
-.concept-card .concept-key {
-  font-size: 13px; color: var(--text); line-height: 1.7;
-  margin-bottom: 12px;
-}
-.concept-card .concept-example {
-  font-size: 12px; color: var(--text-muted); line-height: 1.6;
-  padding: 10px 12px; border-radius: 8px;
-  background: rgba(255,255,255,0.03);
-  border-left: 2px solid rgba(168,85,247,0.3);
-  margin-bottom: 12px;
-}
-.concept-card .concept-related {
-  display: flex; flex-wrap: wrap; gap: 6px;
-}
-.concept-card .concept-related span {
-  font-size: 11px; color: var(--text-muted);
-  padding: 2px 8px; border-radius: 4px;
-  background: rgba(255,255,255,0.04);
+.entry-title-en {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
 }
 
-/* Coming Soon */
-.coming-soon-panel { text-align: center; padding: 80px 32px; }
-.coming-soon-panel svg { margin-bottom: 20px; opacity: 0.3; }
-.coming-soon-panel h3 { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-.coming-soon-panel p { font-size: 14px; color: var(--text-muted); }
+.entry-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.85;
+  margin-bottom: 24px;
+}
 
-/* 响应式 */
-@media (max-width: 900px) { .toc-sidebar { display: none; } .learning-layout { padding: 32px 20px 60px; } }
-@media (max-width: 768px) {
-  .person-grid { grid-template-columns: 1fr; }
-  .company-card { grid-template-columns: 1fr; gap: 12px; }
-  .concept-grid { grid-template-columns: 1fr; }
-  .path-bar { padding: 20px 16px 16px; gap: 2px; }
-  .path-btn { padding: 5px 10px; font-size: 11px; }
-  .tl-event { flex: 0 0 200px; }
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.entry-tag {
+  font-size: 12px;
+  color: var(--text-dim);
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.entry-status {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 10px 16px;
+  background: rgba(100, 116, 139, 0.08);
+  border: 1px dashed rgba(100, 116, 139, 0.25);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.entry-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.04em;
+  transition: gap 0.25s ease;
+}
+.entry-card:hover .entry-cta { gap: 12px; }
+.entry-cta-arrow {
+  transition: transform 0.25s ease;
+}
+.entry-card:hover .entry-cta-arrow { transform: translateX(4px); }
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+  .page-wrap { padding: 48px 24px 80px; }
+  .page-title { font-size: 38px; }
+  .page-intro { font-size: 15px; }
+  .entry-cards { grid-template-columns: 1fr; gap: 20px; }
+  .entry-card { padding: 32px 26px; }
+  .entry-title { font-size: 26px; }
+}
+@media (max-width: 480px) {
+  .page-title { font-size: 32px; }
+  .entry-card { padding: 28px 22px; }
+  .entry-title { font-size: 24px; }
 }
 </style>
 </head>
 <body>
 
 <div id="vb-nav-mount"></div>
-<div class="path-bar" id="pathBar"></div>
 
-<div class="learning-layout">
-  <aside class="toc-sidebar" id="tocSidebar">
-    <ul class="toc-list" id="tocList"></ul>
-  </aside>
-  <main class="content-main" id="contentMain"></main>
+<div class="page-wrap">
+  <header class="page-head">
+    <div class="page-label">VIBE BUBBLE · LEARNING</div>
+    <h1 class="page-title">学习与创造</h1>
+    <p class="page-intro">
+      理解AI，探索可能，把想法逐步变成现实。
+    </p>
+  </header>
+
+  <div class="entry-cards">
+
+    <!-- 卡片一：AI 通识 -->
+    <a class="entry-card" href="./learning-ai.html" aria-label="进入 AI 通识">
+      <div class="entry-head">
+        <div class="entry-label">MODULE 01</div>
+        <h2 class="entry-title">AI 通识</h2>
+        <div class="entry-title-en">AI Fundamentals</div>
+      </div>
+      <p class="entry-desc">
+        理解AI的基本原理、能力与边界，学习协作方法，选择适合自己的工具。
+      </p>
+      <div class="entry-tags">
+        <span class="entry-tag">能力与边界</span>
+        <span class="entry-tag">AI 协作</span>
+        <span class="entry-tag">工具地图</span>
+        <span class="entry-tag">基础概念</span>
+        <span class="entry-tag">发展脉络</span>
+      </div>
+      <div class="entry-cta">
+        了解 AI 通识
+        <span class="entry-cta-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 卡片二：八步创造法 -->
+    <a class="entry-card accent-2" href="./learning-creation-loop.html" aria-label="进入八步创造法">
+      <div class="entry-head">
+        <div class="entry-label">MODULE 02</div>
+        <h2 class="entry-title">八步创造法</h2>
+        <div class="entry-title-en">8-step Creation Loop</div>
+      </div>
+      <p class="entry-desc">
+        从认知、探索到设计、实现，通过运营与迭代，让想法逐步成为现实。
+      </p>
+      <div class="entry-tags">
+        <span class="entry-tag">认知</span>
+        <span class="entry-tag">探索</span>
+        <span class="entry-tag">定位</span>
+        <span class="entry-tag">分析</span>
+        <span class="entry-tag">设计</span>
+        <span class="entry-tag">实现</span>
+        <span class="entry-tag">运营</span>
+        <span class="entry-tag">迭代</span>
+      </div>
+      <div class="entry-status">
+        阶段概览已开放，详细内容持续整理中。
+      </div>
+      <div class="entry-cta">
+        了解八步创造法
+        <span class="entry-cta-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
 </div>
 
 <script>
-const LEARNING_PATHS = [
-  { id: '01', name: '基础认知', en: 'Understand', status: 'available' },
-  { id: '02', name: '探索灵感', en: 'Explore', status: 'coming' },
-  { id: '03', name: '需求分析', en: 'Discover', status: 'coming' },
-  { id: '04', name: '产品定位', en: 'Define', status: 'coming' },
-  { id: '05', name: '产品设计', en: 'Design', status: 'coming' },
-  { id: '06', name: '产品开发', en: 'Build', status: 'coming' },
-  { id: '07', name: '发布运营', en: 'Launch', status: 'coming' },
-  { id: '08', name: '增长营销', en: 'Grow', status: 'coming' },
-];
-
-const PATH_01_DATA = {
-  title: '基础认知',
-  subtitle: '了解 AI 的发展脉络、核心人物、关键公司与基础概念，建立正确的认知起点。',
-  sections: [
-    {
-      id: 'intro',
-      title: '导览',
-      type: 'intro',
-      content: '人工智能是一类让计算机能够理解、生成、判断和执行任务的技术。今天我们使用的 ChatGPT、DeepSeek、豆包等产品，主要建立在大语言模型之上：模型通过大量数据训练，学习语言和信息之间的规律，再根据用户提供的上下文生成结果。它并不等同于人类思考，也不是一个无所不知的数据库。理解 AI 的发展、基本概念、工作方式、能力边界和协作方法，是正确使用 AI 的起点。'
-    },
-    {
-      id: 'timeline',
-      title: 'AI 发展重大事件时间轴',
-      type: 'timeline',
-      phases: [
-        { id: 1, name: '第一阶段：人类开始定义和模拟智能' },
-        { id: 2, name: '第二阶段：数据、算法与算力汇合' },
-        { id: 3, name: '第三阶段：AI 形成通用理解与生成能力' },
-        { id: 4, name: '第四阶段：AI 从生成答案走向执行任务' },
-      ],
-      events: [
-        { year: '1943', phase: 1, title: '麦卡洛克与皮茨提出人工神经元模型', desc: '沃伦·麦卡洛克和沃尔特·皮茨尝试用数学模型描述神经元如何接收和传递信号。它第一次把人脑神经活动与计算联系起来，为后来的人工神经网络奠定理论基础。' },
-        { year: '1950', phase: 1, title: '艾伦·图灵提出"机器能否思考"', desc: '艾伦·图灵发表《计算机器与智能》，提出后来被称为"图灵测试"的思想实验。他将抽象的哲学问题转化为一个可以观察和讨论的问题：如果人无法通过对话判断对方是机器，是否可以认为机器表现出了智能？' },
-        { year: '1956', phase: 1, title: '约翰·麦卡锡等人正式提出"人工智能"', desc: '约翰·麦卡锡、马文·明斯基、克劳德·香农等人在达特茅斯组织研讨会，正式使用"Artificial Intelligence"一词。人工智能由分散的数学、计算机和认知研究，发展为一个独立研究领域。', link: '达特茅斯学院', url: 'https://home.dartmouth.edu/about/artificial-intelligence-ai-coined-dartmouth' },
-        { year: '1957', phase: 1, title: '弗兰克·罗森布拉特提出感知机', desc: '感知机能够根据训练样本自动调整参数，标志着机器开始尝试"从数据中学习"，而不只是执行程序员提前写好的固定规则。它是现代神经网络最早的原型之一。' },
-        { year: '1986', phase: 1, title: '杰弗里·辛顿等人推动反向传播算法', desc: '大卫·鲁梅尔哈特、杰弗里·辛顿和罗纳德·威廉姆斯推动反向传播算法的应用，使多层神经网络能够根据预测误差不断调整内部参数，学习更复杂的规律。' },
-        { year: '1997', phase: 2, title: 'IBM Deep Blue击败世界象棋冠军', desc: 'IBM研发的Deep Blue击败国际象棋世界冠军加里·卡斯帕罗夫，证明计算机可以依靠高速计算、搜索算法和人工设计的评估规则，在复杂但边界明确的任务中超过顶尖人类。', link: 'IBM历史档案', url: 'https://www.ibm.com/history/deep-blue' },
-        { year: '2006', phase: 2, title: '黄仁勋领导NVIDIA推出CUDA', desc: '黄仁勋领导的NVIDIA推出CUDA，让开发者可以使用GPU进行通用并行计算。Ian Buck等技术推动者将GPU从图形处理设备扩展为科学计算平台，为后来训练大型神经网络提供了关键算力基础。', link: 'NVIDIA发展时间线', url: 'https://www.nvidia.com/en-us/about-nvidia/corporate-timeline/' },
-        { year: '2009', phase: 2, title: '李飞飞团队发布ImageNet', desc: '李飞飞带领团队建立拥有数百万张标注图片的ImageNet，为AI视觉研究提供统一的训练数据和评测基础。项目核心成员还包括邓嘉等华人研究者。', link: 'ImageNet论文', url: 'https://www.image-net.org/static_files/papers/imagenet_cvpr09.pdf' },
-        { year: '2012', phase: 2, title: 'Krizhevsky、Sutskever与Hinton发布AlexNet', desc: 'Alex Krizhevsky、Ilya Sutskever和杰弗里·辛顿使用深度神经网络、ImageNet数据和GPU训练AlexNet，在图像识别竞赛中大幅领先其他方法。', link: 'AlexNet论文', url: 'https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf' },
-        { year: '2016', phase: 2, title: 'AlphaGo击败李世石', desc: 'Demis Hassabis、David Silver、黄士杰等DeepMind团队成员，将深度神经网络、强化学习和搜索算法结合起来，开发出AlphaGo。', link: 'Google DeepMind', url: 'https://deepmind.google/research/alphago/' },
-        { year: '2017', phase: 3, title: 'Google研究团队提出Transformer', desc: 'Ashish Vaswani等八位研究者发表《Attention Is All You Need》，提出以注意力机制为核心的Transformer架构。', link: 'Transformer论文', url: 'https://papers.neurips.cc/paper/7181-attention-is-all-you-need.pdf' },
-        { year: '2020', phase: 3, title: 'GPT-3展现大模型的通用任务能力', desc: 'OpenAI通过扩大模型规模、训练数据和计算投入，让同一个语言模型能够完成问答、写作、翻译、总结和简单代码等多种任务。' },
-        { year: '2020', phase: 3, title: 'AlphaFold 2推动AI进入科学发现', desc: 'Demis Hassabis、John Jumper及DeepMind团队使用AI预测蛋白质的三维结构，大幅提升蛋白质结构预测效率。' },
-        { year: '2022', phase: 3, title: '扩散模型推动AI图像生成普及', desc: 'DALL·E 2、Midjourney和Stable Diffusion等产品让普通用户可以通过文字生成高质量图像。' },
-        { year: '2022年11月', phase: 3, title: 'ChatGPT把大模型带给普通用户', desc: 'OpenAI发布ChatGPT，将大语言模型封装成简单的对话产品。', link: 'OpenAI发布记录', url: 'https://openai.com/index/chatgpt/' },
-        { year: '2022', phase: 4, title: '姚顺雨等人提出ReAct方法', desc: '姚顺雨等研究者提出ReAct，将Reasoning和Acting结合起来，让语言模型可以一边分析问题、更新计划，一边调用外部环境获取信息或采取行动。', link: 'ReAct论文', url: 'https://arxiv.org/abs/2210.03629' },
-        { year: '2023', phase: 4, title: '大语言模型开始调用外部工具', desc: '以Function Calling为代表的工具调用能力开始普及。模型可以按照约定格式调用搜索、数据库、计算器、代码和其他软件接口，再根据工具返回的结果继续处理任务。', link: '工具调用说明', url: 'https://developers.openai.com/api/docs/guides/function-calling' },
-        { year: '2024', phase: 4, title: '原生多模态模型改变人机交互', desc: 'GPT-4o、Gemini等模型开始更统一地处理文字、图像、语音和视频。AI逐渐能够看见用户看到的内容、听懂自然语音，并进行更实时的交流。' },
-        { year: '2024', phase: 4, title: 'AI开始操作电脑并连接更多工具', desc: 'Anthropic发布Computer Use，使模型能够根据屏幕画面控制鼠标和键盘；随后发布Model Context Protocol（MCP），为AI连接文件、数据库和外部工具提供开放接口。', link: 'Computer Use / MCP', url: 'https://www.anthropic.com/news/3-5-models-and-computer-use' },
-        { year: '2025年1月', phase: 4, title: '梁文锋与DeepSeek团队发布R1', desc: '梁文锋与DeepSeek团队发布开放权重推理模型R1。团队在V3高效模型架构的基础上，通过强化学习提升模型的推理、反思和自我验证能力，以更高的计算效率实现具有竞争力的性能。', link: 'DeepSeek-R1论文', url: 'https://www.nature.com/articles/s41586-025-09422-z' },
-        { year: '2025—2026', phase: 4, title: 'AI智能体进入真实工作环境', desc: 'AI公司开始把模型、网页搜索、文件搜索、代码运行、电脑操作、任务追踪和长期上下文整合成智能体系统。' },
-      ]
-    },
-    {
-      id: 'persons',
-      title: 'AI 发展重点人物',
-      type: 'persons',
-      items: [
-        { num: '01', nameCn: '艾伦·图灵', nameEn: 'Alan Turing', title: '机器智能思想的奠基者', contrib: '图灵提出"机器能否思考"这一核心问题，并设计后来被称为"图灵测试"的思想实验，将机器智能从哲学讨论转化为可以观察和验证的问题。', works: '《计算机器与智能》、图灵测试' },
-        { num: '02', nameCn: '克劳德·香农', nameEn: 'Claude Shannon', title: '信息论与智能计算的奠基者', contrib: '香农创立信息论，为计算机处理、传输和编码信息建立数学基础。他还研究如何让计算机下国际象棋，并参与达特茅斯会议。', works: '信息论、《Programming a Computer for Playing Chess》' },
-        { num: '03', nameCn: '约翰·麦卡锡', nameEn: 'John McCarthy', title: '"人工智能"概念的提出者', contrib: '麦卡锡提出"Artificial Intelligence"一词，并组织1956年达特茅斯会议，推动人工智能成为独立研究领域。他还发明了 LISP 语言。', works: '达特茅斯会议、Artificial Intelligence、LISP' },
-        { num: '04', nameCn: '弗兰克·罗森布拉特', nameEn: 'Frank Rosenblatt', title: '感知机的提出者', contrib: '罗森布拉特提出感知机，让机器能够根据训练数据自动调整参数。感知机是最早可以通过数据学习的神经网络模型之一。', works: '感知机、Mark I Perceptron' },
-        { num: '05', nameCn: '亚瑟·塞缪尔', nameEn: 'Arthur Samuel', title: '机器学习的早期实践者', contrib: '塞缪尔开发了能够通过比赛经验不断改进的跳棋程序，展示了计算机不只能够执行固定规则，还可以从经验中学习。', works: '塞缪尔跳棋程序、Machine Learning 概念' },
-        { num: '06', nameCn: '大卫·鲁梅尔哈特', nameEn: 'David Rumelhart', title: '反向传播的重要推动者', contrib: '鲁梅尔哈特与辛顿、威廉姆斯共同推动反向传播算法，使多层神经网络能够根据预测误差逐层调整参数。', works: '反向传播算法的重要论文' },
-        { num: '07', nameCn: '杰弗里·辛顿', nameEn: 'Geoffrey Hinton', title: '深度学习的关键奠基者', contrib: '辛顿长期推动神经网络和深度学习研究。在神经网络一度不受重视的时期，他仍持续探索，推动 AlexNet 等重要突破。', works: '反向传播研究、深度信念网络、AlexNet' },
-        { num: '08', nameCn: '杨立昆', nameEn: 'Yann LeCun', title: '卷积神经网络的奠基者', contrib: '杨立昆推动卷积神经网络发展，使计算机能够逐层学习图像中的边缘、形状和物体特征。CNN 成为图像识别的重要基础。', works: '卷积神经网络、LeNet' },
-        { num: '09', nameCn: '约书亚·本吉奥', nameEn: 'Yoshua Bengio', title: '深度学习的关键奠基者', contrib: '本吉奥推动深度神经网络、表示学习和神经语言模型发展。与辛顿、杨立昆共同获得2018年图灵奖。', works: '神经语言模型、表示学习、深度学习研究' },
-        { num: '10', nameCn: '理查德·萨顿', nameEn: 'Richard Sutton', title: '强化学习的奠基者', contrib: '萨顿建立强化学习的重要理论，让 AI 能够通过行动、观察结果和获得反馈，不断调整策略。', works: '时序差分学习、《Reinforcement Learning: An Introduction》' },
-        { num: '11', nameCn: '李飞飞', nameEn: 'Fei-Fei Li', title: '数据驱动 AI 的推动者', contrib: '李飞飞发起 ImageNet 大型图像数据库和视觉识别挑战，推动计算机视觉从人工设计特征转向使用海量数据训练深度神经网络。', works: 'ImageNet、ImageNet 视觉识别挑战' },
-        { num: '12', nameCn: '黄仁勋', nameEn: 'Jensen Huang', title: 'AI 加速计算生态的推动者', contrib: '黄仁勋领导 NVIDIA 推动 GPU 和 CUDA 平台发展，为深度学习和大模型训练提供关键算力基础。', works: 'NVIDIA GPU 计算生态、CUDA 平台' },
-        { num: '13', nameCn: '德米斯·哈萨比斯', nameEn: 'Demis Hassabis', title: 'AlphaGo 与 AI 科学的推动者', contrib: '哈萨比斯联合创办 DeepMind。AlphaGo 展示了 AI 处理复杂决策的能力，AlphaFold 则证明 AI 可以帮助解决科学问题。', works: 'DeepMind、AlphaGo、AlphaFold' },
-        { num: '14', nameCn: '伊恩·古德费洛', nameEn: 'Ian Goodfellow', title: '生成对抗网络的提出者', contrib: '古德费洛提出生成对抗网络（GAN），让生成模型和判别模型在相互对抗中共同提升，显著推动 AI 图像生成。', works: '生成对抗网络 GAN' },
-        { num: '15', nameCn: '阿希什·瓦斯瓦尼', nameEn: 'Ashish Vaswani', title: 'Transformer 的代表性提出者', contrib: '瓦斯瓦尼作为核心作者，与 Google 团队共同提出 Transformer 架构，成为大语言模型的重要技术基础。', works: 'Transformer、《Attention Is All You Need》' },
-        { num: '16', nameCn: '吴恩达', nameEn: 'Andrew Ng', title: 'AI 工程化与大众教育的推动者', contrib: '吴恩达推动深度学习在工程和产业中的应用，并通过在线课程向大众普及 AI 知识，显著降低学习门槛。', works: 'Google Brain、Coursera、机器学习与深度学习课程' },
-      ]
-    },
-    {
-      id: 'companies',
-      title: 'AI 公司',
-      type: 'companies',
-      items: [
-        { num: '01', name: 'NVIDIA 英伟达', logo: 'nvidia.png', founded: '1993年', founders: '黄仁勋、马拉科夫斯基、普里姆', desc: '专注于加速计算的科技公司。GPU 和 CUDA 平台为大模型训练、图像生成和智能驾驶等 AI 应用提供了重要算力基础。', products: ['NVIDIA GPU', 'CUDA', 'DGX', 'NVIDIA Broadcast'] },
-        { num: '02', name: 'Google 谷歌', logo: 'google.png', founded: '1998年', founders: '拉里·佩奇、谢尔盖·布林', desc: '从搜索引擎发展而来的全球科技公司。通过 Google DeepMind 推动深度学习、Transformer、多模态模型和科学智能的发展。', products: ['Gemini', 'NotebookLM', 'Veo', 'Google AI Studio'] },
-        { num: '03', name: 'Meta', logo: 'meta.png', founded: '2004年', founders: '马克·扎克伯格等', desc: '拥有 Facebook、Instagram 和 WhatsApp 等社交平台的科技公司，也是开放权重大模型的重要推动者。', products: ['Meta AI', 'Llama', 'Ray-Ban Meta'] },
-        { num: '04', name: 'OpenAI', logo: 'openai.png', founded: '2015年', founders: '萨姆·奥尔特曼、布罗克曼等', desc: '人工智能研究与产品公司。ChatGPT 推动生成式 AI 进入大众市场，让普通用户能够通过自然语言完成问答、创作、分析和工作任务。', products: ['ChatGPT', 'GPT', 'Sora', 'Codex'] },
-        { num: '05', name: 'Anthropic', logo: 'anthropic.png', founded: '2021年', founders: '达里奥·阿莫代伊、丹妮拉·阿莫代伊等', desc: '专注于通用人工智能和 AI 安全的公司，以 Claude 模型和 AI 编程能力受到关注。', products: ['Claude', 'Claude Code', 'Claude API'] },
-        { num: '06', name: '阿里巴巴', logo: 'alibaba.png', founded: '1999年', founders: '马云等18位创始成员', desc: '覆盖电商、云计算和数字服务的科技公司。通过千问模型和阿里云，将 AI 能力应用于办公、搜索、电商和企业服务。', products: ['千问', 'Qwen', '夸克AI', '通义万相'] },
-        { num: '07', name: '腾讯', logo: 'tencent.png', founded: '1998年', founders: '马化腾、张志东等', desc: '覆盖社交、游戏、内容和企业服务的互联网科技公司，正在将 AI 能力融入微信生态、办公和内容产品。', products: ['腾讯元宝', '腾讯混元', 'ima', '腾讯会议AI'] },
-        { num: '08', name: '字节跳动', logo: 'bytedance.png', founded: '2012年', founders: '张一鸣、梁汝波', desc: '以内容平台和推荐算法起家的科技公司。AI 产品覆盖对话、图像、视频、音乐和智能体创建。', products: ['豆包', '即梦', 'Coze', 'Kimi'] },
-        { num: '09', name: 'DeepSeek 深度求索', logo: 'deepseek.png', founded: '2023年', founders: '梁文锋', desc: '中国 AI 公司，以开放权重和高效推理模型著称。R1 模型改变了行业对 AI 研发成本的认识。', products: ['DeepSeek-V3', 'DeepSeek-R1'] },
-        { num: '10', name: '月之暗面 Moonshot AI', logo: 'moonshot.png', founded: '2023年', founders: '杨植麟', desc: '专注于长上下文和大语言模型的中国 AI 公司，Kimi 是其面向消费者的主要产品。', products: ['Kimi', 'Kimi Agent'] },
-        { num: '11', name: '百度', logo: 'baidu.png', founded: '2000年', founders: '李彦宏等', desc: '中国搜索引擎公司，文心一言是其面向消费者的 AI 助手，百度在自动驾驶领域也有深入布局。', products: ['文心一言', '文心大模型', 'Apollo'] },
-        { num: '12', name: 'MiniMax', logo: 'minimax.png', founded: '2022年', founders: '闫俊杰、杨斌、周宇丛', desc: '专注于多模态基础模型和 AI 原生应用的中国公司，能力覆盖文本、语音、音乐、图像、视频和虚拟角色。', products: ['海螺AI', 'Talkie', 'MiniMax Agent', 'MiniMax Audio'] },
-      ]
-    },
-    {
-      id: 'concepts',
-      title: '基础概念',
-      type: 'concepts',
-      categories: [
-        {
-          name: 'AI 整体认知',
-          items: [
-            { cn: '人工智能', en: 'AI（Artificial Intelligence）', desc: '人工智能是让计算机系统具备感知、学习、语言处理、推理、生成内容和辅助决策等能力的技术领域。它是一个总称，包含机器学习、深度学习、大语言模型、计算机视觉等多种技术。', key: 'AI不等于ChatGPT，也不等于某一种模型。ChatGPT是AI产品，大语言模型是其能力基础，而人工智能是覆盖这些技术与应用的更大范围。', related: ['算法','模型','机器学习','AIGC','智能体'] },
-            { cn: '算法', en: 'Algorithm', desc: '算法是解决问题的一组明确步骤和规则。计算机按照算法接收输入、完成计算并产生输出。传统算法的规则主要由人编写，机器学习算法则可以利用数据调整模型，使系统从数据中发现规律。', key: '算法是实现AI的组成部分，但算法本身不等于AI。一个完整的AI系统通常还需要数据、模型、算力、软件和具体产品。', example: '导航软件通过算法比较多条路线；推荐系统通过算法分析用户行为并预测可能感兴趣的内容。', related: ['人工智能','机器学习','模型','数据'] },
-            { cn: '自动化', en: 'Automation', desc: '自动化是利用程序、设备或流程，在较少人工参与的情况下重复完成任务。传统自动化通常按照预先设定的规则运行；加入AI后，系统还可以处理语言、图像和复杂数据，并根据不同情况作出一定调整。', key: '自动化强调"自动执行"，AI增加了识别、生成和判断等能力。两者可以结合：AI负责分析和决策，自动化系统负责触发和执行后续动作。', example: '每天定时发送邮件属于自动化；先由AI分析邮件内容，再判断转发给谁，属于AI与自动化结合。', related: ['算法','人工智能','工作流','智能体','工具调用'] },
-            { cn: '模型', en: 'Model / AI Model', desc: '模型是AI系统处理输入并产生输出的核心组件。机器学习模型通过训练，从数据中学习参数和规律，再利用这些规律处理新的文字、图片、声音或其他输入。', key: '模型提供能力，产品负责把模型、界面、数据和工具组合成可以使用的服务。同一个模型可以被多个产品调用，一个产品也可以同时调用多个模型。', related: ['训练','参数','推理','大语言模型','AI产品'] },
-            { cn: '机器学习', en: 'ML（Machine Learning）', desc: '机器学习是实现人工智能的一类方法。开发者提供数据、学习目标和训练方法，让系统从数据中寻找统计规律，并利用学到的模型对新数据进行分类、预测或生成结果。', key: '机器学习学到的是数据中的模式，并不天然理解现实世界。模型表现会受到数据质量、训练方法、任务定义和使用环境影响。', example: '利用历史邮件训练垃圾邮件识别模型，再判断新邮件是否属于垃圾邮件。', related: ['数据集','训练','模型','监督学习','深度学习'] },
-            { cn: '神经网络', en: 'Neural Network / Artificial Neural Network', desc: '神经网络是一类由许多相互连接的计算单元组成的机器学习模型。输入数据经过多层计算和参数转换，模型逐步提取特征，并学习输入与输出之间的复杂关系。', key: '神经网络受到生物神经系统的启发，但它不是人脑的复制品，也不能因此被认为拥有人的意识和理解能力。', related: ['神经元','参数','机器学习','深度学习','训练'] },
-            { cn: '深度学习', en: 'DL（Deep Learning）', desc: '深度学习是使用多层神经网络进行学习的机器学习方法。不同网络层可以逐步提取更复杂的特征，使系统能够处理图像、语音和语言等难以通过简单规则描述的数据。', key: '"深度"主要指神经网络具有较多处理层，不代表模型拥有更深的人类思想。深度学习的进步同时依赖模型架构、训练数据、计算方法和算力。', related: ['机器学习','神经网络','参数','GPU','Transformer'] },
-            { cn: '大语言模型', en: 'LLM（Large Language Model）', desc: '大语言模型是使用大量文本及相关数据训练的语言模型。它把内容转换为Token，根据上下文预测接下来可能出现的Token，从而完成问答、写作、总结、翻译和编程等任务。', key: '大语言模型生成的是概率结果，并非从权威数据库中提取标准答案。它可以产生连贯、有逻辑但事实错误的内容，因此重要信息仍需核查。上下文窗口决定模型一次能够处理多少信息。', related: ['模型','Transformer','Token','上下文窗口','推理','幻觉'] },
-            { cn: '人工智能生成内容', en: 'AIGC（Artificial Intelligence Generated Content）', desc: 'AIGC是由人工智能生成或辅助生成的文字、图片、音频、视频和代码等内容，也可以指使用AI进行内容生产的方式。实现这些能力的模型和技术通常被统称为生成式人工智能。', key: 'AI生成降低了部分内容的生产门槛，但不自动保证内容准确、原创或可以自由商用。使用者仍需检查事实、版权、隐私和内容来源。', related: ['大语言模型','扩散模型','提示词','深度伪造','版权'] },
-            { cn: '智能体', en: 'AI Agent', desc: '智能体是围绕特定目标进行规划和行动的AI系统。它可以分析任务、安排步骤、调用搜索、文件、软件等工具，观察执行结果并继续调整，直到完成任务或需要人工介入。', key: '普通聊天机器人主要生成回答，智能体还会执行行动。智能体的自主程度并不固定，能使用工具也不代表它可以完全脱离人工监督。', example: '用户提出"整理会议材料"，智能体可以查找文件、提取信息、生成摘要并创建待办事项。', related: ['大语言模型','任务规划','工具调用','工作流','人在回路'] },
-            { cn: '通用人工智能', en: 'AGI（Artificial General Intelligence）', desc: '通用人工智能通常指能够跨领域学习、理解和解决多种复杂问题，并把已有能力迁移到陌生任务中的高度通用AI。目前不同机构对AGI的定义并不完全一致，也没有获得广泛认可的统一测试标准。', key: 'AGI是研究目标和未来设想，不能直接等同于当前的大语言模型或智能体。', related: ['人工智能','大语言模型','智能体','AI对齐','AI安全'] },
-          ]
-        },
-        {
-          name: 'AI 如何学习',
-          items: [
-            { cn: '训练数据', en: 'Training Data', desc: '训练数据是模型在训练过程中接触的文字、图片、音频、视频或其他信息。模型通过分析大量数据中的规律，逐渐形成识别、预测和生成内容的能力。', key: '训练数据的数量很重要，质量、代表性和合法性同样重要。数据中的错误、缺失和偏见，也可能被模型学习并反映在输出中。', example: '一个识别猫的模型，需要通过大量不同品种、角度和环境中的猫图片进行学习。', related: ['数据标注','训练','数据偏差','预训练'] },
-            { cn: '数据标注', en: 'Data Annotation', desc: '数据标注是为文字、图片、声音等数据添加名称、类别、答案或其他说明。标注后的数据可以告诉模型"什么是什么"或"什么结果更符合要求"。', key: '标注质量会直接影响模型的学习效果。数据标注可以由人工完成，也可以借助程序或AI辅助处理，但通常仍需要检查和校正。', example: '在图片中框出汽车、行人和红绿灯，并分别写上名称，就是一种数据标注。', related: ['训练数据','监督学习','人类反馈'] },
-            { cn: '训练', en: 'Training', desc: '训练是让模型反复处理数据，并根据结果调整内部参数的过程。随着参数不断调整，模型会逐渐提高识别规律、预测结果或生成内容的能力。', key: '模型训练通常需要大量数据、算力和时间。普通用户上传文件或与AI聊天，一般不会让基础模型立即重新训练或永久记住这些内容。', related: ['训练数据','参数','预训练','微调','算力'] },
-            { cn: '预训练', en: 'Pre-training', desc: '预训练是模型形成通用能力的早期训练阶段。大语言模型会处理大规模文本等数据，通过预测缺失内容或下一个Token等方式，学习语言规律和广泛的知识关联。', key: '预训练让模型获得广泛能力，但模型学到的主要是数据中的统计规律。它生成流畅内容，并不代表每个答案都真实准确。', related: ['训练','训练数据','自监督学习','大语言模型','Token'] },
-            { cn: '微调', en: 'Fine-tuning', desc: '微调是在已经完成预训练的模型基础上，使用规模较小、目标更明确的数据继续训练，使模型更适合某类任务、专业领域或表达方式。指令微调是常见的微调方式之一。', key: '微调主要用于调整模型的能力重点和行为表现，并不能保证模型掌握的所有知识都正确，也不一定适合处理需要频繁更新的信息。', example: '通用模型经过医疗文本微调后，可以更熟悉医疗术语和专业表达，但其回答仍需专业人员核查。', related: ['预训练','指令微调','训练数据','大语言模型'] },
-            { cn: '监督学习', en: 'Supervised Learning', desc: '监督学习是让模型通过带有参考答案的数据进行学习。模型先尝试判断结果，再与正确答案比较，并不断调整，从而提高后续预测的准确性。', key: '监督学习依赖数量充足且标注准确的数据。参考答案存在错误或覆盖不全面时，模型的判断也会受到影响。', example: '向模型提供大量已经标明"垃圾邮件"和"正常邮件"的样本，训练它判断新的邮件。', related: ['数据标注','训练数据','训练','分类'] },
-            { cn: '强化学习', en: 'RL（Reinforcement Learning）', desc: '强化学习是一种通过行动结果和奖励信号改进行为的学习方法。模型在环境中尝试不同选择，根据获得的奖励或惩罚，逐渐学习更有可能实现目标的策略。', key: '强化学习的效果取决于目标和奖励如何设定。如果奖励设计不合理，AI可能找到意料之外的方法获得高分，却没有真正完成预期目标。', example: '游戏AI通过不断尝试，根据输赢和得分调整策略，逐渐提高游戏表现。', related: ['奖励','策略','人类反馈','RLHF','智能体'] },
-            { cn: '人类反馈', en: 'Human Feedback', desc: '人类反馈是由人对AI的多个回答进行比较、评价或纠正，帮助模型学习哪些结果更有用、更安全、更符合人类要求。基于人类反馈的强化学习通常称为RLHF。', key: '人类反馈会受到评价标准、文化背景和个人判断影响。用户的一次点赞、点踩或纠正，通常不会让当前基础模型立即完成重新训练。', related: ['强化学习','RLHF','微调','对齐','数据标注'] },
-          ]
-        }
-      ]
-    }
-  ]
-};
-
-// ===== 渲染路径按钮 =====
-function renderPathBar(activeId) {
-  const bar = document.getElementById('pathBar');
-  let html = '';
-  LEARNING_PATHS.forEach((p, i) => {
-    const cls = p.status === 'available' ? (p.id === activeId ? 'path-btn active' : 'path-btn') : 'path-btn locked';
-    html += `<span class="${cls}" data-path="${p.id}">${p.id} ${p.name}</span>`;
-    if (i < LEARNING_PATHS.length - 1) html += '<span class="path-arrow">→</span>';
-  });
-  bar.innerHTML = html;
-  bar.querySelectorAll('.path-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const pathData = LEARNING_PATHS.find(p => p.id === btn.dataset.path);
-      if (pathData.status === 'available') renderPath(btn.dataset.path);
-    });
-  });
-}
-
-// ===== 渲染TOC（仅一级，无标题） =====
-function renderTOC(data) {
-  const toc = document.getElementById('tocList');
-  toc.innerHTML = data.sections.map(s =>
-    `<li class="toc-item"><div class="toc-link" data-target="${s.id}">${s.title}</div></li>`
-  ).join('');
-  toc.querySelectorAll('.toc-link').forEach(link => {
-    link.addEventListener('click', () => {
-      const target = document.getElementById(link.dataset.target);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-}
-
-// ===== 渲染内容 =====
-function renderContent(data) {
-  const main = document.getElementById('contentMain');
-  let html = `
-    <div class="page-header">
-      <div class="page-label">Learning Path 01</div>
-      <h1 class="page-title">${data.title}</h1>
-      <p class="page-subtitle">${data.subtitle}</p>
-    </div>
-  `;
-
-  data.sections.forEach(section => {
-    html += `<div class="content-section" id="${section.id}">`;
-    html += `<h2 class="section-title">${section.title}</h2>`;
-
-    if (section.type === 'intro') {
-      html += `<div class="intro-card"><p class="intro-text">${section.content}</p></div>`;
-    }
-
-    if (section.type === 'timeline') {
-      // 四阶段tab
-      html += `<div class="timeline-phases">`;
-      section.phases.forEach(ph => {
-        html += `<button class="phase-tab" data-phase="${ph.id}">${ph.name}</button>`;
-      });
-      html += `</div>`;
-
-      // 横向时间轴
-      html += `<div class="timeline-scroll" id="timelineScroll">`;
-      html += `<div class="timeline-track">`;
-      section.events.forEach(ev => {
-        html += `<div class="tl-event" data-phase="${ev.phase}">
-          <div class="tl-year">${ev.year}</div>
-          <div class="tl-node"></div>
-          <div class="tl-card">
-            <div class="tl-title">${ev.title}</div>
-            <div class="tl-desc">${ev.desc}</div>`;
-        if (ev.link) html += `<a class="tl-link" href="${ev.url}" target="_blank" rel="noopener">${ev.link} →</a>`;
-        html += `</div></div>`;
-      });
-      html += `</div></div>`;
-    }
-
-    if (section.type === 'persons') {
-      html += '<div class="person-grid">';
-      section.items.forEach(p => {
-        html += `<div class="person-card">
-          <div class="person-header">
-            <div class="person-name">
-              <div class="person-name-cn">${p.nameCn}</div>
-              <div class="person-name-en">${p.nameEn}</div>
-            </div>
-          </div>
-          <div class="person-title">${p.title}</div>
-          <div class="person-contrib">${p.contrib}</div>
-          <div class="person-works"><strong>代表成果：</strong>${p.works}</div>
-        </div>`;
-      });
-      html += '</div>';
-    }
-
-    if (section.type === 'companies') {
-      html += '<div class="company-list">';
-      section.items.forEach(c => {
-        html += `<div class="company-card">
-          <div class="company-logo">
-            <img src="./assets/logos/${c.logo}" alt="${c.name}"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <span class="company-logo-fallback" style="display:none">${c.name[0]}</span>
-          </div>
-          <div class="company-info">
-            <h4>${c.name}</h4>
-            <div class="company-meta">
-              <span>成立：${c.founded}</span>
-              <span>创始人：${c.founders}</span>
-            </div>
-            <p class="company-desc">${c.desc}</p>
-            <div class="company-products">`;
-        c.products.forEach(prod => { html += `<span class="product-tag">${prod}</span>`; });
-        html += `</div></div></div>`;
-      });
-      html += '</div>';
-    }
-
-    if (section.type === 'concepts') {
-      const cid = section.id;
-      html += `<div class="concept-tabs" id="${cid}-tabs">`;
-      section.categories.forEach((cat, i) => {
-        html += `<button class="concept-tab ${i === 0 ? 'active' : ''}" data-cat="${i}">${cat.name}</button>`;
-      });
-      html += `</div>`;
-      section.categories.forEach((cat, i) => {
-        html += `<div class="concept-grid" id="${cid}-cat-${i}" style="${i === 0 ? '' : 'display:none;'}">`;
-        cat.items.forEach(c => {
-          html += `<div class="concept-card">
-            <h4>${c.cn}</h4>
-            <div class="concept-en-name">${c.en}</div>
-            <div class="concept-label">概念解释</div>
-            <div class="concept-desc">${c.desc}</div>
-            <div class="concept-label">关键认识</div>
-            <div class="concept-key">${c.key}</div>`;
-          if (c.example) {
-            html += `<div class="concept-label">实例</div>
-            <div class="concept-example">${c.example}</div>`;
-          }
-          html += `<div class="concept-related">`;
-          c.related.forEach(r => { html += `<span>${r}</span>`; });
-          html += `</div></div>`;
-        });
-        html += '</div>';
-      });
-    }
-
-    html += '</div>';
-  });
-
-  main.innerHTML = html;
-
-  // 绑定阶段tab点击 → 滚动到该阶段第一个事件
-  const scrollContainer = document.getElementById('timelineScroll');
-  if (scrollContainer) {
-    document.querySelectorAll('.phase-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const phase = tab.dataset.phase;
-        const target = scrollContainer.querySelector(`.tl-event[data-phase="${phase}"]`);
-        if (target) {
-          const offset = target.offsetLeft - 40;
-          scrollContainer.scrollTo({ left: offset, behavior: 'smooth' });
-        }
-      });
+// 强制设置 Learning 导航高亮
+(function forceNavActive() {
+  function setActive() {
+    document.querySelectorAll('.vb-nav-links a, .vb-mobile-panel a').forEach(function(a) {
+      a.classList.remove('vb-active');
+      if ((a.textContent || '').trim() === 'Learning') a.classList.add('vb-active');
     });
   }
-
-  // 绑定概念分类tab点击
-  document.querySelectorAll('.concept-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const catIdx = tab.dataset.cat;
-      const tabsContainer = tab.parentElement;
-      const sectionId = tabsContainer.id.replace('-tabs', '');
-      // 切换tab高亮
-      tabsContainer.querySelectorAll('.concept-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      // 切换grid显示
-      document.querySelectorAll(`.concept-grid[id^="${sectionId}-cat-"]`).forEach(grid => {
-        grid.style.display = 'none';
-      });
-      const target = document.getElementById(`${sectionId}-cat-${catIdx}`);
-      if (target) target.style.display = '';
-    });
-  });
-}
-
-// ===== Coming Soon =====
-function renderComingSoon(pathData) {
-  document.getElementById('contentMain').innerHTML = `
-    <div class="page-header">
-      <div class="page-label">Learning Path ${pathData.id}</div>
-      <h1 class="page-title">${pathData.name}</h1>
-    </div>
-    <div class="coming-soon-panel">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--purple)">
-        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-      </svg>
-      <h3>内容筹备中</h3>
-      <p>${pathData.name} 路径内容正在准备中，敬请期待</p>
-    </div>`;
-  document.getElementById('tocSidebar').style.display = 'none';
-}
-
-function renderPath(pathId) {
-  const pathData = LEARNING_PATHS.find(p => p.id === pathId);
-  renderPathBar(pathId);
-  if (pathId === '01') {
-    document.getElementById('tocSidebar').style.display = '';
-    renderTOC(PATH_01_DATA);
-    renderContent(PATH_01_DATA);
-    setTimeout(initScrollSpy, 100);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setActive);
   } else {
-    renderComingSoon(pathData);
+    setActive();
   }
-}
-
-function initScrollSpy() {
-  const tocLinks = document.querySelectorAll('.toc-link');
-  const offset = 120;
-  function updateActive() {
-    let current = '';
-    document.querySelectorAll('.content-section').forEach(section => {
-      if (window.scrollY >= section.offsetTop - offset) current = section.id;
-    });
-    tocLinks.forEach(link => link.classList.toggle('active', link.dataset.target === current));
-  }
-  window.addEventListener('scroll', updateActive, { passive: true });
-  updateActive();
-}
-
-document.addEventListener('DOMContentLoaded', () => { renderPath('01'); });
+  setTimeout(setActive, 300);
+})();
 </script>
 </body>
 </html>
