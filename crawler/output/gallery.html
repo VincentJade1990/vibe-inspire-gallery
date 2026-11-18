@@ -909,8 +909,8 @@ body {
   color: #fff;
 }
 </style>
-  <script src="./auth.js"></script>
-<script src="./nav.js"></script>
+  <script src="./auth.js?v=20261118d"></script>
+<script src="./nav.js?v=20261118d"></script>
 </head>
 <body>
 <!-- 统一导航栏 -->
@@ -1902,13 +1902,8 @@ function createBubbles() {
     label.className = 'bubble-label';
     const lines = wrapTextToLines(bubble.data.title, 10);
     label.innerHTML = lines.join('<br>');
-    // 合规：每张卡片标注来源平台与作者，原帖外链在详情弹窗内
-    const sourceLine = [
-      platformNames[bubble.data.source_platform] || bubble.data.source_platform,
-      bubble.data.username,
-    ]
-      .filter(Boolean)
-      .join(' · ');
+    // 气泡只展示灵感标题与作者，不显示来源平台
+    const sourceLine = bubble.data.username || '';
     if (sourceLine) {
       const source = document.createElement('span');
       source.className = 'bubble-source';
