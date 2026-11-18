@@ -906,7 +906,7 @@ window.updateNickname = updateNickname;
 /**
  * 保存用户灵感
  */
-async function saveIdea(title, tags) {
+async function saveIdea(title, tags, description) {
   const token = getAccessToken();
   if (!token || !currentUser) return { error: '未登录' };
 
@@ -922,8 +922,9 @@ async function saveIdea(title, tags) {
       body: JSON.stringify({
         user_id: currentUser.id,
         title: title,
+        description: description || null,
         tags: tags || [],
-        status: 'basic_cognition'
+        status: 'explore_ideas'
       })
     });
 
@@ -994,6 +995,87 @@ async function deleteIdea(ideaId) {
     console.error('[Ideas] Delete error:', e);
     return { error: '网络错误' };
   }
+}
+
+/**
+ * 灵感 ↔ 项目：孵化标记
+ * 当前 ideas 表没有 promoted_at 字段，用保留标签 __project__ 标记已进入孵化。
+ * 页面展示时需要过滤掉这个标签。
+ */
+var IDEA_PROJECT_TAG = '__project__';
+
+function isPromotedIdea(idea) {
+  return !!(idea && Array.isArray(idea.tags) && idea.tags.indexOf(IDEA_PROJECT_TAG) > -1);
+}
+
+function visibleIdeaTags(idea) {
+  return (idea && Array.isArray(idea.tags) ? idea.tags : []).filter(function (t) {
+    return t !== IDEA_PROJECT_TAG;
+  });
+}
+
+/**
+ * 设置灵感的孵化状态
+ * promoted=true  → 移出灵感库，进入 Projects
+ * promoted=false → 退回灵感库
+ */
+async function setIdeaPromoted(ideaId, promoted) {
+  const token = getAccessToken();
+  if (!token || !currentUser) return { error: '未登录' };
+
+  try {
+    const getRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/ideas?id=eq.${ideaId}&user_id=eq.${currentUser.id}&select=tags`,
+      {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+
+    if (!getRes.ok) return { error: '读取灵感失败' };
+
+    const rows = await getRes.json();
+    if (!rows.length) return { error: '灵感不存在' };
+
+    var tags = (rows[0].tags || []).filter(function (t) {
+      return t !== IDEA_PROJECT_TAG;
+    });
+    if (promoted) tags.push(IDEA_PROJECT_TAG);
+
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/ideas?id=eq.${ideaId}&user_id=eq.${currentUser.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify({ tags: tags, updated_at: new Date().toISOString() })
+      }
+    );
+
+    if (res.ok) {
+      const data = await res.json().catch(function () { return []; });
+      return { success: true, data: data[0] || null };
+    }
+    const err = await res.json().catch(function () { return {}; });
+    return { error: err.message || '更新失败' };
+  } catch (e) {
+    console.error('[Ideas] Promote error:', e);
+    return { error: '网络错误' };
+  }
+}
+
+function promoteIdea(ideaId) {
+  return setIdeaPromoted(ideaId, true);
+}
+
+function demoteIdea(ideaId) {
+  return setIdeaPromoted(ideaId, false);
 }
 
 /**
@@ -1166,3 +1248,9 @@ window.getUserIdeaCount = getUserIdeaCount;
 window.getIdeaOutput = getIdeaOutput;
 window.saveIdeaOutput = saveIdeaOutput;
 window.touchIdeaUpdated = touchIdeaUpdated;
+window.IDEA_PROJECT_TAG = IDEA_PROJECT_TAG;
+window.isPromotedIdea = isPromotedIdea;
+window.visibleIdeaTags = visibleIdeaTags;
+window.setIdeaPromoted = setIdeaPromoted;
+window.promoteIdea = promoteIdea;
+window.demoteIdea = demoteIdea;

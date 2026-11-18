@@ -555,6 +555,56 @@ body {
   text-align: center;
   margin-bottom: 24px;
 }
+.submit-modal {
+  max-width: 480px;
+}
+.submit-modal h2 {
+  margin-bottom: 8px;
+}
+.submit-hint {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 22px;
+}
+.submit-modal .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.submit-modal .form-group label {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+}
+.submit-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 0 20px;
+  text-align: center;
+}
+.submit-success-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #fff;
+  background: linear-gradient(135deg, #7769E8, #38bdf8);
+  margin-bottom: 6px;
+}
+.submit-success-title {
+  font-size: 17px;
+  color: var(--text);
+}
+.submit-success p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
 .inspire-input-wrap {
   display: flex;
   flex-direction: column;
@@ -784,9 +834,19 @@ body {
   line-height: 1.3;
   text-shadow: 0 1px 4px rgba(0,0,0,0.6);
   z-index: 2;
+
   background: rgba(0,0,0,0.2);
   padding: 2px 8px;
   border-radius: 8px;
+}
+
+.bubble-source {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.55);
 }
 .bubble-label.hovered {
   transform: translate(-50%, -50%) scale(1.15);
@@ -911,8 +971,8 @@ body {
     <span class="mode-option" data-mode="random">随机灵感</span>
   </div>
   <button class="bottom-btn vb-create-style" id="submitBtn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-    记录灵感
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    投稿灵感
   </button>
 </div>
 
@@ -941,20 +1001,37 @@ body {
   </div>
 </div>
 
-<!-- 灵感记录弹窗 -->
+<!-- 投稿弹窗 -->
 <div class="modal-overlay" id="submitModal">
-  <div class="modal inspire-modal">
+  <div class="modal inspire-modal submit-modal">
     <button class="modal-close" onclick="closeSubmit()">&times;</button>
-    <h2>记录你的灵感火花</h2>
+    <h2>投稿一个灵感</h2>
+    <p class="submit-hint">通过审核后会出现在案例库，供其他人参考</p>
     <div class="inspire-input-wrap">
-      <textarea id="inspireInput" class="inspire-input inspire-textarea" placeholder="此刻你的脑海浮现了什么产品灵感？" rows="2"></textarea>
+      <div class="form-group">
+        <label for="submitTitle">灵感名称</label>
+        <input id="submitTitle" class="inspire-input" type="text" maxlength="60" placeholder="给这个灵感起个名字" />
+      </div>
+      <div class="form-group">
+        <label for="submitSummary">摘要</label>
+        <textarea id="submitSummary" class="inspire-input inspire-textarea" rows="3" maxlength="300" placeholder="一句话说清它解决了什么问题、特别在哪里"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="submitUrl">链接（选填）</label>
+        <input id="submitUrl" class="inspire-input" type="url" placeholder="https:// 原帖或作品地址" />
+      </div>
       <div class="inspire-tags-section">
-        <div class="inspire-tags-label">Tags</div>
+        <div class="inspire-tags-label">分类标签</div>
         <div class="inspire-tags-select" id="inspireTagsSelect"></div>
       </div>
       <button class="inspire-submit-btn" id="inspireSubmitBtn" onclick="handleInspireSubmit()">
-        <span>记录灵感</span>
+        <span>提交投稿</span>
       </button>
+    </div>
+    <div class="submit-success" id="submitSuccess">
+      <div class="submit-success-icon">✓</div>
+      <div class="submit-success-title">投稿已提交</div>
+      <p>审核通过后会出现在案例库</p>
     </div>
   </div>
 </div>
@@ -1825,6 +1902,19 @@ function createBubbles() {
     label.className = 'bubble-label';
     const lines = wrapTextToLines(bubble.data.title, 10);
     label.innerHTML = lines.join('<br>');
+    // 合规：每张卡片标注来源平台与作者，原帖外链在详情弹窗内
+    const sourceLine = [
+      platformNames[bubble.data.source_platform] || bubble.data.source_platform,
+      bubble.data.username,
+    ]
+      .filter(Boolean)
+      .join(' · ');
+    if (sourceLine) {
+      const source = document.createElement('span');
+      source.className = 'bubble-source';
+      source.textContent = sourceLine;
+      label.appendChild(source);
+    }
     bubbleLabelsContainer.appendChild(label);
     bubbleLabelElements.push({ label, bubble });
   });
@@ -2528,100 +2618,138 @@ function renderIdeaTags() {
 }
 
 function openSubmit() {
-  document.getElementById('submitModal').classList.add('show');
-  selectedIdeaTags = [];
+  var user = (typeof currentUser !== 'undefined') ? currentUser : null;
+  if (!user) {
+    if (typeof showAuthModal === 'function') showAuthModal('login');
+    showToast('请先登录后再投稿');
+    return;
+  }
+  resetSubmitForm();
   renderIdeaTags();
-  setTimeout(() => {
-    var input = document.getElementById('inspireInput');
+  document.getElementById('submitModal').classList.add('show');
+  setTimeout(function () {
+    var input = document.getElementById('submitTitle');
     if (input) input.focus();
   }, 300);
 }
 
 function closeSubmit() {
   document.getElementById('submitModal').classList.remove('show');
-  var input = document.getElementById('inspireInput');
-  if (input) input.value = '';
-  selectedIdeaTags = [];
 }
 
-// ==================== 灵感记录 + 气泡飞入 Space tab 动画 ====================
+function resetSubmitForm() {
+  ['submitTitle', 'submitSummary', 'submitUrl'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.value = '';
+      el.style.borderColor = '';
+    }
+  });
+  selectedIdeaTags = [];
+  document.querySelectorAll('.inspire-tag-chip').forEach(function (c) { c.classList.remove('active'); });
+  var form = document.querySelector('.inspire-input-wrap');
+  var success = document.getElementById('submitSuccess');
+  if (form) form.style.display = '';
+  if (success) success.style.display = 'none';
+}
+
+function flagSubmitField(el, msg) {
+  el.style.borderColor = 'rgba(239,68,68,0.5)';
+  el.focus();
+  showToast(msg);
+  setTimeout(function () { el.style.borderColor = ''; }, 1500);
+}
+
+// 根据链接推断来源平台，对应灵感详情里的平台字段
+function detectSourcePlatform(url) {
+  if (!url) return null;
+  if (/xiaohongshu\.com/i.test(url)) return 'xiaohongshu';
+  if (/douyin\.com/i.test(url)) return 'douyin';
+  if (/bilibili\.com/i.test(url)) return 'bilibili';
+  if (/mp\.weixin\.qq\.com/i.test(url)) return 'wechat';
+  if (/jike\.city/i.test(url)) return 'jike';
+  if (/github\.com/i.test(url)) return 'github';
+  return 'web';
+}
+
+// ==================== 投稿提交 ====================
 
 async function handleInspireSubmit() {
-  var input = document.getElementById('inspireInput');
-  var text = input.value.trim();
-  if (!text) {
-    input.style.borderColor = 'rgba(239,68,68,0.5)';
-    input.focus();
-    setTimeout(function() { input.style.borderColor = ''; }, 1500);
+  var titleEl = document.getElementById('submitTitle');
+  var summaryEl = document.getElementById('submitSummary');
+  var urlEl = document.getElementById('submitUrl');
+  var title = titleEl.value.trim();
+  var summary = summaryEl.value.trim();
+  var url = urlEl.value.trim();
+
+  if (title.length < 2) return flagSubmitField(titleEl, '请填写灵感名称（至少 2 个字）');
+  if (summary.length < 10) return flagSubmitField(summaryEl, '摘要至少写 10 个字');
+  if (url && !/^https?:\/\/\S+$/i.test(url)) return flagSubmitField(urlEl, '链接需以 http:// 或 https:// 开头');
+  if (selectedIdeaTags.length === 0) {
+    showToast('请至少选择一个分类标签');
     return;
   }
 
-  // 检查登录状态
-  var user = (typeof currentUser === 'function') ? currentUser() : (typeof currentUser !== 'undefined' ? currentUser : null);
+  var user = (typeof currentUser !== 'undefined') ? currentUser : null;
   if (!user) {
     closeSubmit();
-    if (typeof showAuthModal === 'function') {
-      showAuthModal('login');
-    }
-    showToast('请先登录后再记录灵感');
+    if (typeof showAuthModal === 'function') showAuthModal('login');
+    showToast('请先登录后再投稿');
     return;
   }
 
-  // 禁用按钮，显示加载状态
+  var token = (typeof getAccessToken === 'function') ? getAccessToken() : null;
+  if (!token) {
+    showToast('登录状态已失效，请重新登录');
+    return;
+  }
+
   var submitBtn = document.getElementById('inspireSubmitBtn');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.querySelector('span').textContent = '保存中...';
+    submitBtn.querySelector('span').textContent = '提交中...';
   }
 
-  // 保存到 Supabase
-  var result = await saveIdea(text, selectedIdeaTags);
+  try {
+    var res = await fetch(SUPABASE_URL + '/rest/v1/submissions', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        title: title,
+        description: summary,
+        source_url: url || null,
+        source_platform: detectSourcePlatform(url),
+        author_name: user.nickname || null,
+        tags: selectedIdeaTags,
+        status: 'pending'
+      })
+    });
 
-  // 恢复按钮
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.querySelector('span').textContent = '记录灵感';
+    if (!res.ok) {
+      var err = await res.json().catch(function () { return {}; });
+      throw new Error(err.message || ('提交失败（' + res.status + '）'));
+    }
+
+    var form = document.querySelector('.inspire-input-wrap');
+    var success = document.getElementById('submitSuccess');
+    if (form) form.style.display = 'none';
+    if (success) success.style.display = 'flex';
+    setTimeout(closeSubmit, 2600);
+  } catch (e) {
+    console.error('[Submissions] 提交失败:', e);
+    showToast('投稿未成功：' + e.message);
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.querySelector('span').textContent = '提交投稿';
+    }
   }
-
-  if (result.error) {
-    showToast('保存失败: ' + result.error);
-    return;
-  }
-
-  // 清空表单
-  input.value = '';
-  selectedIdeaTags = [];
-  document.querySelectorAll('.inspire-tag-chip').forEach(function(c) { c.classList.remove('active'); });
-
-  // 关闭弹窗
-  closeSubmit();
-
-  // 获取起点（弹窗中心）
-  var modal = document.querySelector('.inspire-modal');
-  var startX, startY;
-  if (modal) {
-    var rect = modal.getBoundingClientRect();
-    startX = rect.left + rect.width / 2;
-    startY = rect.top + rect.height / 2;
-  } else {
-    startX = window.innerWidth / 2;
-    startY = window.innerHeight / 2;
-  }
-
-  // 终点：导航栏 Space tab
-  var spaceLink = document.querySelector('.vb-nav-links a[href="./space.html"]');
-  var endX, endY;
-  if (spaceLink) {
-    var spaceRect = spaceLink.getBoundingClientRect();
-    endX = spaceRect.left + spaceRect.width / 2;
-    endY = spaceRect.top + spaceRect.height / 2;
-  } else {
-    endX = window.innerWidth / 2;
-    endY = 34;
-  }
-
-  // 创建飞行气泡
-  flyBubbleToSpace(text, startX, startY, endX, endY);
 }
 
 function flyBubbleToSpace(text, startX, startY, endX, endY) {

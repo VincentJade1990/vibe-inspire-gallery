@@ -10,14 +10,14 @@
   // ===== 导航配置 =====
   var NAV_ITEMS = [
     { label: 'Home', href: './', key: 'home' },
-    { label: 'Explore', href: './gallery', key: 'explore' },
-    { label: 'Learning', href: './learning', key: 'learning' },
-    { label: 'Space', href: './space', key: 'space' },
+    { label: 'Cases', href: './gallery', key: 'cases' },
+    { label: 'Ideas', href: './ideas', key: 'ideas' },
+    { label: 'Projects', href: './projects', key: 'projects' },
     { label: 'Studio', href: './studio', key: 'studio' }
   ];
 
   // SPA 路由配置
-  var SPA_NAV_KEYS = ['home', 'explore', 'learning', 'space', 'studio'];
+  var SPA_NAV_KEYS = ['home', 'cases', 'ideas', 'projects', 'studio'];
   var isNavigating = false;
   var loadedExternalScripts = {};
 
@@ -27,9 +27,9 @@
     var file = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
 
     if (file === '' || file === 'index.html' || file === 'index') return 'home';
-    if (file === 'gallery.html' || file === 'gallery') return 'explore';
-    if (file === 'learning.html' || file === 'learning' || file === 'learning-ai.html' || file === 'learning-ai' || file === 'learning-creation-loop.html' || file === 'learning-creation-loop') return 'learning';
-    if (file === 'space.html' || file === 'space' || file === 'profile.html' || file === 'profile') return 'space';
+    if (file === 'gallery.html' || file === 'gallery') return 'cases';
+    if (file === 'ideas.html' || file === 'ideas' || file === 'space.html' || file === 'space') return 'ideas';
+    if (file === 'projects.html' || file === 'projects' || file === 'create.html' || file === 'create') return 'projects';
     if (file === 'studio.html' || file === 'studio' || file === 'about.html' || file === 'about') return 'studio';
     return '';
   }
@@ -122,32 +122,47 @@
       '  gap: 12px;',
       '  flex-shrink: 0;',
       '}',
-      '.vb-create-btn {',
+      '.vb-auth-actions {',
+      '  display: flex;',
+      '  align-items: center;',
+      '  gap: 8px;',
+      '}',
+      '.vb-auth-btn {',
       '  display: inline-flex;',
       '  align-items: center;',
-      '  gap: 6px;',
-      '  padding: 9px 20px;',
-      '  border: none;',
+      '  justify-content: center;',
+      '  padding: 9px 18px;',
       '  border-radius: 999px;',
+      '  font-family: inherit;',
+      '  font-size: 13px;',
+      '  font-weight: 600;',
+      '  letter-spacing: 0.02em;',
+      '  cursor: pointer;',
+      '  white-space: nowrap;',
+      '  transition: all 240ms ease;',
+      '}',
+      '.vb-login-btn {',
+      '  border: 1px solid rgba(255,255,255,0.12);',
+      '  background: transparent;',
+      '  color: rgba(255,255,255,0.78);',
+      '}',
+      '.vb-login-btn:hover {',
+      '  color: #fff;',
+      '  border-color: rgba(168,85,247,0.45);',
+      '  background: rgba(168,85,247,0.08);',
+      '}',
+      '.vb-signup-btn {',
+      '  border: none;',
       '  background: linear-gradient(135deg, #a855f7, #6366f1);',
       '  color: #fff;',
-      '  font-size: 14px;',
       '  font-weight: 700;',
-      '  letter-spacing: 0.12em;',
-      '  cursor: pointer;',
-      '  text-decoration: none;',
-      '  transition: all 240ms ease;',
-      '  white-space: nowrap;',
       '}',
-      '.vb-create-btn:hover {',
+      '.vb-signup-btn:hover {',
       '  transform: translateY(-1px);',
       '  box-shadow: 0 6px 24px rgba(168, 85, 247, 0.4);',
       '}',
-      '.vb-create-btn:active {',
+      '.vb-auth-btn:active {',
       '  transform: scale(0.97);',
-      '}',
-      '.vb-create-btn svg {',
-      '  width: 13px; height: 13px;',
       '}',
       '',
       '/* 音效静音按钮 */',
@@ -273,9 +288,14 @@
       '.vb-mobile-panel a.vb-active {',
       '  color: #c4b5fd;',
       '}',
-      '.vb-mobile-panel .vb-create-btn {',
+      '.vb-mobile-panel .vb-auth-actions {',
       '  margin-top: 16px;',
-      '  justify-content: center;',
+      '  flex-direction: column;',
+      '  gap: 10px;',
+      '}',
+      '.vb-mobile-panel .vb-auth-btn {',
+      '  width: 100%;',
+      '  padding: 11px 18px;',
       '}',
       '.vb-mobile-panel .vb-user-btn {',
       '  margin-top: 16px;',
@@ -316,7 +336,7 @@
       '/* 响应式 */',
       '@media (max-width: 860px) {',
       '  .vb-nav-links { display: none; }',
-      '  .vb-nav-right .vb-create-btn,',
+      '  .vb-nav-right .vb-auth-actions,',
       '  .vb-nav-right .vb-user-btn { display: none; }',
       '  .vb-hamburger { display: flex; }',
       '}',
@@ -325,7 +345,7 @@
       '  .vb-mobile-panel { top: 60px; }',
       '}',
       '@media (prefers-reduced-motion: reduce) {',
-      '  .vb-hamburger span, .vb-create-btn, .vb-user-btn, .vb-sub-back {',
+      '  .vb-hamburger span, .vb-auth-btn, .vb-user-btn, .vb-sub-back {',
       '    transition: none !important;',
       '  }',
       '}'
@@ -365,9 +385,10 @@
         '</a>';
     }
     return soundBtn +
-      '<button class="vb-create-btn" id="vb-create-trigger">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>' +
-      'CREATE</button>';
+      '<div class="vb-auth-actions">' +
+        '<button type="button" class="vb-auth-btn vb-login-btn" data-auth-mode="login">Log in</button>' +
+        '<button type="button" class="vb-auth-btn vb-signup-btn" data-auth-mode="signup">Sign up</button>' +
+      '</div>';
   }
 
   function escapeHtml(str) {
@@ -635,16 +656,17 @@
         btn.classList.add('vb-sound-hidden');
       }
     });
+  }
 
-    // 重新绑定 Create 按钮事件
-    var createBtn = document.getElementById('vb-create-trigger');
-    if (createBtn) {
-      var newCreate = createBtn.cloneNode(true);
-      createBtn.parentNode.replaceChild(newCreate, createBtn);
-      newCreate.addEventListener('click', function () {
-        if (typeof showAuthModal === 'function') showAuthModal('login');
+  // 登录 / 注册按钮
+  function bindAuthButtons() {
+    document.querySelectorAll('.vb-auth-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var mode = btn.getAttribute('data-auth-mode') === 'signup' ? 'signup' : 'login';
+        if (typeof showAuthModal === 'function') showAuthModal(mode);
       });
-    }
+    });
   }
 
   // 绑定交互事件
@@ -654,15 +676,8 @@
       link.addEventListener('click', handleNavClick);
     });
 
-    // Create 按钮触发登录弹窗
-    var createBtn = document.getElementById('vb-create-trigger');
-    if (createBtn) {
-      createBtn.addEventListener('click', function () {
-        if (typeof showAuthModal === 'function') {
-          showAuthModal('login');
-        }
-      });
-    }
+    // 登录 / 注册入口
+    bindAuthButtons();
 
     // 移动端汉堡菜单
     var hamburger = document.getElementById('vb-hamburger');

@@ -585,7 +585,7 @@ body::after {
 .comments-section {
   max-width: 720px;
   margin: 0 auto;
-  padding: 0 24px 80px;
+  padding: 0 24px 20px;
 }
 
 .comment-input-area {
@@ -921,7 +921,8 @@ body::after {
   font-size: 15px;
 }
 
-.not-found a {
+.not-found a,
+.not-found button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -932,11 +933,15 @@ body::after {
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
   transition: var(--transition);
   box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
 }
 
-.not-found a:hover {
+.not-found a:hover,
+.not-found button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 28px rgba(168, 85, 247, 0.4);
 }
@@ -1281,6 +1286,104 @@ body::after {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
+/* ===== AI 灵感解析 ===== */
+.ai-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.ai-insight-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.ai-insight-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.5px;
+}
+.ai-insight-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ai-insight-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+.ai-insight-value {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+.ai-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ai-chip {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(119, 105, 232, 0.14);
+  border: 1px solid rgba(119, 105, 232, 0.28);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+.ai-basis {
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.ai-infer-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(240, 91, 216, 0.14);
+  color: var(--pink);
+  font-size: 10px;
+}
+.ai-insight-footnote {
+  margin: 12px 0 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.ai-insight-empty {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .ai-insight-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== 版权声明 ===== */
+.copyright-note {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--text-muted);
+}
 </style>
   <script src="./auth.js"></script>
   <script>window.VBNavConfig = { mode: 'sub', backHref: './gallery.html', backLabel: 'BACK' };</script>
@@ -1377,6 +1480,11 @@ async function loadDataFromSupabase() {
       product_url: item.product_url || '',
       project_status: item.project_status || '',
       business_model: item.business_model || '',
+      target_users: Array.isArray(item.target_users) ? item.target_users : [],
+      highlights: Array.isArray(item.highlights) ? item.highlights : [],
+      why_recommend: item.why_recommend || '',
+      ai_insight: item.ai_insight || null,
+      ai_status: item.ai_status || 'pending',
       cover_image: item.cover_image_url || '',
       images: Array.isArray(item.gallery_images) && item.gallery_images.length > 0
         ? item.gallery_images
@@ -1889,45 +1997,27 @@ function renderNotFound() {
   `;
 }
 
+function renderLoadError() {
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="not-found">
+      <div class="not-found-icon">🫧</div>
+      <h1>灵感加载失败</h1>
+      <p>数据服务暂时不可用，请检查网络后重试。</p>
+      <button type="button" onclick="window.location.reload()">重新加载</button>
+    </div>
+  `;
+}
+
 function renderPage(caseData) {
   const app = document.getElementById('app');
   const platform = platformNames[caseData.source_platform] || caseData.source_platform;
   const liked = isLiked(caseData.id);
   const likeCount = caseData.likes + (liked ? 1 : 0);
 
-  // 项目状态中文映射
-  const STATUS_MAP = {
-    concept: '概念想法', prototype: '设计原型', local_demo: '本地 Demo',
-    web_live: 'Web 上线', mini_program: '小程序上线',
-    app_development: 'App 开发中', app_live: 'App 已上线',
-    commercial: '商业化运营', archived: '已停止维护', offline: '已下线'
-  };
-  // 商业模式中文映射
-  const BUSINESS_MAP = {
-    free_open_source: '免费开源', subscription: '订阅制', one_time: '一次购买',
-    ads: '广告', saas: 'SaaS收费', enterprise: '企业服务', none: '暂无商业化'
-  };
-
   // 标签 HTML（无标签则不显示）
   const tagsHtml = (caseData.tag_list || []).length > 0
     ? `<div class="tag-list">${caseData.tag_list.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
-    : '';
-
-  // 项目状态 HTML（无值则不显示）
-  const statusHtml = caseData.project_status
-    ? `<div class="meta-item"><span class="meta-value">${STATUS_MAP[caseData.project_status] || caseData.project_status}</span></div>`
-    : '';
-
-  // 商业模式 HTML（无值则不显示）
-  const businessHtml = caseData.business_model
-    ? `<div class="meta-item"><span class="meta-value">${BUSINESS_MAP[caseData.business_model] || caseData.business_model}</span></div>`
-    : '';
-
-  // 项目图片 HTML（无图则不显示，方形4列）
-  const imagesHtml = (caseData.images && caseData.images.length > 0)
-    ? `<div class="project-images-grid">
-          ${caseData.images.map(img => `<img src="${img}" alt="项目截图" class="project-image" loading="lazy">`).join('')}
-        </div>`
     : '';
 
   // 项目描述 HTML：优先显示 description，description 为空时回退到 summary，避免重复
@@ -1974,8 +2064,10 @@ function renderPage(caseData) {
     return d.toLocaleDateString('zh-CN');
   }
 
-  // 开发者信息 HTML
-  const hasDeveloperInfo = caseData.username || caseData.author_url || caseData.source_url || caseData.product_url;
+  // AI 灵感解析：有缓存直接渲染，否则由 requestAiInsight 触发一次生成
+  const aiInsightHtml = caseData.ai_insight
+    ? buildAiInsightHtml(caseData.ai_insight)
+    : `<p class="ai-insight-empty">AI 正在阅读这份灵感，通常需要几秒...</p>`;
 
   app.innerHTML = `
     <!-- 漂浮背景气泡 -->
@@ -2033,62 +2125,50 @@ function renderPage(caseData) {
           ` : ''}
         </div>
 
-        <!-- 项目简介 -->
-        ${descHtml}
-
         <!-- 分类标签 -->
         ${tagsHtml ? `
-        <div style="margin-top:16px;">
+        <div style="margin-bottom:16px;">
           <div class="content-subtitle">分类标签</div>
           ${tagsHtml}
         </div>
         ` : ''}
 
-        <!-- 项目状态 -->
-        ${statusHtml ? `
-        <div style="margin-top:16px;">
-          <div class="content-subtitle">项目状态</div>
-          <div class="meta-grid" style="margin-bottom:0;">
-            ${statusHtml}
-          </div>
-        </div>
-        ` : ''}
-
-        <!-- 商业模式 -->
-        ${businessHtml ? `
-        <div style="margin-top:16px;">
-          <div class="content-subtitle">商业模式</div>
-          <div class="meta-grid" style="margin-bottom:0;">
-            ${businessHtml}
-          </div>
-        </div>
-        ` : ''}
-
-        <!-- 项目图片 -->
-        ${imagesHtml ? `
-        <div style="margin-top:16px;">
-          <div class="content-subtitle">项目图片</div>
-          ${imagesHtml}
-        </div>
-        ` : ''}
+        <!-- 摘要：有抓取内容才展示，不做补全 -->
+        ${descHtml}
 
       </div>
     </section>
 
-    <!-- ====== 模块三：开发者信息 ====== -->
-    ${hasDeveloperInfo ? `
+    <!-- ====== 模块三：来源信息 ====== -->
     <section class="content-section">
       <div class="glass-card">
-        <div class="section-title">开发者信息 <span class="en">Developer Info</span></div>
+        <div class="section-title">来源信息 <span class="en">Source</span></div>
         <div class="meta-grid">
-          ${caseData.username ? `<div class="meta-item"><span class="meta-label">开发者</span><span class="meta-value">${caseData.username}</span></div>` : ''}
-          ${caseData.author_url ? `<div class="meta-item"><span class="meta-label">开发者主页</span><span class="meta-value"><a href="${caseData.author_url}" target="_blank" rel="noopener">点击访问 &rarr;</a></span></div>` : ''}
-          ${caseData.source_url ? `<div class="meta-item"><span class="meta-label">来源URL</span><span class="meta-value"><a href="${caseData.source_url}" target="_blank" rel="noopener">点击查看 &rarr;</a></span></div>` : ''}
-          ${caseData.product_url ? `<div class="meta-item"><span class="meta-label">产品链接</span><span class="meta-value"><a href="${caseData.product_url}" target="_blank" rel="noopener">点击体验 &rarr;</a></span></div>` : ''}
+          <div class="meta-item">
+            <span class="meta-label">作者 / 发布者</span>
+            <span class="meta-value">${caseData.username ? (caseData.author_url ? `<a href="${caseData.author_url}" target="_blank" rel="noopener">${caseData.username}</a>` : caseData.username) : '未标注'}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">来源平台</span>
+            <span class="meta-value">${platform}</span>
+          </div>
+          ${caseData.source_url ? `
+          <div class="meta-item">
+            <span class="meta-label">来源链接</span>
+            <span class="meta-value"><a href="${caseData.source_url}" target="_blank" rel="noopener">查看原帖 &rarr;</a></span>
+          </div>
+          ` : ''}
         </div>
       </div>
     </section>
-    ` : ''}
+
+    <!-- ====== 模块四：AI 灵感解析 ====== -->
+    <section class="content-section">
+      <div class="glass-card">
+        <div class="section-title">AI 灵感解析 <span class="en">AI Insight</span></div>
+        <div id="aiInsightBody">${aiInsightHtml}</div>
+      </div>
+    </section>
 
     <!-- 评论区 -->
     <section class="comments-section">
@@ -2103,6 +2183,11 @@ function renderPage(caseData) {
         </div>
       </div>
     </section>
+
+    <!-- 来源与版权声明 -->
+    <p class="copyright-note">
+      内容来源于公开平台，版权归原作者所有。本站仅用于灵感整理与学习交流，如有侵权请联系我们删除。
+    </p>
   `;
 
   // 初始化收藏按钮状态
@@ -2420,14 +2505,113 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// ==================== AI 灵感解析 ====================
+const AI_INSIGHT_ENDPOINT = `${SUPABASE_URL}/functions/v1/ai-insight`;
+const AI_INSIGHT_TIMEOUT = 20000;
+
+function buildAiInsightHtml(ai) {
+  if (!ai) return '';
+  const business = ai.business || {};
+  const build = ai.build || {};
+  const chips = (list) => (Array.isArray(list) ? list : [])
+    .filter(Boolean)
+    .map((item) => `<span class="ai-chip">${escapeHtml(item)}</span>`)
+    .join('');
+
+  const userChips = chips(ai.target_users);
+  const scenarioChips = chips(ai.scenarios);
+  const opportunityChips = chips(ai.opportunities);
+  const confidenceLabel = { high: '高', medium: '中', low: '低' }[ai.confidence] || '低';
+  const basis = business.basis ? `<p class="ai-basis">依据：${escapeHtml(business.basis)}</p>` : '';
+
+  const demandCard = `
+    <div class="ai-insight-card">
+      <div class="ai-insight-card-title">谁需要</div>
+      ${userChips ? `<div class="ai-insight-row"><span class="ai-insight-label">目标用户</span><div class="ai-chips">${userChips}</div></div>` : ''}
+      ${scenarioChips ? `<div class="ai-insight-row"><span class="ai-insight-label">使用场景</span><div class="ai-chips">${scenarioChips}</div></div>` : ''}
+      ${(!userChips && !scenarioChips) ? `<p class="ai-insight-empty">信息不足，暂无法判断</p>` : ''}
+    </div>`;
+
+  const moneyCard = `
+    <div class="ai-insight-card">
+      <div class="ai-insight-card-title">怎么赚钱</div>
+      ${business.model ? `<div class="ai-insight-row"><span class="ai-insight-label">商业模式</span><div class="ai-insight-value">${escapeHtml(business.model)}${business.alternative ? `（备选：${escapeHtml(business.alternative)}）` : ''}</div></div>` : ''}
+      ${business.payer ? `<div class="ai-insight-row"><span class="ai-insight-label">谁付钱</span><div class="ai-insight-value">${escapeHtml(business.payer)}</div></div>` : ''}
+      ${business.price_band ? `<div class="ai-insight-row"><span class="ai-insight-label">参考价格</span><div class="ai-insight-value">${escapeHtml(business.price_band)}<span class="ai-infer-tag">AI 推断</span></div></div>` : ''}
+      ${basis}
+      ${(!business.model && !business.payer && !business.price_band) ? `<p class="ai-insight-empty">信息不足，暂无法判断</p>` : ''}
+    </div>`;
+
+  const buildCard = `
+    <div class="ai-insight-card">
+      <div class="ai-insight-card-title">怎么做</div>
+      ${build.difficulty ? `<div class="ai-insight-row"><span class="ai-insight-label">实现难度</span><div class="ai-insight-value">${escapeHtml(build.difficulty)}${build.reason ? ` · ${escapeHtml(build.reason)}` : ''}</div></div>` : ''}
+      ${build.mvp ? `<div class="ai-insight-row"><span class="ai-insight-label">MVP</span><div class="ai-insight-value">${escapeHtml(build.mvp)}</div></div>` : ''}
+      ${opportunityChips ? `<div class="ai-insight-row"><span class="ai-insight-label">机会点</span><div class="ai-chips">${opportunityChips}</div></div>` : ''}
+      ${(!build.difficulty && !build.mvp && !opportunityChips) ? `<p class="ai-insight-empty">信息不足，暂无法判断</p>` : ''}
+    </div>`;
+
+  return `<div class="ai-insight-grid">${demandCard}${moneyCard}${buildCard}</div>
+    <p class="ai-insight-footnote">AI 推断，仅供参考 · 置信度 ${confidenceLabel}</p>`;
+}
+
+async function requestAiInsight(id) {
+  const body = document.getElementById('aiInsightBody');
+  if (!body || !id) return;
+
+  const cacheKey = `vb_ai_insight_${id}`;
+  try {
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached) {
+      body.innerHTML = buildAiInsightHtml(JSON.parse(cached));
+      return;
+    }
+  } catch (_) {}
+
+  try {
+    const res = await fetch(AI_INSIGHT_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify({ id }),
+      signal: AbortSignal.timeout(AI_INSIGHT_TIMEOUT),
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    if (data.status === 'generated' && data.insight) {
+      body.innerHTML = buildAiInsightHtml(data.insight);
+      try {
+        sessionStorage.setItem(cacheKey, JSON.stringify(data.insight));
+      } catch (_) {}
+    } else if (data.status === 'insufficient') {
+      body.innerHTML = `<p class="ai-insight-empty">公开信息较少，暂不生成解析。</p>`;
+    } else {
+      body.innerHTML = `<p class="ai-insight-empty">AI 解析暂时不可用，稍后刷新再看看。</p>`;
+    }
+  } catch (err) {
+    console.error('[AI Insight] 生成失败', err);
+    body.innerHTML = `<p class="ai-insight-empty">AI 解析生成中，稍后刷新再看看。</p>`;
+  }
+}
+
 // ==================== 启动 ====================
 async function init() {
-  // 先从 Supabase 加载数据
-  await loadDataFromSupabase();
+  // 缺少有效 id 时直接回画廊，避免显示误导性的「灵感不存在」
+  const caseId = (getUrlParam('id') || '').trim();
+  if (!caseId || caseId === 'undefined' || caseId === 'null') {
+    window.location.replace('./gallery.html');
+    return;
+  }
 
-  const caseId = getUrlParam('id');
-  if (!caseId) {
-    renderNotFound();
+  // 先从 Supabase 加载数据；加载失败和「真的不存在」分开提示
+  const loaded = await loadDataFromSupabase();
+  if (!loaded) {
+    renderLoadError();
     return;
   }
 
@@ -2442,6 +2626,8 @@ async function init() {
   initWebGLBubble();
   // 页面加载时根据已点亮状态设置亮度
   setWebGLBubbleBrightness(isLiked(caseData.id) ? 1.0 : 0.5);
+  // 没有缓存的 AI 解析时，触发一次实时生成
+  if (!caseData.ai_insight) requestAiInsight(caseData.id);
 }
 
 /**

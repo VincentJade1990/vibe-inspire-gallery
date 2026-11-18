@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects - Vibe Bubble</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="./auth.js"></script>
+<script src="./nav.js"></script>
+<style>
+/* ===== 变量与基础 ===== */
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-mid: #0f0f1a;
+  --purple: #8b5cf6;
+  --purple-light: #a78bfa;
+  --blue: #3b82f6;
+  --indigo: #6366f1;
+  --text: #f8fafc;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-top: 68px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: -120px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(139, 92, 246, 0.12),
+    rgba(59, 130, 246, 0.12),
+    rgba(236, 72, 153, 0.10),
+    rgba(6, 182, 212, 0.08),
+    rgba(139, 92, 246, 0.12)
+  );
+  animation: cosmicRotate 30s linear infinite;
+  z-index: -2;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+@keyframes cosmicRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 20% 20%, rgba(139, 92, 246, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+    linear-gradient(180deg, #08080f 0%, #0a0a0f 50%, #0c0815 100%);
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* ===== 容器 ===== */
+.proj-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 32px 24px 120px;
+}
+
+/* ===== 提示条 ===== */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 13px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: rgba(139, 92, 246, 0.08);
+  font-size: 13px;
+  color: var(--purple-light);
+  margin-bottom: 22px;
+  line-height: 1.7;
+}
+
+.banner.warn {
+  border-color: rgba(245, 158, 11, 0.28);
+  background: rgba(245, 158, 11, 0.08);
+  color: #fbbf24;
+}
+
+.banner[hidden] { display: none; }
+
+.banner-link {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.banner-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ===== 项目头 ===== */
+.proj-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.proj-switch-wrap { position: relative; min-width: 0; }
+
+.proj-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px 9px 10px;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  max-width: 100%;
+  transition: var(--transition);
+}
+
+.proj-switch:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.07);
+}
+
+.proj-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #fff, #c4b5fd 38%, #8b5cf6 72%);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.6);
+  flex-shrink: 0;
+}
+
+.proj-switch-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.proj-title {
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 44vw;
+}
+
+.proj-meta {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+
+.proj-caret {
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+  margin-left: 4px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.proj-switch[aria-expanded="true"] .proj-caret { transform: rotate(180deg); }
+
+.proj-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn:hover {
+  color: var(--purple-light);
+  border-color: rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  border-color: transparent;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+}
+
+.btn-danger {
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.28);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.btn-danger:hover {
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.14);
+}
+
+.btn-danger[hidden] { display: none; }
+
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* 项目切换下拉 */
+.proj-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 300px;
+  max-width: 420px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: rgba(15, 15, 28, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  z-index: 60;
+  display: none;
+}
+
+.proj-menu.show { display: block; animation: menuIn 0.18s ease; }
+
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  color: var(--text-dim);
+  font-size: 13.5px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.menu-item:hover { background: rgba(139, 92, 246, 0.10); color: var(--text); }
+
+.menu-item.active { background: rgba(139, 92, 246, 0.12); color: var(--purple-light); }
+
+.menu-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.menu-item-text {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-badge {
+  flex-shrink: 0;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.12);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--purple-light);
+  white-space: nowrap;
+}
+
+.menu-empty {
+  padding: 14px 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ===== 孵化气泡 ===== */
+.hatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  padding-top: 18px;
+}
+
+.center-bubble {
+  width: var(--bubble-size, 150px);
+  height: var(--bubble-size, 150px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.12)),
+    rgba(139, 92, 246, calc(var(--bubble-opacity, 1) * 0.10)) 40%,
+    rgba(59, 130, 246, calc(var(--bubble-opacity, 1) * 0.06)) 70%,
+    rgba(10, 10, 15, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.12));
+  box-shadow:
+    0 0 var(--bubble-glow, 60px) rgba(139, 92, 246, calc(var(--bubble-opacity, 1) * 0.25)),
+    inset 0 0 60px rgba(139, 92, 246, calc(var(--bubble-opacity, 1) * 0.10)),
+    inset 0 2px 4px rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.08));
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  transition:
+    width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+    height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.8s ease,
+    opacity 0.6s ease;
+  animation: bubbleFloat 5s ease-in-out infinite;
+}
+
+.center-bubble::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 18%;
+  width: 32%;
+  height: 28%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, calc(var(--bubble-opacity, 1) * 0.2));
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.center-bubble.iridescent::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(236, 72, 153, 0.10),
+    rgba(139, 92, 246, 0.10),
+    rgba(59, 130, 246, 0.10),
+    rgba(6, 182, 212, 0.10),
+    rgba(245, 158, 11, 0.08),
+    rgba(236, 72, 153, 0.10)
+  );
+  animation: iridescentSpin 8s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+@keyframes iridescentSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bubbleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.bubble-title-inner {
+  font-size: var(--bubble-font-size, 12px);
+  font-weight: 600;
+  text-align: center;
+  padding: 0 18%;
+  color: rgba(255, 255, 255, 0.95);
+  word-break: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--bubble-line-clamp, 3);
+  -webkit-box-orient: vertical;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  position: relative;
+  line-height: 1.4;
+}
+
+.center-bubble.subtle-glow {
+  animation: bubbleFloat 5s ease-in-out infinite, subtleGlow 1.2s ease;
+}
+
+@keyframes subtleGlow {
+  0% { filter: brightness(1); }
+  30% { filter: brightness(1.2) saturate(1.3); }
+  100% { filter: brightness(1); }
+}
+
+.hatch-caption {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hatch-step {
+  color: var(--purple-light);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.hatch-sep { color: var(--text-muted); }
+
+/* ===== 8 步流程条 ===== */
+.stage-bar-wrap {
+  max-width: 640px;
+  margin: 34px auto 0;
+}
+
+.stage-bar {
+  display: flex;
+  align-items: flex-start;
+}
+
+.stage-seg {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding: 4px 0;
+  outline: none;
+}
+
+.stage-seg:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 0;
+}
+
+.stage-seg.completed:not(:last-child)::after {
+  background: var(--seg-color, var(--purple));
+  opacity: 0.5;
+}
+
+.stage-seg.current:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.stage-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-deep);
+  position: relative;
+  z-index: 1;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-seg.completed .stage-dot {
+  background: var(--seg-color, var(--purple));
+  border-color: var(--seg-color, var(--purple));
+  box-shadow: 0 0 12px var(--seg-color, var(--purple));
+}
+
+.stage-seg.current .stage-dot {
+  background: var(--seg-color, var(--purple));
+  border-color: var(--seg-color, var(--purple));
+  box-shadow: 0 0 18px var(--seg-color, var(--purple)), 0 0 36px var(--seg-color, var(--purple));
+  animation: stagePulse 2s ease-in-out infinite;
+}
+
+@keyframes stagePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.stage-seg:hover .stage-dot {
+  transform: scale(1.2);
+  border-color: var(--seg-color, var(--purple));
+}
+
+.stage-dot-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.stage-seg.current .stage-dot-num,
+.stage-seg.completed .stage-dot-num { color: #fff; }
+
+.stage-zh {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 64px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.stage-seg.current .stage-zh { color: var(--text); font-weight: 600; }
+.stage-seg.completed .stage-zh { color: var(--text-dim); }
+
+/* ===== 卡片 ===== */
+.card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+
+.method-card { margin-top: 46px; }
+
+.overview {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text-dim);
+  margin-bottom: 22px;
+}
+
+/* 胶囊标签栏 */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.tab {
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tab:hover { color: var(--text); }
+
+.tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.25));
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.tab-panel { display: none; }
+
+.tab-panel.active { display: block; animation: panelFadeIn 0.35s ease; }
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 待办清单 */
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+.check-item:last-child { border-bottom: none; }
+
+.check-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.check-item.done .check-box {
+  background: linear-gradient(135deg, var(--purple), var(--indigo));
+  border-color: transparent;
+}
+
+.check-item.done .check-box::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.check-item.done .check-text { color: var(--text-muted); text-decoration: line-through; }
+
+.check-progress {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* 闪卡 */
+.flash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.flash {
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.flash:hover { border-color: rgba(139, 92, 246, 0.3); }
+
+.flash-q { font-size: 14px; font-weight: 600; line-height: 1.5; }
+
+.flash-a {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-dim);
+  margin-top: 10px;
+  display: none;
+}
+
+.flash.open .flash-a { display: block; }
+
+/* 提示词 */
+.prompt-box {
+  position: relative;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 18px 18px 54px;
+}
+
+.prompt-text {
+  font-family: 'SF Mono', ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.85;
+  color: #cbd5e1;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.copy-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.copy-btn:hover { color: var(--purple-light); border-color: rgba(139, 92, 246, 0.35); }
+
+.copy-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* 占位提示 */
+.pending {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 10px 0;
+  line-height: 1.8;
+}
+
+/* ===== 产出卡 ===== */
+.output-card { margin-top: 20px; }
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.card-hint { font-size: 12px; color: var(--text-muted); }
+
+.output-spec {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  padding: 12px 14px;
+  border-left: 2px solid rgba(139, 92, 246, 0.5);
+  background: rgba(139, 92, 246, 0.05);
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 16px;
+}
+
+.output-area {
+  width: 100%;
+  min-height: 150px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.8;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  transition: var(--transition);
+}
+
+.output-area:focus { border-color: rgba(139, 92, 246, 0.4); }
+
+.output-area::placeholder { color: rgba(255, 255, 255, 0.22); }
+
+.output-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.save-state { font-size: 12px; color: var(--text-muted); }
+
+/* ===== 删除项目弹窗 ===== */
+.del-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.del-overlay.show { display: flex; animation: delFade 0.2s ease; }
+
+@keyframes delFade { from { opacity: 0; } to { opacity: 1; } }
+
+.del-modal {
+  width: 100%;
+  max-width: 420px;
+  padding: 28px 26px 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 15, 28, 0.96);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+  animation: delSlide 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+@keyframes delSlide {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.del-eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.del-title {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.del-desc {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+.del-desc strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.del-options {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.del-option {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.del-option:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.del-option-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.del-option-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.del-option.danger:hover {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.del-option.danger .del-option-title { color: #fca5a5; }
+
+.del-cancel {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: var(--transition);
+}
+
+.del-cancel:hover { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+
+/* ===== 响应式 ===== */
+@media (max-width: 640px) {
+  .proj-wrap { padding: 24px 16px 96px; }
+  .proj-title { max-width: 52vw; font-size: 15px; }
+  .hatch { min-height: 300px; }
+  .center-bubble {
+    width: calc(var(--bubble-size, 150px) * 0.8) !important;
+    height: calc(var(--bubble-size, 150px) * 0.8) !important;
+  }
+  .stage-zh { font-size: 10px; max-width: 44px; }
+  .stage-dot { width: 30px; height: 30px; }
+  .stage-dot-num { font-size: 11px; }
+  .card { padding: 18px; border-radius: 16px; }
+  .flash-grid { grid-template-columns: 1fr; }
+  .tab { padding: 8px 14px; font-size: 12.5px; }
+  .proj-menu { min-width: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+</style>
+</head>
+<body>
+<div id="vb-nav-mount"></div>
+
+<div class="proj-wrap">
+
+  <div class="banner" id="banner" hidden></div>
+
+  <!-- 项目管理头 -->
+  <header class="proj-head">
+    <div class="proj-switch-wrap">
+      <button class="proj-switch" id="projSwitch" aria-expanded="false" aria-haspopup="true">
+        <span class="proj-dot" aria-hidden="true"></span>
+        <span class="proj-switch-text">
+          <span class="proj-title" id="projTitle">示例项目</span>
+          <span class="proj-meta" id="projMeta">8 Step Creation Loop</span>
+        </span>
+        <svg class="proj-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="proj-menu" id="projMenu"></div>
+    </div>
+    <div class="proj-actions">
+      <a class="btn" href="./ideas">从 Ideas 选择</a>
+      <button class="btn btn-primary" id="newProjectBtn">＋ 新建项目</button>
+      <button class="btn btn-danger" id="deleteProjectBtn" hidden>删除项目</button>
+    </div>
+  </header>
+
+  <!-- 孵化气泡 -->
+  <section class="hatch">
+    <div class="center-bubble" id="centerBubble"
+      style="--bubble-size:150px;--bubble-glow:18px;--bubble-opacity:0.5;--bubble-font-size:12px;--bubble-line-clamp:3;">
+      <span class="bubble-title-inner" id="bubbleTitle">示例项目</span>
+    </div>
+    <div class="hatch-caption">
+      <span class="hatch-step" id="hatchStep">第 01 步</span>
+      <span class="hatch-sep">·</span>
+      <span id="hatchName">Understand 认知</span>
+    </div>
+  </section>
+
+  <!-- 8 步流程条 -->
+  <div class="stage-bar-wrap">
+    <div class="stage-bar" id="stageBar"></div>
+  </div>
+
+  <!-- 当前阶段方法 -->
+  <section class="card method-card">
+    <p class="overview" id="overview"></p>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="todo">待办清单</button>
+      <button class="tab" data-tab="flash">方法闪卡</button>
+      <button class="tab" data-tab="prompt">提示词</button>
+    </div>
+    <div class="tab-panel active" id="panel-todo">
+      <div class="check-progress" id="checkProgress"></div>
+      <div id="checkList"></div>
+    </div>
+    <div class="tab-panel" id="panel-flash">
+      <div class="flash-grid" id="flashGrid"></div>
+    </div>
+    <div class="tab-panel" id="panel-prompt">
+      <div class="prompt-box">
+        <div class="prompt-text" id="promptText"></div>
+        <button class="copy-btn" id="copyBtn">复制</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 本步产出 -->
+  <section class="card output-card">
+    <div class="card-head">
+      <span class="card-label">本步产出物</span>
+      <span class="card-hint" id="outputStageHint"></span>
+    </div>
+    <div class="output-spec" id="outputSpec"></div>
+    <textarea class="output-area" id="outputArea" placeholder="在这里写下这一阶段的产出……"></textarea>
+    <div class="output-foot">
+      <span class="save-state" id="saveState">尚未保存</span>
+      <button class="btn btn-primary" id="saveBtn">保存产出</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- 删除项目弹窗 -->
+<div class="del-overlay" id="deleteModal">
+  <div class="del-modal" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+    <div class="del-eyebrow">REMOVE PROJECT</div>
+    <div class="del-title" id="delTitle">删除这个项目？</div>
+    <p class="del-desc">
+      <strong id="delProjectName">这个项目</strong> 正在孵化中。你可以把它退回灵感库，之后再继续；也可以直接删除，删除后不可恢复。
+    </p>
+    <div class="del-options">
+      <button class="del-option" id="delReturnBtn">
+        <span class="del-option-title">退回 Ideas</span>
+        <span class="del-option-sub">保留这条灵感，放回灵感库，随时可以再次孵化</span>
+      </button>
+      <button class="del-option danger" id="delConfirmBtn">
+        <span class="del-option-title">直接删除</span>
+        <span class="del-option-sub">连同这条灵感一起永久删除，不可恢复</span>
+      </button>
+    </div>
+    <button class="del-cancel" id="delCancelBtn">取消</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ===== 步骤配色与气泡视觉成长曲线 =====
+  var STEP_COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#3b82f6', '#06b6d4', '#f59e0b', '#10b981', '#ef4444'];
+  var STAGE_VISUAL = [
+    { size: 150, glow: 18, opacity: 0.50, fontSize: 12, lineClamp: 3 },
+    { size: 168, glow: 24, opacity: 0.56, fontSize: 13, lineClamp: 3 },
+    { size: 190, glow: 30, opacity: 0.62, fontSize: 13, lineClamp: 4 },
+    { size: 212, glow: 38, opacity: 0.70, fontSize: 14, lineClamp: 4 },
+    { size: 236, glow: 46, opacity: 0.78, fontSize: 15, lineClamp: 5 },
+    { size: 262, glow: 54, opacity: 0.86, fontSize: 16, lineClamp: 5 },
+    { size: 288, glow: 64, opacity: 0.93, fontSize: 18, lineClamp: 6 },
+    { size: 320, glow: 72, opacity: 1.00, fontSize: 20, lineClamp: 6 }
+  ];
+  var MISSING_PATTERN = /PGRST205|does not exist|schema cache|Could not find the table/i;
+
+  // ===== 状态 =====
+  var STEPS = [];
+  var ideas = [];
+  var currentIndex = 0;
+  var currentIdea = null;
+  var outputs = {};        // stageKey -> content
+  var loggedIn = false;
+  var tableMissing = false;
+  var notice = '';
+  var menuOpen = false;
+
+  function el(id) { return document.getElementById(id); }
+
+  // ===== 认证辅助 =====
+  function authUser() {
+    if (typeof window.currentUser === 'function') return window.currentUser();
+    try {
+      var cached = localStorage.getItem('vb_user');
+      return cached ? JSON.parse(cached) : null;
+    } catch (e) { return null; }
+  }
+
+  function isLoggedIn() {
+    return !!(typeof getAccessToken === 'function' && getAccessToken() && authUser());
+  }
+
+  function waitAuth() {
+    return new Promise(function (resolve) {
+      var n = 0;
+      (function tick() {
+        if (typeof authReady === 'undefined' || authReady) return resolve();
+        if (++n > 50) return resolve();
+        setTimeout(tick, 100);
+      })();
+    });
+  }
+
+  // ===== 数据加载 =====
+  function loadSteps() {
+    return fetch('./steps.json', { cache: 'no-cache' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) { STEPS = data.steps || []; });
+  }
+
+  // 一次读回该项目的全部阶段产出；表不存在时标记降级
+  async function loadOutputs(ideaId) {
+    outputs = {};
+    tableMissing = false;
+    var token = typeof getAccessToken === 'function' ? getAccessToken() : null;
+    if (!token || !ideaId) return;
+
+    try {
+      var res = await fetch(
+        SUPABASE_URL + '/rest/v1/idea_outputs?idea_id=eq.' + encodeURIComponent(ideaId) + '&select=stage,content',
+        { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + token } }
+      );
+
+      if (!res.ok) {
+        var body = {};
+        try { body = await res.json(); } catch (e) { /* ignore */ }
+        var msg = (body && (body.message || body.hint || body.code)) || ('HTTP ' + res.status);
+        if (body.code === 'PGRST205' || MISSING_PATTERN.test(msg)) {
+          tableMissing = true;
+          return;
+        }
+        console.warn('[Projects] 读取产出失败:', msg);
+        return;
+      }
+
+      var rows = await res.json();
+      (rows || []).forEach(function (row) {
+        if (row && row.stage) outputs[row.stage] = row.content;
+      });
+    } catch (e) {
+      console.error('[Projects] 读取产出异常:', e);
+    }
+  }
+
+  function findStep(key) {
+    for (var i = 0; i < STEPS.length; i++) {
+      if (STEPS[i].key === key) return i;
+    }
+    return 0;
+  }
+
+  function countDone() {
+    return STEPS.filter(function (s) { return !!outputs[s.key]; }).length;
+  }
+
+  function firstUnfinished() {
+    for (var i = 0; i < STEPS.length; i++) {
+      if (!outputs[STEPS[i].key]) return i;
+    }
+    return Math.max(0, STEPS.length - 1);
+  }
+
+  // ===== 渲染 =====
+  function renderHeader() {
+    el('projTitle').textContent = currentIdea ? currentIdea.title : '示例项目 · 未命名的气泡';
+    var total = STEPS.length || 8;
+    el('projMeta').textContent = '8 Step Creation Loop · 已完成 ' + countDone() + ' / ' + total;
+    el('deleteProjectBtn').hidden = !(loggedIn && currentIdea);
+    renderMenu();
+  }
+
+  function renderMenu() {
+    var menu = el('projMenu');
+
+    if (!loggedIn) {
+      menu.innerHTML = '<div class="menu-empty">登录后可以切换和管理你的项目。</div>';
+      return;
+    }
+
+    if (!ideas.length) {
+      menu.innerHTML = '<div class="menu-empty">还没有项目。点右上角「新建项目」，或从 Ideas 里挑一条灵感开始孵化。</div>';
+      return;
+    }
+
+    menu.innerHTML = ideas.map(function (idea) {
+      var active = currentIdea && currentIdea.id === idea.id ? ' active' : '';
+      var badge = idea.source_type === 'ai-passport'
+        ? '<span class="menu-badge">AI Passport</span>'
+        : '';
+      return '<button class="menu-item' + active + '" data-id="' + idea.id + '">' +
+        '<span class="menu-dot"></span>' +
+        '<span class="menu-item-text">' + escapeHtml(idea.title) + '</span>' +
+        badge +
+        '</button>';
+    }).join('');
+
+    menu.querySelectorAll('.menu-item').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-id');
+        var target = ideas.filter(function (x) { return x.id === id; })[0];
+        if (target) selectIdea(target);
+      });
+    });
+  }
+
+  function renderBubble() {
+    var v = STAGE_VISUAL[currentIndex] || STAGE_VISUAL[0];
+    var bubble = el('centerBubble');
+    bubble.style.setProperty('--bubble-size', v.size + 'px');
+    bubble.style.setProperty('--bubble-glow', v.glow + 'px');
+    bubble.style.setProperty('--bubble-opacity', v.opacity);
+    bubble.style.setProperty('--bubble-font-size', v.fontSize + 'px');
+    bubble.style.setProperty('--bubble-line-clamp', v.lineClamp);
+    bubble.classList.toggle('iridescent', currentIndex >= 6);
+
+    el('bubbleTitle').textContent = currentIdea ? currentIdea.title : '示例项目 · 未命名的气泡';
+
+    var s = STEPS[currentIndex] || {};
+    el('hatchStep').textContent = '第 ' + (s.no || '01') + ' 步';
+    el('hatchName').textContent = (s.name || '') + (s.nameCn ? ' ' + s.nameCn : '');
+  }
+
+  function renderStageBar() {
+    var bar = el('stageBar');
+    bar.innerHTML = STEPS.map(function (s, i) {
+      var cls = 'stage-seg';
+      if (outputs[s.key]) cls += ' completed';
+      if (i === currentIndex) cls += ' current';
+      return '<div class="' + cls + '" data-i="' + i + '" role="button" tabindex="0"' +
+        ' aria-label="' + escapeHtml(s.name + ' ' + s.nameCn) + '"' +
+        ' style="--seg-color:' + STEP_COLORS[i % STEP_COLORS.length] + ';">' +
+        '<div class="stage-dot"><span class="stage-dot-num">' + escapeHtml(s.no) + '</span></div>' +
+        '<div class="stage-zh">' + escapeHtml(s.nameCn) + '</div>' +
+        '</div>';
+    }).join('');
+
+    bar.querySelectorAll('.stage-seg').forEach(function (seg) {
+      seg.addEventListener('click', function () {
+        gotoStep(parseInt(seg.getAttribute('data-i'), 10));
+      });
+      seg.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          gotoStep(parseInt(seg.getAttribute('data-i'), 10));
+        }
+      });
+    });
+  }
+
+  function renderStageContent() {
+    var s = STEPS[currentIndex] || {};
+
+    el('overview').textContent = s.overview || '这一阶段的方法说明正在整理中。';
+    el('outputStageHint').textContent = (s.no || '') + ' ' + (s.name || '');
+
+    renderChecklist(s);
+    renderFlashcards(s);
+    renderPrompt(s);
+    renderOutput(s);
+  }
+
+  function renderChecklist(s) {
+    var box = el('checkList');
+    var items = s.checklist || [];
+
+    if (!items.length) {
+      box.innerHTML = '<div class="pending">这一步的待办正在整理中。</div>';
+      el('checkProgress').textContent = '';
+      return;
+    }
+
+    var done = s._done || {};
+    box.innerHTML = items.map(function (text, i) {
+      return '<div class="check-item' + (done[i] ? ' done' : '') + '" data-i="' + i + '">' +
+        '<span class="check-box"></span>' +
+        '<span class="check-text">' + escapeHtml(text) + '</span>' +
+        '</div>';
+    }).join('');
+
+    box.querySelectorAll('.check-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var i = item.getAttribute('data-i');
+        s._done = s._done || {};
+        s._done[i] = !s._done[i];
+        item.classList.toggle('done', !!s._done[i]);
+        updateProgress(s);
+      });
+    });
+
+    updateProgress(s);
+  }
+
+  function updateProgress(s) {
+    var total = (s.checklist || []).length;
+    if (!total) { el('checkProgress').textContent = ''; return; }
+    var doneCount = 0;
+    Object.keys(s._done || {}).forEach(function (k) { if (s._done[k]) doneCount++; });
+    el('checkProgress').textContent = '进度 ' + doneCount + ' / ' + total;
+  }
+
+  function renderFlashcards(s) {
+    var grid = el('flashGrid');
+    var cards = s.flashcards || [];
+
+    if (!cards.length) {
+      grid.innerHTML = '<div class="pending">这一步的闪卡正在整理中，可以先看看「提示词」。</div>';
+      return;
+    }
+
+    grid.innerHTML = cards.map(function (c) {
+      return '<div class="flash">' +
+        '<div class="flash-q">' + escapeHtml(c.q) + '</div>' +
+        '<div class="flash-a">' + escapeHtml(c.a) + '</div>' +
+        '</div>';
+    }).join('');
+
+    grid.querySelectorAll('.flash').forEach(function (card) {
+      card.addEventListener('click', function () { card.classList.toggle('open'); });
+    });
+  }
+
+  function renderPrompt(s) {
+    var hasPrompt = !!s.prompt;
+    el('promptText').textContent = hasPrompt ? s.prompt : '这一步的提示词正在整理中。';
+    el('copyBtn').disabled = !hasPrompt;
+  }
+
+  function renderOutput(s) {
+    el('outputSpec').textContent = s.outputSpec || '产出物定义待补充';
+    el('outputArea').value = outputs[s.key] || '';
+    el('saveBtn').disabled = false;
+
+    if (!loggedIn) {
+      setState('登录后可保存');
+    } else if (!currentIdea) {
+      setState('选择项目后可保存');
+    } else if (tableMissing) {
+      setState('云端保存暂未开启');
+    } else {
+      setState(outputs[s.key] ? '已保存' : '尚未保存');
+    }
+  }
+
+  function renderAll() {
+    renderHeader();
+    renderBubble();
+    renderStageBar();
+    renderStageContent();
+  }
+
+  function gotoStep(i) {
+    if (i < 0 || i >= STEPS.length) return;
+    currentIndex = i;
+    renderBubble();
+    renderStageBar();
+    renderStageContent();
+  }
+
+  function setState(text) {
+    el('saveState').textContent = text;
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  // ===== 提示条 =====
+  function showBanner(html, kind) {
+    var b = el('banner');
+    b.className = 'banner' + (kind ? ' ' + kind : '');
+    b.innerHTML = html;
+    b.hidden = false;
+    var loginBtn = b.querySelector('#bannerLogin');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', function () {
+        if (typeof showAuthModal === 'function') showAuthModal('login');
+      });
+    }
+  }
+
+  function applyBanner() {
+    if (!loggedIn) {
+      showBanner('你正在查看示例项目，方法内容可自由浏览。<button class="banner-link" id="bannerLogin">登录后开始孵化</button>');
+      return;
+    }
+    if (notice) { showBanner(escapeHtml(notice)); return; }
+    if (tableMissing) {
+      showBanner('产出保存暂未开启：数据库里还没有 idea_outputs 表。方法内容可以正常浏览，建表后即可保存。', 'warn');
+      return;
+    }
+    el('banner').hidden = true;
+  }
+
+  // ===== 项目切换 =====
+  function toggleMenu(force) {
+    menuOpen = typeof force === 'boolean' ? force : !menuOpen;
+    el('projMenu').classList.toggle('show', menuOpen);
+    el('projSwitch').setAttribute('aria-expanded', menuOpen ? 'true' : 'false');
+  }
+
+  async function selectIdea(idea) {
+    if (!idea) return;
+    currentIdea = idea;
+    notice = '';
+    toggleMenu(false);
+    try { history.replaceState({}, '', './projects?idea=' + encodeURIComponent(idea.id)); } catch (e) { /* ignore */ }
+
+    await loadOutputs(idea.id);
+    currentIndex = firstUnfinished();
+    applyBanner();
+    renderAll();
+  }
+
+  // ===== 事件 =====
+  function bindEvents() {
+    el('projSwitch').addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!menuOpen) return;
+      var menu = el('projMenu');
+      var sw = el('projSwitch');
+      if (!menu || !sw || !document.body.contains(menu)) return;
+      if (!menu.contains(e.target) && !sw.contains(e.target)) toggleMenu(false);
+    });
+
+    el('tabs').querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var target = tab.getAttribute('data-tab');
+        el('tabs').querySelectorAll('.tab').forEach(function (t) {
+          t.classList.toggle('active', t === tab);
+        });
+        document.querySelectorAll('.tab-panel').forEach(function (p) {
+          p.classList.toggle('active', p.id === 'panel-' + target);
+        });
+      });
+    });
+
+    el('copyBtn').addEventListener('click', function () {
+      var text = el('promptText').textContent;
+      if (!text || el('copyBtn').disabled) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          el('copyBtn').textContent = '已复制';
+          setTimeout(function () { el('copyBtn').textContent = '复制'; }, 1600);
+        });
+      }
+    });
+
+    el('saveBtn').addEventListener('click', handleSave);
+
+    el('newProjectBtn').addEventListener('click', async function () {
+      if (!loggedIn) {
+        if (typeof showAuthModal === 'function') showAuthModal('signup');
+        return;
+      }
+      var btn = el('newProjectBtn');
+      btn.disabled = true;
+      btn.textContent = '创建中…';
+      var res = await saveIdea('未命名项目', []);
+      if (res && res.success && res.data) {
+        var promo = await promoteIdea(res.data.id);
+        if (promo && promo.success) {
+          window.location.href = './projects?idea=' + encodeURIComponent(res.data.id);
+          return;
+        }
+        btn.disabled = false;
+        btn.textContent = '＋ 新建项目';
+        showBanner('项目已创建，但进入孵化失败，请重试。', 'warn');
+        return;
+      }
+      btn.disabled = false;
+      btn.textContent = '＋ 新建项目';
+      showBanner(escapeHtml((res && res.error) || '创建失败'), 'warn');
+    });
+
+    el('deleteProjectBtn').addEventListener('click', openDeleteModal);
+    el('delCancelBtn').addEventListener('click', closeDeleteModal);
+    el('deleteModal').addEventListener('click', function (e) {
+      if (e.target === el('deleteModal')) closeDeleteModal();
+    });
+    el('delReturnBtn').addEventListener('click', handleReturnToIdeas);
+    el('delConfirmBtn').addEventListener('click', handleDeleteProject);
+  }
+
+  // ===== 删除项目 =====
+  function openDeleteModal() {
+    if (!currentIdea) return;
+    el('delProjectName').textContent = '「' + currentIdea.title + '」';
+    el('deleteModal').classList.add('show');
+  }
+
+  function closeDeleteModal() {
+    el('deleteModal').classList.remove('show');
+  }
+
+  async function handleReturnToIdeas() {
+    if (!currentIdea) return;
+    var idea = currentIdea;
+    closeDeleteModal();
+    var res = await demoteIdea(idea.id);
+    if (res && res.success) {
+      window.location.href = './ideas?returned=1';
+      return;
+    }
+    showBanner(escapeHtml((res && res.error) || '退回失败'), 'warn');
+  }
+
+  async function handleDeleteProject() {
+    if (!currentIdea) return;
+    var idea = currentIdea;
+    closeDeleteModal();
+    var res = await deleteIdea(idea.id);
+    if (res && res.success) {
+      window.location.href = './projects?deleted=1';
+      return;
+    }
+    showBanner(escapeHtml((res && res.error) || '删除失败'), 'warn');
+  }
+
+  async function handleSave() {
+    var step = STEPS[currentIndex];
+    if (!step) return;
+
+    if (!loggedIn) {
+      setState('请先登录后再保存');
+      if (typeof showAuthModal === 'function') showAuthModal('login');
+      return;
+    }
+    if (!currentIdea) {
+      setState('先从 Ideas 选择一个项目');
+      return;
+    }
+    if (tableMissing) {
+      setState('云端保存暂未开启');
+      return;
+    }
+
+    var text = el('outputArea').value.trim();
+    if (!text) {
+      setState('先写点内容再保存');
+      el('outputArea').focus();
+      return;
+    }
+
+    var btn = el('saveBtn');
+    btn.disabled = true;
+    setState('保存中…');
+
+    var res = await saveIdeaOutput(currentIdea.id, step.key, text, 'step_output');
+
+    btn.disabled = false;
+
+    if (res && res.success) {
+      outputs[step.key] = text;
+      setState('已保存');
+      renderHeader();
+      renderStageBar();
+
+      var bubble = el('centerBubble');
+      bubble.classList.add('subtle-glow');
+      setTimeout(function () { bubble.classList.remove('subtle-glow'); }, 1200);
+      return;
+    }
+
+    var msg = (res && res.error) || '保存失败';
+    if (MISSING_PATTERN.test(msg)) {
+      tableMissing = true;
+      setState('云端保存暂未开启');
+      applyBanner();
+    } else {
+      setState('保存失败：' + msg);
+    }
+  }
+
+  // ===== 初始化 =====
+  async function init() {
+    bindEvents();
+    await waitAuth();
+    loggedIn = isLoggedIn();
+
+    try {
+      await loadSteps();
+    } catch (e) {
+      console.error('[Projects] steps.json 加载失败:', e);
+      el('overview').textContent = '方法内容库加载失败，请刷新重试。';
+      return;
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var requestedId = params.get('idea');
+
+    if (params.get('deleted') === '1') notice = '项目已删除。';
+
+    // 首页「创建项目」入口：?new=1 直接新建并跳转
+    if (loggedIn && params.get('new') === '1') {
+      var created = await saveIdea('未命名项目', []);
+      if (created && created.success && created.data) {
+        await promoteIdea(created.data.id);
+        window.location.replace('./projects?idea=' + encodeURIComponent(created.data.id));
+        return;
+      }
+    }
+
+    if (loggedIn) {
+      var user = authUser();
+      var allIdeas = (await getUserIdeas(user.id)) || [];
+      ideas = allIdeas.filter(function (x) { return isPromotedIdea(x); });
+
+      if (requestedId) {
+        currentIdea = ideas.filter(function (x) { return x.id === requestedId; })[0] || null;
+        if (!currentIdea) notice = '没有找到这个项目，当前展示的是示例内容。';
+      } else if (ideas.length) {
+        currentIdea = ideas[0];
+      } else if (!notice) {
+        notice = '你还没有正在孵化的项目。下面是一份示例流程，点「新建项目」或在 Ideas 里挑一条灵感即可开始。';
+      }
+
+      if (currentIdea) await loadOutputs(currentIdea.id);
+    }
+
+    var stepKey = params.get('step');
+    currentIndex = stepKey ? findStep(stepKey) : firstUnfinished();
+
+    applyBanner();
+    renderAll();
+
+    if (!loggedIn && params.get('new') === '1' && typeof showAuthModal === 'function') {
+      showAuthModal('signup');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

@@ -15,7 +15,7 @@
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
-    background: #050510;
+    background: #000;
     color: #fff;
     overflow-x: hidden;
     min-height: 100vh;
@@ -29,6 +29,7 @@
     width: 100%; height: 100%;
     z-index: 0;
     pointer-events: none;
+    transition: opacity 0.5s ease;
   }
 
   /* ===== 左上角品牌 ===== */
@@ -104,8 +105,8 @@
   }
   .top-nav a:hover {
     color: rgba(255,255,255,0.7);
-    border-color: rgba(139,92,246,0.3);
-    background: rgba(139,92,246,0.08);
+    border-color: rgba(119,105,232,0.3);
+    background: rgba(119,105,232,0.08);
   }
   .top-nav svg {
     width: 14px; height: 14px;
@@ -220,9 +221,9 @@
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
-    border: 1px solid rgba(139,92,246,0.4);
-    background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(56,189,248,0.2));
-    box-shadow: 0 0 20px rgba(139,92,246,0.15);
+    border: 1px solid rgba(119,105,232,0.4);
+    background: linear-gradient(135deg, rgba(119,105,232,0.2), rgba(56,189,248,0.2));
+    box-shadow: 0 0 20px rgba(119,105,232,0.15);
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -253,8 +254,8 @@
   }
   .cta-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(139,92,246,0.3);
-    border-color: rgba(139,92,246,0.7);
+    box-shadow: 0 0 40px rgba(119,105,232,0.3);
+    border-color: rgba(119,105,232,0.7);
   }
   .cta-btn:hover .btn-text svg {
     transform: translateX(4px);
@@ -303,7 +304,7 @@
 
   /* ===== 内容区通用样式 ===== */
   :root {
-    --purple: #a855f7;
+    --purple: #7769E8;
     --pink: #ec4899;
     --blue: #3b82f6;
     --cyan: #06b6d4;
@@ -317,9 +318,13 @@
   }
 
   .section {
-    max-width: 960px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 32px;
+    padding: 88px 40px;
+    min-height: 780px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     z-index: 1;
   }
@@ -336,8 +341,8 @@
     margin-bottom: 16px;
     padding: 6px 14px;
     border-radius: 20px;
-    background: rgba(168, 85, 247, 0.08);
-    border: 1px solid rgba(168, 85, 247, 0.2);
+    background: rgba(119, 105, 232, 0.08);
+    border: 1px solid rgba(119, 105, 232, 0.2);
   }
 
   .section-title {
@@ -414,7 +419,7 @@
   }
   .glass-card:hover {
     border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), 0 0 40px rgba(168, 85, 247, 0.08);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), 0 0 40px rgba(119, 105, 232, 0.08);
     transform: translateY(-4px);
   }
 
@@ -507,8 +512,8 @@
     transition: var(--transition);
   }
   .journey-card:hover, .journey-card.active {
-    border-color: rgba(168, 85, 247, 0.3);
-    background: rgba(168, 85, 247, 0.04);
+    border-color: rgba(119, 105, 232, 0.3);
+    background: rgba(119, 105, 232, 0.04);
     box-shadow: 0 12px 40px rgba(0,0,0,0.2), 0 0 32px rgba(168,85,247,0.1);
     transform: translateY(-4px);
     opacity: 1;
@@ -557,8 +562,8 @@
     cursor: pointer;
   }
   .journey-bubble.active {
-    background: #a855f7;
-    border-color: #a855f7;
+    background: #7769E8;
+    border-color: #7769E8;
     box-shadow: 0 0 12px rgba(168,85,247,0.5);
     transform: scale(1.2);
   }
@@ -661,7 +666,7 @@
   /* ===== 八步横向流程 ===== */
   .steps-section { text-align: center; }
   .steps-section .section-title { margin-bottom: 12px; }
-  .steps-section .section-subtitle { margin: 0 auto 48px; text-align: center; }
+  .steps-section .section-subtitle { margin: 0 auto 32px; text-align: center; }
 
   .steps-flow {
     display: flex;
@@ -689,8 +694,8 @@
     transition: var(--transition);
   }
   .step-card:hover {
-    border-color: rgba(168,85,247,0.3);
-    background: rgba(168,85,247,0.04);
+    border-color: rgba(119,105,232,0.35);
+    background: rgba(119,105,232,0.06);
     transform: translateY(-2px);
   }
   .step-head {
@@ -745,6 +750,431 @@
     .step-desc { font-size: 12px; }
   }
 
+  /* ===== 新版首页：左右分栏 / 占位 / 八步网格 / Passport / 结语 ===== */
+  .split {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .split.reverse { grid-template-columns: 0.95fr 1.05fr; }
+
+  .split-text { text-align: left; }
+
+  .section-en {
+    font-size: clamp(36px, 4.8vw, 58px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+  .section-en .en-accent { color: var(--purple); }
+  .section-en .accent-magenta { color: #F05BD8; }
+  .section-en .accent-lime { color: #C6F24E; }
+  .section-en .accent-green { color: #3DDC97; }
+
+  .section-cn {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.66);
+    margin-bottom: 20px;
+  }
+
+  .split-body p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .split-body p:last-child { margin-bottom: 0; }
+
+  .capability-line {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .capability-line a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(119, 105, 232, 0.3);
+    padding-bottom: 1px;
+    transition: color 0.3s ease;
+  }
+  .capability-line a:hover { color: var(--purple); }
+
+  .visual-placeholder {
+    min-height: 360px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.012);
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ===== 首页插画面板 ===== */
+  .illust {
+    position: relative;
+    min-height: 380px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+  }
+  .illust svg { width: 100%; height: auto; display: block; }
+
+  /* 第一、二模块使用更紧凑的高度 */
+  #about, #discover { min-height: 680px; }
+
+  /* 模块之间的分割线 */
+  .section + .section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 40px;
+    right: 40px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  /* 模块一：成长轨迹 */
+  .trail-base {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.10);
+    stroke-width: 1.4;
+    stroke-dasharray: 3 8;
+  }
+  .trail-flow {
+    fill: none;
+    stroke: url(#trailGrad);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-dasharray: 26 190;
+    filter: url(#trailGlow);
+    animation: trailFlow 3.2s linear infinite;
+  }
+  .trail-flow.alt { animation-delay: -1.6s; opacity: 0.65; }
+  @keyframes trailFlow { to { stroke-dashoffset: -216; } }
+
+  .bubble {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: bob 6s ease-in-out infinite;
+  }
+  .bubble circle { fill-opacity: 0.14; stroke-width: 1.6; }
+  .bubble text {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-anchor: middle;
+  }
+  .bubble .cn { font-weight: 500; letter-spacing: 0.12em; }
+  .b1 circle { fill: #38BDF8; stroke: #38BDF8; }
+  .b1 text { fill: #7DD3FC; }
+  .b2 circle { fill: #F05BD8; stroke: #F05BD8; }
+  .b2 text { fill: #F7A6E9; }
+  .b3 circle { fill: #7769E8; stroke: #7769E8; }
+  .b3 text { fill: #A99FF3; }
+  .b4 circle { fill: #3DDC97; stroke: #3DDC97; }
+  .b4 text { fill: #7FE9C1; }
+  .b2 { animation-delay: -1.5s; }
+  .b3 { animation-delay: -3s; }
+  .b4 { animation-delay: -4.5s; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* 模块二：气泡收进文件夹 */
+  .idea {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: cap1 12s linear infinite;
+  }
+  .idea circle { fill: rgba(240, 91, 216, 0.12); stroke: rgba(240, 91, 216, 0.75); stroke-width: 1.4; }
+  .idea text {
+    fill: #F7A6E9;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-anchor: middle;
+  }
+  .idea.i2 { animation-name: cap2; animation-delay: 2s; }
+  .idea.i3 { animation-name: cap3; animation-delay: 4s; }
+  .idea.i4 { animation-name: cap4; animation-delay: 6s; }
+  .idea.i5 { animation-name: cap5; animation-delay: 8s; }
+  .idea.i6 { animation-name: cap6; animation-delay: 10s; }
+  @keyframes cap1 {
+    0%, 8% { transform: translate(0, 0) scale(1); opacity: 1; }
+    10% { transform: translate(-3px, 2px) scale(0.9); opacity: 1; }
+    16% { transform: translate(64px, -56px) scale(0.86); opacity: 1; }
+    22% { transform: translate(158px, 156px) scale(0.2); opacity: 1; }
+    26%, 96% { transform: translate(158px, 156px) scale(0.14); opacity: 0; }
+    98% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  }
+  @keyframes cap2 {
+    0%, 8% { transform: translate(0, 0) scale(1); opacity: 1; }
+    10% { transform: translate(-3px, 2px) scale(0.9); opacity: 1; }
+    16% { transform: translate(30px, -64px) scale(0.86); opacity: 1; }
+    22% { transform: translate(78px, 204px) scale(0.2); opacity: 1; }
+    26%, 96% { transform: translate(78px, 204px) scale(0.14); opacity: 0; }
+    98% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  }
+  @keyframes cap3 {
+    0%, 8% { transform: translate(0, 0) scale(1); opacity: 1; }
+    10% { transform: translate(-3px, 2px) scale(0.9); opacity: 1; }
+    16% { transform: translate(-6px, -70px) scale(0.86); opacity: 1; }
+    22% { transform: translate(-12px, 220px) scale(0.2); opacity: 1; }
+    26%, 96% { transform: translate(-12px, 220px) scale(0.14); opacity: 0; }
+    98% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  }
+  @keyframes cap4 {
+    0%, 8% { transform: translate(0, 0) scale(1); opacity: 1; }
+    10% { transform: translate(-3px, 2px) scale(0.9); opacity: 1; }
+    16% { transform: translate(-42px, -64px) scale(0.86); opacity: 1; }
+    22% { transform: translate(-102px, 200px) scale(0.2); opacity: 1; }
+    26%, 96% { transform: translate(-102px, 200px) scale(0.14); opacity: 0; }
+    98% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  }
+  @keyframes cap5 {
+    0%, 8% { transform: translate(0, 0) scale(1); opacity: 1; }
+    10% { transform: translate(-3px, 2px) scale(0.9); opacity: 1; }
+    16% { transform: translate(-72px, -52px) scale(0.86); opacity: 1; }
+    22% { transform: translate(-177px, 146px) scale(0.2); opacity: 1; }
+    26%, 96% { transform: translate(-177px, 146px) scale(0.14); opacity: 0; }
+    98% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  }
+  @keyframes cap6 {
+    0%, 8% { transform: translate(0, 0) scale(1); opacity: 1; }
+    10% { transform: translate(-3px, 2px) scale(0.9); opacity: 1; }
+    16% { transform: translate(-82px, -30px) scale(0.86); opacity: 1; }
+    22% { transform: translate(-199px, 70px) scale(0.2); opacity: 1; }
+    26%, 96% { transform: translate(-199px, 70px) scale(0.14); opacity: 0; }
+    98% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  }
+
+  .folder {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: folderBounce 2s ease-in-out infinite;
+    animation-delay: 2.35s;
+  }
+  .folder-body { fill: rgba(119, 105, 232, 0.18); stroke: rgba(119, 105, 232, 0.70); stroke-width: 1.8; }
+  .folder-front { fill: rgba(119, 105, 232, 0.38); stroke: rgba(119, 105, 232, 0.80); stroke-width: 1.6; }
+  .folder-line { stroke: rgba(255, 255, 255, 0.20); stroke-width: 1; }
+  @keyframes folderBounce {
+    0%, 100% { transform: scale(1); }
+    8% { transform: scale(1.05, 0.94); }
+    16% { transform: scale(0.98, 1.02); }
+    26% { transform: scale(1); }
+  }
+
+  .ripple {
+    fill: none;
+    stroke: rgba(240, 91, 216, 0.6);
+    stroke-width: 1.4;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ripple 2s ease-out infinite;
+    animation-delay: 2.45s;
+  }
+  @keyframes ripple {
+    0% { transform: scale(0.4); opacity: 0.7; }
+    14% { transform: scale(1.2); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .plus-one {
+    fill: #F7A6E9;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0;
+    animation: plusOne 2s ease-out infinite;
+    animation-delay: 2.45s;
+  }
+  @keyframes plusOne {
+    0% { transform: translateY(6px); opacity: 0; }
+    8% { opacity: 1; }
+    24% { transform: translateY(-12px); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trail-flow, .bubble, .idea, .folder, .ripple, .plus-one { animation: none; }
+  }
+
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 34px;
+    text-align: left;
+  }
+  .step-grid .step-card { flex: none; }
+
+  /* 第二行反向排布，形成闭环：05 在 04 下方 → 08 回到 01 下方 */
+  .step-grid .step-card:nth-child(5) { grid-column: 4; grid-row: 2; }
+  .step-grid .step-card:nth-child(6) { grid-column: 3; grid-row: 2; }
+  .step-grid .step-card:nth-child(7) { grid-column: 2; grid-row: 2; }
+  .step-grid .step-card:nth-child(8) { grid-column: 1; grid-row: 2; }
+
+  .step-card { position: relative; }
+  .step-card::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-top: 1.5px solid rgba(119, 105, 232, 0.7);
+    border-right: 1.5px solid rgba(119, 105, 232, 0.7);
+  }
+  .step-card:nth-child(1)::after,
+  .step-card:nth-child(2)::after,
+  .step-card:nth-child(3)::after {
+    right: -22px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .step-card:nth-child(5)::after,
+  .step-card:nth-child(6)::after,
+  .step-card:nth-child(7)::after {
+    left: -22px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-135deg);
+  }
+  .step-card:nth-child(4)::after {
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%) rotate(135deg);
+  }
+  .step-card:nth-child(8)::after {
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+  }
+
+  .step-output {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+  .step-output b { color: var(--text-dim); font-weight: 500; }
+
+  .passport-section { text-align: left; }
+
+  .passport-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  .passport-media img {
+    display: block;
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.45));
+  }
+
+  .scene-list {
+    list-style: none;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .scene-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.02);
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+  .scene-num {
+    padding-top: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--purple);
+  }
+  .scene-list strong { color: var(--text); font-weight: 600; }
+
+  .ending {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 32px 56px;
+    text-align: center;
+  }
+  .ending-title {
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, var(--text) 30%, var(--text-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .ending-sub {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-dim);
+    margin-bottom: 34px;
+  }
+  .brand-signature {
+    margin-top: 40px;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: rgba(255, 255, 255, 0.22);
+  }
+
+  @media (max-width: 900px) {
+    .step-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .step-grid .step-card:nth-child(n+5) { grid-column: auto; grid-row: auto; }
+    .step-card::after { display: none; }
+    .section + .section::before { left: 28px; right: 28px; }
+    .section { padding: 72px 28px; min-height: auto; }
+  }
+  @media (max-width: 780px) {
+    .split, .split.reverse { grid-template-columns: 1fr; gap: 32px; }
+    .split.reverse .visual-placeholder,
+    .split.reverse .passport-media { order: 2; }
+    .split.reverse .split-text { order: 1; }
+    .section { padding: 64px 24px; }
+    .ending { padding: 56px 22px 48px; }
+  }
+  @media (max-width: 560px) {
+    .step-grid { grid-template-columns: 1fr; }
+    .section { padding: 56px 22px; }
+  }
+
 </style>
 </head>
 <body>
@@ -765,41 +1195,146 @@
   </div>
 
   <p class="subtitle subtitle-en">From Idea to Reality.</p>
-  <p class="subtitle-zh">从一个灵感开始，让想法成为现实</p>
+  <p class="subtitle-zh">发现创意、记录想法，孵化项目，把灵感变成真实的产品与作品。</p>
 
   <div class="btn-group">
-    <a href="./gallery.html" class="cta-btn">
+    <a href="./gallery.html" class="cta-btn cta-btn-ghost">
+      <span class="btn-text">探索灵感</span>
+    </a>
+    <a href="./projects?new=1" class="cta-btn">
       <span class="btn-text">
-        探索灵感
+        创建项目
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </span>
     </a>
   </div>
 </div>
 
-<!-- ===== 02 VibeBubble 是什么 ===== -->
-<section class="section about-center" id="about">
-  <div class="section-label scroll-reveal">About</div>
-  <h2 class="section-title scroll-reveal">VibeBubble是什么？</h2>
-  <div class="about-text about-text-center scroll-reveal">
-    <p>VibeBubble源于一个简单的好奇：那些有意思的产品，最初是怎样被想到，又如何被做出来的？</p>
-    <p>这里收集数字产品、智能硬件与创意产品，关注它们解决的问题、独特的设计，以及背后的创造过程。同时，我们也在整理AI工具与创造方法，帮助你从别人的实践中获得启发，逐步推进自己的想法。</p>
+<!-- ===== 02 ABOUT VIBEBUBBLE ===== -->
+<section class="section" id="about">
+  <div class="split">
+    <div class="split-text scroll-reveal">
+      <h2 class="section-en">ABOUT<br><span class="en-accent">VIBEBUBBLE</span></h2>
+      <p class="section-cn">让你的灵感创意真实落地。</p>
+      <div class="split-body">
+        <p>VibeBubble 是一个 AI 创意探索与孵化平台。</p>
+        <p>从值得借鉴的案例，到随手记录的想法，再到持续推进的项目，让三者彼此连接，帮助你把灵光一闪的想法，变成实际落地的产品或作品。</p>
+      </div>
+      <div class="capability-line">
+        <a href="./gallery.html">AI案例拆解</a><span>·</span>
+        <a href="./ideas.html">私人灵感库</a><span>·</span>
+        <a href="./projects">阶段进展跟进</a>
+      </div>
+    </div>
+    <div class="illust scroll-reveal">
+      <svg viewBox="0 0 520 420" role="img" aria-label="从发现、记录、孵化到落地的气泡成长曲线">
+        <defs>
+          <linearGradient id="trailGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#38BDF8"/>
+            <stop offset="40%" stop-color="#F05BD8"/>
+            <stop offset="72%" stop-color="#7769E8"/>
+            <stop offset="100%" stop-color="#3DDC97"/>
+          </linearGradient>
+          <filter id="trailGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- 上升轨迹：底层虚线 + 流动亮段 -->
+        <path class="trail-base" d="M 78 336 C 118 326 150 300 188 268 C 228 236 264 216 306 196 C 348 178 382 150 424 120 C 452 100 474 78 496 56"/>
+        <path class="trail-flow" d="M 78 336 C 118 326 150 300 188 268 C 228 236 264 216 306 196 C 348 178 382 150 424 120 C 452 100 474 78 496 56"/>
+        <path class="trail-flow alt" d="M 78 336 C 118 326 150 300 188 268 C 228 236 264 216 306 196 C 348 178 382 150 424 120 C 452 100 474 78 496 56"/>
+
+        <g class="bubble b1">
+          <circle cx="78" cy="336" r="36"/>
+          <text x="78" y="331" font-size="10">FIND</text>
+          <text class="cn" x="78" y="346" font-size="11.5">发现</text>
+        </g>
+        <g class="bubble b2">
+          <circle cx="188" cy="268" r="48"/>
+          <text x="188" y="262" font-size="11">NOTE</text>
+          <text class="cn" x="188" y="280" font-size="13">记录</text>
+        </g>
+        <g class="bubble b3">
+          <circle cx="306" cy="196" r="58"/>
+          <text x="306" y="189" font-size="13">BUILD</text>
+          <text class="cn" x="306" y="211" font-size="16">孵化</text>
+        </g>
+        <g class="bubble b4">
+          <circle cx="424" cy="120" r="68"/>
+          <text x="424" y="110" font-size="15">LAUNCH</text>
+          <text class="cn" x="424" y="136" font-size="18">落地</text>
+        </g>
+      </svg>
+    </div>
   </div>
-  <div class="question-tags scroll-reveal">
-    <span class="path-tag">我应该从哪里开始？</span>
-    <span class="path-tag">我可以创造什么？</span>
-    <span class="path-tag">如何把一个想法变成产品？</span>
-    <span class="path-tag">如何让产品被更多人看见？</span>
+</section>
+
+<!-- ===== 03 DISCOVER & CAPTURE ===== -->
+<section class="section" id="discover">
+  <div class="split reverse">
+    <div class="illust scroll-reveal">
+      <svg viewBox="0 0 520 420" role="img" aria-label="六颗灵感气泡轮流飞入中央的灵感文件夹">
+        <g class="idea i1">
+          <circle cx="95" cy="140" r="34"/>
+          <text x="95" y="145" font-size="11">IDEA</text>
+        </g>
+        <g class="idea i2">
+          <circle cx="175" cy="92" r="28"/>
+          <text x="175" y="96" font-size="10">IDEA</text>
+        </g>
+        <g class="idea i3">
+          <circle cx="265" cy="76" r="38"/>
+          <text x="265" y="81" font-size="12">IDEA</text>
+        </g>
+        <g class="idea i4">
+          <circle cx="355" cy="96" r="30"/>
+          <text x="355" y="100" font-size="10.5">IDEA</text>
+        </g>
+        <g class="idea i5">
+          <circle cx="430" cy="150" r="26"/>
+          <text x="430" y="154" font-size="9.5">IDEA</text>
+        </g>
+        <g class="idea i6">
+          <circle cx="452" cy="226" r="22"/>
+          <text x="452" y="230" font-size="8.5">IDEA</text>
+        </g>
+
+        <circle class="ripple" cx="253" cy="296" r="14"/>
+
+        <g transform="translate(253 0) scale(0.86 1) translate(-253 0)">
+          <g class="folder">
+            <path class="folder-body" d="M 160 258 h 62 l 16 18 h 108 a 14 14 0 0 1 14 14 v 84 a 14 14 0 0 1 -14 14 h -186 a 14 14 0 0 1 -14 -14 v -102 a 14 14 0 0 1 14 -14 z"/>
+            <path class="folder-front" d="M 146 300 h 214 v 74 a 14 14 0 0 1 -14 14 h -186 a 14 14 0 0 1 -14 -14 z"/>
+            <path class="folder-line" d="M 158 316 h 190"/>
+          </g>
+        </g>
+
+        <text x="253" y="404" text-anchor="middle" font-size="11" letter-spacing="0.16em" fill="rgba(255,255,255,0.30)">灵感库</text>
+        <text class="plus-one" x="374" y="272">+1</text>
+      </svg>
+    </div>
+    <div class="split-text scroll-reveal">
+      <h2 class="section-en">DISCOVER &amp;<br><span class="en-accent accent-magenta">CAPTURE</span></h2>
+      <p class="section-cn">看见他人创意，记录自己的想法。</p>
+      <div class="split-body">
+        <p>从真实作品中发现有趣的创意，把日常冒出的灵感随身记录下来，慢慢探索、积累、归类，找到值得自己尝试的几个方向。</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ===== 03 八步创造路径 ===== -->
 <section class="section steps-section" id="path">
-  <div class="section-label scroll-reveal">Path</div>
-  <h2 class="section-title scroll-reveal">从灵感到现实，探索一条创造路径</h2>
-  <p class="section-subtitle scroll-reveal">想法的实现，需要不断理解、探索、选择与行动。我正在结合产品设计经验与AI实践，整理一套AI八步创造法，让创造过程更清晰，也更容易开始。</p>
+  <h2 class="section-en scroll-reveal">8 STEP<br><span class="en-accent accent-lime">CREATION LOOP</span></h2>
+  <p class="section-cn scroll-reveal">用八步创造法，孵化你的项目</p>
+  <p class="section-subtitle scroll-reveal">从建立认知开始，用八步创造法，与 AI 一起拆解案例，分析问题、形成方案，落地实现，最终收集反馈，进而进入新的一轮迭代循环。</p>
 
-  <div class="steps-flow scroll-reveal">
+  <div class="step-grid scroll-reveal">
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 42v-4.5c-4.8-2.7-7.5-7.2-7.5-12A13.5 13.5 0 0 1 22 12h2a13.5 13.5 0 0 1 13.5 13.5c0 4.8-2.7 9.3-7.5 12V42"/><path d="M16 42h16" opacity="0.45"/><circle cx="23" cy="24" r="5" stroke="#06b6d4"/><path d="M20.5 31h5M21.5 34h3" stroke="#06b6d4"/><path d="M23 15v2.5M15 18.8l2 2M31 18.8l-2 2" opacity="0.45"/></svg></div>
@@ -807,8 +1342,8 @@
       </div>
       <div class="step-name">认知 · Understand</div>
       <div class="step-desc">理解领域，建立判断基础。</div>
+      <div class="step-output"><b>典型产出</b> · 200 字以内的问题陈述</div>
     </div>
-    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24l18-9 4 8-18 9z"/><path d="M12 25l4-2 2.5 5-4 2z" opacity="0.45"/><path d="M20 32l-5 12M26 30l5 14M23 31v13" opacity="0.7"/><path d="M38 6l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" stroke="#06b6d4"/><circle cx="43" cy="19" r="1" stroke="#06b6d4"/><circle cx="9" cy="11" r="1" opacity="0.45"/></svg></div>
@@ -816,8 +1351,8 @@
       </div>
       <div class="step-name">探索 · Explore</div>
       <div class="step-desc">打开视野，发现新的可能。</div>
+      <div class="step-output"><b>典型产出</b> · 3 个参照对象 + 你看到的空位</div>
     </div>
-    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14l11-4 12 4 11-4v26l-11 4-12-4-11 4z"/><path d="M18 10v26M30 14v26" opacity="0.45"/><path d="M24 20c-3 0-5.5 2.4-5.5 5.4 0 4.2 5.5 9.6 5.5 9.6s5.5-5.4 5.5-9.6c0-3-2.5-5.4-5.5-5.4z" stroke="#06b6d4"/><circle cx="24" cy="25.4" r="1.8" stroke="#06b6d4"/></svg></div>
@@ -825,8 +1360,8 @@
       </div>
       <div class="step-name">定位 · Position</div>
       <div class="step-desc">结合自身条件，确定方向。</div>
+      <div class="step-output"><b>典型产出</b> · 一句定位陈述 + 目标用户</div>
     </div>
-    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="M29.5 29.5L40 40"/><path d="M14 25l5-6 3.5 3.5 5.5-7" stroke="#06b6d4"/><path d="M24.5 15.5H28V19" stroke="#06b6d4"/><circle cx="14" cy="25" r="1" stroke="#06b6d4"/><circle cx="19" cy="19" r="1" stroke="#06b6d4"/><circle cx="22.5" cy="22.5" r="1" stroke="#06b6d4"/></svg></div>
@@ -834,8 +1369,8 @@
       </div>
       <div class="step-name">分析 · Analyze</div>
       <div class="step-desc">深入研究，形成关键洞察。</div>
+      <div class="step-output"><b>典型产出</b> · 风险清单 + 一个可证伪的假设</div>
     </div>
-    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="26" height="32" rx="3"/><path d="M11 14h9M11 19h15M11 24h7" opacity="0.45"/><rect x="11" y="28" width="10" height="7" rx="1" opacity="0.45"/><path d="M28.5 30.5L41 18a2.83 2.83 0 0 1 4 4L32.5 34.5 27 36z" stroke="#06b6d4"/><path d="M37.5 21.5l4 4" stroke="#06b6d4"/></svg></div>
@@ -843,8 +1378,8 @@
       </div>
       <div class="step-name">设计 · Design</div>
       <div class="step-desc">将想法组织成可执行方案。</div>
+      <div class="step-output"><b>典型产出</b> · 核心路径 + 第一版功能取舍</div>
     </div>
-    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="28" height="24" rx="3"/><path d="M6 16h28" opacity="0.45"/><circle cx="10.5" cy="13" r="0.9" opacity="0.45"/><circle cx="14.5" cy="13" r="0.9" opacity="0.45"/><path d="M14 22l-3.5 3.5L14 29M21 22l3.5 3.5L21 29" stroke="#06b6d4"/><circle cx="36" cy="36" r="5.5"/><path d="M36 27.5v3M36 41.5v3M27.5 36h3M41.5 36h3M30 30l2 2M40 40l2 2M30 42l2-2M40 32l2-2" opacity="0.7"/></svg></div>
@@ -852,8 +1387,8 @@
       </div>
       <div class="step-name">实现 · Build</div>
       <div class="step-desc">通过开发与制作，让方案成为现实。</div>
+      <div class="step-output"><b>典型产出</b> · 可访问链接 + 一次走通记录</div>
     </div>
-    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 32h18l-2.5 10h-13z"/><path d="M11 32h22" opacity="0.45"/><path d="M22 32V20"/><path d="M22 26c-5 0-8-3-8-8 5 0 8 3 8 8z"/><path d="M22 22c0-5 3-8 8-8 0 5-3 8-8 8z" stroke="#06b6d4"/><circle cx="38" cy="13" r="3.5" stroke="#06b6d4"/><path d="M38 6.5v2M31.5 13h2M44.5 13h-2M33.4 8.4l1.4 1.4M42.6 8.4l-1.4 1.4" stroke="#06b6d4" opacity="0.5"/></svg></div>
@@ -861,8 +1396,8 @@
       </div>
       <div class="step-name">运营 · Grow</div>
       <div class="step-desc">进入真实场景，持续创造价值。</div>
+      <div class="step-output"><b>典型产出</b> · 发布记录 + 真实反馈摘录</div>
     </div>
-    <div class="step-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     <div class="step-card">
       <div class="step-head">
         <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24a18 18 0 0 1 30-13.4L42 16"/><polyline points="42 6 42 16 32 16"/><path d="M42 24a18 18 0 0 1-30 13.4L6 32"/><polyline points="6 42 6 32 16 32"/><path d="M24 17l1.8 5.2L31 24l-5.2 1.8L24 31l-1.8-5.2L17 24l5.2-1.8z" stroke="#06b6d4"/></svg></div>
@@ -870,35 +1405,42 @@
       </div>
       <div class="step-name">迭代 · Iterate</div>
       <div class="step-desc">根据反馈改进，开启下一轮创造。</div>
-    </div>
-  </div>
-
-  <div style="margin-top:28px;text-align:center;">
-    <a href="./learning-creation-loop.html" class="cta-btn" style="display:inline-flex;"><span class="btn-text">了解八步创造法</span></a>
-  </div>
-</section>
-<section class="section dev-intro-section" id="developer-intro">
-  <div class="dev-intro-inner">
-    <div class="section-label scroll-reveal">Developer</div>
-    <h2 class="section-title scroll-reveal">我为什么做VibeBubble</h2>
-    <p class="dev-intro-subtitle scroll-reveal">一个产品体验设计师的 AI 创造实验</p>
-    <div class="dev-intro-body scroll-reveal">
-      <p>Hi，我是 SHAOZU。一名互联网产品体验设计师，也是一名正在持续探索 AI 创造方式的实践者。</p>
-      <p>过去十多年，我参与过多个社交产品、内容创作工具和 AI 相关项目的设计与研发。从腾讯 ISUX，到字节跳动剪映/TikTok 设计中心，再到现在AI的小型团队，我正在重新思考一个问题：</p>
-      <p class="dev-intro-highlight">在 AI 时代，普通人如何从一个灵感开始，创造出真正可以被访问、被使用、被传播，给用户带来价值的产品？</p>
-      <p>VibeBubble 是我的一次完整AI Coding的项目，我也把它当作一次试验。我会在这里记录自己学习 AI、使用 AI、设计产品、开发网站、上线运营的完整过程，其中包括探索、失败、复盘的经验和方法，也包括未来可能形成的知识库、课程和创作者工具，欢迎大家保持关注。</p>
+      <div class="step-output"><b>典型产出</b> · 迭代决议 + 下一轮唯一问题</div>
     </div>
   </div>
 </section>
 
-<!-- ===== 05 最终 CTA ===== -->
-<section class="cta-section">
-  <div class="section-divider scroll-reveal"></div>
-  <h2 class="section-title scroll-reveal">发现一个灵感，让想法成为现实</h2>
-  <p class="section-subtitle scroll-reveal">这里有数字产品、智能硬件与创意产品的真实案例，<br>也有正在整理的 AI 工具与创造方法。</p>
+<!-- ===== 05 VIBEBUBBLE × AI PASSPORT ===== -->
+<section class="section passport-section" id="passport">
+  <div class="split reverse">
+    <div class="passport-media scroll-reveal">
+      <img src="./assets/ai-passport.png" alt="AI Passport 产品外观">
+    </div>
+    <div class="split-text scroll-reveal">
+      <h2 class="section-en">VIBEBUBBLE ×<br><span class="en-accent accent-green">AI PASSPORT</span></h2>
+      <p class="section-cn">把灵感带在身边</p>
+      <div class="split-body">
+        <p>灵感不只出现在电脑前。通过 AI Passport，随时查看收藏的灵感、记下突然冒出的想法，了解项目进展与下一步行动。回到网页，接着推进。</p>
+      </div>
+      <ul class="scene-list">
+        <li><span class="scene-num">01</span><span><strong>随时查看收藏的灵感</strong>，屏幕上轮播你收进 Cases 的创意卡片。</span></li>
+        <li><span class="scene-num">02</span><span><strong>记下突然冒出的想法</strong>，按住说话，离线也能先存下，联网后回到灵感库。</span></li>
+        <li><span class="scene-num">03</span><span><strong>了解项目进展与下一步</strong>，当前第几步、接下来做什么，一眼看到。</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 结语 ===== -->
+<section class="ending">
+  <h2 class="ending-title scroll-reveal">现在，轮到你的想法了。</h2>
+  <p class="ending-sub scroll-reveal">从一个灵感、一个创意，或一个一直想做的项目开始。</p>
   <div class="btn-group scroll-reveal">
-    <a href="./gallery.html" class="cta-btn"><span class="btn-text">探索创新案例</span></a>
+    <a href="./gallery.html" class="cta-btn cta-btn-ghost"><span class="btn-text">探索灵感</span></a>
+    <a href="./ideas.html" class="cta-btn cta-btn-ghost"><span class="btn-text">记录灵感</span></a>
+    <a href="./projects?new=1" class="cta-btn"><span class="btn-text">创建项目</span></a>
   </div>
+  <div class="brand-signature scroll-reveal">Stay Curious. Keep Exploring.</div>
 </section>
 
 <!-- ===== WebGL Shader 气泡（复用 landing.html） ===== -->
@@ -1136,74 +1678,21 @@ initHeroBubble();
   });
   gsap.ticker.lagSmoothing(0);
 
-  // ===== 4. 滚动入场动画 =====
-  // 模块二：VibeBubble 是什么
-  var aboutReveals = document.querySelectorAll('#about .scroll-reveal');
-  if (aboutReveals.length > 0) {
-    gsap.to(aboutReveals, {
+  // ===== 4. 滚动入场动画（通用：覆盖所有 .scroll-reveal）=====
+  gsap.utils.toArray('.scroll-reveal').forEach(function(el) {
+    if (el.closest('.content')) return; // Hero 有自己的入场动画
+    gsap.to(el, {
       opacity: 1,
       y: 0,
       duration: 0.8,
-      stagger: 0.12,
       ease: 'power2.out',
       scrollTrigger: {
-        trigger: '#about',
-        start: 'top 70%',
+        trigger: el,
+        start: 'top 88%',
         toggleActions: 'play none none none',
       }
     });
-  }
-
-  // 模块三：创造旅程
-  var journeyReveals = document.querySelectorAll('#path .scroll-reveal');
-  if (journeyReveals.length > 0) {
-    gsap.to(journeyReveals, {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.1,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '#path',
-        start: 'top 75%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
-
-  // 模块四：开发者介绍
-  var devReveals = document.querySelectorAll('#developer-intro .scroll-reveal');
-  if (devReveals.length > 0) {
-    gsap.to(devReveals, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '#developer-intro',
-        start: 'top 70%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
-
-  // 模块五：CTA
-  var ctaReveals = document.querySelectorAll('.cta-section .scroll-reveal');
-  if (ctaReveals.length > 0) {
-    gsap.to(ctaReveals, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.cta-section',
-        start: 'top 75%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
+  });
 
   // ===== 5. 视差效果（scrub 驱动，使用 yPercent 避免与入场动画 y 冲突）=====
   // 模块标题视差上移
@@ -1240,7 +1729,7 @@ initHeroBubble();
   // ===== 6. 滚动进度条 =====
   // 创建进度条 DOM
   var progressBar = document.createElement('div');
-  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,#a855f7,#ec4899,#3b82f6);z-index:9999;transition:width 0.1s ease-out;pointer-events:none;';
+  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,#7769E8,#ec4899,#3b82f6);z-index:9999;transition:width 0.1s ease-out;pointer-events:none;';
   document.body.appendChild(progressBar);
 
   lenis.on('scroll', function(e) {
@@ -1255,5 +1744,26 @@ initHeroBubble();
 })();
 </script>
 
+<script>
+  // 气泡背景只在首屏可见，滚过首屏后淡出为纯黑
+  (function () {
+    const canvas = document.getElementById('bg-canvas');
+    const hero = document.getElementById('content');
+    if (!canvas || !hero) return;
+    let ticking = false;
+    function sync() {
+      const threshold = hero.offsetTop + hero.offsetHeight * 0.7;
+      canvas.style.opacity = window.scrollY > threshold ? '0' : '1';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(sync);
+      }
+    }, { passive: true });
+    sync();
+  })();
+</script>
 </body>
 </html>

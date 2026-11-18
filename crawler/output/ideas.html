@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideas - Vibe Bubble</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="./auth.js"></script>
+<script src="./nav.js"></script>
+<style>
+/* ===== 基础 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #07070c;
+  --purple: #7769e8;
+  --purple-soft: #a99cff;
+  --pink: #f05bd8;
+  --lime: #c6f24e;
+  --green: #3ddc97;
+  --text: #f5f5fa;
+  --text-dim: rgba(255, 255, 255, 0.52);
+  --text-muted: rgba(255, 255, 255, 0.32);
+  --line: rgba(255, 255, 255, 0.08);
+  --ease: cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-top: 68px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 极淡点阵 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.28) 55%, rgba(0, 0, 0, 0.75));
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.28) 55%, rgba(0, 0, 0, 0.75));
+}
+
+/* 底部光带 */
+body::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42vh;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 64% 90% at 50% 118%, rgba(119, 105, 232, 0.34), transparent 66%),
+    radial-gradient(ellipse 34% 70% at 76% 122%, rgba(240, 91, 216, 0.16), transparent 70%),
+    linear-gradient(to top, rgba(119, 105, 232, 0.13), rgba(119, 105, 232, 0.03) 42%, transparent 78%);
+}
+
+/* ===== 页面骨架 ===== */
+.ideas-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 38px 28px 90px;
+}
+
+.ideas-head {
+  display: none;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: rgba(198, 242, 78, 0.7);
+  margin-bottom: 12px;
+}
+
+.ideas-title {
+  font-size: clamp(46px, 6vw, 74px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  background: linear-gradient(120deg, #ffffff 8%, #cfc6ff 46%, #7769e8 96%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ideas-sub {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--text-dim);
+  letter-spacing: 0.01em;
+}
+
+.head-side {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 6px;
+}
+
+.stat {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  text-align: right;
+  letter-spacing: 0.03em;
+}
+
+.stat[hidden] { display: none; }
+
+.record-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7769e8, #a855f7);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+  box-shadow: 0 10px 34px rgba(119, 105, 232, 0.32);
+}
+
+.record-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px rgba(119, 105, 232, 0.48);
+}
+
+.record-btn:active { transform: scale(0.97); }
+
+.record-btn .plus {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1;
+  margin-top: -1px;
+}
+
+/* ===== 气泡画布 ===== */
+.canvas {
+  position: relative;
+  padding: 0;
+}
+
+.ideas-field {
+  --orb-scale: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 150px);
+}
+
+.field-bubbles {
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 8px 2px;
+  padding: 20px 0 8px;
+}
+
+.field-foot {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 8px 16px 30px;
+}
+
+.field-title {
+  font-size: 23px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.field-sub {
+  max-width: 560px;
+  margin: 9px auto 20px;
+  padding: 0 16px;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text-dim);
+}
+
+.idea-item {
+  width: 152px;
+  min-height: 202px;
+  padding: 10px 6px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  background: none;
+  border: none;
+  border-radius: 22px;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0);
+  animation: bubbleDrift var(--float-dur, 7s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  transition: background 0.3s;
+}
+
+@keyframes bubbleDrift {
+  0%, 100% { transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0); }
+  25% { transform: translate3d(calc(var(--dx, 0px) + 3px), calc(var(--dy, 0px) - 4px), 0); }
+  50% { transform: translate3d(var(--dx, 0px), calc(var(--dy, 0px) - 7px), 0); }
+  75% { transform: translate3d(calc(var(--dx, 0px) - 3px), calc(var(--dy, 0px) - 3px), 0); }
+}
+
+.idea-item:hover { background: rgba(255, 255, 255, 0.022); }
+
+.orb-rise {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rise-in .orb-rise { animation: riseIn 1.15s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes riseIn {
+  0% { transform: translateY(96px) scale(0.32); opacity: 0; filter: blur(8px); }
+  60% { opacity: 1; filter: blur(0); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* 进度环 + 气泡 */
+.orb-wrap {
+  position: relative;
+  width: calc(var(--orb-size) * var(--orb-scale) * 1px);
+  height: calc(var(--orb-size) * var(--orb-scale) * 1px);
+  border-radius: 50%;
+  padding: 3px;
+  background: conic-gradient(
+    from -90deg,
+    var(--ring-c) calc(var(--ring-p) * 1%),
+    rgba(255, 255, 255, 0.1) 0
+  );
+  margin-bottom: 15px;
+  transition: transform 0.4s var(--ease), filter 0.3s;
+}
+
+.idea-item:hover .orb-wrap {
+  transform: translateY(-7px) scale(1.06);
+  filter: brightness(1.15);
+}
+
+.orb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #07070c;
+  background:
+    radial-gradient(ellipse 34% 28% at 32% 24%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.06) 60%, transparent 100%),
+    radial-gradient(circle at 72% 78%, rgba(240, 91, 216, 0.26), transparent 54%),
+    radial-gradient(circle at 50% 44%, rgba(141, 122, 255, 0.42), rgba(52, 40, 105, 0.6) 62%, rgba(12, 11, 24, 0.72) 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.42),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset -10px -12px 26px rgba(0, 0, 0, 0.38),
+    inset 0 0 30px rgba(150, 130, 255, 0.3),
+    0 14px 46px rgba(119, 105, 232, 0.3);
+}
+
+.orb::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 17%;
+  width: 38%;
+  height: 28%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.1) 55%, transparent 78%);
+  filter: blur(3px);
+  transform: rotate(-16deg);
+}
+
+.orb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(240, 91, 216, 0.42),
+    rgba(119, 105, 232, 0.32),
+    rgba(61, 220, 151, 0.36),
+    rgba(198, 242, 78, 0.3),
+    rgba(240, 91, 216, 0.42)
+  );
+  mix-blend-mode: screen;
+  opacity: 0.62;
+  animation: iridescentSpin 16s linear infinite;
+  -webkit-mask: radial-gradient(circle at 50% 50%, transparent 54%, #000 68%, transparent 92%);
+  mask: radial-gradient(circle at 50% 50%, transparent 54%, #000 68%, transparent 92%);
+}
+
+.orb.iridescent::after { opacity: 0.8; }
+
+@keyframes iridescentSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.idea-title {
+  max-width: 148px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.25s, background 0.25s;
+}
+
+.idea-item:hover .idea-title {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.idea-meta {
+  margin-top: 5px;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+}
+
+.idea-source {
+  margin-top: 4px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(119, 105, 232, 0.35);
+  background: rgba(119, 105, 232, 0.12);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: rgba(190, 180, 255, 0.85);
+  white-space: nowrap;
+}
+
+/* ===== 空状态插画 ===== */
+.empty-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(119, 105, 232, 0.16);
+  animation: ringPulse 6s ease-in-out infinite;
+}
+
+.empty-ring.r1 { inset: 26px; }
+.empty-ring.r2 { inset: 2px; animation-delay: 0.9s; border-color: rgba(119, 105, 232, 0.09); }
+
+.empty-orb {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 38% 32% at 33% 25%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.08) 58%, transparent 100%),
+    radial-gradient(circle at 68% 76%, rgba(240, 91, 216, 0.26), transparent 54%),
+    radial-gradient(circle at 50% 44%, rgba(141, 122, 255, 0.56), rgba(58, 45, 116, 0.88) 66%, rgba(22, 18, 44, 0.94) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 0 26px rgba(150, 130, 255, 0.4),
+    0 0 44px rgba(119, 105, 232, 0.3);
+  animation: breathe 5.6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); box-shadow: inset 0 0 26px rgba(119, 105, 232, 0.4), 0 0 40px rgba(119, 105, 232, 0.24); }
+  50% { transform: scale(1.09); box-shadow: inset 0 0 34px rgba(119, 105, 232, 0.55), 0 0 74px rgba(119, 105, 232, 0.42); }
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(0.96); opacity: 0.45; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* ===== 空状态：中心插画 + 环绕灵感标签 ===== */
+.guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: calc(100vh - 150px);
+  padding: 10px 0 60px;
+}
+
+.guest-stage {
+  position: relative;
+  width: min(720px, 100%);
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guest-orb-zone {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guest-orb-zone .empty-ring.r1 { inset: 22px; }
+.guest-orb-zone .empty-ring.r2 { inset: 0; }
+
+.guest-orb-zone .empty-orb {
+  width: 106px;
+  height: 106px;
+}
+
+.guest-tags {
+  position: absolute;
+  inset: -8px 0;
+  pointer-events: none;
+}
+
+.guest-tag {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+  animation: tagFloat 7s ease-in-out infinite;
+  transition: color 0.25s, border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.guest-tag::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--dot, #7769e8);
+  box-shadow: 0 0 10px var(--dot, #7769e8);
+  flex-shrink: 0;
+}
+
+.guest-tag:hover {
+  animation: none;
+  color: #fff;
+  border-color: rgba(119, 105, 232, 0.55);
+  background: rgba(119, 105, 232, 0.18);
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 10px 32px rgba(119, 105, 232, 0.22);
+}
+
+.guest-tag.pos-1 { left: 1%; top: 13%; --dot: #7769e8; animation-delay: -1s; }
+.guest-tag.pos-2 { right: 0; top: 6%; --dot: #f05bd8; animation-delay: -2.4s; }
+.guest-tag.pos-3 { left: 3%; bottom: 15%; --dot: #3ddc97; animation-delay: -3.6s; }
+.guest-tag.pos-4 { right: 2%; bottom: 13%; --dot: #c6f24e; animation-delay: -0.6s; }
+.guest-tag.pos-5 { left: 28%; top: 1%; --dot: #22d3ee; animation-delay: -4.8s; }
+.guest-tag.pos-6 { right: 24%; bottom: 2%; --dot: #f59e0b; animation-delay: -2s; }
+
+@keyframes tagFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.guest-title {
+  margin-top: 4px;
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.guest-sub {
+  max-width: 560px;
+  margin: 11px auto 26px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-dim);
+}
+
+/* ===== 弹层通用 ===== */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.sheet-overlay.show { display: flex; animation: overlayIn 0.2s ease; }
+
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: 470px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 28px 26px 24px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: rgba(14, 13, 24, 0.97);
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.68);
+  animation: sheetIn 0.32s var(--ease);
+}
+
+@keyframes sheetIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.sheet-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--text-muted);
+  font-size: 21px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sheet-close:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); }
+
+.sheet-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(198, 242, 78, 0.62);
+  margin-bottom: 8px;
+}
+
+.sheet h2 {
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.sheet-sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.field-label {
+  display: block;
+  margin: 15px 0 7px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.field-label em {
+  font-style: normal;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.2);
+  margin-left: 4px;
+}
+
+.field {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.65;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.field:focus {
+  border-color: rgba(119, 105, 232, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.field::placeholder { color: rgba(255, 255, 255, 0.22); }
+
+#recordTitle { min-height: 62px; font-size: 15px; font-weight: 500; }
+#recordDesc { min-height: 72px; font-size: 13px; }
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tag-chip {
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag-chip:hover { border-color: rgba(119, 105, 232, 0.45); color: var(--text); }
+
+.tag-chip.active {
+  border-color: rgba(119, 105, 232, 0.55);
+  background: rgba(119, 105, 232, 0.18);
+  color: var(--purple-soft);
+}
+
+.sheet-submit {
+  width: 100%;
+  margin-top: 22px;
+  padding: 13px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7769e8, #a855f7);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sheet-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(119, 105, 232, 0.4);
+}
+
+.sheet-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ===== 灵感详情 ===== */
+.detail-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-right: 26px;
+}
+
+.detail-orb-wrap {
+  width: 78px;
+  height: 78px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(
+    from -90deg,
+    var(--ring-c) calc(var(--ring-p) * 1%),
+    rgba(255, 255, 255, 0.07) 0
+  );
+}
+
+.detail-orb {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #0e0d18;
+  background:
+    radial-gradient(ellipse 36% 30% at 33% 25%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.08) 58%, transparent 100%),
+    radial-gradient(circle at 70% 78%, rgba(240, 91, 216, 0.24), transparent 52%),
+    radial-gradient(circle at 50% 42%, rgba(141, 122, 255, 0.52), rgba(62, 48, 122, 0.88) 64%, rgba(20, 17, 40, 0.96) 100%);
+  box-shadow: inset 0 0 18px rgba(150, 130, 255, 0.36);
+}
+
+.detail-title {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.detail-stage {
+  margin-top: 5px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+.detail-desc {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.58);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 14px;
+}
+
+.detail-desc.muted { color: rgba(255, 255, 255, 0.26); font-style: italic; }
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detail-tag {
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(119, 105, 232, 0.28);
+  background: rgba(119, 105, 232, 0.1);
+  color: var(--purple-soft);
+  font-size: 11.5px;
+}
+
+.detail-tag.source {
+  border-color: rgba(139, 92, 246, 0.45);
+  background: rgba(139, 92, 246, 0.16);
+  color: var(--purple-light);
+}
+
+.stage-strip {
+  margin: 18px 0 14px;
+  padding: 14px 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.stage-strip-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.stage-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stage-dot {
+  flex: 1;
+  height: 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.07);
+  transition: all 0.3s;
+}
+
+.stage-dot.done { background: var(--c); opacity: 0.55; }
+
+.stage-dot.current {
+  height: 7px;
+  background: var(--c);
+  box-shadow: 0 0 10px var(--c);
+  opacity: 1;
+}
+
+.detail-note {
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(119, 105, 232, 0.4);
+}
+
+.detail-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-ghost {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.08);
+  color: #fca5a5;
+}
+
+.btn-promote {
+  flex: 1;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7769e8, #a855f7);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-promote:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(119, 105, 232, 0.42);
+}
+
+.btn-promote:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ===== 骨架 ===== */
+.skeleton-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+  padding: 50px 0;
+}
+
+.skeleton-orb {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite;
+}
+
+@keyframes skeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 14, 26, 0.96);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.48);
+  animation: toastIn 0.3s var(--ease), toastOut 0.3s ease 2.6s forwards;
+  white-space: nowrap;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toastOut {
+  to { opacity: 0; transform: translateX(-50%) translateY(12px); }
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 720px) {
+  .ideas-shell { padding: 26px 16px 80px; }
+  .ideas-head { align-items: flex-start; margin-bottom: 8px; }
+  .head-side { width: 100%; justify-content: space-between; padding-bottom: 0; }
+  .ideas-sub { margin-top: 10px; }
+  .ideas-field { --orb-scale: 0.84; min-height: calc(100vh - 140px); }
+  .field-bubbles { gap: 4px 0; padding: 10px 0 4px; }
+  .field-title { font-size: 20px; }
+  .field-sub { font-size: 12.5px; margin-bottom: 16px; }
+  .idea-item { width: 122px; min-height: 172px; padding: 8px 4px 10px; }
+  .idea-title { max-width: 112px; font-size: 12px; }
+  .orb-wrap { margin-bottom: 12px; }
+  .guest { min-height: calc(100vh - 120px); padding: 0 0 40px; justify-content: flex-start; }
+  .guest-stage {
+    height: auto;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 22px;
+  }
+  .guest-orb-zone { width: 148px; height: 148px; }
+  .guest-orb-zone .empty-orb { width: 82px; height: 82px; }
+  .guest-tags {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 4px;
+  }
+  .guest-tag {
+    position: static;
+    animation: none;
+    font-size: 12px;
+    padding: 8px 13px;
+  }
+  .guest-tag:nth-child(n+5) { display: none; }
+  .guest-title { font-size: 22px; }
+  .guest-sub { font-size: 13px; max-width: 330px; margin-bottom: 22px; }
+  .sheet { padding: 26px 20px 20px; border-radius: 20px; }
+  .detail-title { font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+</style>
+</head>
+<body>
+<div id="vb-nav-mount"></div>
+
+<main class="ideas-shell">
+  <header class="ideas-head">
+    <div class="head-copy">
+      <div class="eyebrow">PERSONAL SPACE</div>
+      <h1 class="ideas-title">Ideas</h1>
+      <p class="ideas-sub">先记下来，再想清楚。</p>
+    </div>
+    <div class="head-side">
+      <div class="stat" id="ideasStat" hidden></div>
+      <button class="record-btn" id="headerRecordBtn"><span class="plus">＋</span>记录灵感</button>
+    </div>
+  </header>
+
+  <section class="canvas" id="canvas">
+    <div id="ideasContent"></div>
+  </section>
+</main>
+
+<!-- 记录灵感 -->
+<div class="sheet-overlay" id="recordModal">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="recordSheetTitle">
+    <button class="sheet-close" id="recordClose" aria-label="关闭">&times;</button>
+    <div class="sheet-eyebrow">NEW BUBBLE</div>
+    <h2 id="recordSheetTitle">记录一个灵感</h2>
+    <p class="sheet-sub">一句话就好。它会从底部光带里慢慢升起来。</p>
+
+    <label class="field-label" for="recordTitle">灵感</label>
+    <textarea class="field" id="recordTitle" rows="2" placeholder="比如：把通勤路上的语音备忘自动整理成灵感卡片"></textarea>
+
+    <label class="field-label" for="recordDesc">一句话描述 <em>选填</em></label>
+    <textarea class="field" id="recordDesc" rows="2" placeholder="它在解决什么问题？为什么现在想到它？"></textarea>
+
+    <label class="field-label">标签 <em>选填</em></label>
+    <div class="tag-row" id="recordTags"></div>
+
+    <button class="sheet-submit" id="recordSubmit">记录灵感</button>
+  </div>
+</div>
+
+<!-- 灵感详情 -->
+<div class="sheet-overlay" id="detailModal">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <button class="sheet-close" id="detailClose" aria-label="关闭">&times;</button>
+
+    <div class="detail-head">
+      <div class="detail-orb-wrap" id="detailOrbWrap">
+        <div class="detail-orb"></div>
+      </div>
+      <div>
+        <div class="detail-title" id="detailTitle"></div>
+        <div class="detail-stage" id="detailStage"></div>
+      </div>
+    </div>
+
+    <div class="detail-desc" id="detailDesc"></div>
+    <div class="detail-tags" id="detailTags"></div>
+
+    <div class="stage-strip">
+      <div class="stage-strip-label">
+        <span>CREATION LOOP</span>
+        <span id="detailProgress"></span>
+      </div>
+      <div class="stage-dots" id="detailDots"></div>
+    </div>
+
+    <div class="detail-note">进入孵化后，它会从灵感库移出，在 Projects 里按 8 个阶段继续长大。</div>
+
+    <div class="detail-actions">
+      <button class="btn-ghost" id="detailDelete">删除</button>
+      <button class="btn-promote" id="detailPromote">进入孵化 →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== 阶段定义 ====================
+var STAGES = [
+  { zh: '基础认知', en: 'Basic Cognition', color: '#6366f1' },
+  { zh: '探索灵感', en: 'Explore Ideas',   color: '#7769e8' },
+  { zh: '需求分析', en: 'Discover Needs',  color: '#f05bd8' },
+  { zh: '产品定位', en: 'Define Product',  color: '#3b82f6' },
+  { zh: '产品设计', en: 'Design Product',  color: '#22d3ee' },
+  { zh: '产品构建', en: 'Build Product',   color: '#f59e0b' },
+  { zh: '发布运营', en: 'Launch Product',  color: '#3ddc97' },
+  { zh: '用户增长', en: 'Grow Users',      color: '#c6f24e' }
+];
+
+var STATUS_ORDER = [
+  'basic_cognition',
+  'explore_ideas',
+  'discover_needs',
+  'define_product',
+  'design_product',
+  'build_product',
+  'launch_product',
+  'grow_users'
+];
+
+var TAG_OPTIONS = ['AI应用', '效率工具', '内容创作', '生活记录', '小游戏', 'Web应用'];
+
+// ==================== 状态 ====================
+var ideasList = [];
+var selectedTags = [];
+var activeIdea = null;
+var promotedCount = 0;
+
+function el(id) { return document.getElementById(id); }
+
+function getStageIndex(status) {
+  var i = STATUS_ORDER.indexOf(status);
+  return i > -1 ? i : 1;
+}
+
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str == null ? '' : String(str);
+  return div.innerHTML;
+}
+
+function showToast(msg) {
+  var old = document.querySelector('.toast');
+  if (old) old.remove();
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function () { toast.remove(); }, 3100);
+}
+
+function authUser() {
+  if (typeof window.currentUser === 'function') return window.currentUser();
+  try {
+    var cached = localStorage.getItem('vb_user');
+    return cached ? JSON.parse(cached) : null;
+  } catch (e) { return null; }
+}
+
+function waitAuth() {
+  return new Promise(function (resolve) {
+    var n = 0;
+    (function tick() {
+      if (typeof authReady === 'undefined' || authReady) return resolve();
+      if (++n > 50) return resolve();
+      setTimeout(tick, 100);
+    })();
+  });
+}
+
+// ==================== 初始化 ====================
+async function init() {
+  bindStaticEvents();
+  await waitAuth();
+
+  var params = new URLSearchParams(window.location.search);
+  await loadIdeas();
+  window.__ideasReady = true;
+
+  if (params.get('returned') === '1') {
+    showToast('已退回灵感库，随时可以再次孵化');
+    try { history.replaceState({}, '', './ideas'); } catch (e) { /* ignore */ }
+  }
+}
+
+// 登录 / 退出后同步刷新灵感库
+function onAuthStateChange(user) {
+  if (typeof updateAuthUI === 'function') updateAuthUI(user);
+  if (!window.__ideasReady) return;
+  var task = loadIdeas();
+  if (user) Promise.resolve(task).then(consumePendingIdea);
+}
+
+function bindStaticEvents() {
+  el('headerRecordBtn').addEventListener('click', function () { openRecord(); });
+  el('recordClose').addEventListener('click', closeRecord);
+  el('recordModal').addEventListener('click', function (e) {
+    if (e.target === el('recordModal')) closeRecord();
+  });
+  el('recordSubmit').addEventListener('click', submitRecord);
+
+  el('detailClose').addEventListener('click', closeDetail);
+  el('detailModal').addEventListener('click', function (e) {
+    if (e.target === el('detailModal')) closeDetail();
+  });
+  el('detailDelete').addEventListener('click', deleteActiveIdea);
+  el('detailPromote').addEventListener('click', promoteActiveIdea);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (el('detailModal').classList.contains('show')) closeDetail();
+    else if (el('recordModal').classList.contains('show')) closeRecord();
+  });
+
+  renderTagOptions();
+}
+
+// ==================== 加载 ====================
+async function loadIdeas(growInId) {
+  var container = el('ideasContent');
+  var user = authUser();
+
+  if (!user) {
+    el('ideasStat').hidden = true;
+    container.innerHTML = renderEmptyHome();
+    bindEmptyEvents();
+    return;
+  }
+
+  container.innerHTML = renderSkeleton();
+
+  try {
+    var all = (await getUserIdeas(user.id)) || [];
+    promotedCount = all.filter(function (x) { return isPromotedIdea(x); }).length;
+    ideasList = all.filter(function (x) { return !isPromotedIdea(x); });
+  } catch (e) {
+    console.error('[Ideas] 加载失败:', e);
+    ideasList = [];
+  }
+
+  renderStat(user);
+
+  if (!ideasList.length) {
+    container.innerHTML = renderEmptyHome();
+    bindEmptyEvents();
+    return;
+  }
+
+  container.innerHTML = renderGrid(growInId);
+  bindGridEvents();
+}
+
+function renderStat(user) {
+  var stat = el('ideasStat');
+  if (!user) { stat.hidden = true; return; }
+  stat.hidden = false;
+  if (!ideasList.length) {
+    stat.innerHTML = promotedCount
+      ? '0 个灵感<br>' + promotedCount + ' 个孵化中'
+      : '还没有灵感<br>先记下第一个';
+    return;
+  }
+  stat.innerHTML = ideasList.length + ' 个灵感' +
+    (promotedCount ? '<br>' + promotedCount + ' 个孵化中' : '<br>都在等你继续想');
+}
+
+function renderSkeleton() {
+  return '<div class="skeleton-grid">' +
+    '<div class="skeleton-orb"></div><div class="skeleton-orb"></div><div class="skeleton-orb"></div>' +
+  '</div>';
+}
+
+function renderEmptyHome() {
+  return '<div class="guest">' +
+    '<div class="guest-stage">' +
+      '<div class="guest-orb-zone">' +
+        '<span class="empty-ring r1"></span>' +
+        '<span class="empty-ring r2"></span>' +
+        '<div class="empty-orb"></div>' +
+      '</div>' +
+      '<div class="guest-tags">' +
+        '<button class="guest-tag pos-1" data-sample="把通勤路上的语音备忘，自动整理成灵感卡片">通勤语音 → 灵感卡片</button>' +
+        '<button class="guest-tag pos-2" data-sample="给爸妈做一个不用学习的家庭相册">给爸妈的极简相册</button>' +
+        '<button class="guest-tag pos-3" data-sample="把读过的书自动整理成可以对话的笔记">AI 读书笔记</button>' +
+        '<button class="guest-tag pos-4" data-sample="按心情推荐周末城市散步路线的小地图">周末散步地图</button>' +
+        '<button class="guest-tag pos-5" data-sample="一个每天只让我记一件事的日记应用">每天只记一件事</button>' +
+        '<button class="guest-tag pos-6" data-sample="提醒我给宠物按时喂药、记录用药反应的小工具">宠物用药提醒</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="guest-title">你的私人灵感库</div>' +
+    '<div class="guest-sub">生活中总有灵光一闪的时刻，伟大的产品也许就从这里开始。</div>' +
+    '<button class="record-btn" id="guestLoginBtn"><span class="plus">＋</span>记录灵感</button>' +
+  '</div>';
+}
+
+function bindEmptyEvents() {
+  var homeBtn = el('guestLoginBtn');
+  if (homeBtn) {
+    homeBtn.addEventListener('click', function () {
+      if (authUser()) {
+        openRecord();
+        return;
+      }
+      sessionStorage.removeItem('vb_pending_idea');
+      sessionStorage.setItem('vb_pending_record', '1');
+      if (typeof showAuthModal === 'function') showAuthModal('signup');
+    });
+  }
+
+  document.querySelectorAll('.guest-tag').forEach(function (tag) {
+    tag.addEventListener('click', function () {
+      var sample = tag.getAttribute('data-sample');
+      if (authUser()) {
+        openRecord(sample);
+        return;
+      }
+      startFromSample(sample);
+    });
+  });
+}
+
+// 未登录时点灵感标签：登录 / 注册后自动带入记录弹窗
+function startFromSample(sample) {
+  if (!sample) return;
+  sessionStorage.removeItem('vb_pending_record');
+  sessionStorage.setItem('vb_pending_idea', sample);
+  if (typeof showAuthModal === 'function') showAuthModal('signup');
+}
+
+function consumePendingIdea() {
+  var pending = sessionStorage.getItem('vb_pending_idea');
+  var blank = sessionStorage.getItem('vb_pending_record');
+  if (!pending && !blank) return;
+  sessionStorage.removeItem('vb_pending_idea');
+  sessionStorage.removeItem('vb_pending_record');
+  setTimeout(function () { openRecord(pending || ''); }, 260);
+}
+
+// ==================== 气泡画布 ====================
+function renderGrid(growInId) {
+  var html = '<div class="ideas-field">';
+  html += '<div class="field-bubbles">';
+  ideasList.forEach(function (idea, i) {
+    html += renderIdeaCard(idea, i, growInId);
+  });
+  html += '</div>';
+  html += '<div class="field-foot">' +
+    '<div class="field-title">你的私人灵感库</div>' +
+    '<div class="field-sub">生活中总有灵光一闪的时刻，伟大的产品也许就从这里开始。</div>' +
+    '<button class="record-btn" id="fieldRecordBtn"><span class="plus">＋</span>记录灵感</button>' +
+  '</div>';
+  html += '</div>';
+  return html;
+}
+
+var BUBBLE_OFFSETS = [[0, 0], [12, -14], [-10, 8], [6, 16], [-14, -6], [16, 6], [-6, -16], [8, 12]];
+
+function renderIdeaCard(idea, index, growInId) {
+  var si = getStageIndex(idea.status);
+  var size = 72 + si * 8;
+  var progress = Math.round((si + 1) / STAGES.length * 100);
+  var mature = si >= 5 ? ' iridescent' : '';
+  var rise = idea.id === growInId ? ' rise-in' : '';
+  var off = BUBBLE_OFFSETS[index % BUBBLE_OFFSETS.length];
+  var dur = (6.4 + (index % 4) * 0.65).toFixed(1);
+
+  var source = idea.source_type === 'ai-passport'
+    ? '<span class="idea-source">AI Passport</span>'
+    : '';
+
+  return '<button class="idea-item' + rise + '" data-id="' + escapeHtml(idea.id) + '"' +
+    ' style="--orb-size:' + size + ';--ring-p:' + progress + ';--ring-c:' + STAGES[si].color +
+    ';--dx:' + off[0] + 'px;--dy:' + off[1] + 'px;--float-dur:' + dur + 's;--float-delay:' + (-index * 0.8).toFixed(1) + 's;">' +
+    '<span class="orb-rise"><span class="orb-wrap"><span class="orb' + mature + '"></span></span></span>' +
+    '<span class="idea-title">' + escapeHtml(idea.title) + '</span>' +
+    '<span class="idea-meta">' + STAGES[si].zh + ' · ' + (si + 1) + '/8</span>' +
+    source +
+  '</button>';
+}
+
+function bindGridEvents() {
+  var footBtn = el('fieldRecordBtn');
+  if (footBtn) footBtn.addEventListener('click', function () { openRecord(); });
+
+  document.querySelectorAll('.idea-item[data-id]').forEach(function (item) {
+    item.addEventListener('click', function () {
+      openDetail(item.getAttribute('data-id'));
+    });
+  });
+}
+
+// ==================== 记录灵感 ====================
+function renderTagOptions() {
+  var row = el('recordTags');
+  if (!row) return;
+  row.innerHTML = TAG_OPTIONS.map(function (tag) {
+    return '<button class="tag-chip" data-tag="' + escapeHtml(tag) + '">' + escapeHtml(tag) + '</button>';
+  }).join('');
+
+  row.querySelectorAll('.tag-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var tag = chip.getAttribute('data-tag');
+      var idx = selectedTags.indexOf(tag);
+      if (idx > -1) {
+        selectedTags.splice(idx, 1);
+        chip.classList.remove('active');
+      } else {
+        selectedTags.push(tag);
+        chip.classList.add('active');
+      }
+    });
+  });
+}
+
+function openRecord(prefill) {
+  if (!authUser()) {
+    if (typeof showAuthModal === 'function') showAuthModal('signup');
+    return;
+  }
+
+  selectedTags = [];
+  el('recordTitle').value = prefill || '';
+  el('recordDesc').value = '';
+  el('recordSubmit').disabled = false;
+  el('recordSubmit').textContent = '记录灵感';
+  renderTagOptions();
+  el('recordModal').classList.add('show');
+
+  setTimeout(function () { el('recordTitle').focus(); }, 220);
+}
+
+function closeRecord() {
+  el('recordModal').classList.remove('show');
+}
+
+async function submitRecord() {
+  var title = el('recordTitle').value.trim();
+  var desc = el('recordDesc').value.trim();
+
+  if (!title) {
+    var input = el('recordTitle');
+    input.style.borderColor = 'rgba(239, 68, 68, 0.55)';
+    input.focus();
+    setTimeout(function () { input.style.borderColor = ''; }, 1400);
+    return;
+  }
+
+  var btn = el('recordSubmit');
+  btn.disabled = true;
+  btn.textContent = '记录中…';
+
+  var res = await saveIdea(title, selectedTags.slice(), desc);
+
+  if (res && res.success && res.data) {
+    closeRecord();
+    showToast('灵感已飘进灵感库');
+    await loadIdeas(res.data.id);
+    return;
+  }
+
+  btn.disabled = false;
+  btn.textContent = '记录灵感';
+  showToast((res && res.error) || '记录失败，请重试');
+}
+
+// ==================== 灵感详情 ====================
+function openDetail(id) {
+  var idea = ideasList.filter(function (x) { return x.id === id; })[0];
+  if (!idea) return;
+
+  activeIdea = idea;
+  var si = getStageIndex(idea.status);
+  var progress = Math.round((si + 1) / STAGES.length * 100);
+
+  el('detailTitle').textContent = idea.title;
+  el('detailStage').textContent = '阶段 ' + (si + 1 < 10 ? '0' : '') + (si + 1) + ' · ' + STAGES[si].zh + ' · ' + (si + 1) + '/8';
+
+  var descEl = el('detailDesc');
+  if (idea.description && idea.description.trim()) {
+    descEl.textContent = idea.description.trim();
+    descEl.classList.remove('muted');
+  } else {
+    descEl.textContent = '还没有补充描述。';
+    descEl.classList.add('muted');
+  }
+
+  var tags = typeof visibleIdeaTags === 'function' ? visibleIdeaTags(idea) : (idea.tags || []);
+  var tagHtml = tags.map(function (tag) {
+    return '<span class="detail-tag">' + escapeHtml(tag) + '</span>';
+  }).join('');
+  if (idea.source_type === 'ai-passport') {
+    tagHtml = '<span class="detail-tag source">来自 AI Passport</span>' + tagHtml;
+  }
+  el('detailTags').innerHTML = tagHtml;
+
+  el('detailOrbWrap').style.setProperty('--ring-c', STAGES[si].color);
+  el('detailOrbWrap').style.setProperty('--ring-p', progress);
+  el('detailProgress').textContent = (si + 1) + ' / 8';
+
+  el('detailDots').innerHTML = STAGES.map(function (stage, i) {
+    var cls = 'stage-dot';
+    if (i < si) cls += ' done';
+    if (i === si) cls += ' current';
+    return '<span class="' + cls + '" style="--c:' + stage.color + ';"></span>';
+  }).join('');
+
+  var promoteBtn = el('detailPromote');
+  promoteBtn.disabled = false;
+  promoteBtn.textContent = '进入孵化 →';
+
+  el('detailModal').classList.add('show');
+}
+
+function closeDetail() {
+  el('detailModal').classList.remove('show');
+  activeIdea = null;
+}
+
+async function promoteActiveIdea() {
+  if (!activeIdea) return;
+
+  var btn = el('detailPromote');
+  btn.disabled = true;
+  btn.textContent = '进入孵化中…';
+
+  var res = await promoteIdea(activeIdea.id);
+
+  if (res && res.success) {
+    window.location.href = './projects?idea=' + encodeURIComponent(activeIdea.id);
+    return;
+  }
+
+  btn.disabled = false;
+  btn.textContent = '进入孵化 →';
+  showToast((res && res.error) || '进入孵化失败，请重试');
+}
+
+async function deleteActiveIdea() {
+  if (!activeIdea) return;
+  if (!window.confirm('删除后不可恢复，确定删除这个灵感吗？')) return;
+
+  var id = activeIdea.id;
+  var res = await deleteIdea(id);
+
+  if (res && res.success) {
+    closeDetail();
+    showToast('灵感已删除');
+    await loadIdeas();
+    return;
+  }
+
+  showToast((res && res.error) || '删除失败');
+}
+
+// ==================== 全局 ====================
+window.loadIdeas = loadIdeas;
+window.openSpaceRecord = openRecord;
+window.receiveFlyingBubble = function () { loadIdeas(); };
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+</body>
+</html>
