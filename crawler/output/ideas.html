@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ideas - Vibe Bubble</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script src="./auth.js?v=20261118d"></script>
-<script src="./nav.js?v=20261118d"></script>
+<script src="./auth.js?v=20261118e"></script>
+<script src="./nav.js?v=20261118e"></script>
 <style>
 /* ===== 基础 ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1106,28 +1106,19 @@ function showToast(msg) {
 }
 
 function authUser() {
-  if (typeof window.currentUser === 'function') return window.currentUser();
+  if (typeof window.currentUser === 'function') {
+    var live = window.currentUser();
+    if (live) return live;
+  }
   try {
     var cached = localStorage.getItem('vb_user');
     return cached ? JSON.parse(cached) : null;
   } catch (e) { return null; }
 }
 
-function waitAuth() {
-  return new Promise(function (resolve) {
-    var n = 0;
-    (function tick() {
-      if (typeof authReady === 'undefined' || authReady) return resolve();
-      if (++n > 50) return resolve();
-      setTimeout(tick, 100);
-    })();
-  });
-}
-
 // ==================== 初始化 ====================
 async function init() {
   bindStaticEvents();
-  await waitAuth();
 
   var params = new URLSearchParams(window.location.search);
   await loadIdeas();
@@ -1140,12 +1131,12 @@ async function init() {
 }
 
 // 登录 / 退出后同步刷新灵感库
-function onAuthStateChange(user) {
-  if (typeof updateAuthUI === 'function') updateAuthUI(user);
+window.addEventListener('vb:authchange', function (e) {
   if (!window.__ideasReady) return;
-  var task = loadIdeas();
-  if (user) Promise.resolve(task).then(consumePendingIdea);
-}
+  loadIdeas().then(function () {
+    if (!e.detail || e.detail.source !== 'logout') consumePendingIdea();
+  });
+});
 
 function bindStaticEvents() {
   el('headerRecordBtn').addEventListener('click', function () { openRecord(); });

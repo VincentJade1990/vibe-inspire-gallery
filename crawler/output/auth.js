@@ -22,6 +22,7 @@ async function checkSession() {
 
     if (!accessToken || !refreshToken) {
       currentUser = null;
+      localStorage.removeItem('vb_user');
       authReady = true;
       onAuthStateChange(currentUser);
       return null;
@@ -59,6 +60,7 @@ async function checkSession() {
   }
 
   authReady = true;
+  notifyAuthChanged('session');
   return currentUser;
 }
 
@@ -159,6 +161,7 @@ async function signUpWithEmail(email, password) {
     };
     localStorage.setItem('vb_user', JSON.stringify(currentUser));
     onAuthStateChange(currentUser);
+    notifyAuthChanged('login');
   }
 
   return { success: true, message: data.confirmation_sent_at ? '请查看邮箱确认注册' : '注册成功' };
@@ -192,6 +195,7 @@ async function signInWithEmail(email, password) {
   };
   localStorage.setItem('vb_user', JSON.stringify(currentUser));
   onAuthStateChange(currentUser);
+  notifyAuthChanged('login');
   return { success: true };
 }
 
@@ -221,6 +225,14 @@ async function signOut() {
   }
   clearSession();
   hideAuthModal();
+  notifyAuthChanged('logout');
+}
+
+// 登录 / 登出后通知当前页面刷新数据
+function notifyAuthChanged(source) {
+  try {
+    window.dispatchEvent(new CustomEvent('vb:authchange', { detail: { source: source || 'auth' } }));
+  } catch (e) { /* ignore */ }
 }
 
 // ==================== Auth 状态回调 ====================

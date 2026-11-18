@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projects - Vibe Bubble</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script src="./auth.js?v=20261118d"></script>
-<script src="./nav.js?v=20261118d"></script>
+<script src="./auth.js?v=20261118e"></script>
+<script src="./nav.js?v=20261118e"></script>
 <style>
 /* ===== 变量与基础 ===== */
 :root {
@@ -1104,6 +1104,13 @@ body::after {
   var currentIdea = null;
   var outputs = {};        // stageKey -> content
   var loggedIn = false;
+  var authStateAtLoad = null;
+  // 登录 / 登出后刷新当前页，避免停留在示例或空数据状态
+  window.addEventListener('vb:authchange', function () {
+    if (authStateAtLoad === null) return;
+    var now = !!(typeof getAccessToken === 'function' && getAccessToken() && authUser());
+    if (now !== authStateAtLoad) window.location.reload();
+  });
   var tableMissing = false;
   var notice = '';
   var menuOpen = false;
@@ -1121,17 +1128,6 @@ body::after {
 
   function isLoggedIn() {
     return !!(typeof getAccessToken === 'function' && getAccessToken() && authUser());
-  }
-
-  function waitAuth() {
-    return new Promise(function (resolve) {
-      var n = 0;
-      (function tick() {
-        if (typeof authReady === 'undefined' || authReady) return resolve();
-        if (++n > 50) return resolve();
-        setTimeout(tick, 100);
-      })();
-    });
   }
 
   // ===== 数据加载 =====
@@ -1616,8 +1612,8 @@ body::after {
   // ===== 初始化 =====
   async function init() {
     bindEvents();
-    await waitAuth();
     loggedIn = isLoggedIn();
+    authStateAtLoad = loggedIn;
 
     try {
       await loadSteps();
@@ -1645,11 +1641,27 @@ body::after {
     if (loggedIn) {
       var user = authUser();
       var allIdeas = (await getUserIdeas(user.id)) || [];
+      var requestedIdea = requestedId
+        ? (allIdeas.filter(function (x) { return x.id === requestedId; })[0] || null)
+        : null;
+
+      // 从 Ideas 进入孵化但标记未写入时，以 URL 里的 idea 参数为准补一次
+      if (requestedIdea && !isPromotedIdea(requestedIdea)) {
+        var promo = await promoteIdea(requestedId);
+        if (promo && promo.success) {
+          requestedIdea = Object.assign({}, requestedIdea, {
+            tags: (requestedIdea.tags || []).concat(IDEA_PROJECT_TAG)
+          });
+        }
+      }
+
       ideas = allIdeas.filter(function (x) { return isPromotedIdea(x); });
 
-      if (requestedId) {
-        currentIdea = ideas.filter(function (x) { return x.id === requestedId; })[0] || null;
-        if (!currentIdea) notice = '没有找到这个项目，当前展示的是示例内容。';
+      if (requestedIdea) {
+        if (!ideas.some(function (x) { return x.id === requestedId; })) ideas.unshift(requestedIdea);
+        currentIdea = requestedIdea;
+      } else if (requestedId) {
+        notice = '没有找到这个项目，当前展示的是示例内容。';
       } else if (ideas.length) {
         currentIdea = ideas[0];
       } else if (!notice) {

@@ -723,11 +723,11 @@
         document.body.insertBefore(mount, document.body.firstChild);
       }
 
-      // 获取用户状态：优先从 localStorage 读取缓存
+      // 获取用户状态：仅在本地存在有效 token 时展示缓存的用户
       var user = null;
       try {
         var cached = localStorage.getItem('vb_user');
-        if (cached) user = JSON.parse(cached);
+        if (cached && localStorage.getItem('vb_access_token')) user = JSON.parse(cached);
       } catch (e) { /* ignore */ }
       if (!user && typeof window.currentUser === 'function') {
         user = window.currentUser();
