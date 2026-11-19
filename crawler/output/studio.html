@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050510">
   <meta
     name="description"
-    content="SHAOZU — Product Designer × AI Creator，探索 AI 时代如何把想法变成真实产品。"
+    content="VibeBubble Studio — 一个 AI 原生设计工作室，探索数字产品、品牌视觉与文创周边的创作。"
   >
   <link rel="canonical" href="https://vibebubble.co/studio.html">
   <title>Studio | VibeBubble</title>
@@ -170,11 +170,11 @@
     .hero {
       --hero-shift: 0px;
       position: relative;
-      min-height: 100svh;
+      min-height: 760px;
       overflow: hidden;
       display: flex;
       align-items: center;
-      padding: 126px 6vw 96px;
+      padding: 84px var(--page-padding) 44px;
       background:
         radial-gradient(ellipse 70% 70% at 75% 50%, rgba(168, 85, 247, 0.10), transparent 66%),
         var(--bg);
@@ -182,8 +182,7 @@
     }
 
     .bubble-field,
-    .footer-bubbles,
-    .work-bubbles {
+    .footer-bubbles {
       position: absolute;
       inset: 0;
       overflow: hidden;
@@ -191,8 +190,7 @@
     }
 
     .bubble-field::after,
-    .footer-bubbles::after,
-    .work-bubbles::after {
+    .footer-bubbles::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -228,14 +226,11 @@
       width: 100%;
       max-width: var(--max-width);
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
-      align-items: center;
-      gap: 7vw;
+      display: block;
     }
 
     .eyebrow {
-      margin-bottom: 24px;
+      margin-bottom: 14px;
       color: var(--purple-light);
       font-size: 10px;
       font-weight: 700;
@@ -243,66 +238,34 @@
     }
 
     .hero h1,
-    .section-title,
-    .work-title,
-    .impact-title,
-    .life-title,
+    .studio-en-title,
+    .creator-name,
+    .projects-title,
     .footer-title {
       font-weight: 760;
       letter-spacing: -0.068em;
     }
 
     .hero h1 {
-      font-size: clamp(70px, 9.3vw, 166px);
-      line-height: 0.82;
+      font-size: clamp(70px, 9.1vw, 154px);
+      line-height: 0.9;
     }
 
     .hero h1 span {
       display: block;
     }
 
-    .hero-name {
+    .hero-brand-accent {
       color: var(--purple-light);
       font-style: italic;
       text-shadow: 0 0 60px rgba(168, 85, 247, 0.34);
     }
 
-    .hero-role {
-      margin-top: 32px;
-      color: #f0e8f8;
-      font-size: clamp(19px, 1.8vw, 28px);
-      font-weight: 600;
-      letter-spacing: -0.025em;
-    }
-
     .hero-statement {
-      margin-top: 25px;
+      margin-top: 12px;
       color: var(--text-dim);
-      font-size: clamp(15px, 1.2vw, 19px);
+      font-size: clamp(13px, 1vw, 15px);
       line-height: 1.75;
-    }
-
-    .tag-list,
-    .case-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .tag-list {
-      margin-top: 34px;
-    }
-
-    .tag-list span,
-    .case-meta span {
-      padding: 10px 13px;
-      color: #d9cbea;
-      background: rgba(10, 6, 22, 0.72);
-      border: 1px solid rgba(196, 181, 253, 0.28);
-      border-radius: 999px;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      backdrop-filter: blur(12px);
     }
 
     .hero-line {
@@ -314,52 +277,39 @@
     .hero-line:nth-child(3) { animation-delay: 220ms; }
     .hero-line:nth-child(4) { animation-delay: 330ms; }
     .hero-line:nth-child(5) { animation-delay: 440ms; }
+    .hero-line:nth-child(6) { animation-delay: 550ms; }
 
-    .hero-person {
-      justify-self: end;
-      width: min(100%, 420px);
-      display: grid;
-      gap: 20px;
-      animation: portraitFloat 8s ease-in-out infinite;
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
     }
 
-    .portrait-frame {
-      height: min(56vh, 570px);
-      overflow: hidden;
-      border: 1px solid rgba(196, 181, 253, 0.34);
-      border-radius: 220px 220px 28px 28px;
-      box-shadow: 0 36px 110px rgba(73, 25, 125, 0.34);
+    .btn-hero {
+      padding: 14px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      transition: transform 240ms ease, background 240ms ease, border-color 240ms ease;
     }
 
-    .portrait-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 35%;
-      filter: saturate(0.76) contrast(1.06) hue-rotate(6deg);
-      transform: scale(1.2);
-    }
-
-    .person-meta {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 7px 18px;
-      padding: 18px 20px;
-      background: rgba(10, 6, 22, 0.76);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(16px);
-    }
-
-    .person-meta span {
-      color: var(--purple-light);
-      font-size: 9px;
+    .btn-hero.primary {
+      color: #160a24;
+      background: linear-gradient(100deg, var(--purple-light), #eadcff);
+      border: 1px solid transparent;
       font-weight: 700;
-      letter-spacing: 0.12em;
     }
 
-    .person-meta p {
-      color: var(--text-dim);
-      font-size: 10px;
+    .btn-hero.ghost {
+      color: #e8dcf2;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-purple);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-2px);
     }
 
     .scroll-cue {
@@ -407,23 +357,6 @@
     /* =========================================================
        通用 section
        ========================================================= */
-    .content-section {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 70px var(--page-padding);
-    }
-
-    .split-section {
-      display: grid;
-      grid-template-columns: 0.22fr 1fr 0.78fr;
-      gap: 4vw;
-    }
-
-    .split-section.split-two {
-      grid-template-columns: 0.4fr 1.6fr;
-      gap: 7vw;
-    }
-
     .section-index {
       display: flex;
       align-items: flex-start;
@@ -442,117 +375,83 @@
       letter-spacing: 0.16em;
     }
 
-    .section-title {
-      max-width: 1120px;
-      font-size: clamp(48px, 6.4vw, 98px);
-      line-height: 0.96;
+    /* =========================================================
+       TRAE 编辑入口 03：关于创作者
+       创作者文案与履历在 HTML 的 “01 CREATOR” 区域修改。
+       ========================================================= */
+    .creator-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 70px var(--page-padding) 90px;
+      border-top: 1px solid var(--line);
     }
 
-    .section-title span {
-      display: block;
-      color: inherit;
+    .creator-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      align-items: start;
+      gap: 5vw;
+      margin-top: 26px;
     }
 
-    .section-lede {
-      max-width: 800px;
+    .creator-name {
+      color: var(--purple-light);
+      font-size: clamp(46px, 5.4vw, 86px);
+      font-style: italic;
+      line-height: 0.92;
+      text-shadow: 0 0 60px rgba(168, 85, 247, 0.28);
+    }
+
+    .creator-meta {
+      margin-top: 14px;
+      color: #f0e8f8;
+      font-size: clamp(13px, 1.1vw, 15px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .creator-lede {
+      max-width: 470px;
       margin-top: 24px;
       color: var(--text-dim);
-      font-size: 15px;
-      line-height: 1.8;
+      font-size: 13.5px;
+      line-height: 1.9;
     }
 
-    .about-image {
-      height: 100%;
+    .creator-lede + .creator-lede {
+      margin-top: 16px;
+    }
+
+    .creator-media {
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 4px;
     }
 
-    .about-image img {
+    .creator-media img {
+      display: block;
       width: 100%;
-      height: 100%;
+      aspect-ratio: 3 / 2;
       object-fit: cover;
-      object-position: center;
+      object-position: 50% center;
+      filter: saturate(0.92) contrast(1.04);
     }
 
-    .ability-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin-top: 36px;
-      border-top: 1px solid var(--line);
+    .creator-resume {
+      margin-top: 68px;
     }
 
-    .ability-grid article {
-      min-height: auto;
-      padding: 20px 20px 24px 0;
-      border-right: 1px solid var(--line);
+    .creator-resume-head {
+      display: flex;
+      align-items: baseline;
+      padding-bottom: 18px;
     }
 
-    .ability-grid article:not(:first-child) {
-      padding-left: 20px;
-    }
-
-    .ability-grid article:last-child {
-      border-right: 0;
-    }
-
-    .ability-grid article > span {
+    .creator-resume-head span {
       color: var(--purple-light);
       font-size: 9px;
-      letter-spacing: 0.14em;
-    }
-
-    .ability-grid h3 {
-      margin: 32px 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.035em;
-    }
-
-    .ability-grid p {
-      color: #8f8695;
-      font-size: 12px;
-      line-height: 1.65;
-    }
-
-    /* =========================================================
-       TRAE 编辑入口 03：个人履历
-       履历内容在 HTML 的 “03 EXPERIENCE” 区域修改。
-       ========================================================= */
-    .experience-section {
-      border-top: 1px solid var(--line);
-    }
-
-    .experience-heading {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      align-items: end;
-      gap: 4vw;
-      margin: 8px 0 48px;
-    }
-
-    .experience-heading p {
-      color: var(--text-dim);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .experience-heading .section-title {
-      font-size: clamp(48px, 6.4vw, 98px);
-      line-height: 0.96;
-      margin-bottom: 10px;
-    }
-
-    .experience-image {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      aspect-ratio: 4 / 3;
-    }
-
-    .experience-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      font-weight: 700;
+      letter-spacing: 0.16em;
     }
 
     .timeline {
@@ -617,337 +516,428 @@
     }
 
     /* =========================================================
-       TRAE 编辑入口 04：剪映明星产品案例
-       案例文案在 HTML 的 "03 FEATURED WORK" 区域修改。
+       TRAE 编辑入口 04：工作室介绍
+       三个创作方向与 AI 课程在 HTML 的 “01 STUDIO” 区域修改。
        ========================================================= */
-    .work-intro {
-      position: relative;
-      overflow: hidden;
+    .studio-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 100px var(--page-padding) 90px;
+    }
+
+    .studio-head {
       display: grid;
-      grid-template-columns: 0.35fr 1.65fr;
-      align-content: center;
-      gap: 6vw;
-      padding: 100px max(5vw, calc((100vw - var(--max-width)) / 2 + 5vw));
-      background:
-        radial-gradient(ellipse 60% 75% at 85% 75%, rgba(168, 85, 247, 0.12), transparent 68%),
-        var(--panel);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: start;
+      gap: 5vw;
     }
 
-    .work-bubbles img {
-      position: absolute;
-      right: -38%;
-      bottom: -55%;
-      width: 135%;
-      height: 135%;
-      object-fit: cover;
-      filter: hue-rotate(42deg) saturate(1.38) brightness(0.68);
-      opacity: 0.82;
-      animation: bubbleReach 20s ease-in-out infinite alternate;
+    .studio-en-title,
+    .projects-en-title {
+      font-size: clamp(46px, 5.4vw, 86px);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
     }
 
-    .work-intro > *:not(.work-bubbles) {
-      position: relative;
-      z-index: 2;
+    .studio-en-title span,
+    .projects-en-title span {
+      color: var(--purple-light);
+      font-style: italic;
     }
 
-    .work-title {
-      max-width: 1050px;
-      font-size: clamp(58px, 7.6vw, 120px);
-      line-height: 0.88;
+    .studio-title {
+      max-width: 480px;
+      margin: 16px 0 0;
+      color: #f0e8f8;
+      font-size: clamp(13px, 1.1vw, 15px);
+      font-weight: 600;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
     }
 
-    .work-description {
-      max-width: 700px;
-      margin-top: 40px;
-      color: #b3a8ba;
-      font-size: 16px;
-      line-height: 1.85;
+    .studio-copy {
+      display: grid;
+      gap: 14px;
+      max-width: 520px;
+      margin-top: 24px;
     }
 
-    .work-main-image {
-      margin-top: 28px;
-      overflow: hidden;
+    .studio-copy p {
+      color: var(--text-dim);
+      font-size: 13.5px;
+      line-height: 1.9;
+    }
+
+    .studio-directions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .studio-directions article {
+      padding: 26px 22px 28px;
+      background: linear-gradient(160deg, rgba(168, 85, 247, 0.09), rgba(255, 255, 255, 0.02) 60%);
       border: 1px solid var(--line);
-      border-radius: 4px;
+      border-radius: 6px;
+      transition: border-color 300ms ease, transform 300ms ease;
     }
 
-    .work-main-image img {
+    .studio-directions article:hover {
+      border-color: var(--line-purple);
+      transform: translateY(-3px);
+    }
+
+    .studio-directions span {
       display: block;
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      object-fit: cover;
+      color: rgba(196, 181, 253, 0.32);
+      font-size: clamp(36px, 2.8vw, 46px);
+      font-weight: 760;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
     }
 
-    .platform-strip {
-      grid-column: 2;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      margin-top: 32px;
-      border-top: 1px solid var(--line-purple);
+    .studio-directions h3 {
+      margin: 14px 0 8px;
+      color: #f0e8f8;
+      font-size: 16px;
+      letter-spacing: -0.035em;
     }
 
-    .platform-strip span {
-      padding: 14px 0;
-      color: #cbbbd3;
-      border-right: 1px solid var(--line);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-    }
-
-    .platform-strip span:last-child {
-      border-right: 0;
+    .studio-directions p {
+      color: #8f8695;
+      font-size: 12px;
+      line-height: 1.7;
     }
 
     /* =========================================================
-       横向轮播：剪映各端产品
+       TRAE 编辑入口 05：创作项目
+       项目卡片与弹窗内容在 HTML 的 “03 PROJECTS” 区域修改。
        ========================================================= */
-    .platform-carousel {
-      position: relative;
-      background: #070512;
-      overflow: hidden;
+    .projects-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 90px var(--page-padding) 110px;
+      border-top: 1px solid var(--line);
     }
 
-    .carousel-track {
-      display: flex;
-      transition: transform 0.6s var(--ease);
+    .projects-head {
+      margin-bottom: 42px;
+      text-align: center;
     }
 
-    .carousel-slide {
-      flex: 0 0 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      min-height: 560px;
-    }
-
-    .carousel-media {
-      overflow: hidden;
-    }
-
-    .carousel-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .carousel-copy {
-      display: flex;
-      flex-direction: column;
+    .projects-head .section-index {
       justify-content: center;
-      padding: 50px 5vw;
+      margin-bottom: 22px;
     }
 
-    .carousel-copy h3 {
-      font-size: clamp(36px, 4vw, 60px);
-      letter-spacing: -0.04em;
+    .projects-en-title {
+      white-space: nowrap;
     }
 
-    .carousel-copy .case-english {
-      margin-top: 10px;
-      color: var(--purple-light);
-      font-size: 16px;
+    .projects-title {
+      margin-top: 14px;
+      color: #e8dcf2;
+      font-size: clamp(20px, 1.9vw, 28px);
       font-weight: 600;
+      line-height: 1.5;
       letter-spacing: -0.02em;
     }
 
-    .carousel-copy .case-intro {
-      margin-top: 28px;
-      color: #d2c6d8;
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .carousel-copy .case-detail {
-      margin-top: 14px;
-      color: #918698;
-      font-size: 13px;
-      line-height: 1.85;
-    }
-
-    .carousel-copy .case-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 28px;
-    }
-
-    .carousel-copy .case-meta span {
-      padding: 8px 12px;
-      color: #d9cbea;
-      background: rgba(10, 6, 22, 0.72);
-      border: 1px solid rgba(196, 181, 253, 0.28);
-      border-radius: 999px;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-    }
-
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(5, 5, 16, 0.7);
-      backdrop-filter: blur(12px);
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 18px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 240ms ease;
-    }
-
-    .carousel-arrow:hover {
-      background: rgba(168, 85, 247, 0.2);
-      border-color: rgba(196, 181, 253, 0.4);
-      color: #c4b5fd;
-    }
-
-    .carousel-arrow.prev { left: 16px; }
-    .carousel-arrow.next { right: 16px; }
-
-    .carousel-dots {
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      z-index: 10;
-    }
-
-    .carousel-dots button {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      border: 0;
-      background: rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      transition: all 240ms ease;
-      padding: 0;
-    }
-
-    .carousel-dots button.active {
-      background: var(--purple-light);
-      width: 18px;
-      border-radius: 3px;
-    }
-
-    /* =========================================================
-       04 STAY CURIOUS：图片轮播 + 文字
-       ========================================================= */
-    .life-section {
-      min-height: 560px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: var(--panel);
-      border-top: 1px solid var(--line);
-    }
-
-    .life-carousel {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .life-carousel-track {
-      display: flex;
-      height: 100%;
-      transition: transform 0.6s var(--ease);
-    }
-
-    .life-carousel-slide {
-      flex: 0 0 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .life-carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: hue-rotate(10deg) saturate(0.82);
-    }
-
-    .life-carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(5, 5, 16, 0.7);
-      backdrop-filter: blur(12px);
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 240ms ease;
-    }
-
-    .life-carousel-arrow:hover {
-      background: rgba(168, 85, 247, 0.2);
-      border-color: rgba(196, 181, 253, 0.4);
-      color: #c4b5fd;
-    }
-
-    .life-carousel-arrow.prev { left: 14px; }
-    .life-carousel-arrow.next { right: 14px; }
-
-    .life-carousel-dots {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 6px;
-      z-index: 10;
-    }
-
-    .life-carousel-dots button {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      border: 0;
-      background: rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      transition: all 240ms ease;
-      padding: 0;
-    }
-
-    .life-carousel-dots button.active {
-      background: var(--purple-light);
-      width: 16px;
-      border-radius: 3px;
-    }
-
-    .life-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 6vw;
-    }
-
-    .life-title {
-      font-size: clamp(50px, 6.6vw, 98px);
-      line-height: 0.9;
-    }
-
-    .life-description {
-      max-width: 600px;
-      margin-top: 24px;
+    .projects-sub {
+      max-width: 620px;
+      margin: 16px auto 0;
       color: var(--text-dim);
       font-size: 14px;
       line-height: 1.8;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      text-align: left;
+      background: linear-gradient(180deg, rgba(20, 12, 36, 0.9), rgba(8, 6, 16, 0.96));
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      transition: border-color 260ms ease, transform 260ms ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(196, 181, 253, 0.34);
+      transform: translateY(-3px);
+    }
+
+    .project-card--feature {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      background: #08050f;
+    }
+
+    .project-media {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 900ms var(--ease);
+    }
+
+    .project-card:hover .project-media img {
+      transform: scale(1.04);
+    }
+
+    .project-card--feature .project-media {
+      min-height: 420px;
+    }
+
+    .project-card--feature .project-media img {
+      filter: saturate(1.05) contrast(1.04);
+    }
+
+    .project-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 240px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 70% 80% at 50% 110%, rgba(168, 85, 247, 0.28), transparent 70%),
+        #0a0614;
+    }
+
+    .project-visual::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 1px solid rgba(196, 181, 253, 0.28);
+      box-shadow:
+        0 0 0 26px rgba(168, 85, 247, 0.05),
+        0 0 0 62px rgba(168, 85, 247, 0.03);
+    }
+
+    .project-visual b {
+      position: relative;
+      color: var(--purple-light);
+      font-size: 34px;
+      font-style: italic;
+      font-weight: 760;
+      letter-spacing: -0.05em;
+    }
+
+    .project-visual em {
+      position: relative;
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 9px;
+      font-style: normal;
+      letter-spacing: 0.22em;
+    }
+
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 26px 26px 28px;
+    }
+
+    .project-card--feature .project-info {
+      justify-content: center;
+      padding: 46px 44px;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 10px;
+      color: var(--purple-light);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+    }
+
+    .project-meta span + span::before {
+      content: "·";
+      margin-right: 10px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .project-info h3 {
+      font-size: 26px;
+      letter-spacing: -0.045em;
+    }
+
+    .project-card--feature .project-info h3 {
+      font-size: clamp(40px, 4.4vw, 62px);
+      line-height: 0.96;
+    }
+
+    .project-info p {
+      max-width: 520px;
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .project-cta {
+      padding: 11px 18px;
+      color: #160a24;
+      background: linear-gradient(100deg, var(--purple-light), #eadcff);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: transform 240ms ease;
+    }
+
+    .project-cta:hover {
+      transform: translateY(-2px);
+    }
+
+    .project-link {
+      padding: 0 0 3px;
+      color: #d9cbea;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid rgba(196, 181, 253, 0.4);
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    .project-link:hover {
+      color: #fff;
+    }
+
+    /* 项目详情弹窗 */
+    .project-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .project-modal[hidden] {
+      display: none;
+    }
+
+    .project-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(3, 2, 8, 0.78);
+      backdrop-filter: blur(10px);
+    }
+
+    .project-modal-panel {
+      position: relative;
+      width: min(880px, 100%);
+      max-height: min(86vh, 860px);
+      overflow-y: auto;
+      padding: 40px 42px 44px;
+      background: #0a0714;
+      border: 1px solid rgba(196, 181, 253, 0.24);
+      border-radius: 8px;
+      box-shadow: 0 40px 140px rgba(0, 0, 0, 0.6);
+    }
+
+    .project-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      color: rgba(255, 255, 255, 0.6);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .project-modal-close:hover {
+      color: #fff;
+      border-color: rgba(196, 181, 253, 0.4);
+    }
+
+    .project-modal-eyebrow {
+      color: var(--purple-light);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+    }
+
+    .project-modal-panel h2 {
+      margin-top: 12px;
+      font-size: clamp(30px, 3.4vw, 46px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .project-modal-intro {
+      margin-top: 16px;
+      color: #cfc2d8;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .project-modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px 34px;
+      margin-top: 32px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .project-modal-grid h3 {
+      margin-bottom: 10px;
+      color: var(--purple-light);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .project-modal-grid p,
+    .project-modal-grid li {
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .project-modal-grid ul {
+      padding-left: 16px;
+    }
+
+    .project-modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
     }
 
     /* =========================================================
@@ -983,44 +973,116 @@
       z-index: 2;
     }
 
+    .footer-eyebrow {
+      margin-bottom: 14px;
+      color: var(--text);
+      font-size: clamp(46px, 5.4vw, 86px);
+      font-weight: 760;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+
+    .footer-eyebrow span {
+      color: var(--purple-light);
+      font-style: italic;
+    }
+
     .footer-title {
-      font-size: clamp(62px, 8.6vw, 142px);
-      line-height: 0.86;
+      font-size: clamp(20px, 2.6vw, 42px);
+      line-height: 1.1;
+      white-space: nowrap;
     }
 
     .footer-description {
-      margin-top: 38px;
+      max-width: 640px;
+      margin: 24px auto 0;
       color: var(--text-dim);
       font-size: 14px;
+      line-height: 1.85;
     }
 
-    .contact-links {
+    .contact-entries {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin-top: 40px;
+      margin-top: 36px;
     }
 
-    .contact-links a,
-    .contact-links button {
-      padding: 13px 18px;
-      color: #dfd3e8;
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid var(--line);
+    .contact-entry {
+      position: relative;
+      display: flex;
+    }
+
+    .contact-entry:hover {
+      z-index: 10;
+    }
+
+    .footer-btn {
+      padding: 14px 22px;
       border-radius: 999px;
-      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-decoration: none;
-      font-size: 10px;
-      letter-spacing: 0.10em;
-      transition: border-color 240ms ease, background 240ms ease, transform 240ms ease;
+      transition: transform 240ms ease, background 240ms ease, border-color 240ms ease;
     }
 
-    .contact-links a:hover,
-    .contact-links button:hover {
-      background: rgba(168, 85, 247, 0.10);
-      border-color: rgba(196, 181, 253, 0.40);
+    .footer-btn--primary {
+      color: #160a24;
+      background: linear-gradient(100deg, var(--purple-light), #eadcff);
+    }
+
+    .footer-btn--ghost {
+      color: #e8dcf2;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-purple);
+    }
+
+    .footer-btn:hover {
       transform: translateY(-2px);
+    }
+
+    /* 二维码占位：后续把 span 替换成 <img> 即可 */
+    .qr-pop {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 12px);
+      z-index: 5;
+      width: 136px;
+      height: 136px;
+      padding: 9px;
+      background: #0a0716;
+      border: 1px solid var(--line-purple);
+      border-radius: 10px;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate(-50%, 8px);
+      transition: opacity 220ms ease, transform 220ms ease, visibility 220ms;
+    }
+
+    .qr-pop span {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 8px;
+      color: var(--text-muted);
+      border: 1px dashed rgba(196, 181, 253, 0.35);
+      border-radius: 5px;
+      text-align: center;
+      font-size: 10px;
+      line-height: 1.7;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-entry:hover .qr-pop,
+    .contact-entry:focus-within .qr-pop {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
     }
 
     .footer-base {
@@ -1068,11 +1130,6 @@
       100% { transform: scale(1.14) translate3d(8%, -6%, 0); opacity: 0.66; }
     }
 
-    @keyframes portraitFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-14px); }
-    }
-
     @keyframes marqueeMove {
       to { transform: translateX(-33.333%); }
     }
@@ -1090,48 +1147,30 @@
       }
 
       .hero {
-        min-height: 980px;
-        align-items: flex-end;
+        min-height: 100svh;
+        align-items: center;
       }
 
       .hero-content,
-      .split-section,
-      .experience-heading,
-      .work-intro {
+      .creator-grid,
+      .studio-head {
         grid-template-columns: 1fr;
       }
 
-      .hero-person {
-        position: absolute;
-        right: 0;
-        bottom: 20px;
-        width: 300px;
-        opacity: 0.45;
+      .studio-head {
+        gap: 34px;
       }
 
-      .portrait-frame {
-        height: 420px;
+      .studio-intro {
+        order: -1;
       }
 
-      .person-meta {
-        display: none;
+      .creator-grid {
+        gap: 34px;
       }
 
-      .hero-intro {
-        position: relative;
-        z-index: 2;
-      }
-
-      .platform-strip {
-        grid-column: 1;
-      }
-
-      .about-image {
-        display: none;
-      }
-
-      .experience-image {
-        display: none;
+      .creator-media img {
+        aspect-ratio: 16 / 10;
       }
 
       .timeline {
@@ -1150,20 +1189,16 @@
         font-size: 13px;
       }
 
-      .carousel-slide {
+      .project-card--feature {
         grid-template-columns: 1fr;
       }
 
-      .carousel-copy {
-        padding: 30px 22px;
+      .project-card--feature .project-media {
+        min-height: 340px;
       }
 
-      .life-section {
-        grid-template-columns: 1fr;
-      }
-
-      .life-carousel {
-        min-height: 400px;
+      .project-card--feature .project-info {
+        padding: 34px 28px 36px;
       }
     }
 
@@ -1178,31 +1213,17 @@
       }
 
       .hero {
-        min-height: 850px;
-        padding: 118px 22px 76px;
+        min-height: 100svh;
+        align-items: center;
+        padding: 74px 22px 32px;
       }
 
       .hero h1 {
-        font-size: clamp(68px, 21vw, 100px);
-      }
-
-      .hero-role {
-        font-size: 19px;
+        font-size: clamp(46px, 15vw, 64px);
       }
 
       .hero-statement br {
         display: none;
-      }
-
-      .hero-person {
-        right: -95px;
-        bottom: 20px;
-        width: 280px;
-        opacity: 0.25;
-      }
-
-      .tag-list {
-        max-width: 330px;
       }
 
       .scroll-cue {
@@ -1210,30 +1231,35 @@
         left: 22px;
       }
 
-      .content-section {
-        padding: 100px 22px;
+      .creator-section {
+        padding: 70px 22px 80px;
       }
 
-      .split-section {
-        gap: 58px;
+      .creator-grid {
+        gap: 26px;
+        margin-top: 20px;
       }
 
-      .work-title,
-      .life-title {
-        font-size: 36px;
+      .creator-name {
+        font-size: 42px;
       }
 
-      .section-lede {
-        font-size: 14px;
+      .creator-media img {
+        aspect-ratio: 4 / 3;
       }
 
-      .ability-grid,
+      .creator-resume {
+        margin-top: 52px;
+      }
+
+      .creator-resume-head {
+        padding-bottom: 14px;
+      }
+
       .timeline {
         grid-template-columns: 1fr;
       }
 
-      .ability-grid article,
-      .ability-grid article:not(:first-child),
       .timeline-item,
       .timeline-item:not(:first-child) {
         min-height: auto;
@@ -1242,36 +1268,87 @@
         border-bottom: 1px solid var(--line);
       }
 
-      .ability-grid h3 {
-        margin-top: 32px;
-      }
-
       .timeline-item:not(:first-child) .timeline-mark {
         left: 0;
       }
 
-      .work-intro {
-        padding: 60px 22px;
+      .studio-section,
+      .projects-section {
+        padding: 66px 22px 74px;
       }
 
-      .platform-strip {
-        grid-template-columns: 1fr 1fr;
+      .studio-copy {
+        margin-top: 20px;
       }
 
-      .platform-strip span {
-        border-bottom: 1px solid var(--line);
+      .studio-en-title,
+      .projects-en-title,
+      .footer-eyebrow {
+        font-size: 38px;
       }
 
-      .carousel-copy h3 {
-        font-size: 28px;
+      .projects-en-title {
+        white-space: normal;
       }
 
-      .life-carousel {
-        min-height: 300px;
+      .studio-title {
+        margin: 12px 0 0;
+        font-size: 14px;
       }
 
-      .life-copy {
-        padding: 60px 22px;
+      .studio-directions {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 0;
+      }
+
+      .studio-directions article,
+      .studio-directions article:not(:first-child),
+      .studio-directions article:last-child {
+        padding: 20px 18px 22px;
+      }
+
+      .studio-directions h3 {
+        margin-top: 12px;
+      }
+
+      .projects-title {
+        font-size: 20px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card--feature {
+        grid-template-columns: 1fr;
+      }
+
+      .project-media,
+      .project-card--feature .project-media {
+        min-height: 220px;
+      }
+
+      .project-info,
+      .project-card--feature .project-info {
+        padding: 24px 22px 26px;
+      }
+
+      .project-card--feature .project-info h3 {
+        font-size: 38px;
+      }
+
+      .project-modal {
+        padding: 14px;
+      }
+
+      .project-modal-panel {
+        padding: 30px 22px 32px;
+      }
+
+      .project-modal-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
       }
 
       .footer {
@@ -1281,7 +1358,7 @@
       }
 
       .footer-title {
-        font-size: 58px;
+        font-size: 17px;
       }
 
       .footer-base {
@@ -1307,7 +1384,7 @@
     }
   </style>
 <script src="./auth.js?v=20261118f"></script>
-<script src="./nav.js?v=20261118f"></script>
+<script src="./nav.js?v=20261119a"></script>
 </head>
 
 <body>
@@ -1331,320 +1408,266 @@
 
       <div class="hero-content">
         <div class="hero-intro">
-          <p class="eyebrow hero-line">ABOUT · VIBEBUBBLE STUDIO</p>
+          <p class="eyebrow hero-line">AI NATIVE DESIGN STUDIO</p>
 
           <h1>
-            <span class="hero-line">Hi, I&apos;m</span>
-            <span class="hero-name hero-line">SHAOZU</span>
+            <span class="hero-line">VibeBubble</span>
+            <span class="hero-brand-accent hero-line">Studio</span>
           </h1>
 
-          <p class="hero-role hero-line">Product Designer × AI Creator</p>
-
           <p class="hero-statement hero-line">
-            在 AI 时代保持探索，寻找个人的第二成长曲线
+            一个 AI 原生设计工作室，探索数字产品、品牌视觉与文创周边的创作。
           </p>
 
-          <div class="tag-list hero-line" aria-label="个人能力标签">
-            <span>Product Design</span>
-            <span>AI Product</span>
-            <span>Vibe Coding</span>
-            <span>Creative Technology</span>
-          </div>
-        </div>
-
-        <div class="hero-person">
-          <div class="portrait-frame">
-            <img src="./assets/about/udesign-week-portrait.jpg" alt="SHAOZU 在 U Design Week 演讲分享">
-          </div>
-
-          <div class="person-meta">
-            <span>10+ YEARS</span>
-            <p>Product design experience</p>
-            <span>SHANGHAI</span>
-            <p>Designing with AI, daily</p>
+          <div class="hero-actions hero-line">
+            <button class="btn-hero primary" type="button" data-scroll-to="about">认识创作者</button>
+            <button class="btn-hero ghost" type="button" data-scroll-to="work">查看作品</button>
           </div>
         </div>
       </div>
 
-      <button class="scroll-cue" type="button" data-scroll-to="about">SCROLL TO EXPLORE</button>
+      <button class="scroll-cue" type="button" data-scroll-to="studio">SCROLL TO EXPLORE</button>
     </section>
 
     <!-- 能力标签跑马灯 -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>Product Design <b>×</b></span>
-        <span>AI Product <b>×</b></span>
-        <span>Vibe Coding <b>×</b></span>
-        <span>Creative Technology <b>×</b></span>
-        <span>Product Design <b>×</b></span>
-        <span>AI Product <b>×</b></span>
-        <span>Vibe Coding <b>×</b></span>
-        <span>Creative Technology <b>×</b></span>
-        <span>Product Design <b>×</b></span>
-        <span>AI Product <b>×</b></span>
-        <span>Vibe Coding <b>×</b></span>
-        <span>Creative Technology <b>×</b></span>
+        <span>Digital Products <b>×</b></span>
+        <span>Brand Identity <b>×</b></span>
+        <span>Creative Goods <b>×</b></span>
+        <span>AI Creative Course <b>×</b></span>
+        <span>Digital Products <b>×</b></span>
+        <span>Brand Identity <b>×</b></span>
+        <span>Creative Goods <b>×</b></span>
+        <span>AI Creative Course <b>×</b></span>
+        <span>Digital Products <b>×</b></span>
+        <span>Brand Identity <b>×</b></span>
+        <span>Creative Goods <b>×</b></span>
+        <span>AI Creative Course <b>×</b></span>
       </div>
     </div>
 
     <!-- =====================================================
-         01 ABOUT：个人定位
+         01 STUDIO：工作室介绍
          ===================================================== -->
-    <section class="content-section split-section split-two" id="about">
+    <section class="studio-section" id="studio">
       <div class="section-index reveal">
         <span>01</span>
-        <p>WHO I AM</p>
+        <p>THE STUDIO</p>
       </div>
 
-      <div class="reveal">
-        <p class="eyebrow">FROM PRODUCT DESIGN TO AI-NATIVE CREATION</p>
-
-        <h2 class="section-title">
-          I design products.
-          <span>Now I design how ideas become products.</span>
-        </h2>
-
-        <p class="section-lede">
-          我拥有 10 年+ To C 产品设计经验，参与过腾讯社交产品，与字节全球化视频创作工具，带领设计团队服务千万级用户的产品。现在，我把产品思维、设计体验、创作者视角与 AI 能力放进同一个工作流，探索新的可能。
-        </p>
-
-        <div class="ability-grid">
+      <div class="studio-head reveal">
+        <div class="studio-directions">
           <article>
-            <span>THINK</span>
-            <h3>Product Design</h3>
-            <p>理解用户与业务，把复杂问题转化为清晰、可用的产品系统。</p>
+            <span>01</span>
+            <h3>数字产品</h3>
+            <p>探索有实际用途的 AI 产品与创作工具。</p>
           </article>
 
           <article>
-            <span>BUILD</span>
-            <h3>Vibe Coding</h3>
-            <p>借助 AI 快速把想法做成可运行、可验证、可持续迭代的产品。</p>
+            <span>02</span>
+            <h3>品牌视觉</h3>
+            <p>用图形、字体、色彩与动态表达品牌。</p>
           </article>
 
           <article>
-            <span>EXPLORE</span>
-            <h3>Creative Technology</h3>
-            <p>用新模型、新工具与新媒介，寻找设计和创造的下一种可能。</p>
+            <span>03</span>
+            <h3>文创周边</h3>
+            <p>将设计带入服装与文创，检验真实的使用体验。</p>
           </article>
+
+          <article>
+            <span>04</span>
+            <h3>AI 创作课程</h3>
+            <p>把产品设计、AI 工具与创作实践整理成可学习的课程与工作坊。</p>
+          </article>
+        </div>
+
+        <div class="studio-intro">
+          <h2 class="studio-en-title">A Studio<br><span>for Curious</span></h2>
+          <p class="studio-title">借助 AI，探索设计与创造的更多可能。</p>
+
+          <div class="studio-copy">
+            <p>
+              VibeBubble Studio 从好奇心出发，关注生活中的需求，也尝试新的工具与表达方式。我们将设计经验与 AI 融入创作过程，从一个想法开始，逐步完成设计、开发与实物制作。
+            </p>
+            <p>
+              我们关心作品最终带来的体验，也记录过程中的判断、尝试与调整，让每一次实践成为下一次创造的积累。
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- =====================================================
-         02 EXPERIENCE：个人履历
+         02 CREATOR：关于创作者
+         版面参考 AI 课程「05 履历」草图：人物主图 + 精简履历。
          ===================================================== -->
-    <section class="content-section experience-section" id="experience">
+    <section class="creator-section" id="about">
       <div class="section-index reveal">
         <span>02</span>
-        <p>EXPERIENCE</p>
+        <p>ABOUT THE CREATOR</p>
       </div>
 
-      <div class="experience-heading reveal">
-        <div>
-          <h2 class="section-title">Five chapters.<br>One evolving identity.</h2>
-          <p>从设计产品，到设计系统，走向海外，深入 AI，再到建立自己的创造方式。</p>
+      <div class="creator-grid">
+        <div class="creator-intro reveal">
+          <h2 class="creator-name">Yushaozu</h2>
+          <p class="creator-meta">VibeBubble Studio 发起人 · 产品体验设计师 · AI 开发者</p>
+
+          <p class="creator-lede">
+            曾任职于腾讯、字节跳动，拥有十年以上互联网产品设计经验。与团队共同参与产品从 0 到 1 的建设，并见证其成长至亿级用户规模；曾担任设计团队负责人，积累了产品设计、跨团队协作与团队管理经验。
+          </p>
+
+          <p class="creator-lede">
+            VibeBubble Studio 是我的一次个人 AI 产品实践，我希望在这专注于 vibe coding、内容创作与 AI 创作课程，探索设计经验、审美判断与 AI 工具的结合。从发现问题、构思方案到完成作品，持续实践新的创作方式，并分享过程中的方法与经验。
+          </p>
         </div>
-        <div class="experience-image">
-          <img src="./assets/about/udesign-week-02.jpeg" alt="SHAOZU 在 U Design Week 演讲">
-        </div>
+
+        <figure class="creator-media reveal" style="--delay: 120ms">
+          <img src="./assets/about/udesign-week-02.jpeg" alt="Yushaozu 在 U Design Week 分享剪映全平台设计">
+        </figure>
       </div>
 
-      <div class="timeline">
-        <article class="timeline-item reveal">
-          <p class="timeline-years">2016.07—2020.02</p>
-          <span class="timeline-mark" aria-hidden="true"></span>
-          <h3>Tencent ISUX</h3>
-          <p class="timeline-role">Senior Interaction Designer</p>
-          <p class="timeline-note">
-            在社交与内容产品设计中，建立产品判断、增长意识与设计驱动业务的工作方式。
-          </p>
-        </article>
+      <div class="creator-resume">
+        <div class="creator-resume-head reveal">
+          <span>RESUME</span>
+        </div>
 
-        <article class="timeline-item reveal" style="--delay: 100ms">
-          <p class="timeline-years">2020.02—2022.12</p>
-          <span class="timeline-mark" aria-hidden="true"></span>
-          <h3>Jianying / CapCut</h3>
-          <p class="timeline-role">Product Design Lead</p>
-          <p class="timeline-note">
-            作为早期设计成员与工具线设计 Leader，负责剪映高阶剪辑能力设计，从0到1负责剪映专业版的设计。
-          </p>
-        </article>
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <p class="timeline-years">2016.07—2020.02</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>Tencent ISUX</h3>
+            <p class="timeline-role">Senior Interaction Designer</p>
+            <p class="timeline-note">
+              在社交与内容产品设计中，建立产品判断、增长意识与设计驱动业务的工作方式。
+            </p>
+          </article>
 
-        <article class="timeline-item reveal" style="--delay: 200ms">
-          <p class="timeline-years">2023.01—2023.12</p>
-          <span class="timeline-mark" aria-hidden="true"></span>
-          <h3>TikTok Design</h3>
-          <p class="timeline-role">Product Design Expert</p>
-          <p class="timeline-note">
-            海外社区产品创作工具，提升对海外产品和用户的设计认知，规范化团队协作流程及设计组件。
-          </p>
-        </article>
+          <article class="timeline-item reveal" style="--delay: 100ms">
+            <p class="timeline-years">2020.02—2022.12</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>Jianying / CapCut</h3>
+            <p class="timeline-role">Product Design Lead</p>
+            <p class="timeline-note">
+              作为早期设计成员与工具线设计 Leader，负责剪映高阶剪辑能力设计，从0到1负责剪映专业版的设计。
+            </p>
+          </article>
 
-        <article class="timeline-item reveal" style="--delay: 300ms">
-          <p class="timeline-years">2024—2026</p>
-          <span class="timeline-mark" aria-hidden="true"></span>
-          <h3>AI Lab</h3>
-          <p class="timeline-role">Senior AI Engineer</p>
-          <p class="timeline-note">
-            推进垂直领域AI大模型，结合各种业务场景更好的落地，提供完整的解决方案。
-          </p>
-        </article>
+          <article class="timeline-item reveal" style="--delay: 200ms">
+            <p class="timeline-years">2023.01—2023.12</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>TikTok Design</h3>
+            <p class="timeline-role">Product Design Expert</p>
+            <p class="timeline-note">
+              海外社区产品创作工具，提升对海外产品和用户的设计认知，规范化团队协作流程及设计组件。
+            </p>
+          </article>
 
-        <article class="timeline-item reveal" style="--delay: 400ms">
-          <p class="timeline-years">2026—NOW</p>
-          <span class="timeline-mark" aria-hidden="true"></span>
-          <h3>VibeBubble Studio</h3>
-          <p class="timeline-role">Product Designer × AI Creator</p>
-          <p class="timeline-note">
-            探索一个人如何借助 AI，把洞察、设计、代码与内容连接成可运行的真实产品。
-          </p>
-        </article>
+          <article class="timeline-item reveal" style="--delay: 300ms">
+            <p class="timeline-years">2024—2026</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>AI Lab</h3>
+            <p class="timeline-role">Senior AI Engineer</p>
+            <p class="timeline-note">
+              推进垂直领域AI大模型，结合各种业务场景更好的落地，提供完整的解决方案。
+            </p>
+          </article>
+
+          <article class="timeline-item reveal" style="--delay: 400ms">
+            <p class="timeline-years">2026—NOW</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>VibeBubble Studio</h3>
+            <p class="timeline-role">Product Designer × AI Creator</p>
+            <p class="timeline-note">
+              探索一个人如何借助 AI，把洞察、设计、代码与内容连接成可运行的真实产品。
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- =====================================================
-         03 FEATURED WORK：剪映明星产品
-         ========================================================= -->
-    <section class="work-intro" id="work">
-      <div class="work-bubbles" aria-hidden="true">
-        <img src="./assets/about/vibebubble-hero.png" alt="">
-      </div>
+         03 PROJECTS：创作项目
+         ===================================================== -->
+    <section class="projects-section" id="work">
+      <header class="projects-head reveal">
+        <div class="section-index">
+          <span>03</span>
+          <p>PROJECTS</p>
+        </div>
+        <h2 class="projects-en-title">Turn ideas, <span>into reality.</span></h2>
+        <p class="projects-title">正在把这些想法做出来。</p>
+        <p class="projects-sub">从数字体验到实体物件，展示我们的创作实践与阶段成果。</p>
+      </header>
 
-      <div class="section-index reveal">
-        <span>03</span>
-        <p>FEATURED WORK</p>
-      </div>
+      <div class="projects-grid">
+        <article class="project-card project-card--feature reveal" data-project="vibebubble">
+          <div class="project-media">
+            <img src="./assets/about/vibebubble-hero.png" alt="VibeBubble 产品视觉">
+          </div>
 
-      <div class="reveal">
-        <p class="eyebrow">Jianying / CapCut · FLAGSHIP CREATION PRODUCT</p>
-        <h2 class="work-title">Designing a product<br>used to create.</h2>
-        <p class="work-description">
-          剪映是我职业生涯中最重要的产品。它让我有机会把兴趣和工作相结合，获得从一个功能、一块屏幕，走向多端系统、全球市场与 AI 创作的完整视角。
-        </p>
-      </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span>AI PRODUCT</span>
+              <span>进行中</span>
+            </div>
+            <h3>VibeBubble</h3>
+            <p>一款连接灵感记录与项目孵化的 AI 创作工具，探索如何帮助个人把想法持续推进为作品。</p>
 
-      <div class="platform-strip reveal">
-        <span>ALL PLATFORMS</span>
-        <span>MOBILE</span>
-        <span>DESKTOP</span>
-        <span>PAD</span>
-        <span>WEBSITE</span>
+            <div class="project-actions">
+              <a class="project-cta" href="https://vibebubble.co" target="_blank" rel="noopener">体验产品</a>
+              <button class="project-link" type="button" data-project="vibebubble">查看设计</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project="brand" style="--delay: 100ms">
+          <div class="project-visual">
+            <b>VibeBubble</b>
+            <em>BRAND VISUAL</em>
+          </div>
+
+          <div class="project-info">
+            <div class="project-meta">
+              <span>BRAND</span>
+              <span>进行中</span>
+            </div>
+            <h3>VibeBubble Brand</h3>
+            <p>围绕气泡与探索精神，建立从标志、字体到动态图形的品牌视觉表达。</p>
+
+            <div class="project-actions">
+              <button class="project-link" type="button" data-project="brand">查看设计</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project="design" style="--delay: 200ms">
+          <div class="project-visual">
+            <b>◎ 01</b>
+            <em>T-SHIRT / OBJECT</em>
+          </div>
+
+          <div class="project-info">
+            <div class="project-meta">
+              <span>DESIGN</span>
+              <span>进行中</span>
+            </div>
+            <h3>VibeBubble Design</h3>
+            <p>从 T 恤开始，探索品牌图形与日常物件的结合，记录从设计稿到实物的过程。</p>
+
+            <div class="project-actions">
+              <button class="project-link" type="button" data-project="design">查看设计</button>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- 横向轮播：剪映各端产品 -->
-    <section class="platform-carousel" aria-label="剪映各端产品">
-      <div class="carousel-track" id="platform-carousel-track">
-        <div class="carousel-slide">
-          <div class="carousel-media"><img src="./assets/about/capcut-all-platform01.jpeg" alt="剪映全平台产品"></div>
-          <div class="carousel-copy">
-            <h3>剪映全平台设计</h3>
-            <p class="case-english">One product. Every creative surface.</p>
-            <p class="case-intro">让剪辑体验跨越 Mobile、Pad、Desktop 与 Web，也跨越国内与海外市场。</p>
-            <p class="case-detail">从 0 到 1 搭建 Desktop 与 Web 的交互框架，推动 Pad 从适配走向发挥大屏优势，并在 CapCut 中持续探索海外用户习惯与本地化体验，让产品在不同平台和市场中保持一致且优质的创作体验。</p>
-            <div class="case-meta">
-              <span>全平台系统</span>
-              <span>交互框架</span>
-              <span>Global Design</span>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-slide">
-          <div class="carousel-media"><img src="./assets/about/jianying-mobile.jpeg" alt="剪映移动端"></div>
-          <div class="carousel-copy">
-            <h3>剪映移动端</h3>
-            <p class="case-english">Designing the creative engine.</p>
-            <p class="case-intro">作为剪映早期设计成员与工具线设计 Leader，负责剪映移动端重点功能模块和高阶剪辑功能设计。</p>
-            <p class="case-detail">跟进 Capcut 初期出海本地化设计，探索 AI 能力在剪辑流程中的应用。覆盖关键帧、抠像、防抖、美颜美体、调色滤镜、字幕与图文成片等重点能力，提升剪辑工具整体易用性和流畅体验。</p>
-            <div class="case-meta">
-              <span>核心工具能力</span>
-              <span>高阶剪辑</span>
-              <span>Capcut 出海</span>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-slide">
-          <div class="carousel-media"><img src="./assets/about/jianying-desktop.jpeg" alt="剪映桌面端"></div>
-          <div class="carousel-copy">
-            <h3>剪映专业版</h3>
-            <p class="case-english">From zero to desktop creation.</p>
-            <p class="case-intro">从 0 到 1 搭建设计了 Mac 和 Windows 双端工具，定义了可延续的交互框架和交互逻辑。</p>
-            <p class="case-detail">后续带领团队，完成了多个版本的重点能力迭代，和多端的草稿打通，让桌面端创作体验持续进化。</p>
-            <div class="case-meta">
-              <span>Mac / Windows</span>
-              <span>交互框架</span>
-              <span>多端草稿打通</span>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-slide">
-          <div class="carousel-media"><img src="./assets/about/jianying-pad.jpeg" alt="剪映Pad端"></div>
-          <div class="carousel-copy">
-            <h3>剪映 Pad 端</h3>
-            <p class="case-english">Bigger screen, better creation.</p>
-            <p class="case-intro">独立完成剪映 Pad 端适配，保证横屏状态下的可用性。</p>
-            <p class="case-detail">第二阶段作为设计 Owner 角色，带领团队开启全新版本的 Pad 剪辑工具设计，保证剪辑工具发挥移动大屏优势，提供更高效的创作体验。</p>
-            <div class="case-meta">
-              <span>横屏适配</span>
-              <span>大屏优势</span>
-              <span>设计 Owner</span>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-slide">
-          <div class="carousel-media"><img src="./assets/about/jianying-website.jpeg" alt="剪映Web端"></div>
-          <div class="carousel-copy">
-            <h3>剪映 Web 端</h3>
-            <p class="case-english">Creation in the browser.</p>
-            <p class="case-intro">从 0 到 1 设计搭建剪映 Web MVP 1.0 版本，定义 Web 长期交互框架。</p>
-            <p class="case-detail">包括工作台云空间、在线剪辑、剪同款等模块，研究 Web 特性，推进 Web 体验专项，发挥 Web 端工具优势，让创作不受设备限制。</p>
-            <div class="case-meta">
-              <span>Web MVP</span>
-              <span>云空间</span>
-              <span>在线剪辑</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-arrow prev" aria-label="上一个">&#10094;</button>
-      <button class="carousel-arrow next" aria-label="下一个">&#10095;</button>
-      <div class="carousel-dots" id="platform-carousel-dots"></div>
-    </section>
-
-    <!-- =====================================================
-         04 STAY CURIOUS：图片轮播 + 文字
-         ========================================================= -->
-    <section class="life-section">
-      <div class="life-carousel reveal" id="life-carousel">
-        <div class="life-carousel-track" id="life-carousel-track">
-          <div class="life-carousel-slide"><img src="./assets/about/stay-curious01.jpeg" alt=""></div>
-          <div class="life-carousel-slide"><img src="./assets/about/stay-curious02.jpeg" alt=""></div>
-          <div class="life-carousel-slide"><img src="./assets/about/stay-curious03.jpeg" alt=""></div>
-          <div class="life-carousel-slide"><img src="./assets/about/stay-curious04.jpeg" alt=""></div>
-          <div class="life-carousel-slide"><img src="./assets/about/stay-curious05.jpeg" alt=""></div>
-          <div class="life-carousel-slide"><img src="./assets/about/stay-curious07.jpeg" alt=""></div>
-        </div>
-        <button class="life-carousel-arrow prev" aria-label="上一个">&#10094;</button>
-        <button class="life-carousel-arrow next" aria-label="下一个">&#10095;</button>
-        <div class="life-carousel-dots" id="life-carousel-dots"></div>
-      </div>
-
-      <div class="life-copy reveal">
-        <div class="section-index" style="margin-bottom: 20px;">
-          <span>04</span>
-          <p>STAY CURIOUS · KEEP EXPLORING</p>
-        </div>
-        <h2 class="life-title">Creation is<br>a way of living.</h2>
-        <p class="life-description">
-          我持续体验新的硬件、模型与媒介，也用影像记录家人、旅行和不断出现的灵感。
-          好奇心不是兴趣清单，而是我理解世界、理解用户、保持创造力的方式。
-        </p>
-      </div>
-    </section>
   </main>
 
   <!-- =======================================================
-       07 CONTACT：保留原 About 页中的联系方式
+       04 CONTACT：结语与联系
        ======================================================= -->
   <footer class="footer" id="contact">
     <div class="footer-bubbles" aria-hidden="true">
@@ -1652,21 +1675,27 @@
     </div>
 
     <div class="footer-content reveal">
-      <p class="eyebrow">VIBEBUBBLE STUDIO · SHAOZU</p>
-      <h2 class="footer-title">Let&apos;s turn the next<br>idea into something real.</h2>
-      <p class="footer-description">Product Design × AI Creator × Creative Technology</p>
+      <h2 class="footer-eyebrow">Stay Curious<br><span>Keep Exploring</span></h2>
+      <p class="footer-title">保持好奇，持续探索。</p>
+      <p class="footer-description">
+        一起做点有意思的事。欢迎围绕 AI 产品、体验设计、创作教育与品牌文创展开交流，从一个具体的想法开始，探索合作的可能。
+      </p>
 
-      <div class="contact-links">
-        <a href="https://www.xiaohongshu.com/user/profile/596c71c05e87e71adb01472a" target="_blank" rel="noopener">
-          小红书
-        </a>
-        <a href="https://www.douyin.com/user/MS4wLjABAAAAc4JY_QOQOrrKSzsaJKi-Zxlbva8a9bye4-23Xk3MyvNPYt2q3EuH4mdWdtkTFLuL?from_tab_name=main" target="_blank" rel="noopener">
-          抖音
-        </a>
-        <a href="mailto:258842828@qq.com">EMAIL</a>
-        <button id="copy-wechat" type="button" data-copy-text="xiaoyutongxue168">
-          微信：xiaoyutongxue168
-        </button>
+      <div class="contact-entries">
+        <div class="contact-entry">
+          <a class="footer-btn footer-btn--primary" href="mailto:258842828@qq.com">联系合作</a>
+          <div class="qr-pop" aria-hidden="true"><span>二维码<br>稍后补充</span></div>
+        </div>
+
+        <div class="contact-entry">
+          <a class="footer-btn footer-btn--ghost" href="https://www.douyin.com/user/MS4wLjABAAAAc4JY_QOQOrrKSzsaJKi-Zxlbva8a9bye4-23Xk3MyvNPYt2q3EuH4mdWdtkTFLuL?from_tab_name=main" target="_blank" rel="noopener">抖音</a>
+          <div class="qr-pop" aria-hidden="true"><span>二维码<br>稍后补充</span></div>
+        </div>
+
+        <div class="contact-entry">
+          <a class="footer-btn footer-btn--ghost" href="https://www.xiaohongshu.com/user/profile/596c71c05e87e71adb01472a" target="_blank" rel="noopener">小红书</a>
+          <div class="qr-pop" aria-hidden="true"><span>二维码<br>稍后补充</span></div>
+        </div>
       </div>
     </div>
 
@@ -1676,9 +1705,46 @@
     </div>
   </footer>
 
+  <!-- 项目详情弹窗 -->
+  <div class="project-modal" id="projectModal" hidden>
+    <div class="project-modal-backdrop" data-close-modal></div>
+
+    <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+      <button class="project-modal-close" type="button" data-close-modal aria-label="关闭">&times;</button>
+
+      <p class="project-modal-eyebrow" id="pmEyebrow"></p>
+      <h2 id="pmTitle"></h2>
+      <p class="project-modal-intro" id="pmIntro"></p>
+
+      <div class="project-modal-grid">
+        <section>
+          <h3>作品</h3>
+          <p id="pmWork"></p>
+        </section>
+
+        <section>
+          <h3>关键设计选择</h3>
+          <ul id="pmChoices"></ul>
+        </section>
+
+        <section>
+          <h3>制作过程</h3>
+          <p id="pmProcess"></p>
+        </section>
+
+        <section>
+          <h3>真实进展</h3>
+          <p id="pmProgress"></p>
+        </section>
+      </div>
+
+      <div class="project-modal-actions" id="pmActions"></div>
+    </div>
+  </div>
+
   <script>
     /* =========================================================
-       TRAE 编辑入口 05：页面交互
+       TRAE 编辑入口 06：页面交互
        这些逻辑都是原生 JavaScript，不依赖 React 或构建工具。
        ========================================================= */
     document.addEventListener("DOMContentLoaded", function () {
@@ -1741,95 +1807,114 @@
         });
       });
 
-      /* 复制微信号 */
-      var copyWechat = document.getElementById("copy-wechat");
-
-      if (copyWechat) {
-        copyWechat.addEventListener("click", async function () {
-          var originalText = copyWechat.textContent;
-          var value = copyWechat.dataset.copyText;
-
-          try {
-            await navigator.clipboard.writeText(value);
-            copyWechat.textContent = "已复制微信号";
-          } catch (error) {
-            copyWechat.textContent = value;
-          }
-
-          window.setTimeout(function () {
-            copyWechat.textContent = originalText;
-          }, 1800);
-        });
-      }
-
       /* =========================================================
-         通用轮播组件
+         创作项目详情
+         项目文案在这里修改，卡片与弹窗共用同一份数据。
          ========================================================= */
-      function createCarousel(options) {
-        var track = document.getElementById(options.trackId);
-        var dotsContainer = document.getElementById(options.dotsId);
-        var section = track.closest(options.containerSelector);
-        if (!track || !section) return;
-
-        var prevBtn = section.querySelector(options.prevSelector);
-        var nextBtn = section.querySelector(options.nextSelector);
-        var slides = track.children;
-        var total = slides.length;
-        var current = 0;
-
-        /* 生成指示点 */
-        if (dotsContainer) {
-          for (var i = 0; i < total; i++) {
-            (function (idx) {
-              var dot = document.createElement("button");
-              if (idx === 0) dot.classList.add("active");
-              dot.addEventListener("click", function () {
-                goTo(idx);
-              });
-              dotsContainer.appendChild(dot);
-            })(i);
-          }
+      var PROJECTS = {
+        vibebubble: {
+          eyebrow: "AI PRODUCT · 2026",
+          title: "VibeBubble",
+          intro: "一款连接灵感记录与项目孵化的 AI 创作工具，探索如何帮助个人把想法持续推进为作品。",
+          work: "从记录第一个灵感，到孵化成可展示的项目，VibeBubble 把零散的想法串成一条可回看、可继续的创作路径。",
+          choices: [
+            "把记录和推进拆开：灵感 5 秒记下，不打断当下。",
+            "用八步法承载从想法到产出的过程，每一步都有可保存的产出。",
+            "以气泡作为核心隐喻：灵感浮起来，孵化后沉淀为项目。"
+          ],
+          process: "先在飞书中完成产品结构与八步法内容，再用 AI 辅助编码，逐页搭建 Ideas、Projects 与 Gallery。",
+          progress: "灵感记录与项目孵化主流程已上线，正在补充 AI 辅助与作品展示。",
+          link: "https://vibebubble.co",
+          cta: "体验产品"
+        },
+        brand: {
+          eyebrow: "BRAND · 进行中",
+          title: "VibeBubble Brand",
+          intro: "围绕气泡与探索精神，建立从标志、字体到动态图形的品牌视觉表达。",
+          work: "一套可以持续生长的品牌视觉系统，让网站、内容与实物周边保持同一种气质。",
+          choices: [
+            "以气泡作为核心图形，既是灵感也是探索的容器。",
+            "用紫色作为探索的信号色，保留深色底上的微光感。",
+            "让静态图形具备缓慢呼吸的动态，延续「持续探索」。"
+          ],
+          process: "先并行生成多个方向，再手工收敛为可复用的标志、字体与色彩规则。",
+          progress: "标志与基础色板已成型，字体规范与动态图形待补充。",
+          link: "",
+          cta: ""
+        },
+        design: {
+          eyebrow: "DESIGN · 进行中",
+          title: "VibeBubble Design",
+          intro: "从 T 恤开始，探索品牌图形与日常物件的结合，记录从设计稿到实物的过程。",
+          work: "把屏幕里的品牌图形带到可以穿、可以用的物件上，检验它在真实生活里的样子。",
+          choices: [
+            "先做一件自己愿意每天穿的 T 恤，而不是宣传物料。",
+            "图形控制在单色，让版型和面料成为主角。",
+            "把打样、试穿和调整的过程也作为内容记录。"
+          ],
+          process: "设计稿 → 打样 → 试穿反馈 → 调整版型与印花。",
+          progress: "首版设计稿完成，等待打样与实物验证。",
+          link: "",
+          cta: ""
         }
+      };
 
-        function updateDots() {
-          if (!dotsContainer) return;
-          var dots = dotsContainer.children;
-          for (var i = 0; i < dots.length; i++) {
-            dots[i].classList.toggle("active", i === current);
-          }
-        }
+      var projectModal = document.getElementById("projectModal");
+      var pmActions = document.getElementById("pmActions");
 
-        function goTo(index) {
-          current = (index + total) % total;
-          track.style.transform = "translateX(-" + current * 100 + "%)";
-          updateDots();
-        }
-
-        function next() { goTo(current + 1); }
-        function prev() { goTo(current - 1); }
-
-        if (nextBtn) nextBtn.addEventListener("click", function () { next(); });
-        if (prevBtn) prevBtn.addEventListener("click", function () { prev(); });
+      function closeProject() {
+        if (!projectModal) return;
+        projectModal.hidden = true;
+        document.body.style.overflow = "";
       }
 
-      /* 初始化：剪映各端产品轮播 */
-      createCarousel({
-        trackId: "platform-carousel-track",
-        dotsId: "platform-carousel-dots",
-        containerSelector: ".platform-carousel",
-        prevSelector: ".carousel-arrow.prev",
-        nextSelector: ".carousel-arrow.next",
-        interval: 5000
+      function openProject(id) {
+        var project = PROJECTS[id];
+        if (!project || !projectModal) return;
+
+        document.getElementById("pmEyebrow").textContent = project.eyebrow;
+        document.getElementById("pmTitle").textContent = project.title;
+        document.getElementById("pmIntro").textContent = project.intro;
+        document.getElementById("pmWork").textContent = project.work;
+        document.getElementById("pmProcess").textContent = project.process;
+        document.getElementById("pmProgress").textContent = project.progress;
+
+        var choices = document.getElementById("pmChoices");
+        choices.innerHTML = "";
+        project.choices.forEach(function (item) {
+          var li = document.createElement("li");
+          li.textContent = item;
+          choices.appendChild(li);
+        });
+
+        pmActions.innerHTML = "";
+        if (project.link) {
+          var link = document.createElement("a");
+          link.className = "project-cta";
+          link.href = project.link;
+          link.target = "_blank";
+          link.rel = "noopener";
+          link.textContent = project.cta;
+          pmActions.appendChild(link);
+        }
+
+        projectModal.hidden = false;
+        document.body.style.overflow = "hidden";
+      }
+
+      document.addEventListener("click", function (event) {
+        if (event.target.closest("[data-close-modal]")) {
+          closeProject();
+          return;
+        }
+
+        var trigger = event.target.closest("[data-project]");
+        if (!trigger || event.target.closest("a")) return;
+        openProject(trigger.dataset.project);
       });
 
-      /* 初始化：Stay Curious 图片轮播 */
-      createCarousel({
-        trackId: "life-carousel-track",
-        dotsId: "life-carousel-dots",
-        containerSelector: ".life-carousel",
-        prevSelector: ".life-carousel-arrow.prev",
-        nextSelector: ".life-carousel-arrow.next",
-        interval: 4000
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeProject();
       });
     });
   </script>

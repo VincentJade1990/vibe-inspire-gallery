@@ -208,7 +208,7 @@ body::after {
 
 .idea-item {
   width: 152px;
-  min-height: 202px;
+  min-height: 150px;
   padding: 10px 6px 14px;
   display: flex;
   flex-direction: column;
@@ -253,16 +253,10 @@ body::after {
 /* 进度环 + 气泡 */
 .orb-wrap {
   position: relative;
-  width: calc(var(--orb-size) * var(--orb-scale) * 1px);
-  height: calc(var(--orb-size) * var(--orb-scale) * 1px);
+  width: calc(84px * var(--orb-scale));
+  height: calc(84px * var(--orb-scale));
   border-radius: 50%;
-  padding: 3px;
-  background: conic-gradient(
-    from -90deg,
-    var(--ring-c) calc(var(--ring-p) * 1%),
-    rgba(255, 255, 255, 0.1) 0
-  );
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   transition: transform 0.4s var(--ease), filter 0.3s;
 }
 
@@ -324,55 +318,32 @@ body::after {
   mask: radial-gradient(circle at 50% 50%, transparent 54%, #000 68%, transparent 92%);
 }
 
-.orb.iridescent::after { opacity: 0.8; }
-
 @keyframes iridescentSpin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 .idea-title {
-  max-width: 148px;
+  max-width: 160px;
   padding: 2px 8px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.22);
+  background: rgba(0, 0, 0, 0.2);
   font-size: 13px;
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.3;
   text-align: center;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  white-space: nowrap;
   overflow: hidden;
-  transition: color 0.25s, background 0.25s;
+  text-overflow: ellipsis;
+  transition: color 0.25s, background 0.25s, transform 0.2s;
 }
 
 .idea-item:hover .idea-title {
   color: #fff;
   background: rgba(0, 0, 0, 0.34);
-}
-
-.idea-meta {
-  margin-top: 5px;
-  font-size: 10px;
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.55);
-  white-space: nowrap;
-}
-
-.idea-source {
-  margin-top: 4px;
-  padding: 1px 7px;
-  border-radius: 999px;
-  border: 1px solid rgba(119, 105, 232, 0.35);
-  background: rgba(119, 105, 232, 0.12);
-  font-size: 9.5px;
-  letter-spacing: 0.02em;
-  color: rgba(190, 180, 255, 0.85);
-  white-space: nowrap;
+  transform: scale(1.06);
 }
 
 /* ===== 空状态插画 ===== */
@@ -641,6 +612,30 @@ body::after {
 
 #recordTitle { min-height: 62px; font-size: 15px; font-weight: 500; }
 #recordDesc { min-height: 72px; font-size: 13px; }
+
+.record-more {
+  display: block;
+  margin-top: 10px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.record-more:hover { color: var(--text); }
+
+.record-more em {
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.record-extra[hidden] { display: none; }
+
+.record-extra .field-label { margin-top: 12px; }
 
 .tag-row {
   display: flex;
@@ -1000,16 +995,21 @@ body::after {
     <button class="sheet-close" id="recordClose" aria-label="关闭">&times;</button>
     <div class="sheet-eyebrow">NEW BUBBLE</div>
     <h2 id="recordSheetTitle">记录一个灵感</h2>
-    <p class="sheet-sub">一句话就好。它会从底部光带里慢慢升起来。</p>
+    <p class="sheet-sub">一句话就好，按回车记录。</p>
 
-    <label class="field-label" for="recordTitle">灵感</label>
-    <textarea class="field" id="recordTitle" rows="2" placeholder="比如：把通勤路上的语音备忘自动整理成灵感卡片"></textarea>
+    <textarea class="field" id="recordTitle" rows="2" aria-label="灵感" placeholder="比如：把通勤路上的语音备忘自动整理成灵感卡片"></textarea>
 
-    <label class="field-label" for="recordDesc">一句话描述 <em>选填</em></label>
-    <textarea class="field" id="recordDesc" rows="2" placeholder="它在解决什么问题？为什么现在想到它？"></textarea>
+    <button type="button" class="record-more" id="recordMoreBtn" aria-expanded="false">
+      <span id="recordMoreLabel">＋ 补充描述和标签</span> <em>选填</em>
+    </button>
 
-    <label class="field-label">标签 <em>选填</em></label>
-    <div class="tag-row" id="recordTags"></div>
+    <div class="record-extra" id="recordExtra" hidden>
+      <label class="field-label" for="recordDesc">描述 <em>选填</em></label>
+      <textarea class="field" id="recordDesc" rows="2" placeholder="它在解决什么问题？为什么现在想到它？"></textarea>
+
+      <label class="field-label">标签 <em>选填</em></label>
+      <div class="tag-row" id="recordTags"></div>
+    </div>
 
     <button class="sheet-submit" id="recordSubmit">记录灵感</button>
   </div>
@@ -1145,6 +1145,13 @@ function bindStaticEvents() {
     if (e.target === el('recordModal')) closeRecord();
   });
   el('recordSubmit').addEventListener('click', submitRecord);
+  el('recordMoreBtn').addEventListener('click', function () { toggleRecordExtra(); });
+  el('recordTitle').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
+      e.preventDefault();
+      submitRecord();
+    }
+  });
 
   el('detailClose').addEventListener('click', closeDetail);
   el('detailModal').addEventListener('click', function (e) {
@@ -1303,25 +1310,14 @@ function renderGrid(growInId) {
 var BUBBLE_OFFSETS = [[0, 0], [12, -14], [-10, 8], [6, 16], [-14, -6], [16, 6], [-6, -16], [8, 12]];
 
 function renderIdeaCard(idea, index, growInId) {
-  var si = getStageIndex(idea.status);
-  var size = 72 + si * 8;
-  var progress = Math.round((si + 1) / STAGES.length * 100);
-  var mature = si >= 5 ? ' iridescent' : '';
   var rise = idea.id === growInId ? ' rise-in' : '';
   var off = BUBBLE_OFFSETS[index % BUBBLE_OFFSETS.length];
   var dur = (6.4 + (index % 4) * 0.65).toFixed(1);
 
-  var source = idea.source_type === 'ai-passport'
-    ? '<span class="idea-source">AI Passport</span>'
-    : '';
-
   return '<button class="idea-item' + rise + '" data-id="' + escapeHtml(idea.id) + '"' +
-    ' style="--orb-size:' + size + ';--ring-p:' + progress + ';--ring-c:' + STAGES[si].color +
-    ';--dx:' + off[0] + 'px;--dy:' + off[1] + 'px;--float-dur:' + dur + 's;--float-delay:' + (-index * 0.8).toFixed(1) + 's;">' +
-    '<span class="orb-rise"><span class="orb-wrap"><span class="orb' + mature + '"></span></span></span>' +
+    ' style="--dx:' + off[0] + 'px;--dy:' + off[1] + 'px;--float-dur:' + dur + 's;--float-delay:' + (-index * 0.8).toFixed(1) + 's;">' +
+    '<span class="orb-rise"><span class="orb-wrap"><span class="orb"></span></span></span>' +
     '<span class="idea-title">' + escapeHtml(idea.title) + '</span>' +
-    '<span class="idea-meta">' + STAGES[si].zh + ' · ' + (si + 1) + '/8</span>' +
-    source +
   '</button>';
 }
 
@@ -1359,6 +1355,15 @@ function renderTagOptions() {
   });
 }
 
+function toggleRecordExtra(force) {
+  var extra = el('recordExtra');
+  var open = typeof force === 'boolean' ? force : extra.hasAttribute('hidden');
+  if (open) extra.removeAttribute('hidden');
+  else extra.setAttribute('hidden', '');
+  el('recordMoreBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
+  el('recordMoreLabel').textContent = open ? '收起补充' : '＋ 补充描述和标签';
+}
+
 function openRecord(prefill) {
   if (!authUser()) {
     if (typeof showAuthModal === 'function') showAuthModal('signup');
@@ -1370,6 +1375,7 @@ function openRecord(prefill) {
   el('recordDesc').value = '';
   el('recordSubmit').disabled = false;
   el('recordSubmit').textContent = '记录灵感';
+  toggleRecordExtra(false);
   renderTagOptions();
   el('recordModal').classList.add('show');
 
@@ -1381,6 +1387,7 @@ function closeRecord() {
 }
 
 async function submitRecord() {
+  if (el('recordSubmit').disabled) return;
   var title = el('recordTitle').value.trim();
   var desc = el('recordDesc').value.trim();
 

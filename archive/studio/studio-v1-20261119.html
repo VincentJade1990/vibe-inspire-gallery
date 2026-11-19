@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050510">
+  <meta
+    name="description"
+    content="YUSHAOZU — 产品体验设计师 · AI 开发者，VibeBubble Studio 发起人。"
+  >
+  <link rel="canonical" href="https://vibebubble.co/studio.html">
+  <title>Studio | VibeBubble</title>
+  <script>document.documentElement.classList.add('motion-ready');</script>
+
+  <style>
+    /* =========================================================
+       TRAE 编辑入口 01：全站颜色与尺寸
+       主要修改这里，就能统一调整紫色、背景和页面宽度。
+       ========================================================= */
+    :root {
+      --bg: #050510;
+      --bg-soft: #090718;
+      --panel: #0d0920;
+      --panel-light: #140d29;
+      --purple: #a855f7;
+      --purple-light: #c4b5fd;
+      --pink: #ec4899;
+      --blue: #3b82f6;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --text-dim: #aaa1b5;
+      --text-muted: #746b80;
+      --line: rgba(255, 255, 255, 0.10);
+      --line-purple: rgba(196, 181, 253, 0.30);
+      --max-width: 1460px;
+      --page-padding: 5vw;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background: var(--bg);
+      padding-top: 68px;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        "PingFang SC",
+        "Hiragino Sans GB",
+        "Noto Sans SC",
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--purple-light);
+      outline-offset: 4px;
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 200;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--pink), var(--cyan));
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+      pointer-events: none;
+    }
+
+    /* =========================================================
+       顶部导航
+       ========================================================= */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 100;
+      height: 76px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 32px;
+      padding: 0 4vw;
+      background: rgba(5, 5, 16, 0.68);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(24px) saturate(1.35);
+      -webkit-backdrop-filter: blur(24px) saturate(1.35);
+    }
+
+    .brand,
+    .nav-contact,
+    .site-nav nav a {
+      text-decoration: none;
+    }
+
+    .brand {
+      justify-self: start;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.16em;
+    }
+
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, var(--purple-light) 35%, var(--purple) 70%);
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.9);
+    }
+
+    .site-nav nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .site-nav nav a,
+    .nav-contact {
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      transition: color 240ms ease;
+    }
+
+    .site-nav nav a:hover {
+      color: var(--purple-light);
+    }
+
+    .nav-contact {
+      justify-self: end;
+      padding-bottom: 6px;
+      color: var(--text);
+      border-bottom: 1px solid var(--purple-light);
+    }
+
+    /* =========================================================
+       TRAE 编辑入口 02：首屏个人信息
+       文案在 HTML 的 “01 HERO” 区域修改。
+       ========================================================= */
+    .hero {
+      --hero-shift: 0px;
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 126px 6vw 96px;
+      background:
+        radial-gradient(ellipse 70% 70% at 75% 50%, rgba(168, 85, 247, 0.10), transparent 66%),
+        var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .bubble-field,
+    .footer-bubbles,
+    .work-bubbles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bubble-field::after,
+    .footer-bubbles::after,
+    .work-bubbles::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 16, 0.16);
+    }
+
+    .bubble-layer {
+      position: absolute;
+      width: 130vw;
+      max-width: none;
+      filter: hue-rotate(42deg) saturate(1.35) brightness(0.92);
+      transform-origin: 72% 48%;
+      will-change: transform, opacity;
+    }
+
+    /* 修改 17s / 23s 可以控制气泡速度：数字越大越慢 */
+    .bubble-one {
+      right: -32vw;
+      bottom: calc(-32vw + var(--hero-shift));
+      animation: bubbleGrow 17s ease-in-out infinite alternate;
+    }
+
+    .bubble-two {
+      top: -48vw;
+      left: -60vw;
+      opacity: 0.36;
+      animation: bubbleReach 23s ease-in-out infinite alternate;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      align-items: center;
+      gap: 7vw;
+    }
+
+    .eyebrow {
+      margin-bottom: 24px;
+      color: var(--purple-light);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .hero h1,
+    .creator-title,
+    .work-title,
+    .impact-title,
+    .life-title,
+    .footer-title {
+      font-weight: 760;
+      letter-spacing: -0.068em;
+    }
+
+    .hero h1 {
+      font-size: clamp(70px, 9.3vw, 166px);
+      line-height: 0.82;
+    }
+
+    .hero h1 span {
+      display: block;
+    }
+
+    .hero-name {
+      color: var(--purple-light);
+      font-style: italic;
+      text-shadow: 0 0 60px rgba(168, 85, 247, 0.34);
+    }
+
+    .hero-role {
+      margin-top: 32px;
+      color: #f0e8f8;
+      font-size: clamp(19px, 1.8vw, 28px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-statement {
+      margin-top: 25px;
+      color: var(--text-dim);
+      font-size: clamp(15px, 1.2vw, 19px);
+      line-height: 1.75;
+    }
+
+    .tag-list,
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .tag-list {
+      margin-top: 34px;
+    }
+
+    .tag-list span,
+    .case-meta span {
+      padding: 10px 13px;
+      color: #d9cbea;
+      background: rgba(10, 6, 22, 0.72);
+      border: 1px solid rgba(196, 181, 253, 0.28);
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-line {
+      opacity: 0;
+      animation: introRise 900ms var(--ease) forwards;
+    }
+
+    .hero-line:nth-child(2) { animation-delay: 110ms; }
+    .hero-line:nth-child(3) { animation-delay: 220ms; }
+    .hero-line:nth-child(4) { animation-delay: 330ms; }
+    .hero-line:nth-child(5) { animation-delay: 440ms; }
+
+    .hero-person {
+      justify-self: end;
+      width: min(100%, 420px);
+      display: grid;
+      gap: 20px;
+      animation: portraitFloat 8s ease-in-out infinite;
+    }
+
+    .portrait-frame {
+      height: min(56vh, 570px);
+      overflow: hidden;
+      border: 1px solid rgba(196, 181, 253, 0.34);
+      border-radius: 220px 220px 28px 28px;
+      box-shadow: 0 36px 110px rgba(73, 25, 125, 0.34);
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 35%;
+      filter: saturate(0.76) contrast(1.06) hue-rotate(6deg);
+      transform: scale(1.2);
+    }
+
+    .person-meta {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 7px 18px;
+      padding: 18px 20px;
+      background: rgba(10, 6, 22, 0.76);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .person-meta span {
+      color: var(--purple-light);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .person-meta p {
+      color: var(--text-dim);
+      font-size: 10px;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      right: 4vw;
+      bottom: 30px;
+      z-index: 3;
+      padding-bottom: 7px;
+      color: rgba(255, 255, 255, 0.45);
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid rgba(196, 181, 253, 0.36);
+      cursor: pointer;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+    }
+
+    .marquee {
+      overflow: hidden;
+      padding: 20px 0;
+      color: #100719;
+      background: linear-gradient(90deg, var(--purple), var(--pink), var(--blue));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .marquee-track {
+      width: max-content;
+      display: flex;
+      gap: 44px;
+      animation: marqueeMove 26s linear infinite;
+    }
+
+    .marquee span {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .marquee b {
+      margin-left: 44px;
+      font-size: 15px;
+    }
+
+    /* =========================================================
+       通用 section
+       ========================================================= */
+    .section-index {
+      display: flex;
+      align-items: flex-start;
+      gap: 17px;
+    }
+
+    .section-index span {
+      color: var(--purple-light);
+      font-size: 12px;
+    }
+
+    .section-index p {
+      margin-top: 1px;
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+    }
+
+    /* =========================================================
+       TRAE 编辑入口 03：关于创作者
+       创作者文案与履历在 HTML 的 “01 CREATOR” 区域修改。
+       ========================================================= */
+    .creator-section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 70px var(--page-padding) 90px;
+      border-top: 1px solid var(--line);
+    }
+
+    .creator-head {
+      display: grid;
+      grid-template-columns: 0.22fr 1fr;
+      align-items: start;
+      gap: 4vw;
+      margin-bottom: 34px;
+    }
+
+    .creator-title {
+      font-size: clamp(34px, 4.2vw, 58px);
+      font-weight: 760;
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    .creator-sub {
+      margin-top: 12px;
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .creator-stage {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .creator-stage img {
+      display: block;
+      width: 100%;
+      height: clamp(420px, 56vh, 620px);
+      object-fit: cover;
+      object-position: 50% center;
+      filter: saturate(0.92) contrast(1.04);
+    }
+
+    .creator-card {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: min(440px, 62%);
+      padding: 26px 28px 24px;
+      background: rgba(5, 5, 16, 0.8);
+      border-top: 1px solid rgba(196, 181, 253, 0.28);
+      border-right: 1px solid rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .creator-name {
+      color: var(--purple-light);
+      font-size: clamp(40px, 4.4vw, 66px);
+      font-style: italic;
+      font-weight: 760;
+      letter-spacing: -0.055em;
+      line-height: 0.94;
+      text-shadow: 0 0 60px rgba(168, 85, 247, 0.34);
+    }
+
+    .creator-role {
+      margin-top: 14px;
+      color: #f0e8f8;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .creator-founder {
+      margin-top: 4px;
+      color: var(--text-dim);
+      font-size: 11px;
+    }
+
+    .creator-facts {
+      display: grid;
+      gap: 8px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .creator-facts div {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 12px;
+    }
+
+    .creator-facts span {
+      padding-top: 1px;
+      color: var(--purple-light);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .creator-facts p {
+      color: var(--text-dim);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .creator-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 6vw;
+      margin-top: 44px;
+    }
+
+    .creator-lede {
+      max-width: 560px;
+      color: #ece4f4;
+      font-size: clamp(17px, 1.5vw, 22px);
+      line-height: 1.68;
+      letter-spacing: -0.01em;
+    }
+
+    .creator-quote {
+      max-width: 560px;
+      padding-left: 22px;
+      color: var(--text-dim);
+      border-left: 1px solid var(--line-purple);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .creator-resume {
+      margin-top: 68px;
+    }
+
+    .creator-resume-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 18px;
+    }
+
+    .creator-resume-head span {
+      color: var(--purple-light);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .creator-resume-head p {
+      color: var(--text-dim);
+      font-size: 12px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-top: 1px solid var(--line-purple);
+    }
+
+    .timeline-item {
+      position: relative;
+      min-height: 150px;
+      padding: 20px 14px 8px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .timeline-item:not(:first-child) {
+      padding-left: 14px;
+    }
+
+    .timeline-item:last-child {
+      border-right: 0;
+    }
+
+    .timeline-mark {
+      position: absolute;
+      top: -5px;
+      left: 0;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--purple-light);
+      box-shadow: 0 0 18px rgba(196, 181, 253, 0.9);
+    }
+
+    .timeline-item:not(:first-child) .timeline-mark {
+      left: 14px;
+    }
+
+    .timeline-years {
+      margin-bottom: 20px;
+      color: var(--purple-light);
+      font-size: 9px;
+      letter-spacing: 0.10em;
+    }
+
+    .timeline-item h3 {
+      font-size: 16px;
+      letter-spacing: -0.035em;
+    }
+
+    .timeline-role {
+      margin-top: 6px;
+      color: #bbb0c1;
+      font-size: 10px;
+    }
+
+    .timeline-note {
+      margin-top: 14px;
+      color: #817887;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       TRAE 编辑入口 04：剪映明星产品案例
+       案例文案在 HTML 的 "03 FEATURED WORK" 区域修改。
+       ========================================================= */
+    .work-intro {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 0.35fr 1.65fr;
+      align-content: center;
+      gap: 6vw;
+      padding: 100px max(5vw, calc((100vw - var(--max-width)) / 2 + 5vw));
+      background:
+        radial-gradient(ellipse 60% 75% at 85% 75%, rgba(168, 85, 247, 0.12), transparent 68%),
+        var(--panel);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .work-bubbles img {
+      position: absolute;
+      right: -38%;
+      bottom: -55%;
+      width: 135%;
+      height: 135%;
+      object-fit: cover;
+      filter: hue-rotate(42deg) saturate(1.38) brightness(0.68);
+      opacity: 0.82;
+      animation: bubbleReach 20s ease-in-out infinite alternate;
+    }
+
+    .work-intro > *:not(.work-bubbles) {
+      position: relative;
+      z-index: 2;
+    }
+
+    .work-title {
+      max-width: 1050px;
+      font-size: clamp(58px, 7.6vw, 120px);
+      line-height: 0.88;
+    }
+
+    .work-description {
+      max-width: 700px;
+      margin-top: 40px;
+      color: #b3a8ba;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .work-main-image {
+      margin-top: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .work-main-image img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      object-fit: cover;
+    }
+
+    .platform-strip {
+      grid-column: 2;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin-top: 32px;
+      border-top: 1px solid var(--line-purple);
+    }
+
+    .platform-strip span {
+      padding: 14px 0;
+      color: #cbbbd3;
+      border-right: 1px solid var(--line);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+    }
+
+    .platform-strip span:last-child {
+      border-right: 0;
+    }
+
+    /* =========================================================
+       横向轮播：剪映各端产品
+       ========================================================= */
+    .platform-carousel {
+      position: relative;
+      background: #070512;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 560px;
+    }
+
+    .carousel-media {
+      overflow: hidden;
+    }
+
+    .carousel-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px 5vw;
+    }
+
+    .carousel-copy h3 {
+      font-size: clamp(36px, 4vw, 60px);
+      letter-spacing: -0.04em;
+    }
+
+    .carousel-copy .case-english {
+      margin-top: 10px;
+      color: var(--purple-light);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .carousel-copy .case-intro {
+      margin-top: 28px;
+      color: #d2c6d8;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .carousel-copy .case-detail {
+      margin-top: 14px;
+      color: #918698;
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .carousel-copy .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .carousel-copy .case-meta span {
+      padding: 8px 12px;
+      color: #d9cbea;
+      background: rgba(10, 6, 22, 0.72);
+      border: 1px solid rgba(196, 181, 253, 0.28);
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(5, 5, 16, 0.7);
+      backdrop-filter: blur(12px);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 240ms ease;
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(196, 181, 253, 0.4);
+      color: #c4b5fd;
+    }
+
+    .carousel-arrow.prev { left: 16px; }
+    .carousel-arrow.next { right: 16px; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .carousel-dots button {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 240ms ease;
+      padding: 0;
+    }
+
+    .carousel-dots button.active {
+      background: var(--purple-light);
+      width: 18px;
+      border-radius: 3px;
+    }
+
+    /* =========================================================
+       04 STAY CURIOUS：图片轮播 + 文字
+       ========================================================= */
+    .life-section {
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+    }
+
+    .life-carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .life-carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .life-carousel-slide {
+      flex: 0 0 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .life-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: hue-rotate(10deg) saturate(0.82);
+    }
+
+    .life-carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(5, 5, 16, 0.7);
+      backdrop-filter: blur(12px);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 240ms ease;
+    }
+
+    .life-carousel-arrow:hover {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(196, 181, 253, 0.4);
+      color: #c4b5fd;
+    }
+
+    .life-carousel-arrow.prev { left: 14px; }
+    .life-carousel-arrow.next { right: 14px; }
+
+    .life-carousel-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .life-carousel-dots button {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 240ms ease;
+      padding: 0;
+    }
+
+    .life-carousel-dots button.active {
+      background: var(--purple-light);
+      width: 16px;
+      border-radius: 3px;
+    }
+
+    .life-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6vw;
+    }
+
+    .life-title {
+      font-size: clamp(50px, 6.6vw, 98px);
+      line-height: 0.9;
+    }
+
+    .life-description {
+      max-width: 600px;
+      margin-top: 24px;
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* =========================================================
+       联系方式
+       ========================================================= */
+    .footer {
+      position: relative;
+      min-height: 90svh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 5vw 34px;
+      text-align: center;
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-bubbles img {
+      position: absolute;
+      right: -35%;
+      bottom: -70%;
+      width: 140%;
+      height: 140%;
+      object-fit: cover;
+      filter: hue-rotate(42deg) saturate(1.42) brightness(0.76);
+      animation: bubbleGrow 18s ease-in-out infinite alternate;
+    }
+
+    .footer-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-title {
+      font-size: clamp(62px, 8.6vw, 142px);
+      line-height: 0.86;
+    }
+
+    .footer-description {
+      margin-top: 38px;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .contact-links a,
+    .contact-links button {
+      padding: 13px 18px;
+      color: #dfd3e8;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      transition: border-color 240ms ease, background 240ms ease, transform 240ms ease;
+    }
+
+    .contact-links a:hover,
+    .contact-links button:hover {
+      background: rgba(168, 85, 247, 0.10);
+      border-color: rgba(196, 181, 253, 0.40);
+      transform: translateY(-2px);
+    }
+
+    .footer-base {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 80px;
+      color: #756b7c;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
+
+    /* =========================================================
+       滚动动画
+       ========================================================= */
+    .motion-ready .reveal {
+      opacity: 0;
+      transform: translateY(54px);
+      transition:
+        opacity 900ms var(--delay, 0ms) var(--ease),
+        transform 900ms var(--delay, 0ms) var(--ease);
+    }
+
+    .motion-ready .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes introRise {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bubbleGrow {
+      0% { transform: scale(0.82) translate3d(-2%, 4%, 0); }
+      55% { transform: scale(1.02) translate3d(2%, -2%, 0); }
+      100% { transform: scale(1.18) translate3d(5%, -6%, 0); }
+    }
+
+    @keyframes bubbleReach {
+      0% { transform: scale(0.76) translate3d(-5%, 7%, 0); opacity: 0.28; }
+      100% { transform: scale(1.14) translate3d(8%, -6%, 0); opacity: 0.66; }
+    }
+
+    @keyframes portraitFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    @keyframes marqueeMove {
+      to { transform: translateX(-33.333%); }
+    }
+
+    /* =========================================================
+       平板与手机适配
+       ========================================================= */
+    @media (max-width: 1000px) {
+      .site-nav {
+        grid-template-columns: 1fr auto;
+      }
+
+      .site-nav nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: 980px;
+        align-items: flex-end;
+      }
+
+      .hero-content,
+      .creator-head,
+      .creator-body,
+      .work-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-person {
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+        width: 300px;
+        opacity: 0.45;
+      }
+
+      .portrait-frame {
+        height: 420px;
+      }
+
+      .person-meta {
+        display: none;
+      }
+
+      .hero-intro {
+        position: relative;
+        z-index: 2;
+      }
+
+      .platform-strip {
+        grid-column: 1;
+      }
+
+      .creator-head {
+        gap: 18px;
+      }
+
+      .creator-body {
+        gap: 28px;
+      }
+
+      .creator-stage img {
+        height: 420px;
+      }
+
+      .creator-card {
+        width: min(440px, 74%);
+      }
+
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .timeline-item h3 {
+        font-size: 21px;
+      }
+
+      .timeline-years {
+        font-size: 10px;
+      }
+
+      .timeline-note {
+        font-size: 13px;
+      }
+
+      .carousel-slide {
+        grid-template-columns: 1fr;
+      }
+
+      .carousel-copy {
+        padding: 30px 22px;
+      }
+
+      .life-section {
+        grid-template-columns: 1fr;
+      }
+
+      .life-carousel {
+        min-height: 400px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-nav {
+        height: 64px;
+        padding: 0 20px;
+      }
+
+      .nav-contact {
+        font-size: 8px;
+      }
+
+      .hero {
+        min-height: 850px;
+        padding: 118px 22px 76px;
+      }
+
+      .hero h1 {
+        font-size: clamp(68px, 21vw, 100px);
+      }
+
+      .hero-role {
+        font-size: 19px;
+      }
+
+      .hero-statement br {
+        display: none;
+      }
+
+      .hero-person {
+        right: -95px;
+        bottom: 20px;
+        width: 280px;
+        opacity: 0.25;
+      }
+
+      .tag-list {
+        max-width: 330px;
+      }
+
+      .scroll-cue {
+        right: auto;
+        left: 22px;
+      }
+
+      .creator-section {
+        padding: 70px 22px 80px;
+      }
+
+      .creator-title {
+        font-size: 32px;
+      }
+
+      .creator-stage img {
+        height: 240px;
+        object-position: 60% center;
+      }
+
+      .creator-card {
+        position: static;
+        width: 100%;
+        padding: 22px 20px 20px;
+        border: 1px solid var(--line);
+        border-top: 0;
+        border-radius: 0 0 4px 4px;
+      }
+
+      .creator-name {
+        font-size: 38px;
+      }
+
+      .creator-body {
+        margin-top: 30px;
+      }
+
+      .creator-resume {
+        margin-top: 52px;
+      }
+
+      .creator-resume-head {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .work-title,
+      .life-title {
+        font-size: 36px;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item,
+      .timeline-item:not(:first-child) {
+        min-height: auto;
+        padding: 24px 0 32px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .timeline-item:not(:first-child) .timeline-mark {
+        left: 0;
+      }
+
+      .work-intro {
+        padding: 60px 22px;
+      }
+
+      .platform-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .platform-strip span {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .carousel-copy h3 {
+        font-size: 28px;
+      }
+
+      .life-carousel {
+        min-height: 300px;
+      }
+
+      .life-copy {
+        padding: 60px 22px;
+      }
+
+      .footer {
+        min-height: 780px;
+        padding-right: 22px;
+        padding-left: 22px;
+      }
+
+      .footer-title {
+        font-size: 58px;
+      }
+
+      .footer-base {
+        gap: 18px;
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .motion-ready .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+<script src="../../crawler/output/auth.js?v=20261118f"></script>
+<script src="../../crawler/output/nav.js?v=20261118f"></script>
+</head>
+
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- =======================================================
+       NAV：主站导航
+       ======================================================= -->
+  <!-- 统一导航栏 -->
+  <div id="vb-nav-mount"></div>
+
+  <main>
+    <!-- =====================================================
+         01 HERO：在 Trae 中修改个人信息和标签
+         ===================================================== -->
+    <section class="hero" id="top">
+      <div class="bubble-field" aria-hidden="true">
+        <img class="bubble-layer bubble-one" src="../../crawler/output/assets/about/vibebubble-hero.png" alt="">
+        <img class="bubble-layer bubble-two" src="../../crawler/output/assets/about/vibebubble-hero.png" alt="">
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-intro">
+          <p class="eyebrow hero-line">ABOUT · VIBEBUBBLE STUDIO</p>
+
+          <h1>
+            <span class="hero-line">Hi, I&apos;m</span>
+            <span class="hero-name hero-line">YUSHAOZU</span>
+          </h1>
+
+          <p class="hero-role hero-line">Product Designer × AI Creator</p>
+
+          <p class="hero-statement hero-line">
+            在 AI 时代保持探索，寻找个人的第二成长曲线
+          </p>
+
+          <div class="tag-list hero-line" aria-label="个人能力标签">
+            <span>Product Design</span>
+            <span>AI Product</span>
+            <span>Vibe Coding</span>
+            <span>Creative Technology</span>
+          </div>
+        </div>
+
+        <div class="hero-person">
+          <div class="portrait-frame">
+            <img src="../../crawler/output/assets/about/udesign-week-portrait.jpg" alt="YUSHAOZU 在 U Design Week 演讲分享">
+          </div>
+
+          <div class="person-meta">
+            <span>8 YEARS</span>
+            <p>Tencent · ByteDance 产品设计</p>
+            <span>SHANGHAI</span>
+            <p>Founder, VibeBubble Studio</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="scroll-cue" type="button" data-scroll-to="about">SCROLL TO EXPLORE</button>
+    </section>
+
+    <!-- 能力标签跑马灯 -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Product Design <b>×</b></span>
+        <span>AI Product <b>×</b></span>
+        <span>Vibe Coding <b>×</b></span>
+        <span>Creative Technology <b>×</b></span>
+        <span>Product Design <b>×</b></span>
+        <span>AI Product <b>×</b></span>
+        <span>Vibe Coding <b>×</b></span>
+        <span>Creative Technology <b>×</b></span>
+        <span>Product Design <b>×</b></span>
+        <span>AI Product <b>×</b></span>
+        <span>Vibe Coding <b>×</b></span>
+        <span>Creative Technology <b>×</b></span>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         01 CREATOR：关于创作者
+         版面参考 AI 课程「05 履历」草图：人物主图 + 精简履历。
+         ===================================================== -->
+    <section class="creator-section" id="about">
+      <header class="creator-head">
+        <div class="section-index reveal">
+          <span>01</span>
+          <p>ABOUT THE CREATOR</p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="creator-title">关于创作者</h2>
+          <p class="creator-sub">八年产品设计经历，从腾讯、字节跳动，到自己的工作室。</p>
+        </div>
+      </header>
+
+      <figure class="creator-stage reveal">
+        <img src="../../crawler/output/assets/about/udesign-week-02.jpeg" alt="YUSHAOZU 在 U Design Week 分享剪映全平台设计">
+
+        <figcaption class="creator-card">
+          <p class="creator-name">YUSHAOZU</p>
+          <p class="creator-role">产品体验设计师 · AI 开发者</p>
+          <p class="creator-founder">VibeBubble Studio 发起人</p>
+
+          <div class="creator-facts">
+            <div>
+              <span>8 YEARS</span>
+              <p>腾讯 · 字节跳动 产品设计</p>
+            </div>
+            <div>
+              <span>NOW</span>
+              <p>AI 产品实践 · 创作工具 · 设计教育</p>
+            </div>
+            <div>
+              <span>SHANGHAI</span>
+              <p>Designing with AI, daily</p>
+            </div>
+          </div>
+        </figcaption>
+      </figure>
+
+      <div class="creator-body reveal">
+        <p class="creator-lede">
+          拥有腾讯、字节跳动共八年产品设计经历，目前专注于 AI 产品实践、创作工具与设计教育。
+        </p>
+
+        <p class="creator-quote">
+          我创建 VibeBubble Studio，希望持续实践自己的想法，探索设计与 AI 如何共同参与创造，并分享其中的方法、判断和经验。
+        </p>
+      </div>
+
+      <div class="creator-resume">
+        <div class="creator-resume-head reveal">
+          <span>RESUME</span>
+          <p>八年，五段。完整经历后续按 PPT 补充。</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <p class="timeline-years">2016.07—2020.02</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>Tencent ISUX</h3>
+            <p class="timeline-role">Senior Interaction Designer</p>
+            <p class="timeline-note">
+              在社交与内容产品设计中，建立产品判断、增长意识与设计驱动业务的工作方式。
+            </p>
+          </article>
+
+          <article class="timeline-item reveal" style="--delay: 100ms">
+            <p class="timeline-years">2020.02—2022.12</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>Jianying / CapCut</h3>
+            <p class="timeline-role">Product Design Lead</p>
+            <p class="timeline-note">
+              作为早期设计成员与工具线设计 Leader，负责剪映高阶剪辑能力设计，从0到1负责剪映专业版的设计。
+            </p>
+          </article>
+
+          <article class="timeline-item reveal" style="--delay: 200ms">
+            <p class="timeline-years">2023.01—2023.12</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>TikTok Design</h3>
+            <p class="timeline-role">Product Design Expert</p>
+            <p class="timeline-note">
+              海外社区产品创作工具，提升对海外产品和用户的设计认知，规范化团队协作流程及设计组件。
+            </p>
+          </article>
+
+          <article class="timeline-item reveal" style="--delay: 300ms">
+            <p class="timeline-years">2024—2026</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>AI Lab</h3>
+            <p class="timeline-role">Senior AI Engineer</p>
+            <p class="timeline-note">
+              推进垂直领域AI大模型，结合各种业务场景更好的落地，提供完整的解决方案。
+            </p>
+          </article>
+
+          <article class="timeline-item reveal" style="--delay: 400ms">
+            <p class="timeline-years">2026—NOW</p>
+            <span class="timeline-mark" aria-hidden="true"></span>
+            <h3>VibeBubble Studio</h3>
+            <p class="timeline-role">Product Designer × AI Creator</p>
+            <p class="timeline-note">
+              探索一个人如何借助 AI，把洞察、设计、代码与内容连接成可运行的真实产品。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         02 FEATURED WORK：剪映明星产品
+         ========================================================= -->
+    <section class="work-intro" id="work">
+      <div class="work-bubbles" aria-hidden="true">
+        <img src="../../crawler/output/assets/about/vibebubble-hero.png" alt="">
+      </div>
+
+      <div class="section-index reveal">
+        <span>02</span>
+        <p>FEATURED WORK</p>
+      </div>
+
+      <div class="reveal">
+        <p class="eyebrow">Jianying / CapCut · FLAGSHIP CREATION PRODUCT</p>
+        <h2 class="work-title">Designing a product<br>used to create.</h2>
+        <p class="work-description">
+          剪映是我职业生涯中最重要的产品。它让我有机会把兴趣和工作相结合，获得从一个功能、一块屏幕，走向多端系统、全球市场与 AI 创作的完整视角。
+        </p>
+      </div>
+
+      <div class="platform-strip reveal">
+        <span>ALL PLATFORMS</span>
+        <span>MOBILE</span>
+        <span>DESKTOP</span>
+        <span>PAD</span>
+        <span>WEBSITE</span>
+      </div>
+    </section>
+
+    <!-- 横向轮播：剪映各端产品 -->
+    <section class="platform-carousel" aria-label="剪映各端产品">
+      <div class="carousel-track" id="platform-carousel-track">
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="../../crawler/output/assets/about/capcut-all-platform01.jpeg" alt="剪映全平台产品"></div>
+          <div class="carousel-copy">
+            <h3>剪映全平台设计</h3>
+            <p class="case-english">One product. Every creative surface.</p>
+            <p class="case-intro">让剪辑体验跨越 Mobile、Pad、Desktop 与 Web，也跨越国内与海外市场。</p>
+            <p class="case-detail">从 0 到 1 搭建 Desktop 与 Web 的交互框架，推动 Pad 从适配走向发挥大屏优势，并在 CapCut 中持续探索海外用户习惯与本地化体验，让产品在不同平台和市场中保持一致且优质的创作体验。</p>
+            <div class="case-meta">
+              <span>全平台系统</span>
+              <span>交互框架</span>
+              <span>Global Design</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="../../crawler/output/assets/about/jianying-mobile.jpeg" alt="剪映移动端"></div>
+          <div class="carousel-copy">
+            <h3>剪映移动端</h3>
+            <p class="case-english">Designing the creative engine.</p>
+            <p class="case-intro">作为剪映早期设计成员与工具线设计 Leader，负责剪映移动端重点功能模块和高阶剪辑功能设计。</p>
+            <p class="case-detail">跟进 Capcut 初期出海本地化设计，探索 AI 能力在剪辑流程中的应用。覆盖关键帧、抠像、防抖、美颜美体、调色滤镜、字幕与图文成片等重点能力，提升剪辑工具整体易用性和流畅体验。</p>
+            <div class="case-meta">
+              <span>核心工具能力</span>
+              <span>高阶剪辑</span>
+              <span>Capcut 出海</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="../../crawler/output/assets/about/jianying-desktop.jpeg" alt="剪映桌面端"></div>
+          <div class="carousel-copy">
+            <h3>剪映专业版</h3>
+            <p class="case-english">From zero to desktop creation.</p>
+            <p class="case-intro">从 0 到 1 搭建设计了 Mac 和 Windows 双端工具，定义了可延续的交互框架和交互逻辑。</p>
+            <p class="case-detail">后续带领团队，完成了多个版本的重点能力迭代，和多端的草稿打通，让桌面端创作体验持续进化。</p>
+            <div class="case-meta">
+              <span>Mac / Windows</span>
+              <span>交互框架</span>
+              <span>多端草稿打通</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="../../crawler/output/assets/about/jianying-pad.jpeg" alt="剪映Pad端"></div>
+          <div class="carousel-copy">
+            <h3>剪映 Pad 端</h3>
+            <p class="case-english">Bigger screen, better creation.</p>
+            <p class="case-intro">独立完成剪映 Pad 端适配，保证横屏状态下的可用性。</p>
+            <p class="case-detail">第二阶段作为设计 Owner 角色，带领团队开启全新版本的 Pad 剪辑工具设计，保证剪辑工具发挥移动大屏优势，提供更高效的创作体验。</p>
+            <div class="case-meta">
+              <span>横屏适配</span>
+              <span>大屏优势</span>
+              <span>设计 Owner</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-media"><img src="../../crawler/output/assets/about/jianying-website.jpeg" alt="剪映Web端"></div>
+          <div class="carousel-copy">
+            <h3>剪映 Web 端</h3>
+            <p class="case-english">Creation in the browser.</p>
+            <p class="case-intro">从 0 到 1 设计搭建剪映 Web MVP 1.0 版本，定义 Web 长期交互框架。</p>
+            <p class="case-detail">包括工作台云空间、在线剪辑、剪同款等模块，研究 Web 特性，推进 Web 体验专项，发挥 Web 端工具优势，让创作不受设备限制。</p>
+            <div class="case-meta">
+              <span>Web MVP</span>
+              <span>云空间</span>
+              <span>在线剪辑</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-arrow prev" aria-label="上一个">&#10094;</button>
+      <button class="carousel-arrow next" aria-label="下一个">&#10095;</button>
+      <div class="carousel-dots" id="platform-carousel-dots"></div>
+    </section>
+
+    <!-- =====================================================
+         04 STAY CURIOUS：图片轮播 + 文字
+         ========================================================= -->
+    <section class="life-section">
+      <div class="life-carousel reveal" id="life-carousel">
+        <div class="life-carousel-track" id="life-carousel-track">
+          <div class="life-carousel-slide"><img src="../../crawler/output/assets/about/stay-curious01.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="../../crawler/output/assets/about/stay-curious02.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="../../crawler/output/assets/about/stay-curious03.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="../../crawler/output/assets/about/stay-curious04.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="../../crawler/output/assets/about/stay-curious05.jpeg" alt=""></div>
+          <div class="life-carousel-slide"><img src="../../crawler/output/assets/about/stay-curious07.jpeg" alt=""></div>
+        </div>
+        <button class="life-carousel-arrow prev" aria-label="上一个">&#10094;</button>
+        <button class="life-carousel-arrow next" aria-label="下一个">&#10095;</button>
+        <div class="life-carousel-dots" id="life-carousel-dots"></div>
+      </div>
+
+      <div class="life-copy reveal">
+        <div class="section-index" style="margin-bottom: 20px;">
+          <span>03</span>
+          <p>STAY CURIOUS · KEEP EXPLORING</p>
+        </div>
+        <h2 class="life-title">Creation is<br>a way of living.</h2>
+        <p class="life-description">
+          我持续体验新的硬件、模型与媒介，也用影像记录家人、旅行和不断出现的灵感。
+          好奇心不是兴趣清单，而是我理解世界、理解用户、保持创造力的方式。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- =======================================================
+       07 CONTACT：保留原 About 页中的联系方式
+       ======================================================= -->
+  <footer class="footer" id="contact">
+    <div class="footer-bubbles" aria-hidden="true">
+      <img src="../../crawler/output/assets/about/vibebubble-hero.png" alt="">
+    </div>
+
+    <div class="footer-content reveal">
+      <p class="eyebrow">VIBEBUBBLE STUDIO · YUSHAOZU</p>
+      <h2 class="footer-title">Let&apos;s turn the next<br>idea into something real.</h2>
+      <p class="footer-description">Product Design × AI Creator × Creative Technology</p>
+
+      <div class="contact-links">
+        <a href="https://www.xiaohongshu.com/user/profile/596c71c05e87e71adb01472a" target="_blank" rel="noopener">
+          小红书
+        </a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAc4JY_QOQOrrKSzsaJKi-Zxlbva8a9bye4-23Xk3MyvNPYt2q3EuH4mdWdtkTFLuL?from_tab_name=main" target="_blank" rel="noopener">
+          抖音
+        </a>
+        <a href="mailto:258842828@qq.com">EMAIL</a>
+        <button id="copy-wechat" type="button" data-copy-text="xiaoyutongxue168">
+          微信：xiaoyutongxue168
+        </button>
+      </div>
+    </div>
+
+    <div class="footer-base">
+      <span>DESIGNED AS A LIVING CREATIVE SPACE</span>
+      <span>© 2026 VIBEBUBBLE STUDIO</span>
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================================
+       TRAE 编辑入口 05：页面交互
+       这些逻辑都是原生 JavaScript，不依赖 React 或构建工具。
+       ========================================================= */
+    document.addEventListener("DOMContentLoaded", function () {
+      var revealItems = Array.from(document.querySelectorAll(".reveal"));
+      var hero = document.querySelector(".hero");
+      var progress = document.querySelector(".scroll-progress");
+
+      /* 滚动出现 */
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.14 }
+      );
+
+      revealItems.forEach(function (item) {
+        observer.observe(item);
+      });
+
+      /* 滚动进度与气泡视差 */
+      var ticking = false;
+
+      function updateScrollEffects() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var percentage = max > 0 ? (window.scrollY / max) * 100 : 0;
+
+        if (progress) {
+          progress.style.width = percentage + "%";
+        }
+
+        if (hero) {
+          hero.style.setProperty("--hero-shift", window.scrollY * 0.08 + "px");
+        }
+
+        ticking = false;
+      }
+
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(updateScrollEffects);
+        },
+        { passive: true }
+      );
+
+      updateScrollEffects();
+
+      /* 平滑跳转 */
+      document.querySelectorAll("[data-scroll-to]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var target = document.getElementById(button.dataset.scrollTo);
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      /* 复制微信号 */
+      var copyWechat = document.getElementById("copy-wechat");
+
+      if (copyWechat) {
+        copyWechat.addEventListener("click", async function () {
+          var originalText = copyWechat.textContent;
+          var value = copyWechat.dataset.copyText;
+
+          try {
+            await navigator.clipboard.writeText(value);
+            copyWechat.textContent = "已复制微信号";
+          } catch (error) {
+            copyWechat.textContent = value;
+          }
+
+          window.setTimeout(function () {
+            copyWechat.textContent = originalText;
+          }, 1800);
+        });
+      }
+
+      /* =========================================================
+         通用轮播组件
+         ========================================================= */
+      function createCarousel(options) {
+        var track = document.getElementById(options.trackId);
+        var dotsContainer = document.getElementById(options.dotsId);
+        var section = track.closest(options.containerSelector);
+        if (!track || !section) return;
+
+        var prevBtn = section.querySelector(options.prevSelector);
+        var nextBtn = section.querySelector(options.nextSelector);
+        var slides = track.children;
+        var total = slides.length;
+        var current = 0;
+
+        /* 生成指示点 */
+        if (dotsContainer) {
+          for (var i = 0; i < total; i++) {
+            (function (idx) {
+              var dot = document.createElement("button");
+              if (idx === 0) dot.classList.add("active");
+              dot.addEventListener("click", function () {
+                goTo(idx);
+              });
+              dotsContainer.appendChild(dot);
+            })(i);
+          }
+        }
+
+        function updateDots() {
+          if (!dotsContainer) return;
+          var dots = dotsContainer.children;
+          for (var i = 0; i < dots.length; i++) {
+            dots[i].classList.toggle("active", i === current);
+          }
+        }
+
+        function goTo(index) {
+          current = (index + total) % total;
+          track.style.transform = "translateX(-" + current * 100 + "%)";
+          updateDots();
+        }
+
+        function next() { goTo(current + 1); }
+        function prev() { goTo(current - 1); }
+
+        if (nextBtn) nextBtn.addEventListener("click", function () { next(); });
+        if (prevBtn) prevBtn.addEventListener("click", function () { prev(); });
+      }
+
+      /* 初始化：剪映各端产品轮播 */
+      createCarousel({
+        trackId: "platform-carousel-track",
+        dotsId: "platform-carousel-dots",
+        containerSelector: ".platform-carousel",
+        prevSelector: ".carousel-arrow.prev",
+        nextSelector: ".carousel-arrow.next",
+        interval: 5000
+      });
+
+      /* 初始化：Stay Curious 图片轮播 */
+      createCarousel({
+        trackId: "life-carousel-track",
+        dotsId: "life-carousel-dots",
+        containerSelector: ".life-carousel",
+        prevSelector: ".life-carousel-arrow.prev",
+        nextSelector: ".life-carousel-arrow.next",
+        interval: 4000
+      });
+    });
+  </script>
+</body>
+</html>

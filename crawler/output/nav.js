@@ -46,7 +46,7 @@
       '  position: fixed;',
       '  top: 0; right: 0; left: 0;',
       '  z-index: 100;',
-      '  height: 68px;',
+      '  height: 56px;',
       '  display: flex;',
       '  align-items: center;',
       '  justify-content: space-between;',

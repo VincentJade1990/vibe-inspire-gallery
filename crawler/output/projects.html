@@ -174,6 +174,13 @@ body::after {
   min-width: 0;
 }
 
+.proj-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
 .proj-title {
   font-size: 16px;
   font-weight: 650;
@@ -183,6 +190,20 @@ body::after {
   text-overflow: ellipsis;
   max-width: 44vw;
 }
+
+.proj-demo-badge {
+  flex-shrink: 0;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 242, 78, 0.3);
+  background: rgba(198, 242, 78, 0.08);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(198, 242, 78, 0.85);
+}
+
+.proj-demo-badge[hidden] { display: none; }
 
 .proj-meta {
   font-size: 11.5px;
@@ -239,19 +260,31 @@ body::after {
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
 }
 
-.btn-danger {
-  color: #fca5a5;
-  border-color: rgba(239, 68, 68, 0.28);
-  background: rgba(239, 68, 68, 0.06);
+/* ===== 页面底部操作 ===== */
+.proj-foot {
+  margin-top: 56px;
+  text-align: center;
 }
 
-.btn-danger:hover {
+.link-danger {
+  padding: 4px 2px;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: none;
+  color: rgba(252, 165, 165, 0.55);
+  font-family: inherit;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.link-danger:hover {
   color: #fecaca;
-  border-color: rgba(239, 68, 68, 0.5);
-  background: rgba(239, 68, 68, 0.14);
+  border-bottom-color: rgba(239, 68, 68, 0.5);
 }
 
-.btn-danger[hidden] { display: none; }
+.link-danger[hidden] { display: none; }
 
 .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
@@ -337,6 +370,12 @@ body::after {
   font-size: 13px;
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+.menu-sep {
+  height: 1px;
+  margin: 6px 4px;
+  background: rgba(255, 255, 255, 0.07);
 }
 
 /* ===== 孵化气泡 ===== */
@@ -470,9 +509,18 @@ body::after {
 .hatch-sep { color: var(--text-muted); }
 
 /* ===== 8 步流程条 ===== */
+.stage-overview-title {
+  max-width: 640px;
+  margin: 46px auto 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
 .stage-bar-wrap {
   max-width: 640px;
-  margin: 34px auto 0;
+  margin: 20px auto 0;
 }
 
 .stage-bar {
@@ -584,6 +632,16 @@ body::after {
 }
 
 .method-card { margin-top: 46px; }
+
+.method-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.method-title[hidden] { display: none; }
 
 .overview {
   font-size: 14px;
@@ -823,6 +881,13 @@ body::after {
 
 .save-state { font-size: 12px; color: var(--text-muted); }
 
+#saveBtn[hidden] { display: none; }
+
+#outputArea[readonly] {
+  color: rgba(255, 255, 255, 0.72);
+  cursor: default;
+}
+
 /* ===== 删除项目弹窗 ===== */
 .del-overlay {
   position: fixed;
@@ -949,6 +1014,7 @@ body::after {
 @media (max-width: 640px) {
   .proj-wrap { padding: 24px 16px 96px; }
   .proj-title { max-width: 52vw; font-size: 15px; }
+  .stage-overview-title { margin-top: 34px; font-size: 21px; }
   .hatch { min-height: 300px; }
   .center-bubble {
     width: calc(var(--bubble-size, 150px) * 0.8) !important;
@@ -986,7 +1052,10 @@ body::after {
       <button class="proj-switch" id="projSwitch" aria-expanded="false" aria-haspopup="true">
         <span class="proj-dot" aria-hidden="true"></span>
         <span class="proj-switch-text">
-          <span class="proj-title" id="projTitle">示例项目</span>
+          <span class="proj-title-row">
+            <span class="proj-title" id="projTitle">示例项目</span>
+            <span class="proj-demo-badge" id="demoBadge" hidden>示例</span>
+          </span>
           <span class="proj-meta" id="projMeta">8 Step Creation Loop</span>
         </span>
         <svg class="proj-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
@@ -996,7 +1065,6 @@ body::after {
     <div class="proj-actions">
       <a class="btn" href="./ideas">从 Ideas 选择</a>
       <button class="btn btn-primary" id="newProjectBtn">＋ 新建项目</button>
-      <button class="btn btn-danger" id="deleteProjectBtn" hidden>删除项目</button>
     </div>
   </header>
 
@@ -1014,12 +1082,14 @@ body::after {
   </section>
 
   <!-- 8 步流程条 -->
+  <h2 class="stage-overview-title">阶段总览</h2>
   <div class="stage-bar-wrap">
     <div class="stage-bar" id="stageBar"></div>
   </div>
 
   <!-- 当前阶段方法 -->
   <section class="card method-card">
+    <h3 class="method-title" id="methodTitle" hidden></h3>
     <p class="overview" id="overview"></p>
     <div class="tabs" id="tabs">
       <button class="tab active" data-tab="todo">待办清单</button>
@@ -1054,6 +1124,10 @@ body::after {
       <button class="btn btn-primary" id="saveBtn">保存产出</button>
     </div>
   </section>
+
+  <footer class="proj-foot">
+    <button class="link-danger" id="deleteProjectBtn" hidden>删除项目</button>
+  </footer>
 
 </div>
 
@@ -1114,6 +1188,142 @@ body::after {
   var tableMissing = false;
   var notice = '';
   var menuOpen = false;
+
+  // 示例项目：内容来自「学习日历 · 21 天习惯养成」
+  var DEMO = {
+    title: '学习日历 · 21 天习惯养成',
+    index: 7,
+    stages: {
+      understand: {
+        subtitle: '先理解，学习为什么难以持续',
+        overview: '这个阶段帮助我们看清：用户想学什么、在什么时刻开始，以及为什么没能继续。先了解真实行为，再决定日历需要提供什么帮助。',
+        checklist: [
+          '回顾一次学习经历，记录开始、坚持和中断的过程。',
+          '区分三个问题：不知道学什么、不知道怎么练、没有继续的动力。',
+          '梳理从「打开日历」到「完成练习」的完整过程。'
+        ],
+        flashcards: [
+          { q: '习惯的触发与重复', a: '让行动与一个稳定的生活时刻联系起来，比每天重新决定何时开始更容易执行。例如，把今日历页放在早餐后打开，并保持任务足够轻量。' },
+          { q: '打卡与学习结果', a: '印章能记录参与，练习能留下应用的痕迹。项目需要同时关注「用户有没有回来」和「用户有没有实际使用今天的知识」。' }
+        ],
+        prompt: '请帮助我研究「21 天习惯养成·学习日历」。它每天提供一个知识点、一个短练习和一次盖章反馈。根据我补充的学习经历或访谈，整理用户目标、开始学习的触发、中断原因及已有解决办法。区分事实、推测和待验证问题，不编造用户反馈。',
+        outputSpec: '示例产出 · 领域认知简报',
+        output: '问题判断：学习资料容易获得，但用户仍需每天决定学什么、怎么练、何时开始。这些小决定可能让学习不断推迟。\n\n产品思路：用一张每日历页提供明确起点，用一个小练习降低行动难度，用盖章和回看留下积累。\n\n仍需验证：复古日历带来的新鲜感能持续多久？用户愿意为每天的练习投入多少时间？'
+      },
+      explore: {
+        subtitle: '为每日学习，寻找一种值得打开的形式',
+        overview: '探索不同方案如何帮助用户开始和继续，比较它们的价值与负担，选出值得验证的方向。',
+        checklist: [
+          '比较每日课程、知识卡、打卡挑战和复古日历。',
+          '为候选方案画出「用户每天打开后看到什么」。',
+          '说明选择理由，并记录暂时放弃的方向。'
+        ],
+        flashcards: [
+          { q: '类比创新', a: '从其他产品中借用有用的体验。纸质日历提供翻页与时间感，集章提供积累感，闪卡提供轻量知识。这些体验可以围绕一次学习行动组合。' },
+          { q: '方案比较', a: '用相同标准比较方案：开始是否容易、每天负担多大、有没有实际练习、结束后留下什么。不要只选视觉上最喜欢的一种。' }
+        ],
+        prompt: '围绕「每天五分钟学习」，比较每日课程、纯知识日历、严格打卡挑战和「复古日历＋小练习」四个方向。分别说明每日体验、用户负担、学习价值和中断风险。根据当前项目目标提出推荐，注明哪些理由只是设计假设。',
+        outputSpec: '示例产出 · 方向比较与机会清单',
+        output: '每日课程：内容完整，但容易形成「今天还要上课」的负担。\n\n纯知识日历：打开轻松，但可能看过即忘。\n\n严格打卡挑战：进度鲜明，但漏一天后可能失去继续的意愿。\n\n复古日历＋小练习：每天有明确内容和行动，也能留下个人记录。\n\n当前选择：复古日历＋知识点＋微练习＋盖章。保留学习的仪式感，同时让每一页都有可执行的内容。'
+      },
+      position: {
+        subtitle: '让人听懂，这本日历为什么值得用',
+        overview: '明确优先服务谁、帮助他们完成什么，以及第一版做到哪里。',
+        checklist: [
+          '选定首批用户和最常出现的使用场景。',
+          '写出一句产品主张。',
+          '确定首版内容，以及暂缓的功能。'
+        ],
+        flashcards: [
+          { q: '第一性原理', a: '回到用户真正想完成的事。用户期待的可能是「每天更容易开口说英语」，因此日历的每个设计都应支持这一行动。' },
+          { q: '价值主张', a: '用「为谁、在什么场景、提供什么帮助」描述产品。表达越具体，越容易判断内容和功能是否值得加入。' }
+        ],
+        prompt: '请为「21 天习惯养成·学习日历」整理定位简报。首批用户是想练习日常英语、但难以每天开始的成年人。请写清目标场景、核心问题、产品主张、首版范围与暂缓功能，并检查每日知识点和练习是否支持这个定位。',
+        outputSpec: '示例产出 · 产品定位简报',
+        output: '目标用户：有基础英语知识，希望增加日常口语练习的成年人。\n产品主张：每天翻开一页，学一句、说一句，留下自己的 21 天英语日历。\n典型场景：早餐后或通勤前，用几分钟完成一张历页。\n首版范围：英语主题、每日知识点、短练习、盖章与历史回看。\n后续方向：扩展 AI、自媒体主题。21 天作为一轮学习周期，帮助用户建立节奏，不承诺固定时间内必然形成习惯。'
+      },
+      analyze: {
+        subtitle: '把「可能有用」，变成可以检验的问题',
+        overview: '明确最重要的假设，用小规模试用收集依据，再决定是否投入完整制作。',
+        checklist: [
+          '写出影响产品成立的关键假设。',
+          '为每个假设安排可观察的测试。',
+          '检查内容制作、练习保存和提醒方式的限制。'
+        ],
+        flashcards: [
+          { q: '可验证假设', a: '「用户会喜欢」不够具体。「用户完成第一天后，愿意主动打开第二天」更容易观察。测试前也要写下什么结果会让我们改变方案。' },
+          { q: '行为漏斗', a: '打开历页、查看知识、完成练习、再次回来，是不同的行为。分别记录，才能知道用户在哪一步遇到困难。' }
+        ],
+        prompt: '请把这个学习日历的核心假设转成七天试用计划。分别验证打开意愿、练习负担、次日返回和漏打卡后继续的行为。为每项列出观察方式、需要追问的问题和可能的调整，不预设测试成功。',
+        outputSpec: '示例产出 · 假设与验证计划',
+        output: '假设一：每日内容足够明确，用户不需要再寻找其他材料才能开始。\n假设二：小练习能在普通日程中完成。\n假设三：盖章与历史记录能支持继续使用。\n测试安排：先制作七天英语样本，邀请小组试用，记录打开、练习、返回和中断情况。\n主要约束：内容难度需要稳定；录音可能受场景限制；提醒频率需要用户选择。'
+      },
+      design: {
+        subtitle: '把一次学习，设计成一页完整的小仪式',
+        overview: '让用户从打开历页到完成练习都有明确引导，同时能够回看、暂停和继续。',
+        checklist: [
+          '设计今日历页、21 天总览和练习回看。',
+          '编排首周内容，并安排复习。',
+          '设计漏打卡和不方便录音时的处理方式。'
+        ],
+        flashcards: [
+          { q: '最小行动', a: '把「今天练英语」缩小为一句可以立即说出的表达。明确场景和动作，减少用户自行理解任务的负担。' },
+          { q: '反馈设计', a: '反馈应回应用户刚完成的行动。盖章表示当天已完成；回看记录帮助用户发现变化，两者承担不同作用。' }
+        ],
+        prompt: '请设计英语学习日历的首周体验。每天包含日期、知识点、例句、五分钟内的小练习与完成反馈。加入一次旧知识回顾，并说明用户不方便录音或漏学一天时如何继续。输出页面结构与具体内容示例。',
+        outputSpec: '示例产出 · 可执行设计方案',
+        output: '主流程：选择主题 → 打开今日历页 → 学习 → 完成小练习 → 盖章 → 回看。\n\n第 04 天历页示例：\n今日表达：Could you…?\n请求别人帮忙时，可以这样开口：\n「Could you help me with this?」\n今天请用这个句式，说一句真实用得上的请求。\n\n视觉方向：纸张质感、醒目日期、简洁排版、翻页反馈和印章积累。\n继续规则：漏一天保留已有记录，可接着学习；总览同时呈现学习日期与课程天数。'
+      },
+      build: {
+        subtitle: '先让一个人，完整用完一天',
+        overview: '制作能真实操作的最小版本，检查学习内容、保存和回看能否连起来。',
+        checklist: [
+          '制作七张英语历页和一个总览页。',
+          '打通练习记录、完成印章与历史回看。',
+          '检查刷新、返回和重复点击后的保存状态。'
+        ],
+        flashcards: [
+          { q: '最小可用版本', a: '保留验证核心价值所需的完整流程。首轮只提供英语主题，先确认用户能够学习、练习和回来继续。' },
+          { q: '验收标准', a: '将「做好了」写成能检查的行为。例如，刷新后仍能看到昨天的练习，比「保存功能已完成」更明确。' }
+        ],
+        prompt: '请根据设计方案列出七天试用版的实现清单与验收条件，覆盖今日历页、练习保存、盖章、总览和历史回看。按「必须可用、可以稍后、已知限制」整理，并指出可能阻断完整体验的问题。',
+        outputSpec: '示例产出 · 可运行原型与验收记录',
+        output: '模拟原型 V0.1：包含七张历页、文字或语音练习记录、完成印章和历史回看。\n演示验收记录：完成后能够返回总览；刷新后保留记录；重复点击完成不会增加印章数量。\n已知限制：尚未扩展至完整 21 天；尚未提供口语自动评价；不方便录音时的引导仍需试用。'
+      },
+      grow: {
+        subtitle: '看看日历怎样进入用户的真实生活',
+        overview: '邀请目标用户试用，观察他们是否开始练习、愿意回来，以及中断时发生了什么。',
+        checklist: [
+          '邀请首批用户参加七天英语学习。',
+          '记录打开、练习、返回和中断情况。',
+          '收集用户对内容、仪式感和练习方式的反馈。'
+        ],
+        flashcards: [
+          { q: '关键体验时刻', a: '找到用户第一次感到有价值的时刻。可能是说出一句真实表达，也可能是回听后发现自己进步。这个时刻值得在体验中被支持。' },
+          { q: '反馈与证据', a: '「很好看」和「愿意继续使用」不是同一种信息。将评价与行为放在一起，才能理解产品哪里有效、哪里受阻。' }
+        ],
+        prompt: '请依据我提供的七天试用记录，整理参与情况、练习完成情况、中断节点和用户原话。区分行为事实与解释，不把小样本结果推广到所有用户。提出最值得下一轮验证的三个问题。',
+        outputSpec: '示例产出 · 试用观察与反馈整理',
+        output: '模拟数据：邀请 10 人，8 人完成第 1 天练习，6 人完成第 3 天练习，4 人完成第 7 天练习。\n模拟反馈：用户喜欢翻页和盖章；部分用户觉得练习描述不够具体；在公共场合不方便录音；漏一天后，有人不清楚该补学还是继续。\n初步判断：视觉仪式感值得保留，任务说明和继续学习的路径需要优化。这个小样本不足以证明习惯已经形成。'
+      },
+      iterate: {
+        subtitle: '让下一版，回应已经看到的问题',
+        overview: '将假设与反馈对照，明确保留、修改和暂缓的内容，再开启下一轮验证。',
+        checklist: [
+          '找出最影响完成练习的阻碍。',
+          '为每项修改写清依据与预期变化。',
+          '确定下一轮重点，避免同时修改太多内容。'
+        ],
+        flashcards: [
+          { q: '反馈循环', a: '从观察到问题、做出改变，再观察结果。复盘要留下可执行的决定，而不只是总结「还需要优化」。' },
+          { q: '控制改动范围', a: '一次调整过多功能，很难知道什么起了作用。先解决关键阻碍，其他方向继续保留在机会清单中。' }
+        ],
+        prompt: '请对照原始假设和模拟试用记录，整理「保留、修改、暂缓」三类决定。每项写出依据、具体改动和下一轮观察指标，区分已经得到支持的判断与仍需验证的推测。',
+        outputSpec: '示例产出 · 迭代决策与下一轮计划',
+        output: '保留：复古历页、每日一个知识点、盖章与历史回看。\n修改：为练习增加一句清楚的示范，并允许用户选择语音或文字；漏学后显示「继续下一页」，保留已有积累。\n暂缓：排行榜、多主题同时上线、复杂自动评分。\n下一轮验证：继续使用七天内容，重点观察练习完成情况，以及中断后是否更容易回来。获得更多依据后，再补齐 21 天并测试第二个主题。'
+      }
+    }
+  };
 
   function el(id) { return document.getElementById(id); }
 
@@ -1197,40 +1407,49 @@ body::after {
 
   // ===== 渲染 =====
   function renderHeader() {
-    el('projTitle').textContent = currentIdea ? currentIdea.title : '示例项目 · 未命名的气泡';
+    var demo = !currentIdea;
+    el('projTitle').textContent = demo ? DEMO.title : currentIdea.title;
+    el('demoBadge').hidden = !demo;
     var total = STEPS.length || 8;
-    el('projMeta').textContent = '8 Step Creation Loop · 已完成 ' + countDone() + ' / ' + total;
+    el('projMeta').textContent = demo
+      ? '示例项目 · 模拟数据'
+      : '8 Step Creation Loop · 已完成 ' + countDone() + ' / ' + total;
     el('deleteProjectBtn').hidden = !(loggedIn && currentIdea);
     renderMenu();
   }
 
   function renderMenu() {
     var menu = el('projMenu');
+    var demoItem = '<button class="menu-item' + (!currentIdea ? ' active' : '') + '" data-demo="1">' +
+      '<span class="menu-dot"></span>' +
+      '<span class="menu-item-text">' + escapeHtml(DEMO.title) + '</span>' +
+      '<span class="menu-badge">示例</span>' +
+      '</button>';
 
     if (!loggedIn) {
-      menu.innerHTML = '<div class="menu-empty">登录后可以切换和管理你的项目。</div>';
-      return;
+      menu.innerHTML = demoItem + '<div class="menu-empty">登录后可以切换和管理你的项目。</div>';
+    } else if (!ideas.length) {
+      menu.innerHTML = demoItem + '<div class="menu-empty">还没有项目。点右上角「新建项目」，或从 Ideas 里挑一条灵感开始孵化。</div>';
+    } else {
+      menu.innerHTML = ideas.map(function (idea) {
+        var active = currentIdea && currentIdea.id === idea.id ? ' active' : '';
+        var badge = idea.source_type === 'ai-passport'
+          ? '<span class="menu-badge">AI Passport</span>'
+          : '';
+        return '<button class="menu-item' + active + '" data-id="' + idea.id + '">' +
+          '<span class="menu-dot"></span>' +
+          '<span class="menu-item-text">' + escapeHtml(idea.title) + '</span>' +
+          badge +
+          '</button>';
+      }).join('') + '<div class="menu-sep"></div>' + demoItem;
     }
-
-    if (!ideas.length) {
-      menu.innerHTML = '<div class="menu-empty">还没有项目。点右上角「新建项目」，或从 Ideas 里挑一条灵感开始孵化。</div>';
-      return;
-    }
-
-    menu.innerHTML = ideas.map(function (idea) {
-      var active = currentIdea && currentIdea.id === idea.id ? ' active' : '';
-      var badge = idea.source_type === 'ai-passport'
-        ? '<span class="menu-badge">AI Passport</span>'
-        : '';
-      return '<button class="menu-item' + active + '" data-id="' + idea.id + '">' +
-        '<span class="menu-dot"></span>' +
-        '<span class="menu-item-text">' + escapeHtml(idea.title) + '</span>' +
-        badge +
-        '</button>';
-    }).join('');
 
     menu.querySelectorAll('.menu-item').forEach(function (btn) {
       btn.addEventListener('click', function () {
+        if (btn.getAttribute('data-demo') === '1') {
+          selectDemo();
+          return;
+        }
         var id = btn.getAttribute('data-id');
         var target = ideas.filter(function (x) { return x.id === id; })[0];
         if (target) selectIdea(target);
@@ -1248,7 +1467,7 @@ body::after {
     bubble.style.setProperty('--bubble-line-clamp', v.lineClamp);
     bubble.classList.toggle('iridescent', currentIndex >= 6);
 
-    el('bubbleTitle').textContent = currentIdea ? currentIdea.title : '示例项目 · 未命名的气泡';
+    el('bubbleTitle').textContent = currentIdea ? currentIdea.title : DEMO.title;
 
     var s = STEPS[currentIndex] || {};
     el('hatchStep').textContent = '第 ' + (s.no || '01') + ' 步';
@@ -1257,9 +1476,10 @@ body::after {
 
   function renderStageBar() {
     var bar = el('stageBar');
+    var demo = !currentIdea;
     bar.innerHTML = STEPS.map(function (s, i) {
       var cls = 'stage-seg';
-      if (outputs[s.key]) cls += ' completed';
+      if (demo || outputs[s.key]) cls += ' completed';
       if (i === currentIndex) cls += ' current';
       return '<div class="' + cls + '" data-i="' + i + '" role="button" tabindex="0"' +
         ' aria-label="' + escapeHtml(s.name + ' ' + s.nameCn) + '"' +
@@ -1283,8 +1503,20 @@ body::after {
   }
 
   function renderStageContent() {
-    var s = STEPS[currentIndex] || {};
+    var base = STEPS[currentIndex] || {};
+    var s = base;
 
+    if (!currentIdea) {
+      var demoStage = DEMO.stages[base.key];
+      if (demoStage) {
+        s = Object.assign({}, base, demoStage);
+        s._done = {};
+        (s.checklist || []).forEach(function (_, i) { s._done[i] = true; });
+      }
+    }
+
+    el('methodTitle').textContent = s.subtitle || '';
+    el('methodTitle').hidden = !s.subtitle;
     el('overview').textContent = s.overview || '这一阶段的方法说明正在整理中。';
     el('outputStageHint').textContent = (s.no || '') + ' ' + (s.name || '');
 
@@ -1361,14 +1593,21 @@ body::after {
   }
 
   function renderOutput(s) {
+    var demo = !currentIdea;
     el('outputSpec').textContent = s.outputSpec || '产出物定义待补充';
-    el('outputArea').value = outputs[s.key] || '';
+    el('outputArea').value = demo ? (s.output || '') : (outputs[s.key] || '');
+    el('outputArea').readOnly = demo;
+    el('saveBtn').hidden = demo;
+
+    if (demo) {
+      setState('示例产出 · 不可编辑');
+      return;
+    }
+
     el('saveBtn').disabled = false;
 
     if (!loggedIn) {
       setState('登录后可保存');
-    } else if (!currentIdea) {
-      setState('选择项目后可保存');
     } else if (tableMissing) {
       setState('云端保存暂未开启');
     } else {
@@ -1416,6 +1655,13 @@ body::after {
   }
 
   function applyBanner() {
+    if (!currentIdea) {
+      var tail = loggedIn
+        ? '点「新建项目」开始你自己的版本。'
+        : '<button class="banner-link" id="bannerLogin">登录后开始孵化</button>';
+      showBanner('你正在查看示例项目：' + escapeHtml(DEMO.title) + '。内容为教学示例，数据为模拟。' + tail);
+      return;
+    }
     if (!loggedIn) {
       showBanner('你正在查看示例项目，方法内容可自由浏览。<button class="banner-link" id="bannerLogin">登录后开始孵化</button>');
       return;
@@ -1444,6 +1690,17 @@ body::after {
 
     await loadOutputs(idea.id);
     currentIndex = firstUnfinished();
+    applyBanner();
+    renderAll();
+  }
+
+  function selectDemo() {
+    currentIdea = null;
+    outputs = {};
+    notice = '';
+    currentIndex = DEMO.index;
+    toggleMenu(false);
+    try { history.replaceState({}, '', './projects'); } catch (e) { /* ignore */ }
     applyBanner();
     renderAll();
   }
@@ -1675,7 +1932,7 @@ body::after {
     }
 
     var stepKey = params.get('step');
-    currentIndex = stepKey ? findStep(stepKey) : firstUnfinished();
+    currentIndex = stepKey ? findStep(stepKey) : (currentIdea ? firstUnfinished() : DEMO.index);
 
     applyBanner();
     renderAll();
