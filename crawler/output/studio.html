@@ -10,7 +10,13 @@
   >
   <link rel="canonical" href="https://vibebubble.co/studio.html">
   <title>Studio | VibeBubble</title>
-  <script>document.documentElement.classList.add('motion-ready');</script>
+  <script>
+    document.documentElement.classList.add('motion-ready');
+    /* 兜底：脚本加载失败或长时间未就绪时，直接显示内容，避免整页空白 */
+    window.__vbRevealFallback = setTimeout(function () {
+      if (!window.__vbRevealReady) document.documentElement.classList.add('reveal-fallback');
+    }, 2500);
+  </script>
 
   <style>
     /* =========================================================
@@ -46,15 +52,16 @@
     html {
       scroll-behavior: smooth;
       background: var(--bg);
+      overflow-x: clip;
     }
 
     body {
       min-width: 320px;
       min-height: 100vh;
-      overflow-x: hidden;
+      overflow-x: clip;
       color: var(--text);
       background: var(--bg);
-      padding-top: 68px;
+      padding-top: 56px;
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -1109,7 +1116,8 @@
         transform 900ms var(--delay, 0ms) var(--ease);
     }
 
-    .motion-ready .reveal.is-visible {
+    .motion-ready .reveal.is-visible,
+    html.reveal-fallback .reveal {
       opacity: 1;
       transform: translateY(0);
     }
@@ -1383,8 +1391,8 @@
       }
     }
   </style>
-<script src="./auth.js?v=20261118f"></script>
-<script src="./nav.js?v=20261119a"></script>
+<script src="./auth.js?v=20261118f" defer></script>
+<script src="./nav.js?v=20261119a" defer></script>
 </head>
 
 <body>
@@ -1748,11 +1756,20 @@
        这些逻辑都是原生 JavaScript，不依赖 React 或构建工具。
        ========================================================= */
     document.addEventListener("DOMContentLoaded", function () {
+      window.__vbRevealReady = true;
+      clearTimeout(window.__vbRevealFallback);
+
       var revealItems = Array.from(document.querySelectorAll(".reveal"));
       var hero = document.querySelector(".hero");
       var progress = document.querySelector(".scroll-progress");
 
       /* 滚动出现 */
+      if (!("IntersectionObserver" in window)) {
+        revealItems.forEach(function (item) {
+          item.classList.add("is-visible");
+        });
+      }
+
       var observer = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
