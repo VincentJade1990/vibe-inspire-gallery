@@ -6,8 +6,8 @@
 <title>AI通识 · VibeBubble</title>
 <meta name="description" content="了解AI如何工作、能够做什么，以及如何选择工具、改善协作。VibeBubble 整理 AI 通识内容，帮助你获得正确的认知起点。">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="./auth.js?v=20261118f"></script>
-<script src="./nav.js?v=20261118f"></script>
+<script src="./auth.js?v=20261119c"></script>
+<script src="./nav.js?v=20261119e"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -15,8 +15,8 @@
   --bg-deep: #050a14;
   --bg-mid: #0a0f1a;
   --bg-card: rgba(255, 255, 255, 0.035);
-  --purple: #a855f7;
-  --purple-light: #c4b5fd;
+  --purple: #7769e8;
+  --purple-light: #a79ef2;
   --pink: #ec4899;
   --blue: #3b82f6;
   --cyan: #06b6d4;
@@ -52,7 +52,7 @@ body::before {
   background: conic-gradient(
     from 0deg,
     rgba(236, 72, 153, 0.10),
-    rgba(168, 85, 247, 0.10),
+    rgba(119, 105, 232, 0.10),
     rgba(59, 130, 246, 0.08),
     rgba(6, 182, 212, 0.06),
     rgba(245, 158, 11, 0.06),
@@ -74,7 +74,7 @@ body::after {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(168, 85, 247, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(119, 105, 232, 0.08) 0%, transparent 55%),
     radial-gradient(ellipse 60% 60% at 85% 75%, rgba(236, 72, 153, 0.06) 0%, transparent 45%),
     linear-gradient(180deg, #040814 0%, #0a0f1a 40%, #080c18 70%, #0d0818 100%);
   z-index: -3;
@@ -111,15 +111,15 @@ body::after {
 
 .path-btn:hover {
   color: var(--text-dim);
-  border-color: rgba(168,85,247,0.2);
-  background: rgba(168,85,247,0.06);
+  border-color: rgba(119,105,232,0.2);
+  background: rgba(119,105,232,0.06);
 }
 
 .path-btn.active {
   color: var(--purple-light);
-  border-color: rgba(168,85,247,0.4);
-  background: rgba(168,85,247,0.12);
-  box-shadow: 0 0 16px rgba(168,85,247,0.15);
+  border-color: rgba(119,105,232,0.4);
+  background: rgba(119,105,232,0.12);
+  box-shadow: 0 0 16px rgba(119,105,232,0.15);
 }
 
 .path-btn.locked { cursor: not-allowed; opacity: 0.4; }
@@ -154,10 +154,10 @@ body::after {
   max-height: calc(100vh - 140px);
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(168,85,247,0.2) transparent;
+  scrollbar-color: rgba(119,105,232,0.2) transparent;
 }
 .toc-sidebar::-webkit-scrollbar { width: 3px; }
-.toc-sidebar::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.15); border-radius: 2px; }
+.toc-sidebar::-webkit-scrollbar-thumb { background: rgba(119,105,232,0.15); border-radius: 2px; }
 
 .toc-list { list-style: none; }
 .toc-item { margin-bottom: 2px; }
@@ -172,7 +172,7 @@ body::after {
   border-left: 2px solid transparent;
 }
 .toc-link:hover { color: var(--text-dim); background: rgba(255, 255, 255, 0.02); }
-.toc-link.active { color: var(--purple-light); border-left-color: var(--purple); background: rgba(168, 85, 247, 0.06); }
+.toc-link.active { color: var(--purple-light); border-left-color: var(--purple); background: rgba(119, 105, 232, 0.06); }
 
 /* 主内容区 */
 .content-main { flex: 1; min-width: 0; }
@@ -183,7 +183,7 @@ body::after {
   font-size: 11px; font-weight: 600; color: var(--purple);
   text-transform: uppercase; letter-spacing: 2px;
   margin-bottom: 14px; padding: 5px 12px; border-radius: 16px;
-  background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.2);
+  background: rgba(119, 105, 232, 0.08); border: 1px solid rgba(119, 105, 232, 0.2);
 }
 .page-title {
   font-size: clamp(32px, 4vw, 42px); font-weight: 800;
@@ -212,7 +212,7 @@ body::after {
 }
 .intro-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(168,85,247,0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(119,105,232,0.3), transparent);
 }
 .intro-text { font-size: 15px; color: var(--text-dim); line-height: 2; }
 
@@ -220,11 +220,11 @@ body::after {
 .timeline-phases {
   display: flex; gap: 6px; margin-bottom: 28px;
   flex-wrap: nowrap; overflow-x: auto;
-  scrollbar-width: thin; scrollbar-color: rgba(168,85,247,0.15) transparent;
+  scrollbar-width: thin; scrollbar-color: rgba(119,105,232,0.15) transparent;
   -webkit-overflow-scrolling: touch;
 }
 .timeline-phases::-webkit-scrollbar { height: 3px; }
-.timeline-phases::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.15); border-radius: 2px; }
+.timeline-phases::-webkit-scrollbar-thumb { background: rgba(119,105,232,0.15); border-radius: 2px; }
 
 .phase-tab {
   display: inline-flex; align-items: center; gap: 8px;
@@ -243,7 +243,7 @@ body::after {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
 }
 
-.phase-tab[data-phase="1"] .phase-num { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.3); color: var(--purple-light); }
+.phase-tab[data-phase="1"] .phase-num { background: rgba(119,105,232,0.15); border-color: rgba(119,105,232,0.3); color: var(--purple-light); }
 .phase-tab[data-phase="2"] .phase-num { background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3); color: var(--pink); }
 .phase-tab[data-phase="3"] .phase-num { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); color: var(--blue); }
 .phase-tab[data-phase="4"] .phase-num { background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); color: var(--cyan); }
@@ -254,11 +254,11 @@ body::after {
   overflow-x: auto; overflow-y: visible;
   padding: 0 0 12px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(168,85,247,0.2) transparent;
+  scrollbar-color: rgba(119,105,232,0.2) transparent;
   -webkit-overflow-scrolling: touch;
 }
 .timeline-scroll::-webkit-scrollbar { height: 4px; }
-.timeline-scroll::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.15); border-radius: 2px; }
+.timeline-scroll::-webkit-scrollbar-thumb { background: rgba(119,105,232,0.15); border-radius: 2px; }
 .timeline-scroll::-webkit-scrollbar-track { background: transparent; }
 
 .timeline-track {
@@ -277,7 +277,7 @@ body::after {
   right: 0;
   height: 2px;
   background: linear-gradient(90deg,
-    rgba(168,85,247,0.4),
+    rgba(119,105,232,0.4),
     rgba(236,72,153,0.4),
     rgba(59,130,246,0.4),
     rgba(6,182,212,0.4)
@@ -315,7 +315,7 @@ body::after {
   border-radius: 50%;
   background: var(--bg-deep);
   border: 2px solid var(--purple);
-  box-shadow: 0 0 10px rgba(168,85,247,0.3);
+  box-shadow: 0 0 10px rgba(119,105,232,0.3);
   z-index: 1;
 }
 
@@ -344,10 +344,10 @@ body::after {
 .tl-event[data-phase="4"] .tl-card::before { background: linear-gradient(90deg, var(--cyan), transparent); }
 
 .tl-card:hover {
-  border-color: rgba(168,85,247,0.2);
-  background: rgba(168,85,247,0.04);
+  border-color: rgba(119,105,232,0.2);
+  background: rgba(119,105,232,0.04);
   transform: scale(1.06);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 24px rgba(168,85,247,0.08);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 24px rgba(119,105,232,0.08);
   z-index: 2;
 }
 
@@ -360,7 +360,7 @@ body::after {
 .tl-link {
   display: inline-block; margin-top: 8px; font-size: 11px;
   color: var(--purple-light); text-decoration: none;
-  border-bottom: 1px dashed rgba(168,85,247,0.3); transition: var(--transition);
+  border-bottom: 1px dashed rgba(119,105,232,0.3); transition: var(--transition);
 }
 .tl-link:hover { color: var(--purple); border-bottom-color: var(--purple); }
 
@@ -385,8 +385,8 @@ body::after {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
 }
 .person-card:hover {
-  border-color: rgba(168, 85, 247, 0.2);
-  background: rgba(168, 85, 247, 0.03);
+  border-color: rgba(119, 105, 232, 0.2);
+  background: rgba(119, 105, 232, 0.03);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
@@ -395,8 +395,8 @@ body::after {
 
 .person-num {
   width: 28px; height: 28px; border-radius: 8px;
-  background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.1));
-  border: 1px solid rgba(168,85,247,0.2);
+  background: linear-gradient(135deg, rgba(119,105,232,0.2), rgba(236,72,153,0.1));
+  border: 1px solid rgba(119,105,232,0.2);
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; color: var(--purple-light); flex-shrink: 0;
 }
@@ -424,7 +424,7 @@ body::after {
   gap: 24px;
   align-items: flex-start;
 }
-.company-card:hover { border-color: rgba(168, 85, 247, 0.2); background: rgba(168, 85, 247, 0.03); }
+.company-card:hover { border-color: rgba(119, 105, 232, 0.2); background: rgba(119, 105, 232, 0.03); }
 
 .company-logo {
   width: 48px; height: 48px;
@@ -442,8 +442,8 @@ body::after {
 
 .company-num {
   width: 28px; height: 28px; border-radius: 8px;
-  background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(59,130,246,0.08));
-  border: 1px solid rgba(168,85,247,0.15);
+  background: linear-gradient(135deg, rgba(119,105,232,0.15), rgba(59,130,246,0.08));
+  border: 1px solid rgba(119,105,232,0.15);
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; color: var(--purple-light); flex-shrink: 0;
 }
@@ -458,13 +458,13 @@ body::after {
 .concepts-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .concepts-table th {
   text-align: left; padding: 10px 14px;
-  background: rgba(168, 85, 247, 0.06); color: var(--purple-light);
+  background: rgba(119, 105, 232, 0.06); color: var(--purple-light);
   font-weight: 600; font-size: 12px;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+  border-bottom: 1px solid rgba(119, 105, 232, 0.15);
 }
 .concepts-table td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-dim); line-height: 1.7; vertical-align: top; }
 .concepts-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
-.concepts-table tr:hover td { background: rgba(168, 85, 247, 0.02); }
+.concepts-table tr:hover td { background: rgba(119, 105, 232, 0.02); }
 .concept-en { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; font-weight: 400; }
 
 /* Coming Soon */
@@ -485,6 +485,7 @@ body::after {
   .tl-event { flex: 0 0 200px; }
 }
 </style>
+<link rel="stylesheet" href="./skin.css?v=20261120e" />
 <body>
 
 <div id="vb-nav-mount"></div>
@@ -499,7 +500,7 @@ body::after {
 </div>
 <style>
   .page-sub-nav .sub-nav-back:hover { color: var(--text, #f8fafc) !important; }
-  .page-sub-nav .sub-tab.active { color: #050a14 !important; background: linear-gradient(135deg, #a855f7, #06b6d4) !important; font-weight: 600; }
+  .page-sub-nav .sub-tab.active { color: #050a14 !important; background: linear-gradient(135deg, #7769e8, #06b6d4) !important; font-weight: 600; }
   .page-sub-nav .sub-tab:hover:not(.active) { color: rgba(255,255,255,0.85) !important; }
 </style>
 <div class="path-bar" id="pathBar" style="display:none"></div>

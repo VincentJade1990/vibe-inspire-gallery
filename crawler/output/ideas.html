@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ideas - Vibe Bubble</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script src="./auth.js?v=20261118f"></script>
-<script src="./nav.js?v=20261118f"></script>
+<script src="./auth.js?v=20261119c"></script>
+<script src="./nav.js?v=20261119e"></script>
+<script type="module" src="./idea-bubbles.js?v=20261120f"></script>
 <style>
 /* ===== 基础 ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -136,7 +137,7 @@ body::after {
   padding: 12px 24px;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, #7769e8, #a855f7);
+  background: linear-gradient(135deg, #7769e8, #7769e8);
   color: #fff;
   font-family: inherit;
   font-size: 14px;
@@ -669,7 +670,7 @@ body::after {
   padding: 13px;
   border: none;
   border-radius: 14px;
-  background: linear-gradient(135deg, #7769e8, #a855f7);
+  background: linear-gradient(135deg, #7769e8, #7769e8);
   color: #fff;
   font-family: inherit;
   font-size: 14.5px;
@@ -845,7 +846,7 @@ body::after {
   padding: 12px 18px;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, #7769e8, #a855f7);
+  background: linear-gradient(135deg, #7769e8, #7769e8);
   color: #fff;
   font-family: inherit;
   font-size: 14px;
@@ -967,6 +968,7 @@ body::after {
 ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 </style>
+  <link rel="stylesheet" href="./skin.css?v=20261120e" />
 </head>
 <body>
 <div id="vb-nav-mount"></div>
@@ -980,7 +982,7 @@ body::after {
     </div>
     <div class="head-side">
       <div class="stat" id="ideasStat" hidden></div>
-      <button class="record-btn" id="headerRecordBtn"><span class="plus">＋</span>记录灵感</button>
+      <button class="record-btn" id="headerRecordBtn"><svg class="rec-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>记录灵感</button>
     </div>
   </header>
 
@@ -1021,31 +1023,16 @@ body::after {
     <button class="sheet-close" id="detailClose" aria-label="关闭">&times;</button>
 
     <div class="detail-head">
-      <div class="detail-orb-wrap" id="detailOrbWrap">
-        <div class="detail-orb"></div>
-      </div>
-      <div>
-        <div class="detail-title" id="detailTitle"></div>
-        <div class="detail-stage" id="detailStage"></div>
-      </div>
+      <div class="detail-title" id="detailTitle"></div>
+      <div class="detail-meta" id="detailMeta"></div>
     </div>
 
     <div class="detail-desc" id="detailDesc"></div>
     <div class="detail-tags" id="detailTags"></div>
 
-    <div class="stage-strip">
-      <div class="stage-strip-label">
-        <span>CREATION LOOP</span>
-        <span id="detailProgress"></span>
-      </div>
-      <div class="stage-dots" id="detailDots"></div>
-    </div>
-
-    <div class="detail-note">进入孵化后，它会从灵感库移出，在 Projects 里按 8 个阶段继续长大。</div>
-
     <div class="detail-actions">
+      <button class="btn-promote" id="detailPromote">开始孵化</button>
       <button class="btn-ghost" id="detailDelete">删除</button>
-      <button class="btn-promote" id="detailPromote">进入孵化 →</button>
     </div>
   </div>
 </div>
@@ -1194,6 +1181,8 @@ async function loadIdeas(growInId) {
 
   renderStat(user);
 
+  if (window.IdeaBubbles) window.IdeaBubbles.destroy();
+
   if (!ideasList.length) {
     container.innerHTML = renderEmptyHome();
     bindEmptyEvents();
@@ -1243,7 +1232,7 @@ function renderEmptyHome() {
     '</div>' +
     '<div class="guest-title">你的私人灵感库</div>' +
     '<div class="guest-sub">生活中总有灵光一闪的时刻，伟大的产品也许就从这里开始。</div>' +
-    '<button class="record-btn" id="guestLoginBtn"><span class="plus">＋</span>记录灵感</button>' +
+    '<button class="record-btn" id="guestLoginBtn"><svg class="rec-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>记录灵感</button>' +
   '</div>';
 }
 
@@ -1293,15 +1282,11 @@ function consumePendingIdea() {
 // ==================== 气泡画布 ====================
 function renderGrid(growInId) {
   var html = '<div class="ideas-field">';
-  html += '<div class="field-bubbles">';
-  ideasList.forEach(function (idea, i) {
-    html += renderIdeaCard(idea, i, growInId);
-  });
-  html += '</div>';
+  html += '<div class="field-canvas" id="ideaField"></div>';
   html += '<div class="field-foot">' +
     '<div class="field-title">你的私人灵感库</div>' +
     '<div class="field-sub">生活中总有灵光一闪的时刻，伟大的产品也许就从这里开始。</div>' +
-    '<button class="record-btn" id="fieldRecordBtn"><span class="plus">＋</span>记录灵感</button>' +
+    '<button class="record-btn" id="fieldRecordBtn"><svg class="rec-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>记录灵感</button>' +
   '</div>';
   html += '</div>';
   return html;
@@ -1324,12 +1309,33 @@ function renderIdeaCard(idea, index, growInId) {
 function bindGridEvents() {
   var footBtn = el('fieldRecordBtn');
   if (footBtn) footBtn.addEventListener('click', function () { openRecord(); });
+  bindIdeaCards();
+  mountIdeaField();
+}
 
+function bindIdeaCards() {
   document.querySelectorAll('.idea-item[data-id]').forEach(function (item) {
     item.addEventListener('click', function () {
       openDetail(item.getAttribute('data-id'));
     });
   });
+}
+
+// 气泡场：与 Case 展示墙共用着色器与动效，加载失败时退回卡片布局
+function mountIdeaField(attempt) {
+  var field = el('ideaField');
+  if (!field) return;
+  if (window.IdeaBubbles) {
+    window.IdeaBubbles.mount(field, ideasList, openDetail);
+    return;
+  }
+  if ((attempt || 0) < 40) {
+    setTimeout(function () { mountIdeaField((attempt || 0) + 1); }, 100);
+    return;
+  }
+  field.className = 'field-bubbles';
+  field.innerHTML = ideasList.map(function (idea, index) { return renderIdeaCard(idea, index, null); }).join('');
+  bindIdeaCards();
 }
 
 // ==================== 记录灵感 ====================
@@ -1423,11 +1429,21 @@ function openDetail(id) {
   if (!idea) return;
 
   activeIdea = idea;
-  var si = getStageIndex(idea.status);
-  var progress = Math.round((si + 1) / STAGES.length * 100);
 
   el('detailTitle').textContent = idea.title;
-  el('detailStage').textContent = '阶段 ' + (si + 1 < 10 ? '0' : '') + (si + 1) + ' · ' + STAGES[si].zh + ' · ' + (si + 1) + '/8';
+
+  var meta = [
+    idea.source_type === 'ai-passport' ? '来源 · AI Passport' : '来源 · 灵感库记录'
+  ];
+  if (idea.created_at) {
+    var created = new Date(idea.created_at);
+    if (!isNaN(created.getTime())) {
+      meta.push(created.getFullYear() + '.' +
+        String(created.getMonth() + 1).padStart(2, '0') + '.' +
+        String(created.getDate()).padStart(2, '0'));
+    }
+  }
+  el('detailMeta').textContent = meta.join('  ·  ');
 
   var descEl = el('detailDesc');
   if (idea.description && idea.description.trim()) {
@@ -1439,28 +1455,15 @@ function openDetail(id) {
   }
 
   var tags = typeof visibleIdeaTags === 'function' ? visibleIdeaTags(idea) : (idea.tags || []);
-  var tagHtml = tags.map(function (tag) {
-    return '<span class="detail-tag">' + escapeHtml(tag) + '</span>';
-  }).join('');
-  if (idea.source_type === 'ai-passport') {
-    tagHtml = '<span class="detail-tag source">来自 AI Passport</span>' + tagHtml;
-  }
-  el('detailTags').innerHTML = tagHtml;
-
-  el('detailOrbWrap').style.setProperty('--ring-c', STAGES[si].color);
-  el('detailOrbWrap').style.setProperty('--ring-p', progress);
-  el('detailProgress').textContent = (si + 1) + ' / 8';
-
-  el('detailDots').innerHTML = STAGES.map(function (stage, i) {
-    var cls = 'stage-dot';
-    if (i < si) cls += ' done';
-    if (i === si) cls += ' current';
-    return '<span class="' + cls + '" style="--c:' + stage.color + ';"></span>';
-  }).join('');
+  el('detailTags').innerHTML = tags.length
+    ? tags.map(function (tag) {
+        return '<span class="detail-tag">' + escapeHtml(tag) + '</span>';
+      }).join('')
+    : '<span class="detail-tag muted">暂无标签</span>';
 
   var promoteBtn = el('detailPromote');
   promoteBtn.disabled = false;
-  promoteBtn.textContent = '进入孵化 →';
+  promoteBtn.textContent = '开始孵化';
 
   el('detailModal').classList.add('show');
 }
@@ -1473,20 +1476,65 @@ function closeDetail() {
 async function promoteActiveIdea() {
   if (!activeIdea) return;
 
+  var ideaId = activeIdea.id;
   var btn = el('detailPromote');
   btn.disabled = true;
-  btn.textContent = '进入孵化中…';
+  btn.textContent = '孵化中…';
 
-  var res = await promoteIdea(activeIdea.id);
+  var origin = window.__lastIdeaBubbleRect || null;
+  var request = promoteIdea(ideaId);
+
+  closeDetail();
+  await playFlyToProjects(origin);
+
+  var res = await request;
 
   if (res && res.success) {
-    window.location.href = './projects?idea=' + encodeURIComponent(activeIdea.id);
+    window.location.href = './projects?idea=' + encodeURIComponent(ideaId);
     return;
   }
 
-  btn.disabled = false;
-  btn.textContent = '进入孵化 →';
   showToast((res && res.error) || '进入孵化失败，请重试');
+  loadIdeas();
+}
+
+// 气泡飞入 Projects 导航：从被点击的气泡位置沿弧线飞向导航
+function playFlyToProjects(origin) {
+  return new Promise(function (resolve) {
+    var target = document.querySelector('.vb-nav-links a[href$="projects"]') ||
+                 document.querySelector('.vb-nav-links a[href*="projects"]');
+    var start = origin || (el('detailOrbWrap') ? el('detailOrbWrap').getBoundingClientRect() : null);
+    if (!start || !target || !start.width) { resolve(); return; }
+
+    var size = 64;
+    var sx = start.left + start.width / 2;
+    var sy = start.top + start.height / 2;
+    var rect = target.getBoundingClientRect();
+    var tx = rect.left + rect.width / 2;
+    var ty = rect.top + rect.height / 2;
+    var dx = tx - sx;
+    var dy = ty - sy;
+
+    var node = document.createElement('div');
+    node.className = 'idea-fly';
+    node.style.width = size + 'px';
+    node.style.height = size + 'px';
+    document.body.appendChild(node);
+    target.classList.add('vb-fly-target');
+
+    var base = 'translate(' + (sx - size / 2) + 'px,' + (sy - size / 2) + 'px)';
+    var anim = node.animate([
+      { transform: base + ' scale(1)', opacity: 1 },
+      { transform: 'translate(' + (sx - size / 2 + dx * 0.45) + 'px,' + (sy - size / 2 + dy * 0.45 - Math.min(90, Math.abs(dy) * 0.3 + 30)) + 'px) scale(.72)', opacity: .92, offset: .55 },
+      { transform: 'translate(' + (tx - size / 2) + 'px,' + (ty - size / 2) + 'px) scale(.1)', opacity: .15 }
+    ], { duration: 900, easing: 'cubic-bezier(.45,0,.25,1)', fill: 'forwards' });
+
+    anim.onfinish = function () {
+      node.remove();
+      target.classList.remove('vb-fly-target');
+      resolve();
+    };
+  });
 }
 
 async function deleteActiveIdea() {

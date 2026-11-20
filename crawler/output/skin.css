@@ -1,0 +1,931 @@
+/* ==========================================================================
+   VibeBubble — Skin v3
+   统一视觉语言：品牌紫唯一强调、实色面板、1px 描边、16/10/6 圆角
+   目标：移除渐变文字、渐变按钮、发光、玻璃模糊与过大圆角
+   ========================================================================== */
+
+/* ---------- 1. Tokens ---------- */
+:root{
+  --bg:#08080b;
+  --bg-deep:#08080b;
+  --bg-mid:#0b0b10;
+  --bg-light:#0e0e13;
+  --bg-soft:#0b0b10;
+  --bg-card:#0e0e13;
+  --bg-surface:rgba(255,255,255,.02);
+  --panel:#0e0e13;
+  --panel-light:#13131a;
+  --glass:rgba(255,255,255,.02);
+  --glass-border:rgba(255,255,255,.09);
+  --glass-highlight:rgba(255,255,255,.04);
+
+  --purple:#7769e8;
+  --purple-light:#a79ef2;
+  --purple-soft:#a79ef2;
+
+  --text:#f2f2f4;
+  --text-dim:rgba(255,255,255,.56);
+  --text-muted:rgba(255,255,255,.34);
+  --line:rgba(255,255,255,.09);
+
+  --r-panel:16px;
+  --r-inner:10px;
+  --r-chip:6px;
+  --radius-lg:16px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ---------- 2. 全局去装饰 ---------- */
+*,*::before,*::after{
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  text-shadow:none !important;
+}
+
+/* 背景氛围层（五彩干涉、径向光斑）全部收掉 */
+body::before,body::after{
+  background-image:none !important;
+  background-color:transparent !important;
+}
+
+/* ---------- 3. 渐变文字 → 纯色 ---------- */
+.main-title span,
+.cta-btn .btn-text,
+.cta-btn-ghost .btn-text,
+.subtitle-en,
+.ending-title,
+.ideas-title,
+.section-title,
+.page-title,
+.space-title,
+.coming-soon-text,
+.modal h2,
+.share-modal h2,
+.glass-card h2,
+.stat-number,
+.rating-display .rating-score-text{
+  background:none !important;
+  -webkit-background-clip:border-box !important;
+  background-clip:border-box !important;
+  -webkit-text-fill-color:currentColor !important;
+  color:var(--text) !important;
+}
+.cta-btn .btn-text{color:#ffffff !important}
+
+/* ---------- 4. 按钮 ---------- */
+.btn,.btn-sm,.action-btn,.close-btn,.cta-btn,.cta-btn-ghost{
+  border-radius:var(--r-inner) !important;
+  box-shadow:none !important;
+}
+
+.btn-primary,
+.record-btn,
+.sheet-submit,
+.ai-btn,
+.cta-primary,
+.footer-btn--primary,
+.project-cta,
+.btn-hero.primary,
+.cta-btn,
+.modal-link,
+.submit-btn,
+.inspire-submit-btn,
+.save-btn,
+.output-btn-save,
+.bottom-btn.vb-create-style,
+.tab.active,
+.mode-option.active{
+  background:var(--purple) !important;
+  background-image:none !important;
+  color:#ffffff !important;
+  border:1px solid var(--purple) !important;
+  box-shadow:none !important;
+}
+
+.btn-primary:hover,
+.record-btn:hover,
+.sheet-submit:hover:not(:disabled),
+.ai-btn:hover,
+.cta-primary:hover,
+.footer-btn--primary:hover,
+.project-cta:hover,
+.cta-btn:hover,
+.modal-link:hover,
+.submit-btn:hover,
+.inspire-submit-btn:hover,
+.save-btn:hover,
+.output-btn-save:hover{
+  background:#8a7dee !important;
+  border-color:#8a7dee !important;
+  box-shadow:none !important;
+}
+
+/* 次级操作：描边 */
+.learn-btn,.output-btn,.footer-btn,.copy-btn,.filter-btn,.search-box input,.bottom-btn,.mode-toggle,.shuffle-btn{
+  background:rgba(255,255,255,.02) !important;
+  background-image:none !important;
+  border:1px solid var(--glass-border) !important;
+  border-radius:var(--r-inner) !important;
+  box-shadow:none !important;
+}
+.learn-btn:hover,.output-btn:hover,.footer-btn:hover,.copy-btn:hover,.filter-btn:hover{
+  border-color:rgba(255,255,255,.28) !important;
+}
+
+/* ---------- 5. 胶囊/标签 → 6px ---------- */
+.tag,.tag-chip,.chip,.inspire-tag-chip,.guest-tag,.page-label,.path-tag,
+.section-label,.stage-strip,.scenarios-tag,.proj-demo-badge,.menu-badge,
+.tab,.tabs,.page-sub-nav .sub-nav-tabs,.page-sub-nav .sub-tab,.proj-dot,.menu-dot{
+  border-radius:var(--r-chip) !important;
+}
+/* 圆形元素保持圆形 */
+.orb,.orb-wrap,.logo-icon,.logo-small,.brand-dot,.user-avatar,.vb-user-avatar,
+.nav-arrow,.sheet-close,.modal-close,.close-btn,.journey-arrow,.stage-dot,
+.rating-bubble,.proj-dot,.menu-dot,.empty-ring,.empty-orb{
+  border-radius:50% !important;
+}
+
+/* ---------- 6. 卡片 ---------- */
+.card,.glass-card,.journey-card,.entry-card,.favorite-card,.output-card,
+.project-card,.tl-card,.person-card,.phase-card,.loop-overview,.usage-section,
+.banner,.proj-switch,.sheet,.modal,.filter-panel,.intro-card,.studio-directions article,
+.idea-item,.idea-card{
+  background:var(--panel) !important;
+  background-image:none !important;
+  border:1px solid var(--glass-border) !important;
+  border-radius:var(--r-panel) !important;
+  box-shadow:none !important;
+}
+.idea-item{border-radius:var(--r-inner) !important}
+
+.card:hover,.glass-card:hover,.journey-card:hover,.entry-card:hover,
+.favorite-card:hover,.output-card:hover,.project-card:hover,.tl-card:hover,
+.person-card:hover{
+  border-color:rgba(255,255,255,.18) !important;
+  box-shadow:none !important;
+}
+
+/* 卡片的装饰性伪元素（高光扫过、顶部彩条）收掉 */
+.glass-card::before,
+.glass-card::after,
+.studio-directions article::before,
+.intro-card::before,
+.person-card::before,
+.output-card::before,
+.entry-card::before,
+.phase-card::before{
+  display:none !important;
+}
+
+/* 保留卡片内部的分隔线质感 */
+.card-header,.card-foot,.tl-card .tl-head{
+  border-color:var(--line) !important;
+}
+
+/* ---------- 7. 表单与弹层 ---------- */
+.sheet,.modal,.filter-panel,.proj-menu{
+  box-shadow:0 24px 80px rgba(0,0,0,.6) !important;
+  border-radius:var(--r-panel) !important;
+}
+.field,.input,.inspire-input,.comment-input,.prompt-box,.flash,.stage-strip,.output-tool-tag{
+  border-radius:var(--r-inner) !important;
+}
+.sheet-overlay,.del-overlay,.modal-overlay{
+  background:rgba(4,4,6,.72) !important;
+}
+
+/* ---------- 8. 导航 ---------- */
+.vb-site-nav{
+  background:rgba(8,8,11,.94) !important;
+  border-bottom:1px solid var(--line) !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+}
+.vb-signup-btn{
+  background:var(--purple) !important;
+  background-image:none !important;
+  color:#ffffff !important;
+  border:1px solid var(--purple) !important;
+  border-radius:var(--r-inner) !important;
+  box-shadow:none !important;
+}
+.vb-login-btn{
+  border:1px solid var(--glass-border) !important;
+  border-radius:var(--r-inner) !important;
+}
+.vb-nav-brand-dot{
+  background:var(--purple) !important;
+  box-shadow:none !important;
+}
+
+/* ---------- 9. 页面专项 ---------- */
+
+/* Ideas：球体简化 */
+.orb,.empty-orb,.detail-orb{
+  background:var(--panel) !important;
+  background-image:none !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14) !important;
+}
+.orb::before,.orb::after,.empty-orb::before,.empty-orb::after{
+  background-image:none !important;
+}
+
+/* Projects / Space：中心气泡与阶段点 */
+.center-bubble{
+  background:var(--panel) !important;
+  background-image:none !important;
+  box-shadow:inset 0 0 0 1px rgba(119,105,232,.3) !important;
+}
+.center-bubble::before,.center-bubble::after{background-image:none !important}
+.stage-seg.completed .stage-dot,
+.stage-seg.current .stage-dot{
+  box-shadow:none !important;
+}
+
+/* Detail：评分与标签 */
+.rating-score{background:var(--purple) !important;background-image:none !important}
+.rating-bubble.active,.rating-bubble.hover{
+  background:rgba(119,105,232,.85) !important;
+  background-image:none !important;
+  box-shadow:none !important;
+}
+.bg-bubble,.light-particle{
+  background:rgba(255,255,255,.05) !important;
+  box-shadow:none !important;
+}
+
+/* Index：路线卡图标 */
+.path-card-icon{
+  background:var(--panel) !important;
+  background-image:none !important;
+  border:1px solid var(--glass-border) !important;
+}
+.journey-bubble.active{box-shadow:none !important}
+
+/* Learning：时间线节点与卡片区分隔条 */
+.tl-node{box-shadow:none !important}
+.tl-card::before{background:var(--purple) !important;background-image:none !important}
+.section-title::before{background:var(--purple) !important;background-image:none !important}
+.timeline-track::before{background:var(--line) !important;background-image:none !important}
+.page-sub-nav .sub-tab.active{background:var(--purple) !important;background-image:none !important}
+.person-num,.company-num{background:rgba(255,255,255,.04) !important;background-image:none !important}
+
+/* Studio：进度条、跑马灯、拼贴 */
+.scroll-progress{
+  background:var(--purple) !important;
+  background-image:none !important;
+  box-shadow:none !important;
+}
+.marquee{background:rgba(255,255,255,.06) !important;background-image:none !important}
+.hero::before{background-image:none !important}
+.project-visual{background:var(--panel) !important;background-image:none !important}
+.project-visual::before{box-shadow:none !important}
+.project-modal-backdrop{background:rgba(4,4,6,.72) !important}
+.btn-hero.primary,.project-cta,.footer-btn--primary{
+  background:var(--purple) !important;
+  border-color:var(--purple) !important;
+  color:#ffffff !important;
+}
+.timeline-mark{box-shadow:none !important}
+
+/* ---------- 10. 页面节奏收紧 ---------- */
+.section,
+.studio-section,
+.creator-section,
+.projects-section,
+.ideas-section{
+  padding-top:clamp(56px,4.5vw,80px) !important;
+  padding-bottom:clamp(56px,4.5vw,80px) !important;
+}
+
+/* ---------- 11. 逐页修正 ---------- */
+
+/* 通用：主按钮圆角 */
+.record-btn,.sheet-submit,.ai-btn,.cta-primary,.project-cta,
+.btn-hero.primary,.submit-btn,.inspire-submit-btn,.save-btn,.output-btn-save{
+  border-radius:var(--r-inner) !important;
+}
+
+/* Studio：首屏背景与气泡图收敛 */
+.hero{
+  background:var(--bg) !important;
+  background-image:none !important;
+}
+.bubble-layer{
+  opacity:.55;
+  filter:hue-rotate(28deg) saturate(1) brightness(.86);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 34%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 34%);
+}
+.marquee{
+  background:transparent !important;
+  background-image:none !important;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  color:var(--text-dim) !important;
+}
+.marquee span{color:var(--text-dim) !important}
+.marquee b{color:var(--purple-light) !important}
+
+/* Projects：中心气泡扁平化 + 阶段点统一紫色 */
+.center-bubble{
+  background:var(--panel) !important;
+  background-image:none !important;
+  box-shadow:inset 0 0 0 1px rgba(119,105,232,.28) !important;
+  animation:none !important;
+}
+.center-bubble::before,
+.center-bubble::after{display:none !important}
+.stage-dot{
+  width:32px !important;height:32px !important;border-width:1px !important;
+  background:rgba(255,255,255,.04) !important;
+  border-color:rgba(255,255,255,.16) !important;
+}
+.stage-seg.completed .stage-dot,
+.stage-seg.current .stage-dot{
+  background:var(--purple) !important;
+  border-color:var(--purple) !important;
+  box-shadow:none !important;
+}
+.stage-seg.current .stage-dot{animation:none !important}
+.stage-seg::after,
+.stage-seg.current:not(:last-child)::after{
+  background:var(--line) !important;
+  background-image:none !important;
+}
+.stage-dot-num{font-size:11px !important}
+.stage-seg:hover .stage-dot{transform:scale(1.08) !important}
+
+/* Projects：孵化区高度收敛 */
+.hatch{min-height:300px !important;padding-top:8px !important}
+.hatch .center-bubble{width:210px !important;height:210px !important}
+
+/* Ideas / Space：球体保留一点层次，但去掉彩色光晕 */
+.orb,.empty-orb{
+  background:radial-gradient(circle at 34% 28%,rgba(167,158,242,.16),rgba(119,105,232,.05) 46%,rgba(10,10,14,.9) 72%) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12) !important;
+}
+
+/* Learning：卡片等高，CTA 底部对齐，减少中段空档 */
+.entry-card{
+  display:flex !important;
+  flex-direction:column !important;
+  min-height:0 !important;
+  padding:24px 24px 22px !important;
+}
+.entry-card .entry-cta{margin-top:auto !important;padding-top:20px}
+
+/* 导航：去掉半透明与模糊后改实色，避免滚动内容透出 */
+.vb-site-nav{
+  background:#08080b !important;
+  border-bottom:1px solid var(--line) !important;
+}
+.page-sub-nav{
+  top:56px !important;
+  background:#0b0b10 !important;
+  border-bottom:1px solid var(--line) !important;
+  box-shadow:none !important;
+}
+
+/* 学习：八步创造法——桌面端横向轨道改为两列网格，消除半张卡被裁切 */
+@media (min-width:1024px){
+  .phase-cards{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:14px !important;
+    overflow:visible !important;
+    padding:0 !important;
+  }
+  .phase-card{flex:none !important;width:auto !important}
+  .loop-overview{margin-bottom:40px !important;padding:32px !important}
+  .usage-section{margin-top:48px !important;padding:32px !important}
+  .loop-overview,.usage-section{border-radius:16px !important}
+}
+
+/* 学习：AI 通识——章节与列表密度收紧 */
+.content-main .content-section{margin-bottom:48px !important}
+.content-main .section-title{margin-bottom:20px !important}
+.learning-layout{padding-bottom:64px !important}
+
+/* 学习：八步创造法——阶段卡统一品牌色并压缩内部留白 */
+.phase-card{padding:22px 20px !important}
+.phase-card::before{background-image:none !important;background-color:var(--purple) !important}
+.phase-claim{
+  color:var(--purple-light) !important;
+  background:rgba(119,105,232,.06) !important;
+  border-left-color:var(--purple) !important;
+  border-radius:0 6px 6px 0 !important;
+}
+.phase-intro{margin-bottom:14px !important;line-height:1.7 !important}
+.phase-field{margin-bottom:12px !important}
+.phase-tags{margin-top:12px !important}
+.phase-tag{
+  background:rgba(255,255,255,.03) !important;
+  border:1px solid var(--line) !important;
+  color:var(--text-dim) !important;
+  border-radius:var(--r-chip) !important;
+}
+.phase-num{background:rgba(119,105,232,.10) !important;color:var(--purple-light) !important}
+.phase-card:hover{background:rgba(255,255,255,.03) !important;transform:none !important}
+
+/* Ideas：访客标签彩色圆点与发光统一为品牌紫 */
+.guest-tag{
+  --dot:var(--purple) !important;
+  background:var(--panel) !important;
+  border-color:var(--line) !important;
+  border-radius:var(--r-inner) !important;
+  color:var(--text-dim) !important;
+  box-shadow:none !important;
+}
+.guest-tag::before{background:var(--purple) !important;box-shadow:none !important}
+.guest-tag:hover{
+  background:rgba(119,105,232,.10) !important;
+  border-color:rgba(119,105,232,.42) !important;
+  color:var(--text) !important;
+  box-shadow:none !important;
+}
+
+/* Detail：来源链接、头像与发布按钮统一品牌色 */
+.meta-value a{color:var(--purple-light) !important}
+.meta-value{color:var(--text) !important}
+.comment-submit-btn,
+.download-btn,
+.not-found a,
+.not-found button{
+  background:var(--purple) !important;
+  background-image:none !important;
+  border:1px solid var(--purple) !important;
+  color:#ffffff !important;
+  box-shadow:none !important;
+}
+.author-avatar{
+  background:var(--panel-light) !important;
+  background-image:none !important;
+  border:1px solid var(--line) !important;
+}
+.rating-bubble{box-shadow:none !important}
+
+/* 次操作按钮：描边样式，避免与主按钮同为紫底 */
+.cta-btn.cta-btn-ghost{
+  background:transparent !important;
+  background-image:none !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  color:var(--text) !important;
+  box-shadow:none !important;
+}
+.cta-btn.cta-btn-ghost .btn-text{color:var(--text) !important}
+.cta-btn.cta-btn-ghost:hover{
+  background:rgba(255,255,255,.06) !important;
+  border-color:rgba(255,255,255,.32) !important;
+}
+
+/* Index：板块高度改为内容驱动（强调词保留原有多色点缀） */
+.section{min-height:auto !important}
+
+/* Index：卡片描边增强 + 一点点底色，参考结构图卡片 */
+.illust{
+  border:1px solid rgba(167,158,242,.16) !important;
+  border-radius:16px !important;
+  background:#131019 !important;
+}
+.step-card{
+  border:1px solid rgba(167,158,242,.16) !important;
+  background:#131019 !important;
+}
+.step-card:hover{
+  border-color:rgba(119,105,232,.55) !important;
+  background:#17131f !important;
+}
+
+/* Index：收集灵感插画——气泡改为多色点缀（青柠 / 品牌紫 / 品红） */
+#discover .idea circle{stroke-width:1.4 !important}
+#discover .idea.i1 circle{fill:rgba(232,121,249,.10) !important;stroke:rgba(232,121,249,.80) !important}
+#discover .idea.i1 text{fill:#F2A8FB !important}
+#discover .idea.i2 circle{fill:rgba(198,242,78,.10) !important;stroke:rgba(198,242,78,.80) !important}
+#discover .idea.i2 text{fill:#D9FB86 !important}
+#discover .idea.i3 circle{fill:rgba(119,105,232,.14) !important;stroke:rgba(167,158,242,.85) !important}
+#discover .idea.i3 text{fill:#B4ABF5 !important}
+#discover .idea.i4 circle{fill:rgba(198,242,78,.10) !important;stroke:rgba(198,242,78,.80) !important}
+#discover .idea.i4 text{fill:#D9FB86 !important}
+#discover .idea.i5 circle{fill:rgba(232,121,249,.10) !important;stroke:rgba(232,121,249,.80) !important}
+#discover .idea.i5 text{fill:#F2A8FB !important}
+#discover .idea.i6 circle{fill:rgba(119,105,232,.14) !important;stroke:rgba(167,158,242,.85) !important}
+#discover .idea.i6 text{fill:#B4ABF5 !important}
+
+/* Index：插画内的文件夹与流程线统一为清晰描边 */
+#discover .folder-body{
+  fill:rgba(119,105,232,.14) !important;
+  stroke:rgba(167,158,242,.80) !important;
+  stroke-width:1.6 !important;
+}
+#discover .folder-front{
+  fill:rgba(119,105,232,.30) !important;
+  stroke:rgba(167,158,242,.90) !important;
+}
+#discover .folder-line{stroke:rgba(255,255,255,.26) !important}
+#discover .ripple{stroke:rgba(232,121,249,.55) !important}
+
+/* Gallery：筛选按钮由全圆角改为与卡片一致的圆角 */
+.filter-btn{border-radius:8px !important}
+.filter-tag{border-radius:6px !important}
+.filter-reset{border-radius:8px !important}
+.mode-option{border-radius:6px !important}
+.bottom-bar .bottom-btn{font-size:13px !important}
+
+/* Detail：卡片底色提亮、间距收紧 */
+.detail-page .content-section{
+  padding-top:0 !important;
+  padding-bottom:12px !important;
+}
+.detail-page .content-section .glass-card{
+  margin-bottom:0 !important;
+  background:#131019 !important;
+  border-color:rgba(167,158,242,.16) !important;
+}
+.detail-page .comments-section .glass-card{
+  background:#131019 !important;
+  border-color:rgba(167,158,242,.16) !important;
+}
+.detail-page .source-block{
+  margin-top:20px;
+  padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.10);
+}
+.detail-page .source-block .section-title{margin-bottom:14px !important}
+
+/* Detail：气泡补一层彩色球体底色，点亮后接近展示墙的亮色玻璃球 */
+.detail-page .bubble-wrapper::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  z-index:0;
+  background:
+    radial-gradient(circle at 34% 27%, rgba(255,255,255,.60) 0 5%, rgba(196,183,255,.32) 12%, transparent 34%),
+    radial-gradient(circle at 50% 56%, rgba(119,105,232,.55) 0%, rgba(232,121,249,.26) 52%, rgba(70,58,140,.12) 76%, transparent 84%);
+  opacity:.38;
+  transition:opacity .6s cubic-bezier(.4,0,.2,1);
+}
+.detail-page .bubble-wrapper.liked::before{opacity:1}
+
+/* Detail：AI 解析按钮与解析中动画 */
+.ai-section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.ai-section-head .section-title{margin-bottom:0 !important}
+.ai-run-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  height:32px;
+  padding:0 12px;
+  border-radius:8px;
+  border:1px solid var(--purple);
+  background:var(--purple);
+  color:#ffffff;
+  font-size:13px;
+  font-weight:600;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:none;
+  transition:background .2s ease,border-color .2s ease,opacity .2s ease;
+}
+.ai-run-btn:hover{background:#6a5bdc;border-color:#6a5bdc}
+.ai-run-btn:disabled{
+  cursor:default;
+  background:rgba(119,105,232,.45);
+  border-color:rgba(119,105,232,.25);
+  color:rgba(255,255,255,.85);
+}
+.ai-spinner{
+  width:12px;
+  height:12px;
+  border:2px solid rgba(255,255,255,.32);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:aiSpin .7s linear infinite;
+}
+@keyframes aiSpin{to{transform:rotate(360deg)}}
+
+.ai-loading{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.ai-skel{
+  background:#17131f;
+  border:1px solid rgba(167,158,242,.14);
+  border-radius:12px;
+  padding:16px;
+  min-height:132px;
+}
+.ai-skel-line{
+  height:10px;
+  border-radius:4px;
+  margin-bottom:10px;
+  background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.15),rgba(255,255,255,.05));
+  background-size:200% 100%;
+  animation:aiShimmer 1.25s ease-in-out infinite;
+}
+.ai-loading-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
+  color:var(--text-dim);
+  font-size:13px;
+}
+.ai-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--purple);
+  animation:aiPulse 1s ease-in-out infinite;
+}
+@keyframes aiShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes aiPulse{0%,100%{opacity:.35}50%{opacity:1}}
+@media (max-width:720px){
+  .ai-loading{grid-template-columns:1fr}
+  .ai-skel{min-height:0;padding:14px}
+}
+
+/* Ideas：中央气泡与 Case 详情页保持一致（无外发光、彩色球体、细描边） */
+.empty-orb{
+  background:
+    radial-gradient(circle at 34% 27%, rgba(255,255,255,.55) 0 4%, rgba(196,183,255,.28) 11%, transparent 32%),
+    radial-gradient(circle at 50% 56%, rgba(119,105,232,.85) 0%, rgba(232,121,249,.36) 54%, rgba(70,58,140,.55) 78%, rgba(16,12,32,.92) 100%) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  box-shadow:none !important;
+  animation:none !important;
+}
+
+/* Ideas：私人灵感库标题组整体下移 40px（空态与灵感态一致） */
+.guest-title,
+.guest-sub,
+.guest .record-btn{position:relative;top:40px}
+.field-title{margin-top:40px !important}
+
+/* Ideas：气泡场（复用 Case 展示墙的着色器球体） */
+.ideas-field{min-height:calc(100vh - 150px)}
+.field-canvas{
+  position:relative;
+  flex:1 1 auto;
+  min-height:520px;
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  overflow:hidden;
+}
+.idea-bubble-labels{position:absolute;inset:0;pointer-events:none;z-index:1}
+.idea-bubble-label{
+  position:absolute;
+  left:0;
+  top:0;
+  display:inline-block;
+  max-width:124px;
+  padding:4px 9px;
+  border:0;
+  border-radius:8px;
+  background:rgba(8,8,14,.32);
+  color:rgba(255,255,255,.94);
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  line-height:1.35;
+  text-align:center;
+  text-shadow:0 1px 4px rgba(0,0,0,.55);
+  cursor:pointer;
+  pointer-events:auto;
+  transition:background .2s ease,color .2s ease;
+}
+.idea-bubble-label.is-hover{background:rgba(8,8,14,.58);color:#ffffff}
+
+/* Ideas：记录灵感图标 + 孵化气泡飞行 */
+.record-btn .rec-icon{width:14px;height:14px;flex:none;display:block}
+.idea-fly{
+  position:fixed;
+  left:0;
+  top:0;
+  border-radius:50%;
+  z-index:9999;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 34% 27%, rgba(255,255,255,.6) 0 5%, rgba(196,183,255,.3) 12%, transparent 34%),
+    radial-gradient(circle at 50% 56%, rgba(119,105,232,.9) 0%, rgba(232,121,249,.42) 56%, rgba(20,14,38,.92) 100%);
+  border:1px solid rgba(255,255,255,.16);
+  will-change:transform,opacity;
+}
+.vb-nav-links a.vb-fly-target{
+  color:#c4b5fd !important;
+  transform:translateY(-1px) scale(1.08);
+}
+.vb-nav-links a.vb-fly-target::after{
+  opacity:1 !important;
+  transform:scaleX(1) !important;
+}
+
+/* Ideas：灵感详情弹窗（不展示气泡与 Creation Loop） */
+#detailModal .detail-head{display:block !important;margin-bottom:14px;padding-right:26px}
+#detailModal .detail-title{font-size:20px;line-height:1.35;font-weight:650}
+#detailModal .detail-meta{margin-top:6px;font-size:12px;color:var(--text-muted);letter-spacing:.02em}
+#detailModal .detail-actions{flex-direction:column !important;gap:10px;margin-top:20px}
+#detailModal .btn-promote,
+#detailModal .btn-ghost{width:100%;border-radius:10px !important}
+#detailModal .btn-ghost{
+  background:transparent !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  color:var(--text-dim) !important;
+  font-size:13px;
+  order:2;
+}
+#detailModal .btn-ghost:hover{
+  border-color:rgba(239,68,68,.38) !important;
+  background:rgba(239,68,68,.07) !important;
+  color:#fca5a5 !important;
+}
+#detailModal .detail-tag.muted{opacity:.5}
+@media (max-width:720px){
+  .field-canvas{min-height:480px}
+  .idea-bubble-label{max-width:104px;font-size:11px;padding:3px 7px}
+}
+
+
+
+/* ===== Projects：项目气泡 + 三卡 + 下一步 ===== */
+.hatch-bubble{
+  position:relative;
+  width:150px;
+  height:150px;
+  margin:0 auto;
+  transition:width .45s cubic-bezier(.22,1,.36,1),height .45s cubic-bezier(.22,1,.36,1);
+}
+.hero-bubble-label{
+  position:absolute;
+  left:0;
+  top:0;
+  width:78%;
+  word-break:break-word;
+  overflow-wrap:anywhere;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  font-size:12px;
+  line-height:1.35;
+  font-weight:600;
+  color:#ffffff;
+  text-shadow:0 1px 6px rgba(0,0,0,.6);
+  pointer-events:none;
+  z-index:2;
+}
+.hatch-bubble.is-saved{animation:heroBubblePulse .9s ease}
+@keyframes heroBubblePulse{
+  0%{filter:brightness(1)}
+  35%{filter:brightness(1.35)}
+  100%{filter:brightness(1)}
+}
+
+.stage-card .stage-bar{margin:4px 0 0}
+.stage-card .method-title{margin-top:20px}
+.stage-card .overview{margin-top:8px;margin-bottom:0}
+
+.ai-card .card-head{margin-bottom:14px}
+.ai-card .btn-sm{height:30px;border-radius:8px;font-size:12px;padding:0 12px}
+.ai-placeholder{
+  border:1px dashed rgba(255,255,255,.12);
+  border-radius:12px;
+  padding:22px 20px;
+  background:rgba(255,255,255,.015);
+}
+.ai-placeholder-title{font-size:14px;font-weight:600;color:var(--text)}
+.ai-placeholder-desc{margin-top:6px;font-size:12.5px;line-height:1.7;color:var(--text-muted)}
+
+.ai-loading{display:flex;flex-direction:column;gap:10px}
+.ai-loading[hidden],
+.ai-body[hidden],
+.ai-placeholder[hidden],
+.method-title[hidden],
+.proj-next [hidden]{display:none !important}
+.ai-skeleton{
+  height:44px;
+  border-radius:10px;
+  background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(167,158,242,.16),rgba(255,255,255,.04));
+  background-size:220% 100%;
+  animation:aiSkeleton 1.2s linear infinite;
+}
+.ai-skeleton.short{height:30px;width:72%}
+@keyframes aiSkeleton{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+.ai-loading-text{font-size:12.5px;color:var(--text-muted);margin-top:2px}
+
+.ai-body{display:flex;flex-direction:column;gap:18px}
+.ai-block + .ai-block{padding-top:18px;border-top:1px solid var(--line)}
+.ai-block-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.ai-block-title{
+  font-size:11.5px;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+.ai-block .copy-btn{position:static;height:26px;border-radius:6px;font-size:11.5px;padding:0 10px;border:1px solid var(--line);background:transparent;color:var(--text-dim)}
+.ai-block .prompt-box{margin:0}
+.ai-block .prompt-text{font-size:12.5px;line-height:1.75}
+
+.card-optional{
+  margin-left:8px;
+  padding:1px 5px;
+  border:1px solid var(--line);
+  border-radius:4px;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0;
+  color:var(--text-muted);
+}
+
+.proj-next{
+  position:static;
+  z-index:12;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:20px;
+  padding:16px 0 calc(16px + env(safe-area-inset-bottom,0px));
+  background:var(--bg);
+  border-top:1px solid var(--line);
+}
+.proj-next .btn{min-width:150px;height:40px;border-radius:10px}
+.next-hint{font-size:12.5px;line-height:1.5;color:var(--text-muted)}
+.next-hint.is-warn{color:#fca5a5}
+
+@media (max-width:640px){
+  .proj-next{flex-direction:column-reverse;align-items:stretch;gap:8px}
+  .proj-next .btn{width:100%}
+  .hero-bubble-label{max-width:92%}
+  .stage-card .method-title{margin-top:16px}
+}
+
+@media (max-width:640px){
+  .ai-card .card-head{flex-wrap:wrap;gap:10px}
+  .ai-card .card-head .btn-sm{margin-left:auto}
+}
+
+/* ===== Projects：独立阶段轴 / 卡片间距 / 回填 / 底部操作 ===== */
+.stage-axis{
+  margin:24px 0 0;
+  padding:4px 0;
+}
+.stage-axis .stage-bar{margin:0}
+.stage-axis ~ .card{margin-top:16px !important}
+
+.ai-summary{
+  font-size:13px;
+  line-height:1.75;
+  color:var(--text-dim);
+}
+
+.fill-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin:10px 0 0;
+  padding:5px 10px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:transparent;
+  color:var(--text-dim);
+  font-size:12px;
+  font-family:inherit;
+  cursor:pointer;
+  transition:border-color .18s ease,color .18s ease;
+}
+.fill-btn:hover{border-color:rgba(167,158,242,.45);color:var(--text)}
+.fill-btn[hidden]{display:none !important}
+
+.proj-next{
+  justify-content:flex-end;
+}
+.proj-next .next-hint{order:1;margin-right:auto}
+.proj-next .btn{
+  order:2;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 24px;
+  line-height:1;
+}
+
+@media (max-width:640px){
+  .proj-next{justify-content:stretch}
+  .proj-next .next-hint{text-align:left}
+  .ai-summary{font-size:12.5px}
+}

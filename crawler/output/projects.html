@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projects - Vibe Bubble</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script src="./auth.js?v=20261118f"></script>
-<script src="./nav.js?v=20261118f"></script>
+<script src="./auth.js?v=20261119c"></script>
+<script src="./nav.js?v=20261119e"></script>
+<script type="module" src="./idea-bubbles.js?v=20261120f"></script>
 <style>
 /* ===== 变量与基础 ===== */
 :root {
@@ -163,7 +164,7 @@ body::after {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 30%, #fff, #c4b5fd 38%, #8b5cf6 72%);
+  background: radial-gradient(circle at 32% 30%, #fff, #a79ef2 38%, #8b5cf6 72%);
   box-shadow: 0 0 16px rgba(139, 92, 246, 0.6);
   flex-shrink: 0;
 }
@@ -1038,6 +1039,7 @@ body::after {
 ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 </style>
+  <link rel="stylesheet" href="./skin.css?v=20261120e" />
 </head>
 <body>
 <div id="vb-nav-mount"></div>
@@ -1070,9 +1072,8 @@ body::after {
 
   <!-- 孵化气泡 -->
   <section class="hatch">
-    <div class="center-bubble" id="centerBubble"
-      style="--bubble-size:150px;--bubble-glow:18px;--bubble-opacity:0.5;--bubble-font-size:12px;--bubble-line-clamp:3;">
-      <span class="bubble-title-inner" id="bubbleTitle">示例项目</span>
+    <div class="hatch-bubble" id="hatchBubble">
+      <span class="hero-bubble-label" id="bubbleTitle">示例项目</span>
     </div>
     <div class="hatch-caption">
       <span class="hatch-step" id="hatchStep">第 01 步</span>
@@ -1081,49 +1082,88 @@ body::after {
     </div>
   </section>
 
-  <!-- 8 步流程条 -->
-  <h2 class="stage-overview-title">阶段总览</h2>
-  <div class="stage-bar-wrap">
+  <!-- 8 步阶段轴 -->
+  <div class="stage-axis">
     <div class="stage-bar" id="stageBar"></div>
   </div>
 
-  <!-- 当前阶段方法 -->
-  <section class="card method-card">
+  <!-- 卡片 1：阶段总览 -->
+  <section class="card stage-card">
+    <div class="card-head">
+      <span class="card-label">阶段总览</span>
+      <span class="card-hint" id="summaryHint"></span>
+    </div>
     <h3 class="method-title" id="methodTitle" hidden></h3>
     <p class="overview" id="overview"></p>
-    <div class="tabs" id="tabs">
-      <button class="tab active" data-tab="todo">待办清单</button>
-      <button class="tab" data-tab="flash">方法闪卡</button>
-      <button class="tab" data-tab="prompt">提示词</button>
+  </section>
+
+  <!-- 卡片 2：AI 解析 -->
+  <section class="card ai-card">
+    <div class="card-head">
+      <span class="card-label">AI 解析</span>
+      <button class="btn btn-primary btn-sm" id="aiParseBtn">AI 解析本阶段</button>
     </div>
-    <div class="tab-panel active" id="panel-todo">
-      <div class="check-progress" id="checkProgress"></div>
-      <div id="checkList"></div>
+
+    <div class="ai-placeholder" id="aiPlaceholder">
+      <p class="ai-placeholder-title">把这一阶段拆成可执行的行动</p>
+      <p class="ai-placeholder-desc">生成任务清单、核心知识与提示词，完成后再进入下一步。</p>
     </div>
-    <div class="tab-panel" id="panel-flash">
-      <div class="flash-grid" id="flashGrid"></div>
+
+    <div class="ai-loading" id="aiLoading" hidden>
+      <div class="ai-skeleton"></div>
+      <div class="ai-skeleton short"></div>
+      <div class="ai-skeleton"></div>
+      <p class="ai-loading-text" id="aiLoadingText">正在解析本阶段内容…</p>
     </div>
-    <div class="tab-panel" id="panel-prompt">
-      <div class="prompt-box">
-        <div class="prompt-text" id="promptText"></div>
-        <button class="copy-btn" id="copyBtn">复制</button>
+
+    <div class="ai-body" id="aiBody" hidden>
+      <div class="ai-block">
+        <div class="ai-block-head"><span class="ai-block-title">阶段小结</span></div>
+        <p class="ai-summary" id="aiSummary"></p>
+      </div>
+
+      <div class="ai-block">
+        <div class="ai-block-head">
+          <span class="ai-block-title">任务清单</span>
+          <span class="card-hint" id="checkProgress"></span>
+        </div>
+        <div id="checkList"></div>
+      </div>
+
+      <div class="ai-block">
+        <div class="ai-block-head"><span class="ai-block-title">核心知识</span></div>
+        <div class="flash-grid" id="flashGrid"></div>
+      </div>
+
+      <div class="ai-block">
+        <div class="ai-block-head">
+          <span class="ai-block-title">提示词</span>
+          <button class="copy-btn" id="copyBtn">复制</button>
+        </div>
+        <div class="prompt-box"><div class="prompt-text" id="promptText"></div></div>
       </div>
     </div>
   </section>
 
-  <!-- 本步产出 -->
+  <!-- 卡片 3：阶段产物 -->
   <section class="card output-card">
     <div class="card-head">
-      <span class="card-label">本步产出物</span>
+      <span class="card-label">阶段产物<span class="card-optional">可选</span></span>
       <span class="card-hint" id="outputStageHint"></span>
     </div>
     <div class="output-spec" id="outputSpec"></div>
-    <textarea class="output-area" id="outputArea" placeholder="在这里写下这一阶段的产出……"></textarea>
+    <button class="fill-btn" id="fillOutputBtn" hidden>用 AI 解析结果填充</button>
+    <textarea class="output-area" id="outputArea" placeholder="在这里写下这一阶段的产出（可选）……"></textarea>
     <div class="output-foot">
       <span class="save-state" id="saveState">尚未保存</span>
       <button class="btn btn-primary" id="saveBtn">保存产出</button>
     </div>
   </section>
+
+  <div class="proj-next">
+    <button class="btn btn-primary" id="nextBtn">下一步</button>
+    <span class="next-hint" id="nextHint"></span>
+  </div>
 
   <footer class="proj-foot">
     <button class="link-danger" id="deleteProjectBtn" hidden>删除项目</button>
@@ -1159,15 +1199,16 @@ body::after {
 
   // ===== 步骤配色与气泡视觉成长曲线 =====
   var STEP_COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#3b82f6', '#06b6d4', '#f59e0b', '#10b981', '#ef4444'];
+  // 气泡随阶段成长：直径与标题字号
   var STAGE_VISUAL = [
-    { size: 150, glow: 18, opacity: 0.50, fontSize: 12, lineClamp: 3 },
-    { size: 168, glow: 24, opacity: 0.56, fontSize: 13, lineClamp: 3 },
-    { size: 190, glow: 30, opacity: 0.62, fontSize: 13, lineClamp: 4 },
-    { size: 212, glow: 38, opacity: 0.70, fontSize: 14, lineClamp: 4 },
-    { size: 236, glow: 46, opacity: 0.78, fontSize: 15, lineClamp: 5 },
-    { size: 262, glow: 54, opacity: 0.86, fontSize: 16, lineClamp: 5 },
-    { size: 288, glow: 64, opacity: 0.93, fontSize: 18, lineClamp: 6 },
-    { size: 320, glow: 72, opacity: 1.00, fontSize: 20, lineClamp: 6 }
+    { size: 118, fontSize: 11 },
+    { size: 130, fontSize: 11 },
+    { size: 142, fontSize: 12 },
+    { size: 154, fontSize: 12 },
+    { size: 166, fontSize: 13 },
+    { size: 180, fontSize: 13 },
+    { size: 194, fontSize: 14 },
+    { size: 210, fontSize: 15 }
   ];
   var MISSING_PATTERN = /PGRST205|does not exist|schema cache|Could not find the table/i;
 
@@ -1189,10 +1230,18 @@ body::after {
   var notice = '';
   var menuOpen = false;
 
-  // 示例项目：内容来自「学习日历 · 21 天习惯养成」
+  // 气泡与 AI 解析状态
+  var heroBubble = null;
+  var aiCache = {};
+  var aiCheckDone = {};
+  var aiBusy = false;
+  var AI_ENDPOINT = (typeof SUPABASE_URL !== 'undefined' ? SUPABASE_URL : '') + '/functions/v1/project-stage';
+  var AI_RUN_STEPS = ['正在理解项目背景…', '拆解这一阶段的关键动作…', '整理任务与核心知识…', '生成可复用的提示词…'];
+
+  // 示例项目：内容来自「21 天学习日历」
   var DEMO = {
-    title: '学习日历 · 21 天习惯养成',
-    index: 7,
+    title: '21 天学习日历',
+    index: 0,
     stages: {
       understand: {
         subtitle: '先理解，学习为什么难以持续',
@@ -1206,7 +1255,7 @@ body::after {
           { q: '习惯的触发与重复', a: '让行动与一个稳定的生活时刻联系起来，比每天重新决定何时开始更容易执行。例如，把今日历页放在早餐后打开，并保持任务足够轻量。' },
           { q: '打卡与学习结果', a: '印章能记录参与，练习能留下应用的痕迹。项目需要同时关注「用户有没有回来」和「用户有没有实际使用今天的知识」。' }
         ],
-        prompt: '请帮助我研究「21 天习惯养成·学习日历」。它每天提供一个知识点、一个短练习和一次盖章反馈。根据我补充的学习经历或访谈，整理用户目标、开始学习的触发、中断原因及已有解决办法。区分事实、推测和待验证问题，不编造用户反馈。',
+        prompt: '请帮助我研究「21 天学习日历」。它每天提供一个知识点、一个短练习和一次盖章反馈。根据我补充的学习经历或访谈，整理用户目标、开始学习的触发、中断原因及已有解决办法。区分事实、推测和待验证问题，不编造用户反馈。',
         outputSpec: '示例产出 · 领域认知简报',
         output: '问题判断：学习资料容易获得，但用户仍需每天决定学什么、怎么练、何时开始。这些小决定可能让学习不断推迟。\n\n产品思路：用一张每日历页提供明确起点，用一个小练习降低行动难度，用盖章和回看留下积累。\n\n仍需验证：复古日历带来的新鲜感能持续多久？用户愿意为每天的练习投入多少时间？'
       },
@@ -1238,7 +1287,7 @@ body::after {
           { q: '第一性原理', a: '回到用户真正想完成的事。用户期待的可能是「每天更容易开口说英语」，因此日历的每个设计都应支持这一行动。' },
           { q: '价值主张', a: '用「为谁、在什么场景、提供什么帮助」描述产品。表达越具体，越容易判断内容和功能是否值得加入。' }
         ],
-        prompt: '请为「21 天习惯养成·学习日历」整理定位简报。首批用户是想练习日常英语、但难以每天开始的成年人。请写清目标场景、核心问题、产品主张、首版范围与暂缓功能，并检查每日知识点和练习是否支持这个定位。',
+        prompt: '请为「21 天学习日历」整理定位简报。首批用户是想练习日常英语、但难以每天开始的成年人。请写清目标场景、核心问题、产品主张、首版范围与暂缓功能，并检查每日知识点和练习是否支持这个定位。',
         outputSpec: '示例产出 · 产品定位简报',
         output: '目标用户：有基础英语知识，希望增加日常口语练习的成年人。\n产品主张：每天翻开一页，学一句、说一句，留下自己的 21 天英语日历。\n典型场景：早餐后或通勤前，用几分钟完成一张历页。\n首版范围：英语主题、每日知识点、短练习、盖章与历史回看。\n后续方向：扩展 AI、自媒体主题。21 天作为一轮学习周期，帮助用户建立节奏，不承诺固定时间内必然形成习惯。'
       },
@@ -1459,19 +1508,29 @@ body::after {
 
   function renderBubble() {
     var v = STAGE_VISUAL[currentIndex] || STAGE_VISUAL[0];
-    var bubble = el('centerBubble');
-    bubble.style.setProperty('--bubble-size', v.size + 'px');
-    bubble.style.setProperty('--bubble-glow', v.glow + 'px');
-    bubble.style.setProperty('--bubble-opacity', v.opacity);
-    bubble.style.setProperty('--bubble-font-size', v.fontSize + 'px');
-    bubble.style.setProperty('--bubble-line-clamp', v.lineClamp);
-    bubble.classList.toggle('iridescent', currentIndex >= 6);
+    var host = el('hatchBubble');
+    var label = el('bubbleTitle');
 
-    el('bubbleTitle').textContent = currentIdea ? currentIdea.title : DEMO.title;
+    host.style.width = v.size + 'px';
+    host.style.height = v.size + 'px';
+    label.style.fontSize = v.fontSize + 'px';
+    label.textContent = currentIdea ? currentIdea.title : DEMO.title;
+
+    if (heroBubble) heroBubble.setSize(v.size);
 
     var s = STEPS[currentIndex] || {};
     el('hatchStep').textContent = '第 ' + (s.no || '01') + ' 步';
     el('hatchName').textContent = (s.name || '') + (s.nameCn ? ' ' + s.nameCn : '');
+  }
+
+  function mountProjectBubble() {
+    if (heroBubble || !window.IdeaBubbles || !window.IdeaBubbles.mountHero) return;
+    var v = STAGE_VISUAL[currentIndex] || STAGE_VISUAL[0];
+    heroBubble = window.IdeaBubbles.mountHero(el('hatchBubble'), {
+      labelEl: el('bubbleTitle'),
+      sizePx: v.size,
+      paletteIndex: 0
+    });
   }
 
   function renderStageBar() {
@@ -1479,7 +1538,8 @@ body::after {
     var demo = !currentIdea;
     bar.innerHTML = STEPS.map(function (s, i) {
       var cls = 'stage-seg';
-      if (demo || outputs[s.key]) cls += ' completed';
+      var done = demo ? (i < currentIndex) : !!aiCache[aiKeyOf(s)];
+      if (done) cls += ' completed';
       if (i === currentIndex) cls += ' current';
       return '<div class="' + cls + '" data-i="' + i + '" role="button" tabindex="0"' +
         ' aria-label="' + escapeHtml(s.name + ' ' + s.nameCn) + '"' +
@@ -1502,33 +1562,32 @@ body::after {
     });
   }
 
-  function renderStageContent() {
+  function stageData() {
     var base = STEPS[currentIndex] || {};
-    var s = base;
-
     if (!currentIdea) {
       var demoStage = DEMO.stages[base.key];
-      if (demoStage) {
-        s = Object.assign({}, base, demoStage);
-        s._done = {};
-        (s.checklist || []).forEach(function (_, i) { s._done[i] = true; });
-      }
+      if (demoStage) return Object.assign({}, base, demoStage);
     }
+    return base;
+  }
+
+  function renderStageContent() {
+    var s = stageData();
 
     el('methodTitle').textContent = s.subtitle || '';
     el('methodTitle').hidden = !s.subtitle;
     el('overview').textContent = s.overview || '这一阶段的方法说明正在整理中。';
+    el('summaryHint').textContent = '阶段 ' + (s.no || '') + ' / 08';
     el('outputStageHint').textContent = (s.no || '') + ' ' + (s.name || '');
 
-    renderChecklist(s);
-    renderFlashcards(s);
-    renderPrompt(s);
+    renderAi(s);
     renderOutput(s);
   }
 
-  function renderChecklist(s) {
+  function renderChecklist(s, doneRef, persistKey) {
     var box = el('checkList');
     var items = s.checklist || [];
+    s._done = doneRef || s._done || {};
 
     if (!items.length) {
       box.innerHTML = '<div class="pending">这一步的待办正在整理中。</div>';
@@ -1547,9 +1606,12 @@ body::after {
     box.querySelectorAll('.check-item').forEach(function (item) {
       item.addEventListener('click', function () {
         var i = item.getAttribute('data-i');
-        s._done = s._done || {};
         s._done[i] = !s._done[i];
         item.classList.toggle('done', !!s._done[i]);
+        if (persistKey) {
+          aiCheckDone[persistKey] = s._done;
+          saveAiCache();
+        }
         updateProgress(s);
       });
     });
@@ -1590,6 +1652,212 @@ body::after {
     var hasPrompt = !!s.prompt;
     el('promptText').textContent = hasPrompt ? s.prompt : '这一步的提示词正在整理中。';
     el('copyBtn').disabled = !hasPrompt;
+  }
+
+  // ===== AI 解析 =====
+  function aiKeyOf(s) {
+    return (currentIdea ? currentIdea.id : 'demo') + ':' + (s.key || currentIndex);
+  }
+
+  function loadAiCache() {
+    try { aiCache = JSON.parse(localStorage.getItem('vb_stage_ai') || '{}') || {}; } catch (e) { aiCache = {}; }
+    try { aiCheckDone = JSON.parse(localStorage.getItem('vb_stage_ai_done') || '{}') || {}; } catch (e) { aiCheckDone = {}; }
+  }
+
+  function saveAiCache() {
+    try { localStorage.setItem('vb_stage_ai', JSON.stringify(aiCache)); } catch (e) { /* ignore */ }
+    try { localStorage.setItem('vb_stage_ai_done', JSON.stringify(aiCheckDone)); } catch (e) { /* ignore */ }
+  }
+
+  function fallbackContent(s) {
+    return {
+      summary: s.overview || s.subtitle || '',
+      tasks: (s.checklist || []).slice(),
+      knowledge: (s.flashcards || []).slice(),
+      prompt: s.prompt || ''
+    };
+  }
+
+  function currentAi(s) {
+    return aiCache[aiKeyOf(s)] || null;
+  }
+
+  function hasContent(data) {
+    if (!data) return false;
+    return (Array.isArray(data.tasks) && data.tasks.length > 0) ||
+      (Array.isArray(data.knowledge) && data.knowledge.length > 0) ||
+      !!data.prompt;
+  }
+
+  function renderAi(s) {
+    var data = currentAi(s);
+    var ready = hasContent(data);
+
+    el('aiPlaceholder').hidden = ready;
+    el('aiBody').hidden = !ready;
+    el('aiLoading').hidden = true;
+
+    var btn = el('aiParseBtn');
+    btn.disabled = false;
+    btn.textContent = ready ? '重新解析' : 'AI 解析本阶段';
+
+    if (ready) {
+      var key = aiKeyOf(s);
+      var summary = data.summary || '';
+      var showSummary = !!summary && summary.trim() !== (s.overview || '').trim();
+      el('aiSummary').textContent = summary;
+      el('aiSummary').hidden = !showSummary;
+      renderChecklist({ checklist: data.tasks || [] }, aiCheckDone[key] || {}, key);
+      renderFlashcards({ flashcards: data.knowledge || [] });
+      renderPrompt({ prompt: data.prompt || '' });
+      el('fillOutputBtn').hidden = !currentIdea;
+    } else {
+      el('fillOutputBtn').hidden = true;
+    }
+
+    updateNextState(ready);
+  }
+
+  function updateNextState(ready) {
+    var btn = el('nextBtn');
+    var last = currentIndex >= STEPS.length - 1;
+    btn.disabled = !ready;
+    btn.textContent = last ? '完成项目' : '下一步';
+    el('nextHint').textContent = ready
+      ? (last ? '8 个阶段已走完，可以整理成 Case 发布' : '阶段产物可选，不影响进入下一步')
+      : '先完成本阶段 AI 解析';
+    el('nextHint').classList.toggle('is-warn', !ready);
+  }
+
+  function delay(ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
+  }
+
+  async function runAiParse() {
+    if (aiBusy) return;
+
+    var s = stageData();
+    var key = aiKeyOf(s);
+    aiBusy = true;
+
+    var btn = el('aiParseBtn');
+    btn.disabled = true;
+    btn.textContent = '解析中…';
+    el('aiPlaceholder').hidden = true;
+    el('aiBody').hidden = true;
+    el('aiLoading').hidden = false;
+
+    var stepIndex = 0;
+    el('aiLoadingText').textContent = AI_RUN_STEPS[0];
+    var timer = setInterval(function () {
+      stepIndex = Math.min(stepIndex + 1, AI_RUN_STEPS.length - 1);
+      el('aiLoadingText').textContent = AI_RUN_STEPS[stepIndex];
+    }, 700);
+
+    var startedAt = Date.now();
+    var result = null;
+
+    try {
+      var res = await fetch(AI_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + ((typeof getAccessToken === 'function' && getAccessToken()) || SUPABASE_ANON_KEY)
+        },
+        body: JSON.stringify({
+          project: currentIdea ? currentIdea.title : DEMO.title,
+          stage: {
+            no: s.no,
+            name: s.name,
+            nameCn: s.nameCn,
+            overview: s.overview || s.subtitle || ''
+          },
+          output: el('outputArea').value.trim()
+        }),
+        signal: AbortSignal.timeout(15000)
+      });
+
+      if (res.ok) {
+        var payload = await res.json();
+        var content = payload && (payload.content || payload);
+        if (hasContent(content)) result = content;
+      }
+    } catch (err) {
+      console.warn('[Projects] 阶段解析失败，使用示例内容兜底', err);
+    }
+
+    if (!hasContent(result)) result = fallbackContent(s);
+
+    var remain = Math.max(0, 2200 - (Date.now() - startedAt));
+    if (remain) await delay(remain);
+    clearInterval(timer);
+
+    aiBusy = false;
+    el('aiLoading').hidden = true;
+
+    if (hasContent(result)) {
+      aiCache[key] = result;
+      saveAiCache();
+      renderAi(s);
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'AI 解析本阶段';
+      el('aiPlaceholder').hidden = false;
+      updateNextState(false);
+    }
+  }
+
+  function buildDraft(data) {
+    var lines = [];
+    if (data.summary) lines.push('【阶段小结】', data.summary, '');
+    if (data.tasks && data.tasks.length) {
+      lines.push('【任务清单】');
+      data.tasks.forEach(function (task) { lines.push('- ' + task); });
+      lines.push('');
+    }
+    if (data.knowledge && data.knowledge.length) {
+      lines.push('【核心知识】');
+      data.knowledge.forEach(function (item) { lines.push('- ' + item.q + '：' + item.a); });
+      lines.push('');
+    }
+    if (data.prompt) lines.push('【提示词】', data.prompt);
+    return lines.join('\n').trim();
+  }
+
+  function fillOutputFromAi() {
+    var s = stageData();
+    var data = currentAi(s);
+    if (!data) return;
+
+    var area = el('outputArea');
+    if (area.readOnly) return;
+
+    var draft = buildDraft(data);
+    var existing = area.value.trim();
+    area.value = existing ? existing + '\n\n' + draft : draft;
+    el('saveState').textContent = '已填入，记得保存';
+    area.focus();
+  }
+
+  async function handleNext() {
+    var s = stageData();
+    if (!hasContent(currentAi(s))) return;
+
+    if (currentIndex >= STEPS.length - 1) {
+      showBanner('8 个阶段已全部走完，接下来可以把项目整理成 Case 发布。', '');
+      return;
+    }
+
+    var text = el('outputArea').value.trim();
+    if (currentIdea && loggedIn && text && text !== (outputs[s.key] || '')) {
+      await handleSave();
+    }
+
+    gotoStep(currentIndex + 1);
+
+    var card = document.querySelector('.stage-card');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function renderOutput(s) {
@@ -1720,17 +1988,9 @@ body::after {
       if (!menu.contains(e.target) && !sw.contains(e.target)) toggleMenu(false);
     });
 
-    el('tabs').querySelectorAll('.tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var target = tab.getAttribute('data-tab');
-        el('tabs').querySelectorAll('.tab').forEach(function (t) {
-          t.classList.toggle('active', t === tab);
-        });
-        document.querySelectorAll('.tab-panel').forEach(function (p) {
-          p.classList.toggle('active', p.id === 'panel-' + target);
-        });
-      });
-    });
+    el('aiParseBtn').addEventListener('click', runAiParse);
+    el('nextBtn').addEventListener('click', handleNext);
+    el('fillOutputBtn').addEventListener('click', fillOutputFromAi);
 
     el('copyBtn').addEventListener('click', function () {
       var text = el('promptText').textContent;
@@ -1853,9 +2113,11 @@ body::after {
       renderHeader();
       renderStageBar();
 
-      var bubble = el('centerBubble');
-      bubble.classList.add('subtle-glow');
-      setTimeout(function () { bubble.classList.remove('subtle-glow'); }, 1200);
+      var bubble = el('hatchBubble');
+      if (bubble) {
+        bubble.classList.add('is-saved');
+        setTimeout(function () { bubble.classList.remove('is-saved'); }, 1000);
+      }
       return;
     }
 
@@ -1872,6 +2134,7 @@ body::after {
   // ===== 初始化 =====
   async function init() {
     bindEvents();
+    loadAiCache();
     loggedIn = isLoggedIn();
     authStateAtLoad = loggedIn;
 
@@ -1936,6 +2199,9 @@ body::after {
 
     applyBanner();
     renderAll();
+
+    window.addEventListener('idea-bubbles-ready', mountProjectBubble);
+    mountProjectBubble();
 
     if (!loggedIn && params.get('new') === '1' && typeof showAuthModal === 'function') {
       showAuthModal('signup');

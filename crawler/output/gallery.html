@@ -11,7 +11,7 @@
 :root {
   --bg: #050510;
   --bg-light: #0a0a1a;
-  --purple: #a855f7;
+  --purple: #7769e8;
   --pink: #ec4899;
   --blue: #3b82f6;
   --cyan: #06b6d4;
@@ -121,7 +121,7 @@ body {
 }
 .search-box input:focus {
   border-color: var(--purple);
-  background: rgba(168,85,247,0.08);
+  background: rgba(119,105,232,0.08);
 }
 .search-box .search-icon {
   position: absolute;
@@ -146,7 +146,7 @@ body {
 }
 .filter-btn:hover, .filter-btn.active {
   border-color: var(--purple);
-  background: rgba(168,85,247,0.15);
+  background: rgba(119,105,232,0.15);
 }
 
 .top-right {
@@ -296,18 +296,18 @@ body {
 .bottom-btn.vb-create-style {
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, #a855f7, #6366f1);
+  background: linear-gradient(135deg, #7769e8, #6366f1);
   color: #fff;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
   padding: 10px 22px;
-  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+  box-shadow: 0 4px 16px rgba(119, 105, 232, 0.3);
 }
 .bottom-btn.vb-create-style:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(168, 85, 247, 0.45);
-  background: linear-gradient(135deg, #a855f7, #6366f1);
+  box-shadow: 0 8px 28px rgba(119, 105, 232, 0.45);
+  background: linear-gradient(135deg, #7769e8, #6366f1);
   border-color: transparent;
 }
 .bottom-btn.vb-create-style:active {
@@ -454,10 +454,10 @@ body {
 .modal-tag {
   padding: 4px 12px;
   border-radius: 12px;
-  background: rgba(168,85,247,0.15);
+  background: rgba(119,105,232,0.15);
   color: var(--purple);
   font-size: 12px;
-  border: 1px solid rgba(168,85,247,0.3);
+  border: 1px solid rgba(119,105,232,0.3);
 }
 
 .modal-link {
@@ -474,7 +474,7 @@ body {
 }
 .modal-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+  box-shadow: 0 8px 24px rgba(119,105,232,0.3);
 }
 
 /* 投稿弹窗表单 */
@@ -503,7 +503,7 @@ body {
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--purple);
-  background: rgba(168,85,247,0.08);
+  background: rgba(119,105,232,0.08);
 }
 .form-group textarea { resize: vertical; min-height: 80px; }
 
@@ -542,7 +542,7 @@ body {
 }
 .submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+  box-shadow: 0 8px 24px rgba(119,105,232,0.3);
 }
 
 /* ===== 灵感记录弹窗 ===== */
@@ -667,13 +667,13 @@ body {
   user-select: none;
 }
 .inspire-tag-chip:hover {
-  border-color: rgba(168,85,247,0.4);
+  border-color: rgba(119,105,232,0.4);
   color: var(--text);
 }
 .inspire-tag-chip.active {
-  background: rgba(168,85,247,0.2);
-  border-color: rgba(168,85,247,0.5);
-  color: #c4b5fd;
+  background: rgba(119,105,232,0.2);
+  border-color: rgba(119,105,232,0.5);
+  color: #a79ef2;
 }
 
 .inspire-submit-btn {
@@ -694,7 +694,7 @@ body {
 }
 .inspire-submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168,85,247,0.3);
+  box-shadow: 0 8px 24px rgba(119,105,232,0.3);
 }
 .inspire-submit-btn:active {
   transform: scale(0.97);
@@ -725,12 +725,12 @@ body {
   background: radial-gradient(circle at 35% 35%,
     rgba(255,255,255,0.35) 0%,
     rgba(196,181,253,0.5) 20%,
-    rgba(168,85,247,0.6) 50%,
+    rgba(119,105,232,0.6) 50%,
     rgba(99,102,241,0.5) 80%,
     rgba(59,130,246,0.4) 100%);
   border: 1px solid rgba(255,255,255,0.2);
   box-shadow:
-    0 0 30px rgba(168,85,247,0.4),
+    0 0 30px rgba(119,105,232,0.4),
     inset 0 1px 3px rgba(255,255,255,0.3),
     inset 0 -2px 6px rgba(99,102,241,0.2);
   backdrop-filter: blur(8px) saturate(1.4);
@@ -874,8 +874,8 @@ body {
 }
 #authContainer .auth-login-btn:hover {
   color: var(--text);
-  border-color: rgba(168,85,247,0.3);
-  background: rgba(168,85,247,0.1);
+  border-color: rgba(119,105,232,0.3);
+  background: rgba(119,105,232,0.1);
 }
 
 /* 登录后用户状态：去掉外围样式 */
@@ -909,8 +909,9 @@ body {
   color: #fff;
 }
 </style>
-  <script src="./auth.js?v=20261118f"></script>
-<script src="./nav.js?v=20261118f"></script>
+  <script src="./auth.js?v=20261119c"></script>
+<script src="./nav.js?v=20261119e"></script>
+  <link rel="stylesheet" href="./skin.css?v=20261120e" />
 </head>
 <body>
 <!-- 统一导航栏 -->
@@ -2824,7 +2825,7 @@ function highlightSpaceTab() {
 
   // 高亮光晕
   var glow = document.createElement('div');
-  glow.style.cssText = 'position:fixed;pointer-events:none;z-index:9998;border-radius:12px;background:rgba(168,85,247,0.25);border:1px solid rgba(168,85,247,0.5);box-shadow:0 0 20px rgba(168,85,247,0.4);opacity:0;transition:opacity 0.3s ease;';
+  glow.style.cssText = 'position:fixed;pointer-events:none;z-index:9998;border-radius:12px;background:rgba(119,105,232,0.25);border:1px solid rgba(119,105,232,0.5);box-shadow:0 0 20px rgba(119,105,232,0.4);opacity:0;transition:opacity 0.3s ease;';
   glow.style.left = (rect.left - padding) + 'px';
   glow.style.top = (rect.top - padding) + 'px';
   glow.style.width = (rect.width + padding * 2) + 'px';
@@ -2855,7 +2856,7 @@ function highlightSpaceTab() {
 // 简易 toast 提示
 function showToast(msg) {
   var toast = document.createElement('div');
-  toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(15,15,30,0.95);border:1px solid rgba(168,85,247,0.3);border-radius:14px;padding:16px 28px;color:#fff;font-size:15px;z-index:10000;pointer-events:none;opacity:0;transition:opacity 0.3s ease;white-space:nowrap;';
+  toast.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(15,15,30,0.95);border:1px solid rgba(119,105,232,0.3);border-radius:14px;padding:16px 28px;color:#fff;font-size:15px;z-index:10000;pointer-events:none;opacity:0;transition:opacity 0.3s ease;white-space:nowrap;';
   toast.textContent = msg;
   document.body.appendChild(toast);
   requestAnimationFrame(function() { toast.style.opacity = '1'; });

@@ -6,16 +6,16 @@
 <title>八步创造法 · VibeBubble</title>
 <meta name="description" content="从认知到迭代，八步创造法结合产品设计经验与AI实践，帮助你把想法逐步变成现实。">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="./auth.js?v=20261118f"></script>
-<script src="./nav.js?v=20261118f"></script>
+<script src="./auth.js?v=20261119c"></script>
+<script src="./nav.js?v=20261119e"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --bg-deep: #050a14;
   --bg-mid: #0a0f1a;
-  --purple: #a855f7;
-  --purple-soft: rgba(168, 85, 247, 0.08);
+  --purple: #7769e8;
+  --purple-soft: rgba(119, 105, 232, 0.08);
   --pink: #ec4899;
   --blue: #3b82f6;
   --cyan: #06b6d4;
@@ -42,7 +42,7 @@ body::before {
   background: conic-gradient(
     from 0deg,
     rgba(236, 72, 153, 0.08),
-    rgba(168, 85, 247, 0.10),
+    rgba(119, 105, 232, 0.10),
     rgba(59, 130, 246, 0.06),
     rgba(6, 182, 212, 0.05),
     rgba(236, 72, 153, 0.08)
@@ -61,7 +61,7 @@ body::after {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(168, 85, 247, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 70% at 15% 25%, rgba(119, 105, 232, 0.06) 0%, transparent 55%),
     radial-gradient(ellipse 60% 60% at 85% 75%, rgba(236, 72, 153, 0.05) 0%, transparent 45%),
     linear-gradient(180deg, #040814 0%, #0a0f1a 40%, #080c18 70%, #0d0818 100%);
   z-index: -3;
@@ -105,7 +105,7 @@ body::after {
 .page-title {
   font-size: 48px; font-weight: 800;
   letter-spacing: -0.02em; margin-bottom: 8px;
-  background: linear-gradient(135deg, #fff 0%, #c4b5fd 60%, #a855f7 100%);
+  background: linear-gradient(135deg, #fff 0%, #a79ef2 60%, #7769e8 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -192,11 +192,11 @@ body::after {
   padding: 4px 4px 20px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: rgba(168,85,247,0.3) transparent;
+  scrollbar-color: rgba(119,105,232,0.3) transparent;
 }
 .phase-cards::-webkit-scrollbar { height: 4px; }
 .phase-cards::-webkit-scrollbar-track { background: transparent; }
-.phase-cards::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 2px; }
+.phase-cards::-webkit-scrollbar-thumb { background: rgba(119,105,232,0.3); border-radius: 2px; }
 .phase-card {
   flex: 0 0 380px;
   scroll-snap-align: start;
@@ -216,8 +216,8 @@ body::after {
   transition: var(--transition);
 }
 .phase-card:hover {
-  border-color: rgba(168, 85, 247, 0.3);
-  background: rgba(168, 85, 247, 0.04);
+  border-color: rgba(119, 105, 232, 0.3);
+  background: rgba(119, 105, 232, 0.04);
   transform: translateY(-2px);
 }
 .phase-card:hover::before { opacity: 0.8; }
@@ -231,9 +231,9 @@ body::after {
   color: var(--purple); letter-spacing: 3px;
   font-variant-numeric: tabular-nums;
   padding: 4px 10px;
-  background: rgba(168, 85, 247, 0.12);
+  background: rgba(119, 105, 232, 0.12);
   border-radius: 6px;
-  border: 1px solid rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(119, 105, 232, 0.2);
   flex-shrink: 0;
 }
 .phase-title-block .phase-name {
@@ -293,8 +293,8 @@ body::after {
 .phase-tag {
   font-size: 11px; font-weight: 600;
   padding: 3px 10px; border-radius: 12px;
-  background: rgba(168, 85, 247, 0.08);
-  border: 1px solid rgba(168, 85, 247, 0.18);
+  background: rgba(119, 105, 232, 0.08);
+  border: 1px solid rgba(119, 105, 232, 0.18);
   color: var(--purple); letter-spacing: 0.02em;
 }
 
@@ -360,13 +360,13 @@ body::after {
   background: linear-gradient(135deg, var(--purple), var(--blue));
   color: #fff;
 }
-.cta-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(168,85,247,0.35); }
+.cta-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(119,105,232,0.35); }
 .cta-secondary {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
   color: var(--text-dim);
 }
-.cta-secondary:hover { border-color: rgba(168,85,247,0.3); color: var(--purple); }
+.cta-secondary:hover { border-color: rgba(119,105,232,0.3); color: var(--purple); }
 
 /* ===== 响应式 ===== */
 @media (max-width: 860px) {
@@ -385,6 +385,7 @@ body::after {
   .usage-cta a { justify-content: center; }
 }
 </style>
+  <link rel="stylesheet" href="./skin.css?v=20261120e" />
 </head>
 <body>
 
@@ -406,7 +407,7 @@ body::after {
   .page-sub-nav .sub-nav-tabs { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 999px; padding: 3px; }
   .page-sub-nav .sub-tab { padding: 5px 16px; border-radius: 999px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 12px; letter-spacing: 0.04em; transition: all 0.25s ease; }
   .page-sub-nav .sub-tab:hover:not(.active) { color: rgba(255,255,255,0.85); }
-  .page-sub-nav .sub-tab.active { color: #050a14; background: linear-gradient(135deg, #a855f7, #06b6d4); font-weight: 600; }
+  .page-sub-nav .sub-tab.active { color: #050a14; background: linear-gradient(135deg, #7769e8, #06b6d4); font-weight: 600; }
 </style>
 
 <div class="page-wrap">

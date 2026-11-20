@@ -333,7 +333,7 @@ function showAuthModal(mode) {
       }
       .auth-btn-github:hover { background: #e6e6e6; transform: translateY(-1px); }
       .auth-btn-primary {
-        background: linear-gradient(135deg, #a855f7, #6366f1); color: #fff;
+        background: linear-gradient(135deg, #7769e8, #5b4fd6); color: #fff;
       }
       .auth-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
       .auth-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
@@ -354,7 +354,7 @@ function showAuthModal(mode) {
         color: #f8fafc; font-size: 14px; outline: none;
         transition: border-color 0.2s;
       }
-      .auth-field input:focus { border-color: #a855f7; }
+      .auth-field input:focus { border-color: #7769e8; }
       .auth-field input::placeholder { color: #475569; }
       .auth-error {
         background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3);
@@ -365,7 +365,7 @@ function showAuthModal(mode) {
         text-align: center; margin-top: 20px; font-size: 13px; color: #64748b;
       }
       .auth-switch a {
-        color: #a855f7; text-decoration: none; margin-left: 4px;
+        color: #7769e8; text-decoration: none; margin-left: 4px;
       }
       .auth-switch a:hover { text-decoration: underline; }
       @keyframes authFadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -382,13 +382,13 @@ function showAuthModal(mode) {
       .auth-user-btn:hover { background: rgba(255,255,255,0.1); }
       .auth-user-btn .auth-avatar {
         width: 24px; height: 24px; border-radius: 50%;
-        background: linear-gradient(135deg, #a855f7, #6366f1);
+        background: linear-gradient(135deg, #7769e8, #5b4fd6);
         display: flex; align-items: center; justify-content: center;
         font-size: 12px; font-weight: 600; color: #fff;
       }
       .auth-login-btn {
         padding: 6px 16px; border-radius: 20px;
-        background: linear-gradient(135deg, #a855f7, #6366f1);
+        background: linear-gradient(135deg, #7769e8, #5b4fd6);
         border: none; color: #fff; font-size: 13px;
         font-weight: 500; cursor: pointer; transition: all 0.2s;
       }
