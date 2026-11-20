@@ -7,7 +7,7 @@
 <meta name="description" content="VibeBubble 收集数字产品、智能硬件与创意产品，分享它们如何被想到、如何被做出来的过程。同时整理 AI 工具与创造方法，帮助你从灵感到现实，完成自己的创造。">
 <meta name="keywords" content="VibeBubble,AI创造,产品设计,创新灵感,从零到一,AI工具,创造方法,数字产品,智能硬件">
 <script src="./auth.js?v=20261119c"></script>
-<script src="./nav.js?v=20261119e"></script>
+<script src="./nav.js?v=20261120a"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -2417,12 +2417,28 @@ initHeroBubble();
   }
 
   // ===== 1. 初始化 Lenis 平滑滚动 =====
+  // SPA 返回首页时会重新执行本脚本，先销毁上一个实例，避免多个 Lenis 同时接管滚轮
+  if (window.__vbLenis) {
+    try { window.__vbLenis.destroy(); } catch (e) { /* ignore */ }
+    window.__vbLenis = null;
+  }
   var lenis = new Lenis({
     duration: 1.2,
     easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
     smoothWheel: true,
     wheelMultiplier: 1,
     touchMultiplier: 1.5,
+  });
+  window.__vbLenis = lenis;
+
+  // 离开首页时释放 Lenis 与 ScrollTrigger，避免在 Projects / Studio 页继续拦截滚轮
+  document.addEventListener('vb:route-leave', function () {
+    try { lenis.destroy(); } catch (e) { /* ignore */ }
+    if (window.__vbLenis === lenis) window.__vbLenis = null;
+    if (window.ScrollTrigger) {
+      try { ScrollTrigger.getAll().forEach(function (t) { t.kill(); }); } catch (e) { /* ignore */ }
+    }
+    document.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-scrolling', 'lenis-stopped');
   });
 
   // ===== 2. 注册 GSAP ScrollTrigger 插件 =====

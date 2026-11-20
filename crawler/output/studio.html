@@ -1392,7 +1392,7 @@
     }
   </style>
 <script src="./auth.js?v=20261119c" defer></script>
-<script src="./nav.js?v=20261119e" defer></script>
+<script src="./nav.js?v=20261120a" defer></script>
   <link rel="stylesheet" href="./skin.css?v=20261120e" />
 </head>
 
@@ -1756,7 +1756,7 @@
        TRAE 编辑入口 06：页面交互
        这些逻辑都是原生 JavaScript，不依赖 React 或构建工具。
        ========================================================= */
-    document.addEventListener("DOMContentLoaded", function () {
+    function initStudioPage() {
       window.__vbRevealReady = true;
       clearTimeout(window.__vbRevealFallback);
 
@@ -1934,7 +1934,14 @@
       document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") closeProject();
       });
-    });
+    }
+
+    // 直接打开页面时等待 DOM；从导航 SPA 进入时 DOM 已就绪，需立即执行
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initStudioPage);
+    } else {
+      initStudioPage();
+    }
   </script>
 </body>
 </html>

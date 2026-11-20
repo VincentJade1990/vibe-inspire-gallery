@@ -493,31 +493,34 @@
         // 1. 更新页面标题
         document.title = doc.title || 'VibeBubble';
 
-        // 2. 替换页面 CSS（保留 nav 注入的样式）
+        // 2. 清理上一页遗留的滚动状态（Lenis 平滑滚动、锁定 body 等）
+        cleanupRouteState();
+
+        // 3. 替换页面 CSS（保留 nav 注入的样式）
         swapHeadStyles(doc);
 
-        // 3. 收集需要执行的脚本（跳过已加载的 auth.js / nav.js）
+        // 4. 收集需要执行的脚本（跳过已加载的 auth.js / nav.js）
         var scriptsToRun = collectScripts(doc);
 
-        // 4. 替换 body 内容（保留导航栏 DOM）
+        // 5. 替换 body 内容（保留导航栏 DOM）
         swapBodyContent(doc);
 
-        // 5. 更新浏览器 URL（在执行脚本之前，确保相对路径 import 正确解析）
+        // 6. 更新浏览器 URL（在执行脚本之前，确保相对路径 import 正确解析）
         if (pushState) {
           history.pushState({ url: url, key: key }, '', url);
         }
 
-        // 6. 重新执行脚本（即使失败也不影响内容展示）
+        // 7. 重新执行脚本（即使失败也不影响内容展示）
         try {
           executeScripts(scriptsToRun);
         } catch (scriptErr) {
           console.warn('Script execution warning:', scriptErr);
         }
 
-        // 7. 更新导航栏右侧区域（音效按钮可见性等）
+        // 8. 更新导航栏右侧区域（音效按钮可见性等）
         updateNavAfterRoute(key);
 
-        // 8. 滚动到顶部
+        // 9. 滚动到顶部
         window.scrollTo(0, 0);
 
         isNavigating = false;
@@ -534,6 +537,29 @@
           window.location.href = url;
         }
       });
+  }
+
+  // 清理上一页遗留的全局滚动状态，避免 Lenis / ScrollTrigger 在新页面继续接管滚轮
+  function cleanupRouteState() {
+    try {
+      document.dispatchEvent(new CustomEvent('vb:route-leave'));
+    } catch (e) { /* ignore */ }
+
+    if (typeof window.__vbLenis !== 'undefined' && window.__vbLenis) {
+      try { window.__vbLenis.destroy(); } catch (e) { /* ignore */ }
+      window.__vbLenis = null;
+    }
+    if (window.ScrollTrigger && typeof window.ScrollTrigger.getAll === 'function') {
+      try { window.ScrollTrigger.getAll().forEach(function (t) { t.kill(); }); } catch (e) { /* ignore */ }
+    }
+    if (typeof window.__vbGalleryCleanup === 'function') {
+      try { window.__vbGalleryCleanup(); } catch (e) { /* ignore */ }
+      window.__vbGalleryCleanup = null;
+    }
+
+    // 清除上一页 modal 等留下的滚动锁定
+    document.body.style.overflow = '';
+    document.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-scrolling', 'lenis-stopped');
   }
 
   // 替换 head 中的页面样式（保留带 id 的动态注入样式）

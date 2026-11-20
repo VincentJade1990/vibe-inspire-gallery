@@ -910,7 +910,7 @@ body {
 }
 </style>
   <script src="./auth.js?v=20261119c"></script>
-<script src="./nav.js?v=20261119e"></script>
+<script src="./nav.js?v=20261120a"></script>
   <link rel="stylesheet" href="./skin.css?v=20261120e" />
 </head>
 <body>
@@ -1061,55 +1061,62 @@ const platformNames = {
 // ==================== 从 Supabase 加载数据 ====================
 let rawCases = [];
 let displayOffset = 0; // 换一批翻页偏移量
+let dataLoadFailed = false; // 区分「加载失败」和「筛选后为空」
 
 async function loadDataFromSupabase() {
-  try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/inspirations?status=eq.published&select=*&order=created_at.desc`, {
-      method: 'GET',
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json'
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/inspirations?status=eq.published&select=*&order=created_at.desc`, {
+        method: 'GET',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Supabase 请求失败: ${response.status}`);
       }
-    });
 
-    if (!response.ok) {
-      throw new Error(`Supabase 请求失败: ${response.status}`);
+      const data = await response.json();
+
+      // 字段映射：Supabase -> gallery.html 格式
+      rawCases = data.map(item => ({
+        id: item.id || '',
+        created_at: item.created_at || '',
+        title: item.title || '无标题',
+        summary: item.summary || '',
+        description: item.description || '',
+        content: item.summary || item.description || '',
+        username: item.author_name || '',
+        author_url: item.author_url || '',
+        likes: item.like_count || 0,
+        tag_list: Array.isArray(item.tags) ? item.tags : [],
+        source_platform: item.source_platform || 'other',
+        source_url: item.source_url || '',
+        product_url: item.product_url || '',
+        project_status: item.project_status || '',
+        business_model: item.business_model || '',
+        cover_image: item.cover_image_url || '',
+        images: Array.isArray(item.gallery_images) && item.gallery_images.length > 0
+          ? item.gallery_images
+          : (item.cover_image_url ? [item.cover_image_url] : [])
+      }));
+
+      console.log(`[Supabase] 成功加载 ${rawCases.length} 条灵感数据`);
+      return true;
+
+    } catch (error) {
+      console.error(`[Supabase] 数据加载失败（第 ${attempt + 1} 次）:`, error);
+      if (attempt === 0) {
+        await new Promise(resolve => setTimeout(resolve, 700));
+      }
     }
-
-    const data = await response.json();
-
-    // 字段映射：Supabase -> gallery.html 格式
-    rawCases = data.map(item => ({
-      id: item.id || '',
-      created_at: item.created_at || '',
-      title: item.title || '无标题',
-      summary: item.summary || '',
-      description: item.description || '',
-      content: item.summary || item.description || '',
-      username: item.author_name || '',
-      author_url: item.author_url || '',
-      likes: item.like_count || 0,
-      tag_list: Array.isArray(item.tags) ? item.tags : [],
-      source_platform: item.source_platform || 'other',
-      source_url: item.source_url || '',
-      product_url: item.product_url || '',
-      project_status: item.project_status || '',
-      business_model: item.business_model || '',
-      cover_image: item.cover_image_url || '',
-      images: Array.isArray(item.gallery_images) && item.gallery_images.length > 0
-        ? item.gallery_images
-        : (item.cover_image_url ? [item.cover_image_url] : [])
-    }));
-
-    console.log(`[Supabase] 成功加载 ${rawCases.length} 条灵感数据`);
-    return true;
-
-  } catch (error) {
-    console.error('[Supabase] 数据加载失败:', error);
-    rawCases = [];
-    return false;
   }
+
+  rawCases = [];
+  return false;
 }
 // ==================== 从 Supabase 加载全部标签和平台 ====================
 let allTags = [];       // 全部标签（合并自 tags 表 + inspirations 全量数据）
@@ -2506,6 +2513,12 @@ function applyFilters() {
 
   // 空状态
   const emptyState = document.getElementById('emptyState');
+  const emptyText = emptyState.querySelector('p');
+  if (emptyText) {
+    emptyText.textContent = dataLoadFailed
+      ? '内容加载失败，请刷新页面重试'
+      : '暂时没有找到符合条件的灵感，换个标签试试';
+  }
   if (result.length === 0) {
     emptyState.classList.add('show');
   } else {
@@ -3111,7 +3124,8 @@ function init() {
 
 // 页面加载完成后启动（先从 Supabase 加载数据和标签）
 async function bootstrap() {
-  await loadDataFromSupabase();
+  const ok = await loadDataFromSupabase();
+  dataLoadFailed = !ok;
   await fetchAllFilterOptions();
   init();
 }
@@ -3129,6 +3143,22 @@ window.handleInspireSubmit = handleInspireSubmit;
 window.toggleSound = toggleSound;
 window.openSubmit = openSubmit;
 window.openDetail = openDetail;
+
+// SPA 离开案例页时释放动画与 WebGL，避免多个渲染循环叠加导致滚动卡顿
+window.__vbGalleryCleanup = function () {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  if (renderer) {
+    try { renderer.dispose(); } catch (e) { /* ignore */ }
+    renderer = null;
+  }
+  if (audioCtx) {
+    try { audioCtx.close(); } catch (e) { /* ignore */ }
+    audioCtx = null;
+  }
+};
 </script>
 
 </body>
