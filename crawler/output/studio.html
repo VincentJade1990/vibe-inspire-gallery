@@ -673,6 +673,7 @@
       background: linear-gradient(180deg, rgba(20, 12, 36, 0.9), rgba(8, 6, 16, 0.96));
       border: 1px solid var(--line);
       border-radius: 6px;
+      cursor: pointer;
       transition: border-color 260ms ease, transform 260ms ease;
     }
 
@@ -711,6 +712,70 @@
 
     .project-card--feature .project-media img {
       filter: saturate(1.05) contrast(1.04);
+    }
+
+    /* 卡片轮播 */
+    .carousel-track {
+      position: absolute;
+      inset: 0;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 700ms ease;
+    }
+
+    .carousel-slide.is-active {
+      opacity: 1;
+    }
+
+    .carousel-slide img,
+    .card-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      z-index: 3;
+      display: flex;
+      gap: 6px;
+    }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.38);
+      cursor: pointer;
+      transition: width 220ms ease, background 220ms ease;
+    }
+
+    .carousel-dot.is-active {
+      width: 16px;
+      background: #e9d5ff;
+    }
+
+    .project-media--video {
+      min-height: 260px;
+      background: #05030a;
+    }
+
+    .project-media--video .card-video {
+      object-fit: contain;
+    }
+
+    .projects-grid > .project-card:not(.project-card--feature) .project-media {
+      aspect-ratio: 16 / 10;
+      min-height: 0;
     }
 
     .project-visual {
@@ -912,6 +977,39 @@
       line-height: 1.8;
     }
 
+    .project-modal-media {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #05030a;
+    }
+
+    .project-modal-media[hidden] {
+      display: none;
+    }
+
+    .pm-media-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      max-height: 420px;
+    }
+
+    .project-modal-media video {
+      width: 100%;
+      max-height: 420px;
+      display: block;
+      background: #000;
+    }
+
+    .project-modal-media > img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+
     .project-modal-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1050,46 +1148,89 @@
       transform: translateY(-2px);
     }
 
-    /* 二维码占位：后续把 span 替换成 <img> 即可 */
-    .qr-pop {
-      position: absolute;
-      left: 50%;
-      bottom: calc(100% + 12px);
-      z-index: 5;
-      width: 136px;
-      height: 136px;
-      padding: 9px;
-      background: #0a0716;
-      border: 1px solid var(--line-purple);
-      border-radius: 10px;
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translate(-50%, 8px);
-      transition: opacity 220ms ease, transform 220ms ease, visibility 220ms;
+    /* 常驻二维码卡片 */
+    .contact-section-title {
+      margin: 34px 0 16px;
+      color: var(--purple-light);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
     }
 
-    .qr-pop span {
-      width: 100%;
-      height: 100%;
+    .contact-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 26px;
+      margin-top: 0;
+    }
+
+    .contact-card {
+      width: 158px;
+      padding: 13px 11px 12px;
+      border: 1px solid var(--line-purple);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.035);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
+    }
+
+    .contact-qr {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 8px;
+      padding: 5px;
+      border-radius: 10px;
+      background: #fff;
       display: grid;
       place-items: center;
-      padding: 8px;
-      color: var(--text-muted);
-      border: 1px dashed rgba(196, 181, 253, 0.35);
-      border-radius: 5px;
-      text-align: center;
-      font-size: 10px;
-      line-height: 1.7;
-      letter-spacing: 0.08em;
+      overflow: hidden;
     }
 
-    .contact-entry:hover .qr-pop,
-    .contact-entry:focus-within .qr-pop {
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, 0);
+    .contact-qr img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .contact-platform {
+      margin: 0;
+      color: var(--purple-light);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .contact-name {
+      margin: 0;
+      color: #f4ecff;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .contact-id {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 10.5px;
+    }
+
+    .contact-link {
+      margin-top: 6px;
+      color: var(--text-dim);
+      font-size: 10.5px;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 200ms ease, border-color 200ms ease;
+    }
+
+    .contact-link:hover {
+      color: var(--purple-light);
+      border-color: rgba(196, 181, 253, 0.45);
     }
 
     .footer-base {
@@ -1373,6 +1514,23 @@
         gap: 18px;
         text-align: left;
       }
+
+      .contact-cards {
+        gap: 14px;
+        margin-top: 0;
+      }
+
+      .contact-card {
+        width: 140px;
+        max-width: 140px;
+        padding: 11px 9px;
+      }
+
+      .contact-qr {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1546,8 +1704,8 @@
           <article class="timeline-item reveal">
             <p class="timeline-years">2016.07—2020.02</p>
             <span class="timeline-mark" aria-hidden="true"></span>
-            <h3>Tencent ISUX</h3>
-            <p class="timeline-role">Senior Interaction Designer</p>
+            <h3>Tencent</h3>
+            <p class="timeline-role">ISUX</p>
             <p class="timeline-note">
               在社交与内容产品设计中，建立产品判断、增长意识与设计驱动业务的工作方式。
             </p>
@@ -1556,8 +1714,8 @@
           <article class="timeline-item reveal" style="--delay: 100ms">
             <p class="timeline-years">2020.02—2022.12</p>
             <span class="timeline-mark" aria-hidden="true"></span>
-            <h3>Jianying / CapCut</h3>
-            <p class="timeline-role">Product Design Lead</p>
+            <h3>ByteDance</h3>
+            <p class="timeline-role">剪映 / CapCut</p>
             <p class="timeline-note">
               作为早期设计成员与工具线设计 Leader，负责剪映高阶剪辑能力设计，从0到1负责剪映专业版的设计。
             </p>
@@ -1566,8 +1724,8 @@
           <article class="timeline-item reveal" style="--delay: 200ms">
             <p class="timeline-years">2023.01—2023.12</p>
             <span class="timeline-mark" aria-hidden="true"></span>
-            <h3>TikTok Design</h3>
-            <p class="timeline-role">Product Design Expert</p>
+            <h3>ByteDance</h3>
+            <p class="timeline-role">TikTok Design</p>
             <p class="timeline-note">
               海外社区产品创作工具，提升对海外产品和用户的设计认知，规范化团队协作流程及设计组件。
             </p>
@@ -1577,7 +1735,7 @@
             <p class="timeline-years">2024—2026</p>
             <span class="timeline-mark" aria-hidden="true"></span>
             <h3>AI Lab</h3>
-            <p class="timeline-role">Senior AI Engineer</p>
+            <p class="timeline-role">AI Model Center</p>
             <p class="timeline-note">
               推进垂直领域AI大模型，结合各种业务场景更好的落地，提供完整的解决方案。
             </p>
@@ -1587,7 +1745,7 @@
             <p class="timeline-years">2026—NOW</p>
             <span class="timeline-mark" aria-hidden="true"></span>
             <h3>VibeBubble Studio</h3>
-            <p class="timeline-role">Product Designer × AI Creator</p>
+            <p class="timeline-role">AI Creator</p>
             <p class="timeline-note">
               探索一个人如何借助 AI，把洞察、设计、代码与内容连接成可运行的真实产品。
             </p>
@@ -1611,62 +1769,130 @@
       </header>
 
       <div class="projects-grid">
-        <article class="project-card project-card--feature reveal" data-project="vibebubble">
+        <article class="project-card project-card--feature reveal" data-project="build">
           <div class="project-media">
-            <img src="./assets/about/vibebubble-hero.png" alt="VibeBubble 产品视觉">
+            <img src="./assets/studio/project-cover.jpg" alt="开发实践：VibeBubble 产品界面">
           </div>
 
           <div class="project-info">
             <div class="project-meta">
-              <span>AI PRODUCT</span>
+              <span>BUILD</span>
               <span>进行中</span>
             </div>
-            <h3>VibeBubble</h3>
-            <p>一款连接灵感记录与项目孵化的 AI 创作工具，探索如何帮助个人把想法持续推进为作品。</p>
+            <h3>开发实践</h3>
+            <p>记录从想法到上线的开发过程，分享 AI 协作、设计决策与实践复盘。</p>
 
             <div class="project-actions">
               <a class="project-cta" href="https://vibebubble.co" target="_blank" rel="noopener">体验产品</a>
-              <button class="project-link" type="button" data-project="vibebubble">查看设计</button>
+              <button class="project-link" type="button" data-project="build">查看详情</button>
             </div>
           </div>
         </article>
 
-        <article class="project-card reveal" data-project="brand" style="--delay: 100ms">
-          <div class="project-visual">
-            <b>VibeBubble</b>
-            <em>BRAND VISUAL</em>
+        <article class="project-card reveal" data-project="brand-design" style="--delay: 100ms">
+          <div class="project-media">
+            <img src="./assets/studio/brand-cover.jpg" alt="品牌设计：VibeBubble 品牌视觉物料">
           </div>
 
           <div class="project-info">
             <div class="project-meta">
-              <span>BRAND</span>
+              <span>BRAND DESIGN</span>
               <span>进行中</span>
             </div>
-            <h3>VibeBubble Brand</h3>
-            <p>围绕气泡与探索精神，建立从标志、字体到动态图形的品牌视觉表达。</p>
+            <h3>品牌设计</h3>
+            <p>从一颗气泡出发，探索标志、字体与色彩，构建品牌的视觉语言。</p>
 
             <div class="project-actions">
-              <button class="project-link" type="button" data-project="brand">查看设计</button>
+              <button class="project-link" type="button" data-project="brand-design">查看详情</button>
             </div>
           </div>
         </article>
 
-        <article class="project-card reveal" data-project="design" style="--delay: 200ms">
-          <div class="project-visual">
-            <b>◎ 01</b>
-            <em>T-SHIRT / OBJECT</em>
+        <article class="project-card reveal" data-project="brand-video" style="--delay: 150ms">
+          <div class="project-media project-media--video">
+            <video class="card-video" src="./assets/studio/projects/brand-video.mp4"
+              poster="./assets/studio/projects/brand-video-poster.jpg"
+              muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
           </div>
 
           <div class="project-info">
             <div class="project-meta">
-              <span>DESIGN</span>
-              <span>进行中</span>
+              <span>BRAND FILM</span>
+              <span>20s</span>
             </div>
-            <h3>VibeBubble Design</h3>
-            <p>从 T 恤开始，探索品牌图形与日常物件的结合，记录从设计稿到实物的过程。</p>
+            <h3>品牌视频</h3>
+            <p>用动态影像讲述品牌理念，记录 AI 参与分镜、画面与视频制作的过程。</p>
 
             <div class="project-actions">
-              <button class="project-link" type="button" data-project="design">查看设计</button>
+              <button class="project-link" type="button" data-project="brand-video">查看详情</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project="merch" style="--delay: 200ms">
+          <div class="project-media" data-carousel>
+            <div class="carousel-track">
+              <div class="carousel-slide is-active">
+                <img src="./assets/studio/projects/merch-1.jpg" alt="文创周边：VibeBubble T 恤平铺">
+              </div>
+              <div class="carousel-slide">
+                <img src="./assets/studio/projects/merch-2.jpg" alt="文创周边：VibeBubble T 恤正面">
+              </div>
+              <div class="carousel-slide">
+                <img src="./assets/studio/projects/merch-3.jpg" alt="文创周边：VibeBubble T 恤背面">
+              </div>
+            </div>
+            <div class="carousel-dots">
+              <button class="carousel-dot is-active" type="button" data-slide="0" aria-label="第 1 张"></button>
+              <button class="carousel-dot" type="button" data-slide="1" aria-label="第 2 张"></button>
+              <button class="carousel-dot" type="button" data-slide="2" aria-label="第 3 张"></button>
+            </div>
+          </div>
+
+          <div class="project-info">
+            <div class="project-meta">
+              <span>MERCH</span>
+              <span>打样中</span>
+            </div>
+            <h3>文创周边</h3>
+            <p>将品牌创意带入日常物件，探索从图形设计、材质选择到实物打样。</p>
+
+            <div class="project-actions">
+              <button class="project-link" type="button" data-project="merch">查看详情</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project="course" style="--delay: 250ms">
+          <div class="project-media" data-carousel>
+            <div class="carousel-track">
+              <div class="carousel-slide is-active">
+                <img src="./assets/studio/projects/course-1.jpg" alt="AI 课程：课堂现场">
+              </div>
+              <div class="carousel-slide">
+                <img src="./assets/studio/projects/course-2.jpg" alt="AI 课程：学员实践">
+              </div>
+              <div class="carousel-slide">
+                <img src="./assets/studio/projects/course-3.jpg" alt="AI 课程：作品分享">
+              </div>
+            </div>
+            <div class="carousel-dots">
+              <button class="carousel-dot is-active" type="button" data-slide="0" aria-label="第 1 张"></button>
+              <button class="carousel-dot" type="button" data-slide="1" aria-label="第 2 张"></button>
+              <button class="carousel-dot" type="button" data-slide="2" aria-label="第 3 张"></button>
+            </div>
+          </div>
+
+          <div class="project-info">
+            <div class="project-meta">
+              <span>AI COURSE</span>
+              <span>进行中</span>
+            </div>
+            <h3>AI 课程</h3>
+            <p>结合真实项目与动手实践，分享用 AI 发现问题、构思方案与完成作品的方法。</p>
+
+            <div class="project-actions">
+              <button class="project-link" type="button" data-project="course">查看详情</button>
             </div>
           </div>
         </article>
@@ -1693,18 +1919,49 @@
       <div class="contact-entries">
         <div class="contact-entry">
           <a class="footer-btn footer-btn--primary" href="mailto:258842828@qq.com">联系合作</a>
-          <div class="qr-pop" aria-hidden="true"><span>二维码<br>稍后补充</span></div>
         </div>
 
         <div class="contact-entry">
           <a class="footer-btn footer-btn--ghost" href="https://www.douyin.com/user/MS4wLjABAAAAc4JY_QOQOrrKSzsaJKi-Zxlbva8a9bye4-23Xk3MyvNPYt2q3EuH4mdWdtkTFLuL?from_tab_name=main" target="_blank" rel="noopener">抖音</a>
-          <div class="qr-pop" aria-hidden="true"><span>二维码<br>稍后补充</span></div>
         </div>
 
         <div class="contact-entry">
           <a class="footer-btn footer-btn--ghost" href="https://www.xiaohongshu.com/user/profile/596c71c05e87e71adb01472a" target="_blank" rel="noopener">小红书</a>
-          <div class="qr-pop" aria-hidden="true"><span>二维码<br>稍后补充</span></div>
         </div>
+      </div>
+
+      <p class="contact-section-title">社交媒体平台</p>
+
+      <div class="contact-cards">
+        <article class="contact-card">
+          <div class="contact-qr">
+            <img src="./assets/studio/qr-douyin.png" alt="抖音二维码">
+          </div>
+          <p class="contact-platform">抖音</p>
+          <p class="contact-name">我是小玉同学呀</p>
+          <p class="contact-id">抖音号 xytx1990</p>
+          <a class="contact-link" href="https://www.douyin.com/user/MS4wLjABAAAAc4JY_QOQOrrKSzsaJKi-Zxlbva8a9bye4-23Xk3MyvNPYt2q3EuH4mdWdtkTFLuL" target="_blank" rel="noopener">打开主页</a>
+        </article>
+
+        <article class="contact-card">
+          <div class="contact-qr">
+            <img src="./assets/studio/qr-xiaohongshu.png" alt="小红书二维码">
+          </div>
+          <p class="contact-platform">小红书</p>
+          <p class="contact-name">我是小玉同学呀</p>
+          <p class="contact-id">小红书号 496251416</p>
+          <a class="contact-link" href="https://www.xiaohongshu.com/user/profile/596c71c05e87e71adb01472a" target="_blank" rel="noopener">打开主页</a>
+        </article>
+
+        <article class="contact-card">
+          <div class="contact-qr">
+            <img src="./assets/studio/qr-wechat.png" alt="微信二维码">
+          </div>
+          <p class="contact-platform">微信</p>
+          <p class="contact-name">YU</p>
+          <p class="contact-id">广东 · 深圳</p>
+          <span class="contact-link">扫码添加好友</span>
+        </article>
       </div>
     </div>
 
@@ -1724,6 +1981,7 @@
       <p class="project-modal-eyebrow" id="pmEyebrow"></p>
       <h2 id="pmTitle"></h2>
       <p class="project-modal-intro" id="pmIntro"></p>
+      <div class="project-modal-media" id="pmMedia" hidden></div>
 
       <div class="project-modal-grid">
         <section>
@@ -1830,25 +2088,31 @@
          项目文案在这里修改，卡片与弹窗共用同一份数据。
          ========================================================= */
       var PROJECTS = {
-        vibebubble: {
-          eyebrow: "AI PRODUCT · 2026",
-          title: "VibeBubble",
-          intro: "一款连接灵感记录与项目孵化的 AI 创作工具，探索如何帮助个人把想法持续推进为作品。",
-          work: "从记录第一个灵感，到孵化成可展示的项目，VibeBubble 把零散的想法串成一条可回看、可继续的创作路径。",
+        build: {
+          eyebrow: "BUILD · 2026",
+          title: "开发实践",
+          intro: "记录从想法到上线的开发过程，分享 AI 协作、设计决策与实践复盘。",
+          media: [
+            { type: "image", src: "./assets/studio/project-cover.jpg", alt: "VibeBubble 产品界面" }
+          ],
+          work: "VibeBubble 从记录第一个灵感开始，把想法推进到可展示、可继续的项目，完整走过需求、设计、开发与上线。",
           choices: [
             "把记录和推进拆开：灵感 5 秒记下，不打断当下。",
             "用八步法承载从想法到产出的过程，每一步都有可保存的产出。",
             "以气泡作为核心隐喻：灵感浮起来，孵化后沉淀为项目。"
           ],
-          process: "先在飞书中完成产品结构与八步法内容，再用 AI 辅助编码，逐页搭建 Ideas、Projects 与 Gallery。",
+          process: "先在飞书完成产品结构与八步法内容，再用 AI 辅助编码，逐页搭建 Ideas、Projects 与 Gallery，并持续根据反馈修正。",
           progress: "灵感记录与项目孵化主流程已上线，正在补充 AI 辅助与作品展示。",
           link: "https://vibebubble.co",
           cta: "体验产品"
         },
-        brand: {
-          eyebrow: "BRAND · 进行中",
-          title: "VibeBubble Brand",
-          intro: "围绕气泡与探索精神，建立从标志、字体到动态图形的品牌视觉表达。",
+        "brand-design": {
+          eyebrow: "BRAND DESIGN · 进行中",
+          title: "品牌设计",
+          intro: "从一颗气泡出发，探索标志、字体与色彩，构建品牌的视觉语言。",
+          media: [
+            { type: "image", src: "./assets/studio/brand-cover.jpg", alt: "VibeBubble 品牌视觉物料" }
+          ],
           work: "一套可以持续生长的品牌视觉系统，让网站、内容与实物周边保持同一种气质。",
           choices: [
             "以气泡作为核心图形，既是灵感也是探索的容器。",
@@ -1860,10 +2124,33 @@
           link: "",
           cta: ""
         },
-        design: {
-          eyebrow: "DESIGN · 进行中",
-          title: "VibeBubble Design",
-          intro: "从 T 恤开始，探索品牌图形与日常物件的结合，记录从设计稿到实物的过程。",
+        "brand-video": {
+          eyebrow: "BRAND FILM · 20S",
+          title: "品牌视频",
+          intro: "用动态影像讲述品牌理念，记录 AI 参与分镜、画面与视频制作的过程。",
+          media: [
+            { type: "video", src: "./assets/studio/projects/brand-video.mp4", poster: "./assets/studio/projects/brand-video-poster.jpg" }
+          ],
+          work: "一支 20 秒的品牌短片，用气泡的聚散与字体的节奏，讲清楚 VibeBubble 从哪里来、想做什么。",
+          choices: [
+            "用黑白单色建立统一的视觉基调，把注意力留给图形运动。",
+            "以气泡的聚散对应「记录、孵化、呈现」三个阶段。",
+            "字体入场与气泡运动共用同一套节奏，让画面和文字不分家。"
+          ],
+          process: "先确定叙事节奏与分镜，再用 AI 生成画面素材，最后统一字体、动效与声音。",
+          progress: "20 秒短片初版已完成，继续调整节奏与声音。",
+          link: "",
+          cta: ""
+        },
+        merch: {
+          eyebrow: "MERCH · 打样中",
+          title: "文创周边",
+          intro: "将品牌创意带入日常物件，探索从图形设计、材质选择到实物打样。",
+          media: [
+            { type: "image", src: "./assets/studio/projects/merch-1.jpg", alt: "VibeBubble T 恤平铺" },
+            { type: "image", src: "./assets/studio/projects/merch-2.jpg", alt: "VibeBubble T 恤正面" },
+            { type: "image", src: "./assets/studio/projects/merch-3.jpg", alt: "VibeBubble T 恤背面" }
+          ],
           work: "把屏幕里的品牌图形带到可以穿、可以用的物件上，检验它在真实生活里的样子。",
           choices: [
             "先做一件自己愿意每天穿的 T 恤，而不是宣传物料。",
@@ -1871,7 +2158,27 @@
             "把打样、试穿和调整的过程也作为内容记录。"
           ],
           process: "设计稿 → 打样 → 试穿反馈 → 调整版型与印花。",
-          progress: "首版设计稿完成，等待打样与实物验证。",
+          progress: "首版 T 恤打样完成，正在验证面料与印花。",
+          link: "",
+          cta: ""
+        },
+        course: {
+          eyebrow: "AI COURSE · 进行中",
+          title: "AI 课程",
+          intro: "结合真实项目与动手实践，分享用 AI 发现问题、构思方案与完成作品的方法。",
+          media: [
+            { type: "image", src: "./assets/studio/projects/course-1.jpg", alt: "AI 课程课堂现场" },
+            { type: "image", src: "./assets/studio/projects/course-2.jpg", alt: "AI 课程学员实践" },
+            { type: "image", src: "./assets/studio/projects/course-3.jpg", alt: "AI 课程作品分享" }
+          ],
+          work: "课程以真实项目为主线，从发现问题、拆解需求到用 AI 完成一个可展示的作品。",
+          choices: [
+            "每个模块都围绕一个真实项目推进，而不是孤立的工具演示。",
+            "每节课都留下可继续迭代的产出，课程结束即可带走作品。",
+            "AI 参与生成与执行，但判断、取舍与审美仍由学习者完成。"
+          ],
+          process: "课程大纲 → 现场教学与实操 → 作品复盘 → 整理为可复用内容。",
+          progress: "已在多场线下课程与工作坊中实践，持续整理课程内容。",
           link: "",
           cta: ""
         }
@@ -1879,9 +2186,127 @@
 
       var projectModal = document.getElementById("projectModal");
       var pmActions = document.getElementById("pmActions");
+      var modalCarousel = null;
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function initCarousel(root) {
+        var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+        var dots = Array.prototype.slice.call(root.querySelectorAll(".carousel-dot"));
+        if (slides.length < 2) return null;
+
+        var index = 0;
+        var timer = null;
+
+        function show(next) {
+          index = (next + slides.length) % slides.length;
+          slides.forEach(function (slide, i) {
+            slide.classList.toggle("is-active", i === index);
+          });
+          dots.forEach(function (dot, i) {
+            dot.classList.toggle("is-active", i === index);
+          });
+        }
+
+        function stop() {
+          if (timer) clearInterval(timer);
+          timer = null;
+        }
+
+        function start() {
+          if (reduceMotion) return;
+          stop();
+          timer = setInterval(function () { show(index + 1); }, 3600);
+        }
+
+        dots.forEach(function (dot, i) {
+          dot.addEventListener("click", function (event) {
+            event.stopPropagation();
+            show(i);
+            start();
+          });
+        });
+
+        root.addEventListener("mouseenter", stop);
+        root.addEventListener("mouseleave", start);
+        start();
+
+        return { stop: stop };
+      }
+
+      function renderProjectMedia(project) {
+        var pmMedia = document.getElementById("pmMedia");
+        if (!pmMedia) return;
+        if (modalCarousel) {
+          modalCarousel.stop();
+          modalCarousel = null;
+        }
+        pmMedia.innerHTML = "";
+
+        var media = project.media || [];
+        if (!media.length) {
+          pmMedia.hidden = true;
+          return;
+        }
+        pmMedia.hidden = false;
+
+        if (media.length === 1) {
+          if (media[0].type === "video") {
+            var video = document.createElement("video");
+            video.src = media[0].src;
+            video.poster = media[0].poster || "";
+            video.controls = true;
+            video.playsInline = true;
+            video.preload = "metadata";
+            pmMedia.appendChild(video);
+          } else {
+            var img = document.createElement("img");
+            img.src = media[0].src;
+            img.alt = media[0].alt || project.title;
+            pmMedia.appendChild(img);
+          }
+          return;
+        }
+
+        var frame = document.createElement("div");
+        frame.className = "pm-media-frame";
+        frame.setAttribute("data-carousel", "");
+
+        var track = document.createElement("div");
+        track.className = "carousel-track";
+        media.forEach(function (item, i) {
+          var slide = document.createElement("div");
+          slide.className = "carousel-slide" + (i === 0 ? " is-active" : "");
+          var image = document.createElement("img");
+          image.src = item.src;
+          image.alt = item.alt || project.title;
+          slide.appendChild(image);
+          track.appendChild(slide);
+        });
+
+        var dots = document.createElement("div");
+        dots.className = "carousel-dots";
+        media.forEach(function (item, i) {
+          var dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "carousel-dot" + (i === 0 ? " is-active" : "");
+          dot.setAttribute("aria-label", "第 " + (i + 1) + " 张");
+          dots.appendChild(dot);
+        });
+
+        frame.appendChild(track);
+        frame.appendChild(dots);
+        pmMedia.appendChild(frame);
+        modalCarousel = initCarousel(frame);
+      }
 
       function closeProject() {
         if (!projectModal) return;
+        if (modalCarousel) {
+          modalCarousel.stop();
+          modalCarousel = null;
+        }
+        var video = document.querySelector("#pmMedia video");
+        if (video) video.pause();
         projectModal.hidden = true;
         document.body.style.overflow = "";
       }
@@ -1896,6 +2321,7 @@
         document.getElementById("pmWork").textContent = project.work;
         document.getElementById("pmProcess").textContent = project.process;
         document.getElementById("pmProgress").textContent = project.progress;
+        renderProjectMedia(project);
 
         var choices = document.getElementById("pmChoices");
         choices.innerHTML = "";
@@ -1920,11 +2346,33 @@
         document.body.style.overflow = "hidden";
       }
 
+      if (window.__studioCarousels) {
+        window.__studioCarousels.forEach(function (item) { item.stop(); });
+      }
+      window.__studioCarousels = [];
+
+      if (window.__studioVideos) {
+        window.__studioVideos.forEach(function (video) { video.pause(); });
+      }
+
+      document.querySelectorAll(".project-media[data-carousel]").forEach(function (root) {
+        var carousel = initCarousel(root);
+        if (carousel) window.__studioCarousels.push(carousel);
+      });
+
+      window.__studioVideos = Array.prototype.slice.call(document.querySelectorAll(".card-video"));
+      window.__studioVideos.forEach(function (video) {
+        var playing = video.play();
+        if (playing && playing.catch) playing.catch(function () {});
+      });
+
       document.addEventListener("click", function (event) {
         if (event.target.closest("[data-close-modal]")) {
           closeProject();
           return;
         }
+
+        if (event.target.closest(".carousel-dots")) return;
 
         var trigger = event.target.closest("[data-project]");
         if (!trigger || event.target.closest("a")) return;

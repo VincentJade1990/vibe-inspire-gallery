@@ -287,6 +287,94 @@ body::after {
 
 .link-danger[hidden] { display: none; }
 
+/* ===== 轮次记录 / 导出 ===== */
+.proj-foot-tools {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.proj-foot-tools .btn[hidden] { display: none; }
+
+.round-modal {
+  max-width: 620px;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.round-list {
+  overflow: auto;
+  margin: 4px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.round-item {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.round-item summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.round-item summary::-webkit-details-marker { display: none; }
+
+.round-current {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.18);
+  color: var(--purple-light);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.round-count {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.round-stages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 14px 14px;
+}
+
+.round-stage-title {
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.round-stage-text {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 12.5px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  max-height: 180px;
+  overflow: auto;
+}
+
 .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
 /* 项目切换下拉 */
@@ -1359,6 +1447,10 @@ body::after {
   </div>
 
   <footer class="proj-foot">
+    <div class="proj-foot-tools">
+      <button class="btn" id="historyBtn" hidden>轮次记录</button>
+      <button class="btn" id="exportBtn" hidden>导出本轮 Markdown</button>
+    </div>
     <button class="link-danger" id="deleteProjectBtn" hidden>删除项目</button>
   </footer>
 
@@ -1383,6 +1475,17 @@ body::after {
       </button>
     </div>
     <button class="del-cancel" id="delCancelBtn">取消</button>
+  </div>
+</div>
+
+<!-- 轮次记录弹窗（只读） -->
+<div class="del-overlay" id="historyModal">
+  <div class="del-modal round-modal" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+    <div class="del-eyebrow">ROUND HISTORY</div>
+    <div class="del-title" id="historyTitle">轮次记录</div>
+    <p class="del-desc">只读查看每一轮已保存的阶段产出，不会改变当前进度。</p>
+    <div class="round-list" id="roundList"></div>
+    <button class="del-cancel" id="historyCloseBtn">关闭</button>
   </div>
 </div>
 
@@ -1600,6 +1703,9 @@ body::after {
       ? '教学示例 · 已预填全部阶段'
       : '8 Step Creation Loop · 已完成 ' + countDone() + ' / ' + total;
     el('deleteProjectBtn').hidden = !(loggedIn && currentIdea);
+    var hasOutputs = Object.keys(rawOutputs || {}).length > 0;
+    el('historyBtn').hidden = !(loggedIn && currentIdea && hasOutputs);
+    el('exportBtn').hidden = !(loggedIn && currentIdea && hasOutputs);
     renderMenu();
   }
 
@@ -2470,6 +2576,13 @@ body::after {
     });
     el('delReturnBtn').addEventListener('click', handleReturnToIdeas);
     el('delConfirmBtn').addEventListener('click', handleDeleteProject);
+
+    el('historyBtn').addEventListener('click', openHistoryModal);
+    el('historyCloseBtn').addEventListener('click', closeHistoryModal);
+    el('historyModal').addEventListener('click', function (e) {
+      if (e.target === el('historyModal')) closeHistoryModal();
+    });
+    el('exportBtn').addEventListener('click', handleExport);
   }
 
   // ===== 删除项目 =====
@@ -2505,6 +2618,81 @@ body::after {
       return;
     }
     showBanner(escapeHtml((res && res.error) || '删除失败'), 'warn');
+  }
+
+  // ===== 轮次记录（只读）与导出 =====
+  function getRounds() {
+    var set = {};
+    Object.keys(rawOutputs || {}).forEach(function (k) {
+      var m = k.match(/^r(\d+):/);
+      if (m) set[parseInt(m[1], 10)] = true;
+      else set[1] = true;
+    });
+    if (!Object.keys(set).length) set[currentRound] = true;
+    return Object.keys(set).map(Number).sort(function (a, b) { return b - a; });
+  }
+
+  function renderRoundHistory() {
+    var list = el('roundList');
+    list.innerHTML = getRounds().map(function (r) {
+      var map = outputsForRound(r);
+      var done = STEPS.filter(function (s) { return outputIsValid(map[s.key]); });
+      var body = done.map(function (s) {
+        return '<div class="round-stage">' +
+          '<div class="round-stage-title">' + escapeHtml((s.no || '') + ' ' + (s.name || '') + (s.nameCn ? ' ' + s.nameCn : '')) + '</div>' +
+          '<pre class="round-stage-text">' + escapeHtml(map[s.key]) + '</pre>' +
+          '</div>';
+      }).join('') || '<div class="round-stage-title">这一轮还没有保存的阶段产出。</div>';
+
+      return '<details class="round-item"' + (r === currentRound ? ' open' : '') + '>' +
+        '<summary>第 ' + r + ' 轮' + (r === currentRound ? '<span class="round-current">当前</span>' : '') +
+        '<span class="round-count">' + done.length + ' / ' + STEPS.length + ' 阶段</span></summary>' +
+        '<div class="round-stages">' + body + '</div>' +
+        '</details>';
+    }).join('');
+  }
+
+  function openHistoryModal() {
+    if (!currentIdea) return;
+    renderRoundHistory();
+    el('historyModal').classList.add('show');
+  }
+
+  function closeHistoryModal() {
+    el('historyModal').classList.remove('show');
+  }
+
+  function handleExport() {
+    if (!currentIdea) return;
+    var map = outputsForRound(currentRound);
+    var parts = [];
+    STEPS.forEach(function (s) {
+      if (!outputIsValid(map[s.key])) return;
+      parts.push('## ' + (s.no || '') + ' ' + (s.name || '') + (s.nameCn ? ' ' + s.nameCn : '') + '\n\n' + map[s.key].trim());
+    });
+    if (!parts.length) {
+      setState('还没有可导出的阶段产出');
+      return;
+    }
+
+    var d = new Date();
+    var stamp = d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+    var md = '# ' + currentIdea.title + '｜第 ' + currentRound + ' 轮阶段产出\n\n' +
+      '> 导出于 ' + stamp + ' · VibeBubble 八步创造法\n\n' +
+      parts.join('\n\n---\n\n') + '\n';
+
+    var blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = (currentIdea.title || '项目').replace(/[\\/:*?"<>|]/g, '-') + '-第' + currentRound + '轮.md';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    setState('已导出本轮 Markdown');
   }
 
   async function handleSave() {
