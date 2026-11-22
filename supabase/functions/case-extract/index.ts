@@ -31,7 +31,7 @@ const RUBRIC = `任务：从每条评论中抽出「正式、明确、可检索�
    - 行业术语、方法论、概念、活动名（如 Vibe Coding、AI 编程、民间大赏）
    - 作者昵称、用户名、头像旁的名字
    - 单纯提到 / 询问 / 吐槽别人已有的工具（如「codex 报错」「我用 DeepSeek」）→ reject_reason=not_work
-   - 编号或口号：第 3 个、求推荐、太强了
+   - 编号或口号：第 3 个、求推荐、太强了；纯提问或互动（如「这个用的人多不」）
    - 只有链接或广告引流
    - 纯水楼、纯表情、无实际内容
 3. 只要产品名正式且有意义，publish_ready=true，即使没有额外描述。
@@ -104,12 +104,14 @@ function cleanCommentText(item: Candidate): string {
     .map((line) => line.trim())
     .filter(Boolean);
 
-  if (lines.length >= 2 && /^(\.{3}|…|展开|收起)$/.test(lines[1]) && lines[0].length <= 24) {
-    lines = lines.slice(2);
+  if (lines.length >= 2 && lines[0].length <= 24 && /^(作者|置顶|\.{3}|…)$/.test(lines[1])) {
+    let cut = 1;
+    while (cut < lines.length && /^(作者|置顶|\.{3}|…|展开|收起)$/.test(lines[cut])) cut++;
+    lines = lines.slice(cut);
   }
   lines = lines.filter((line) => !/^(\.{3}|…|展开|收起|作者|置顶|回复)$/.test(line));
 
-  return (lines.length > 0 ? lines.join('\n') : text).trim();
+  return lines.join('\n').trim();
 }
 
 function buildPayload(items: Candidate[]) {
