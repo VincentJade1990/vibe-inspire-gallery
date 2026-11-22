@@ -26,9 +26,11 @@ const RUBRIC = `任务：从每条评论中抽出「正式、明确、可检索�
 
 规则：
 1. 产品名必须是评论原文里真实出现的名称（2–30 字），例如「死了么 App」「VibeScore」「咖啡印章」。
-2. 以下情况不算产品名，publish_ready=false：
+2. 只收录「评论者自己做的、或正在展示的具体作品」。以下情况 publish_ready=false：
    - 泛指：AI 工具、我的项目、这个 App、一个小程序
    - 行业术语、方法论、概念、活动名（如 Vibe Coding、AI 编程、民间大赏）
+   - 作者昵称、用户名、头像旁的名字
+   - 单纯提到 / 询问 / 吐槽别人已有的工具（如「codex 报错」「我用 DeepSeek」）→ reject_reason=not_work
    - 编号或口号：第 3 个、求推荐、太强了
    - 只有链接或广告引流
    - 纯水楼、纯表情、无实际内容
@@ -36,7 +38,7 @@ const RUBRIC = `任务：从每条评论中抽出「正式、明确、可检索�
 4. summary：只写评论里已有的说明，≤120 字；评论没有描述就留空字符串，不要编造。
 5. evidence：原文中能支撑该产品名的那一句，原样摘录。
 6. category 只能取：工具 / 网站 / App / 小程序 / 插件 / 游戏 / 设计 / 内容。
-7. reject_reason 只能取：no_name / vague_name / ad / spam / duplicate；通过时留空字符串。
+7. reject_reason 只能取：no_name / vague_name / not_work / ad / spam / duplicate；通过时留空字符串。
 8. completeness 为 0–100 的完整度分，仅用于排序：名称 60 分 + 有摘要 30 分 + 信息可信 10 分。
 
 输出 JSON：
@@ -67,6 +69,7 @@ type Candidate = {
   source_url: string;
   source_platform: string | null;
   raw_text: string | null;
+  author_name: string | null;
   meta_title: string | null;
   meta_description: string | null;
   source_folder: string | null;
@@ -86,13 +89,34 @@ type ExtractRow = {
 };
 
 const CATEGORIES = ['工具', '网站', 'App', '小程序', '插件', '游戏', '设计', '内容'];
-const REJECT_REASONS = ['no_name', 'vague_name', 'ad', 'spam', 'duplicate'];
+const REJECT_REASONS = ['no_name', 'vague_name', 'not_work', 'ad', 'spam', 'duplicate'];
+
+function cleanCommentText(item: Candidate): string {
+  let text = (item.raw_text || '').trim();
+  const author = (item.author_name || '').trim();
+  if (author && author !== '匿名' && text.startsWith(author)) {
+    text = text.slice(author.length).replace(/^[\s\n:：·\-—]+/, '').trim();
+  }
+
+  // 抖音导出常见形态：第一行昵称，第二行是「...」占位，之后才是正文
+  let lines = text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (lines.length >= 2 && /^(\.{3}|…|展开|收起)$/.test(lines[1]) && lines[0].length <= 24) {
+    lines = lines.slice(2);
+  }
+  lines = lines.filter((line) => !/^(\.{3}|…|展开|收起|作者|置顶|回复)$/.test(line));
+
+  return (lines.length > 0 ? lines.join('\n') : text).trim();
+}
 
 function buildPayload(items: Candidate[]) {
   return items.map((item, index) => ({
     id: index,
     note_title: item.meta_title || '',
-    text: (item.raw_text || '').slice(0, 1500),
+    text: cleanCommentText(item).slice(0, 1500),
     platform: item.source_platform || '',
     folder: item.source_folder || '',
   }));
@@ -182,7 +206,7 @@ Deno.serve(async (req) => {
   let query = supabase
     .from('candidates')
     .select(
-      'id, title, source_url, source_platform, raw_text, meta_title, meta_description, source_folder, review_status',
+      'id, title, source_url, source_platform, raw_text, author_name, meta_title, meta_description, source_folder, review_status',
     );
 
   if (ids.length > 0) {
