@@ -1,0 +1,4854 @@
+[
+  {
+    "source_url": "https://juejin.cn/post/7646985522290311219",
+    "original_url": "https://juejin.cn/post/7646985522290311219",
+    "title": "前端项目如何做 vibe codingVue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-06-04",
+    "raw_text": "Vue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 AI（如 Cursor Agent）协作完成软件开发的模式：你描述意图，AI 读代码、改代码、跑命令；你负责方向、验",
+    "summary": "Vue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 AI（如 Cursor Agent）协作完成软件开发的模式：你描述意图，AI 读代码、改代码、跑命令；你负责方向、验 Vue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 AI（如 Cursor Agen",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/0a57c9395e4a43ae9fdbe2c913b1001e~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5qmY54yr6LWw5rGf5rmW:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=SGgzcypvDu8RSC2DWnk00XkWPUk%3D",
+    "fingerprint": "e1807b32734c3808",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7594832320030244907",
+    "original_url": "https://juejin.cn/post/7594832320030244907",
+    "title": "Vibe Coding指南Vibe Coding 指南 目录 什么是 Vibe Coding？ 核心理念 完美提示词的六 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-01-14",
+    "raw_text": "Vibe Coding 指南 目录 什么是 Vibe Coding？ 核心理念 完美提示词的六大要素 高级技巧 三种工作模式 常见陷阱与避坑指南 黄金公式 进阶心法 实战案例 性能与成本优化 附录",
+    "summary": "Vibe Coding 指南 目录 什么是 Vibe Coding？ 核心理念 完美提示词的六大要素 高级技巧 三种工作模式 常见陷阱与避坑指南 黄金公式 进阶心法 实战案例 性能与成本优化 附录",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "15a92170a50bc4fd",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7643668218096041984",
+    "original_url": "https://juejin.cn/post/7643668218096041984",
+    "title": "从 Vibe Coding 到 SDD：AI 编程的工程化演进从 Vibe Coding 到 SDD：AI 编程的工程化 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-05-26",
+    "raw_text": "从 Vibe Coding 到 SDD：AI 编程的工程化演进 1. 为什么 AI 编程需要 SDD 很多人第一次使用 AI 编程工具时，体验都很像 Vibe Coding：告诉 AI 一个大概想法，",
+    "summary": "从 Vibe Coding 到 SDD：AI 编程的工程化演进 1. 为什么 AI 编程需要 SDD 很多人第一次使用 AI 编程工具时，体验都很像 Vibe Coding：告诉 AI 一个大概想法，",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/dee8b2113ee74906917d8b26eb6f9987~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5pS_6YeH5LqR5oqA5pyv:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=JLwAo139SIJKd%2Bzc66m2mp7XPFg%3D",
+    "fingerprint": "7eeb5e70f3860f5b",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7646958528021086258",
+    "original_url": "https://juejin.cn/post/7646958528021086258",
+    "title": "Vibe Coding时代的自我鞭策AI编程时代下你的优势到底是什么 灵魂拷问: 在 vibe coding 盛行以及基 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-06-03",
+    "raw_text": "AI编程时代下你的优势到底是什么 灵魂拷问: 在 vibe coding 盛行以及基模越来越强的当今，你觉得你的优势是什么？ 如果你还在说: “AI处理不了复杂的业务逻辑”、“AI写不了安全代码”、“",
+    "summary": "AI编程时代下你的优势到底是什么 灵魂拷问: 在 vibe coding 盛行以及基模越来越强的当今，你觉得你的优势是什么？ 如果你还在说: “AI处理不了复杂的业务逻辑”、“AI写不了安全代码”、“",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/08fce29d99a2435eb00c9a105d9d4a77~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5bCP6auY5LiN5oeC5YaZ5Luj56CB:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=IefmmMqYQxbpI2AtBGmn3vfAUO4%3D",
+    "fingerprint": "5edee7409ebf5111",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7537644857381109769",
+    "original_url": "https://juejin.cn/post/7537644857381109769",
+    "title": "全面解读 Vibe Coding：概念、流程、实践与未来Vibe Coding近来在软件开发圈掀起热议。作为一种 由大语 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-08-13",
+    "raw_text": "Vibe Coding近来在软件开发圈掀起热议。作为一种 由大语言模型（LLM）驱动的全新编程风格，它由人工智能专家安德烈·卡帕斯提（Andrej Karpathy）于2025年初提出。",
+    "summary": "Vibe Coding近来在软件开发圈掀起热议。作为一种 由大语言模型（LLM）驱动的全新编程风格，它由人工智能专家安德烈·卡帕斯提（Andrej Karpathy）于2025年初提出。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "fe0f37b35ba2107b",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7602191709389176874",
+    "original_url": "https://juejin.cn/post/7602191709389176874",
+    "title": "Vibe Coding 概念大全Vibe Coding 概念大全 AI 基础概念 人工智能（AI） 大语言模型（LLM） - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-02-03",
+    "raw_text": "Vibe Coding 概念大全 AI 基础概念 人工智能（AI） 大语言模型（LLM） 模型参数 训练和推理 微调（Fine-tuning） Token 和计费 Token 输入 Token 和输出",
+    "summary": "Vibe Coding 概念大全 AI 基础概念 人工智能（AI） 大语言模型（LLM） 模型参数 训练和推理 微调（Fine-tuning） Token 和计费 Token 输入 Token 和输出",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "391a6f7d06caef18",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7592082090207461403",
+    "original_url": "https://juejin.cn/post/7592082090207461403",
+    "title": "拒绝手写代码！用 Vibe Coding + SDD 范式“搓”一个微信计分小程序在传统的软件开发语境下，当我们想做一个 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-01-06",
+    "raw_text": "在传统的软件开发语境下，当我们想做一个“麻将/扑克计分器”时，脑海中浮现的第一个画面往往是：打开 VS Code，初始化 Git 仓库，纠结是用 Vue 还是 React，配置 Webpack 或 V",
+    "summary": "在传统的软件开发语境下，当我们想做一个“麻将/扑克计分器”时，脑海中浮现的第一个画面往往是：打开 VS Code，初始化 Git 仓库，纠结是用 Vue 还是 React，配置 Webpack 或 V",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "ced36bfd363457c7",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7503373674461544486",
+    "original_url": "https://juejin.cn/post/7503373674461544486",
+    "title": "Vibe Coding：让AI替你写代码，你只管躺着赚钱！Vibe Coding：用自然语言+AI编辑器开发产品，小白3 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-05-12",
+    "raw_text": "Vibe Coding：用自然语言+AI编辑器开发产品，小白3天赚大钱！无需编程，灵感即代码，AI自动生成、调试、优化。Cursor/Trae等工具让开发像搭积木，成本直降90%。",
+    "summary": "Vibe Coding：用自然语言+AI编辑器开发产品，小白3天赚大钱！无需编程，灵感即代码，AI自动生成、调试、优化。Cursor/Trae等工具让开发像搭积木，成本直降90%。",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/bcc8395c92e348b08d10ca1ffd4ff21d~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgV2lsZEJsdWU=:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=T6yR5Fs%2F9f6950eKvVydND2sg3I%3D",
+    "fingerprint": "2cb3fc3bd0795b8a",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7594791357144940586",
+    "original_url": "https://juejin.cn/post/7594791357144940586",
+    "title": "10分钟复刻爆火「死了么」App：vibe coding 实战（Expo+Supabase+MCP）这期用 vibe c - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-01-14",
+    "raw_text": "这期用 vibe coding 的方式，10分钟复刻「死了么」App 的核心功能。我不讲原理、不展开细节，只讲“怎么做”。跟着视频步骤走，你也能做出一个可运行的 App 原型。",
+    "summary": "这期用 vibe coding 的方式，10分钟复刻「死了么」App 的核心功能。我不讲原理、不展开细节，只讲“怎么做”。跟着视频步骤走，你也能做出一个可运行的 App 原型。",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/36d5dd2a3aa64d5e80ffeeabd94510a0~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbUNlbGw=:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=Py3lVwEJGu2OIGpGS5apZcglMCs%3D",
+    "fingerprint": "84d27e765fd60b83",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7589466706377965604",
+    "original_url": "https://juejin.cn/post/7589466706377965604",
+    "title": "2025 Vibe Coding 元年：AI 编程的技术突破全景2025 年，Vibe Coding（对话式编程）正式从 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-12-30",
+    "raw_text": "2025 年，Vibe Coding（对话式编程）正式从概念走向成熟。这一年，AI 编程从\"会补全代码的 Copilot\"跨越到\"能接管项目的 Agent\"，开发者与 AI 的协作方式发生了历史性变革",
+    "summary": "2025 年，Vibe Coding（对话式编程）正式从概念走向成熟。这一年，AI 编程从\"会补全代码的 Copilot\"跨越到\"能接管项目的 Agent\"，开发者与 AI 的协作方式发生了历史性变革--- theme: smartblue --- 2025 年，Vibe Coding（对话式编程）正式从概念走向成熟",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/c58da7b2d6df446fbf583362e27774c4~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgRGVscm95:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=y2dwRrSPHva6apAdhbnqFsKSy8U%3D",
+    "fingerprint": "26ad53cfcb2bb4bf",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7603616672927727631",
+    "original_url": "https://juejin.cn/post/7603616672927727631",
+    "title": "Vibe Coding 中的 Skills 详解",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-02-08",
+    "raw_text": "一、Cursor IDE 中的 Skills 功能（技术特性） 1. 什么是 Cursor Skills？ Skills 是 Cursor 编辑器中引入的一种动态上下文管理机制，用于扩展 AI Age",
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "5e6f89a532b173f0",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7592170171634434063",
+    "original_url": "https://juejin.cn/post/7592170171634434063",
+    "title": "🌟从“抽卡式编程”到规范驱动： 深度解析「Vibe Coding」的三层跃迁今天，我们就以一个“手搓计分小程序”的真实 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-01-07",
+    "raw_text": "今天，我们就以一个“手搓计分小程序”的真实演进路径，拆解 Vibe Coding 的三大阶段，见证它如何从“碰运气”走向“控流程”，最终实现 **AI 驱动的工程化落地**。",
+    "summary": "今天，我们就以一个“手搓计分小程序”的真实演进路径，拆解 Vibe Coding 的三大阶段，见证它如何从“碰运气”走向“控流程”，最终实现 **AI 驱动的工程化落地**。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "102d14ad9d4b26a7",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7567832953080004635",
+    "original_url": "https://juejin.cn/post/7567832953080004635",
+    "title": "前端Vibe Coding探索：Cursor+MCP打造沉浸式开发流chrome-devtools-mcp（调试自动化） - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-11-03",
+    "raw_text": "chrome-devtools-mcp（调试自动化）+cursor Rules（代码风格约束）+figma mcp（设计稿数据确定）进行前端vibe coding 探索",
+    "summary": "chrome-devtools-mcp（调试自动化）+cursor Rules（代码风格约束）+figma mcp（设计稿数据确定）进行前端vibe coding 探索",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "fec3e53e07b24787",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7624588815168356406",
+    "original_url": "https://juejin.cn/post/7624588815168356406",
+    "title": "【大纲】TRAE AI 编程入门第一讲——Vibe Coding 初识即上手体系化 AI 编程入门课程第一讲大纲。本课聚 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-04-04",
+    "raw_text": "体系化 AI 编程入门课程第一讲大纲。本课聚焦 Vibe Coding（直觉编程）理念，带你告别晦涩语法，像聊天一样写代码。通过对比传统编程，快速上手字节跳动 AI 编程工具 TRAE，体验从想法到聊",
+    "summary": "体系化 AI 编程入门课程第一讲大纲。本课聚焦 Vibe Coding（直觉编程）理念，带你告别晦涩语法，像聊天一样写代码。通过对比传统编程，快速上手字节跳动 AI 编程工具 TRAE，体验从想法到聊",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "c8dac8f994e73855",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7509367698067308595",
+    "original_url": "https://juejin.cn/post/7509367698067308595",
+    "title": "开通了 Trae Pro 终于可以开心地 Vibe Coding 了一位资深Java程序员分享了使用AI编程工具Trae - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-05-28",
+    "raw_text": "一位资深Java程序员分享了使用AI编程工具Trae的深度体验。作者目前95%的代码都由AI编写，通过\"Vibe Coding\"方式用自然语言描述需求让AI完成编码。",
+    "summary": "一位资深Java程序员分享了使用AI编程工具Trae的深度体验。作者目前95%的代码都由AI编写，通过\"Vibe Coding\"方式用自然语言描述需求让AI完成编码。",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/c1887a566c174a589b63d12329508445~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5oKf6bij:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=UA44%2Bu8p%2BzSO72s5QJxUWr%2BiF6E%3D",
+    "fingerprint": "f89d24b7021f86db",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7589214068093779987",
+    "original_url": "https://juejin.cn/post/7589214068093779987",
+    "title": "Vibe Coding：重构工作流的思维与实践本文系作者 [架构精进之路] 原创，著作权归作者所有，未经授权禁止任何形式 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-12-30",
+    "raw_text": "本文系作者 [架构精进之路] 原创，著作权归作者所有，未经授权禁止任何形式的转载、抄袭或盗用，违者必究。 弹指间，岁序更迭，又至年末，这一年我们不断奋斗，不断忙碌，真的好似一瞬间，就来到了 2025",
+    "summary": "本文系作者 [架构精进之路] 原创，著作权归作者所有，未经授权禁止任何形式的转载、抄袭或盗用，违者必究。 弹指间，岁序更迭，又至年末，这一年我们不断奋斗，不断忙碌，真的好似一瞬间，就来到了 2025",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/cc9353d518074b4fadd64621a4a08bea~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5p625p6E57K-6L-b5LmL6Lev:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=mOSk7ijK%2F9yWKxFylUmscQaitXA%3D",
+    "fingerprint": "ac6efd2d5d32dca0",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7583845695179849734",
+    "original_url": "https://juejin.cn/post/7583845695179849734",
+    "title": "挖到 4 个 Vibe Coding 的 GitHub 开源项目，速速收藏。Andrej Karpathy 是 Open - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-12-15",
+    "raw_text": "Andrej Karpathy 是 OpenAI 创始成员、前特斯拉 AI 总监。 他年初在 X 上发布了一条推文，分享了自己使用 Cursor + Claude 进行编程的体验",
+    "summary": "Andrej Karpathy 是 OpenAI 创始成员、前特斯拉 AI 总监。 他年初在 X 上发布了一条推文，分享了自己使用 Cursor + Claude 进行编程的体验",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "7b1a4b67ec1c9719",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7503400503176871936",
+    "original_url": "https://juejin.cn/post/7503400503176871936",
+    "title": "一个人的战场 —— Vibe Coding 与 Cursor、Trae、Vercel 的沉浸式开发实战在传统印象中，开发 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-05-12",
+    "raw_text": "在传统印象中，开发一个产品需要一个完整的团队：前端、后端、UI、运维、产品经理……大家各司其职，通宵改需求，开会扯功能。但今天我要告诉你的是——一个人也可以搞定一切。 我越来越坚信：工具决定效率",
+    "summary": "在传统印象中，开发一个产品需要一个完整的团队：前端、后端、UI、运维、产品经理……大家各司其职，通宵改需求，开会扯功能。但今天我要告诉你的是——一个人也可以搞定一切。 我越来越坚信：工具决定效率",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/a15b2330e1654d19b9f7d830374bd941~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5YWs5Li7:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=Ef9wQ8IIdoU9kafxJJC8dbgA2p0%3D",
+    "fingerprint": "512602eaeca21e91",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://douyin.com/note/7632979028546757349",
+    "original_url": "https://www.douyin.com/note/7632979028546757349",
+    "title": "Vibe Coding项目四周获数十万用户",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "douyin",
+    "date_added": "2026-05-29",
+    "raw_text": "通过Vibe Coding方式在不到一个月时间内开发并上线的产品，已成功获取数十万用户。展示了AI辅助开发在快速验证产品想法、缩短开发周期方面的强大能力。适合作为Vibe Coding成功入门的激励案例。",
+    "summary": null,
+    "author_name": "佳佳子_",
+    "cover_image_url": null,
+    "fingerprint": "d80f3d08809fef22",
+    "score": 100,
+    "ai_score": null,
+    "final_score": 100,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7611819355540504628",
+    "original_url": "https://juejin.cn/post/7611819355540504628",
+    "title": "Vibe Coding 的尽头是 AI Agent 军团：我用 16 个 Agent 自动化了整个创业公司90% 的人还 - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2026-03-01",
+    "raw_text": "90% 的人还在让 AI 补代码，1% 的人已经在指挥 AI 军团。本文带你从 Vibe Coding 入门到 Agent 协同实战。",
+    "summary": "90% 的人还在让 AI 补代码，1% 的人已经在指挥 AI 军团。本文带你从 Vibe Coding 入门到 Agent 协同实战。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "a8039fba9af069d7",
+    "score": 98,
+    "ai_score": null,
+    "final_score": 98,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://juejin.cn/post/7575413146921648143",
+    "original_url": "https://juejin.cn/post/7575413146921648143",
+    "title": "关于氛围编程（Vibe Coding）的一切Vibe Coding这一术语由OpenAI联合创始人Andrej Karp - 掘金",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "juejin",
+    "date_added": "2025-11-23",
+    "raw_text": "Vibe Coding这一术语由OpenAI联合创始人Andrej Karpathy提出，即用自然语言提示和智能体AI支持，更快地将想法转化为代码。",
+    "summary": "Vibe Coding这一术语由OpenAI联合创始人Andrej Karpathy提出，即用自然语言提示和智能体AI支持，更快地将想法转化为代码。",
+    "author_name": null,
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/9ff330efd8fc4d5eb693fa863867b89f~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5bCP5bCP5oCq5YW9:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=enbqvIO3jWCfM25MgFTWhfwKywA%3D",
+    "fingerprint": "cbd8b3a263f2e181",
+    "score": 98,
+    "ai_score": null,
+    "final_score": 98,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "详情页链接",
+      "内容平台",
+      "AI 主题相关",
+      "2025 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/69f0efc80000000020038c87",
+    "original_url": "https://www.xiaohongshu.com/explore/69f0efc80000000020038c87",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "最近vibe coding了一个新产品：VibeScore。 它是一个面向 Vibe Coders、AI 创作者和独立开发者的作品评分社区。 很多人现在都能用 AI 做出 Demo、网页、小工具和产品原型，但问题是： 作品做出来以后，很难知道别人到底看不看得懂、愿不愿意点、觉得值不值得继续做。 所以 VibeScore 想解决的是： 让真实用户围观你的 AI 作品，并用打分和评论给出第一批反馈。",
+    "summary": null,
+    "author_name": "Ace Lee ｜Ai版",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "e8f2c952224c0952",
+    "score": 91,
+    "ai_score": null,
+    "final_score": 91,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/69a035e1000000001502055b",
+    "original_url": "https://www.xiaohongshu.com/explore/69a035e1000000001502055b",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "我0开发经验，搞了个 云预订就是这个拼音加个.com，已经开始销售，因为我自己做餐饮的，体验了很多，要么难用、要么又贵又难用...所以我+cursor（去年初）+claude+code x，别问我skill啥的，我几乎都没用....",
+    "summary": null,
+    "author_name": "干饭老李",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "667ffda6faf6547a",
+    "score": 91,
+    "ai_score": null,
+    "final_score": 91,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/69abf9a5000000000d008b81",
+    "original_url": "https://www.xiaohongshu.com/explore/69abf9a5000000000d008b81",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "做了一个openclaw skill叫daily-gift，可以让AI每天根据你们的对话/记忆帮你选择一个角度和创意，送你一份电子礼物，时常会被AI的品味惊讶到！",
+    "summary": null,
+    "author_name": "电子礼物主理人🌌",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "e143ce1d7a4a7900",
+    "score": 91,
+    "ai_score": null,
+    "final_score": 91,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/6a36a67c000000001603f38c",
+    "original_url": "https://www.xiaohongshu.com/explore/6a36a67c000000001603f38c",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "各位做Vibe Coding的博主们。不知道你们有没有对自己的创意产生怀疑，因为我也做了几个产品，始终没啥流量，所以可能要从他人视角点评一下自己的产品，所以第一，自己做了一个小程序，可以从营销推广各个维度去对当前项目评分",
+    "summary": null,
+    "author_name": "鱼小鲨",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "6c598cbe9bfe8afb",
+    "score": 91,
+    "ai_score": null,
+    "final_score": 91,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/69a54cc6000000002303a3a6",
+    "original_url": "https://www.xiaohongshu.com/explore/69a54cc6000000002303a3a6",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "AI健身教练，没写一行代码，纯vibecoding，前后端部署都是一个人完成。大概4个月搞定",
+    "summary": null,
+    "author_name": "铁男momo君",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "97df06eaae58f2e6",
+    "score": 88,
+    "ai_score": null,
+    "final_score": 88,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/6a391122000000002201a0e2",
+    "original_url": "https://www.xiaohongshu.com/explore/6a391122000000002201a0e2",
+    "title": "Vibe Coding10个创意玩法💡别再只做日历了 - 小红书",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "谢谢分享，文科生也学会了，第一次 vibecoding ，尝试给老年人做了个 ai 访谈工具",
+    "summary": "开始Vibe Coding之后，很多人入门后做的第一个项目都是日历或者To Do，但其实 Vibe Coding 更有意思的地方，在于把脑海里的想法快速变成可交互的作品。 这次整理了10个有趣的项目方向。 #vibecoding #ai #howto实现一万种vibecoding #vibecoding大赏 #设计灵感 #设计 #审美积累 #创意 #灵感",
+    "author_name": "Crazy 脑瓜子",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "bf780935e04924ee",
+    "score": 88,
+    "ai_score": null,
+    "final_score": 88,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/6a0bdf4c000000003701cd97",
+    "original_url": "https://www.xiaohongshu.com/explore/6a0bdf4c000000003701cd97",
+    "title": "很好奇大家的vibe coding赚钱能力 - 小红书",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "十几年app开发，上班很闲，vibe coding了10个自己app，哈哈哈日均收入5块左右，两个茶叶蛋。。每个月大概赚150",
+    "summary": "#个人开发者 #开发 #时间自由的事业 好奇怪的语序。） 如果是跨行做出来的案例就更好了）",
+    "author_name": "小马迹",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "a9df6f73294bd8de",
+    "score": 88,
+    "ai_score": null,
+    "final_score": 88,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/69900b52000000000d008247",
+    "original_url": "https://www.xiaohongshu.com/explore/69900b52000000000d008247",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "做了一个用自己已有衣服根据场景一键生成搭配的app",
+    "summary": null,
+    "author_name": "ApprenticeMichelle",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "ce4a7c6a56253685",
+    "score": 88,
+    "ai_score": null,
+    "final_score": 88,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/699f5173000000001b01dc8c",
+    "original_url": "https://www.xiaohongshu.com/explore/699f5173000000001b01dc8c",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "自信展示，vibe coding一周完成，现在50多万用户了",
+    "summary": null,
+    "author_name": "江炜",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "c5dddd081820ef79",
+    "score": 88,
+    "ai_score": null,
+    "final_score": 88,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/699d7ccf000000001a02c1cd",
+    "original_url": "https://www.xiaohongshu.com/explore/699d7ccf000000001a02c1cd",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "做了一个主要做自我觉察、破除 信息茧房 、能量管理的产品，集成了一个对话agent，可以识别每个用户的性格、习惯，记录并陪伴",
+    "summary": null,
+    "author_name": "JeremyKong",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "462301bd975562f8",
+    "score": 88,
+    "ai_score": null,
+    "final_score": 88,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://xiaohongshu.com/explore/69f3ed830000000013020401",
+    "original_url": "https://www.xiaohongshu.com/explore/69f3ed830000000013020401",
+    "title": "小红书 - 你访问的页面不见了",
+    "folder": "历史抓取",
+    "source_kind": "archive",
+    "source_platform": "xiaohongshu",
+    "date_added": "2026-06-30",
+    "raw_text": "这两天收到了很多不错的feedback，我和Lin筛选了一些作为下个版本的更新内容：1.Add Brew新增note 2.新增星标monthly favorite 3.shop name自定义标签 4.shop location识别优化，支持app内搜索",
+    "summary": null,
+    "author_name": "yue=emomo",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "fingerprint": "dc43de21104e20be",
+    "score": 85,
+    "ai_score": null,
+    "final_score": 85,
+    "verdict": "approve",
+    "reasons": [
+      "已有正文/摘要",
+      "内容平台",
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://bilibili.com/video/BV12u41167fq?p=11",
+    "original_url": "https://www.bilibili.com/video/BV12u41167fq?p=11",
+    "title": "《让淘宝的内容好逛，我们都做了什么》_哔哩哔哩_bilibili",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "bilibili",
+    "date_added": "2022-06-06",
+    "raw_text": null,
+    "summary": "《让淘宝的内容好逛，我们都做了什么》是阿里巴巴设计公开课-体验设计/视觉设计/UI设计/运营设计的第11集视频，该合集共计54集，视频收藏或关注UP主，及时了解更多相关视频内容。",
+    "author_name": "来亿点芝士ba",
+    "cover_image_url": "https://i1.hdslb.com/bfs/archive/b32eb004b1b70dc47999bb05d59b707e9850fea7.png@1200w_630h",
+    "fingerprint": "53cc117e19a78260",
+    "score": 80,
+    "ai_score": null,
+    "final_score": 80,
+    "verdict": "approve",
+    "reasons": [
+      "详情页链接",
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://awwwards.com/sites/radio-radio",
+    "original_url": "https://www.awwwards.com/sites/radio-radio",
+    "title": "Radio Radio - Awwwards SOTD",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-07-18",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8af01e4d7fb980ad",
+    "score": 74,
+    "ai_score": null,
+    "final_score": 74,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://ecomdaxue.com/zh/%E8%87%AA%E5%B7%B1%E6%95%B0%E6%8D%AE%E8%AE%AD%E7%BB%83chatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA",
+    "original_url": "https://ecomdaxue.com/zh/%E8%87%AA%E5%B7%B1%E6%95%B0%E6%8D%AE%E8%AE%AD%E7%BB%83chatgpt%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/",
+    "title": "如何在自己的数据上训练 ChatGPT？构建自定义 AI 聊天机器人的指南 - ecomdaxue.com",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-06",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "b5238480cbd265fb",
+    "score": 74,
+    "ai_score": null,
+    "final_score": 74,
+    "verdict": "approve",
+    "reasons": [
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://positivepsychology.com/ai-therapy",
+    "original_url": "https://positivepsychology.com/ai-therapy/",
+    "title": "Revolutionizing AI Therapy: The Impact on Mental Health Care",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-08-20",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "e835aa3bf264f96b",
+    "score": 74,
+    "ai_score": null,
+    "final_score": 74,
+    "verdict": "approve",
+    "reasons": [
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://zhuanlan.zhihu.com/p/99094844",
+    "original_url": "https://zhuanlan.zhihu.com/p/99094844",
+    "title": "从型号了解一台相机·富士篇 | 2021新版 - 知乎",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-09",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "94e2830344442bf7",
+    "score": 72,
+    "ai_score": null,
+    "final_score": 72,
+    "verdict": "approve",
+    "reasons": [
+      "详情页链接",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://xp-pen.com.cn/detail/193.html",
+    "original_url": "https://www.xp-pen.com.cn/detail/193.html",
+    "title": "XPPen 品牌焕新：面向 Z 世代，激发自由灵感与创作真我 | XPPen",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-24",
+    "raw_text": null,
+    "summary": "XPPen 举办了一场以“梦想 勇敢 真我”为主题的品牌焕新线上发布会。发布会中，XPPen 吉祥物 - 虚拟 IP Fenix 向观众诠释了全新的品牌愿景与核心理念，并介绍了 XPPen 完善的产品布局与技术亮点，向外界吹响品牌升级的号角。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "4d028840484a2809",
+    "score": 72,
+    "ai_score": null,
+    "final_score": 72,
+    "verdict": "approve",
+    "reasons": [
+      "详情页链接",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://segmentfault.com/a/1190000040970567",
+    "original_url": "https://segmentfault.com/a/1190000040970567",
+    "title": "Web 用户体验设计提升实践",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-08-08",
+    "raw_text": null,
+    "summary": "本文是基于 Shopee 供应链团队内部 WMS（Warehouse Management System，仓库管理系统） 项目的整体重构，总结而出的一份 Web 用户体验设计提升指南。因为是对...",
+    "author_name": null,
+    "cover_image_url": "https://segmentfault.com/img/bVcV4tK?spec=cover",
+    "fingerprint": "4777707aa8ba64c0",
+    "score": 72,
+    "ai_score": null,
+    "final_score": 72,
+    "verdict": "approve",
+    "reasons": [
+      "详情页链接",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://uisdc.com/adobe-illustrator-3d-effect",
+    "original_url": "https://www.uisdc.com/adobe-illustrator-3d-effect",
+    "title": "超实用！高手的 Ai 兵器谱之「玩转3D效果」",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-04-25",
+    "raw_text": null,
+    "summary": "在Adobe illustrator（Ai）中，有一项让大部分使用者都相对陌生的3D功能。虽然不及专业的3D软件强大，但能帮助我们快速做出立体的造型。今天我将为大家详细讲解 Ai 中3D效果的基本原理，并介绍相关的使用方法，最后会通过一个案例帮助大家更好的理解 Ai 中3D效果的实际运用。",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2019/03/uisdc-banner-20190313-4.jpg",
+    "fingerprint": "1e9909e3c9db9ea5",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "AI 主题相关"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://uisdc.com/web-design-layout-2",
+    "original_url": "https://www.uisdc.com/web-design-layout-2",
+    "title": "用一篇5000+的干货，帮你了解常用的Web产品设计布局",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-01-20",
+    "raw_text": null,
+    "summary": "开篇现如今，几乎所有的网页设计都要进行响应式和自适应设计，才能让产品能够覆盖到更多终端，接手一个产品设计的初期，制定界面适配规则时，你是否也有过如下疑问：宽度单位我是用百分比还是 px？还是 rem？区别是什么？",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/04/uisdc-banner-20210423-3.jpg",
+    "fingerprint": "bbfacc44b633424a",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://uisdc.com/windows-11-fluent",
+    "original_url": "https://www.uisdc.com/windows-11-fluent#post_download",
+    "title": "Windows 11全新设计语言如何引领设计新趋势 ？（附源文件下载）",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-04-19",
+    "raw_text": null,
+    "summary": "Hi，我是彩云。虽然我平时除了用 OC 渲染模型的时候用以外，几乎很少用 windows 系统，但 windows 11 这次的更新还是让人感到惊艳的，近几年的毛玻璃风格趋势重新回归就来源于微软的这套新设计语言 Fluent。为了探究这次升级背后的思考和理念，我从微软官方找到了这篇文章，感受到了国际顶级设计团队对...",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/09/uisdc-banner-20210906-2.jpg",
+    "fingerprint": "169ba0cabc050a1a",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://uisdc.com/design-principles",
+    "original_url": "https://www.uisdc.com/design-principles",
+    "title": "字节跳动出品！ArcoDesign 值得学习的 8 个设计原则",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-04-19",
+    "raw_text": null,
+    "summary": "设计原则相当于整个语言体系中的修辞手法。务实的浪漫主义是对设计语言的形容，它也代表着 ArcoDesign 试图建立的工作模式。浪漫与务实并非矛盾对立，它们相辅相成，引导设计方向。",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/11/uisdc-banner-202111117-4.jpg",
+    "fingerprint": "ce1483a8ef3c924e",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://uisdc.com/design-standard-rethink",
+    "original_url": "https://www.uisdc.com/design-standard-rethink",
+    "title": "超赞！3个维度帮你重新思考设计标准",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-10",
+    "raw_text": null,
+    "summary": "@尤原庆 ：最近很多设计师小伙伴问我关于设计标准的问题，例如产品设计的一致性、容错、简洁、重视内容等。在这些问题中，我发现大家思考设计标准的维度都有一些偏差或者不完整，所以今天想把一些自己如何思考设计标准的粗浅想法记录一下，希望对大家有一些帮助。1，设计标准的重要性首先讲一下设计标准的重要性。",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2016/07/design-standard-rethink.jpg",
+    "fingerprint": "2efd2acc0361a67a",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://uisdc.com/introducing-spotifys-new-design-principles",
+    "original_url": "https://www.uisdc.com/introducing-spotifys-new-design-principles",
+    "title": "全球最大的音乐服务商Spotify，如何做设计原则升级？",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-10",
+    "raw_text": null,
+    "summary": "Hi，大家好，我是彩云。Spotify，也叫“声田”，是一个在国外非常火的正版音乐平台，也是目前全球最大的流音乐服务商之一，在去年用户规模就已经达到了2.48亿。那这么大量用户的产品如何定义自己的设计原则，又是如何做升级的，值得我们学习。",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2020/11/uisdc-banner-20201102-3.jpg",
+    "fingerprint": "9d03e0d7b0155599",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://uisdc.com/four-elephants-model",
+    "original_url": "https://www.uisdc.com/four-elephants-model",
+    "title": "如何做好工具类产品体验？来看大厂总结的四象模型",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-23",
+    "raw_text": null,
+    "summary": "工具类产品通常使用门槛较高，产品逻辑较复杂，在交互及体验上的要求也会更为苛刻，尤其对于设计工具而言。我们查找了已有的设计方法，发现并没有专门针对生产力工具的设计方法与体验衡量的方法论，因此推导出专门适用于生产力工具产品的设计与体验模型，归纳为：2 大要素、4 个核心维度、4 个体验目标与 9 大体验原则，希望可以...",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/02/uisdc-banner-20210205-4.jpg",
+    "fingerprint": "1b9ee6eeedce000c",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://woshipm.com/pd/1726665.html",
+    "original_url": "http://www.woshipm.com/pd/1726665.html",
+    "title": "四象模型（工具产品设计及体验模型） | How it comes？ – 人人都是产品经理",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-23",
+    "raw_text": null,
+    "summary": "工具类产品通常使用门槛较高，产品逻辑较复杂，在交互及体验上的要求也会更为苛刻，尤其对于设计工具而言。面对这种类型的产品，设计师该如何着手呢？ 我们查找了已有的设计方法，发现并没有专门针对生产力工具的设计方法与体验衡量的方法论，因此推导出专门适用于生产力工具产品",
+    "author_name": null,
+    "cover_image_url": "https://image.woshipm.com/wp-files/2018/12/6fuxr1SteCd5fmzU2xc9.jpg",
+    "fingerprint": "0605cbd1fdd16d1c",
+    "score": 70,
+    "ai_score": null,
+    "final_score": 70,
+    "verdict": "approve",
+    "reasons": [
+      "内容平台",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://mysecretrainbow.com/blog/19775.html",
+    "original_url": "http://www.mysecretrainbow.com/blog/19775.html",
+    "title": "体验设计度量，看这一篇就够 - My Secret Rainbow",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-04-01",
+    "raw_text": null,
+    "summary": "如何评估设计价值已经成为设计同行都在思考和研究的课题。本篇将通过复盘优酷设计构建内容行业的设计质量评估体系的过程，盘点国内外现有体验度量理论和国内已有落地方法，总结设计模型的构建流程和方法，希望与设计同行共同讨论设计价值量化的方法。通过阅读本文章，设计团队也可以构建属于自己业务的设计质量评估模型。",
+    "author_name": null,
+    "cover_image_url": "https://www.mysecretrainbow.com/wp-content/uploads/2021/02/1613673101-1.png",
+    "fingerprint": "0d49c2914cce5ac7",
+    "score": 68,
+    "ai_score": null,
+    "final_score": 68,
+    "verdict": "review",
+    "reasons": [
+      "AI 主题相关",
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://brainbit.com/software-solutions/eeg-waves-app",
+    "original_url": "https://brainbit.com/software-solutions/eeg-waves-app/",
+    "title": "Homepage",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-27",
+    "raw_text": null,
+    "summary": "B R A I N B I T The Evolution in Consumer EEG Wearables Pre-order Now Everything your head needs The amazing EEG-headband concept Intelligently designed for extended use",
+    "author_name": null,
+    "cover_image_url": "http:/_I/favicon/BB-logo-gor-1-e1483706669381.png",
+    "fingerprint": "742ca0b734c513bd",
+    "score": 68,
+    "ai_score": null,
+    "final_score": 68,
+    "verdict": "review",
+    "reasons": [
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://canva.cn/video-cover/templates",
+    "original_url": "https://www.canva.cn/video-cover/templates/",
+    "title": "Canva可画",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-11-18",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "f4f5b79b7eadb509",
+    "score": 68,
+    "ai_score": null,
+    "final_score": 68,
+    "verdict": "review",
+    "reasons": [
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://jianshu.com/p/251bd5f485de",
+    "original_url": "https://www.jianshu.com/p/251bd5f485de",
+    "title": "干货贴：UI进阶必备高颜值设计网站-2019合集",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-09-08",
+    "raw_text": null,
+    "summary": "作为一枚努力的UI设计师，每天找灵感/勤思考必不可少。Behance、Dribbble、Pinterest、iconfont、站酷、UI中国以及被约谈的花瓣，这些老生常谈的灵...",
+    "author_name": null,
+    "cover_image_url": "http://upload-images.jianshu.io/upload_images/3677373-72d533b8b41a510e.png",
+    "fingerprint": "5395b72cf7f05ba8",
+    "score": 66,
+    "ai_score": null,
+    "final_score": 66,
+    "verdict": "review",
+    "reasons": [
+      "详情页链接"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://grapheine.com/portfolio/identite-visuelle-hopital-novo?id=1710840812",
+    "original_url": "https://www.grapheine.com/portfolio/identite-visuelle-hopital-novo?id=1710840812",
+    "title": "Hôpital NOVO - Identité visuelle & Naming - Graphéine branding, stratégie et design de marque",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-11-05",
+    "raw_text": null,
+    "summary": "Stratégie, naming et architecture de marque de l’Hôpital NOVO, né de la fusion de trois établissements du Nord-Ouest Val-d’Oise. Un logotype fédérateur illustrant entraide, mobilité et cycle de vie, pour réinventer l’hôpital de proximité et imaginer demain.",
+    "author_name": null,
+    "cover_image_url": "https://grapheine.com/wp-content/uploads/2024/03/02-hopital-novo-identite-visuelle-signe.webp",
+    "fingerprint": "926894b737be7fb3",
+    "score": 66,
+    "ai_score": null,
+    "final_score": 66,
+    "verdict": "review",
+    "reasons": [
+      "2024 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://grapheine.com/en/portfolio/naolib-nantes-metropole-mobility-branding",
+    "original_url": "https://www.grapheine.com/en/portfolio/naolib-nantes-metropole-mobility-branding",
+    "title": "Naolib - Nantes Métropole Mobility - Brand design & Illustration - Graphéine branding, brand strategy and brand design",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-11-05",
+    "raw_text": null,
+    "summary": "Naolib, Nantes Métropole's new mobility brand, a single brand that brings together all the region's transport operators (bus, streetcar, bicycle, parking, etc.).",
+    "author_name": null,
+    "cover_image_url": "https://grapheine.com/wp-content/uploads/2023/09/02-naolib-identite-logotype-vert.webp",
+    "fingerprint": "63058089a132c184",
+    "score": 66,
+    "ai_score": null,
+    "final_score": 66,
+    "verdict": "review",
+    "reasons": [
+      "2024 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://muz.li/blog/work-smarter-not-harder-must-have-web-design-tools-for-2024",
+    "original_url": "https://muz.li/blog/work-smarter-not-harder-must-have-web-design-tools-for-2024/?utm_source=extension&utm_medium=click&utm_campaign=muzli",
+    "title": "Work Smarter, Not Harder: Must-Have Web Design Tools for 2024 | Muzli Blog",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-07-29",
+    "raw_text": null,
+    "summary": "Staying updated with the latest tools can significantly enhance your workflow and creativity.",
+    "author_name": null,
+    "cover_image_url": "https://feed.muzli.cloud/muzli_feed/wp-content/uploads/2024/07/21162231/tools1.png",
+    "fingerprint": "70c60fa6440ccb76",
+    "score": 66,
+    "ai_score": null,
+    "final_score": 66,
+    "verdict": "review",
+    "reasons": [
+      "2024 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://dashboardicons.com/icons",
+    "original_url": "https://dashboardicons.com/icons",
+    "title": "Browse Icons & Logos",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2026-08-21",
+    "raw_text": null,
+    "summary": "Search and browse thousands of curated icons and logos for dashboards and app directories.",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "701500a3b9d441dd",
+    "score": 66,
+    "ai_score": null,
+    "final_score": 66,
+    "verdict": "review",
+    "reasons": [
+      "2026 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://woshipm.com/operate/874474.html",
+    "original_url": "http://www.woshipm.com/operate/874474.html",
+    "title": "品牌营销：如何建立像迷信一样的仪式？ – 人人都是产品经理",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-10-20",
+    "raw_text": null,
+    "summary": "仪式到底是满足了人们的什么样需求呢？以及在品牌上该如何利用这些需求原理进行仪式化呢？文章为你解读。 提到仪式，一般人首先会想到的是原始部落里“载歌载舞”的奇怪动作，或则人们求神拜佛时的特定形式，这些仪式由来已久，但是，这些仪式为什么会存在？以及它形成的路径到底",
+    "author_name": null,
+    "cover_image_url": "//image.woshipm.com/wp-files/img/94.jpg",
+    "fingerprint": "162872536618ded9",
+    "score": 64,
+    "ai_score": null,
+    "final_score": 64,
+    "verdict": "review",
+    "reasons": [
+      "内容平台"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://youtube.com/watch?v=D7YvXCHLsdo&list=RDCMUClKO7be7O9cUGL94PHnAeOA&start_radio=1&rv=D7YvXCHLsdo&t=137&ab_channel=GoogleDesign",
+    "original_url": "https://www.youtube.com/watch?v=D7YvXCHLsdo&list=RDCMUClKO7be7O9cUGL94PHnAeOA&start_radio=1&rv=D7YvXCHLsdo&t=137&ab_channel=GoogleDesign",
+    "title": "Anchor—making a cross-platform design system | Centered Ep 7",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-08-02",
+    "raw_text": null,
+    "summary": "In New York City we meet with Anchor, a podcasting app that uses a playful design system to craft a seamless flow across platforms and devices. Centered host...",
+    "author_name": null,
+    "cover_image_url": "https://i.ytimg.com/vi/D7YvXCHLsdo/maxresdefault.jpg",
+    "fingerprint": "04dbc65a375f97e5",
+    "score": 64,
+    "ai_score": null,
+    "final_score": 64,
+    "verdict": "review",
+    "reasons": [
+      "内容平台"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://youtube.com/watch?v=C-8sFlhfosM&ab_channel=AndrewEthanZeng",
+    "original_url": "https://www.youtube.com/watch?v=C-8sFlhfosM&ab_channel=AndrewEthanZeng",
+    "title": "The MODERN Home Office Setup – DIY Transformation + Desk Tour",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-08-02",
+    "raw_text": null,
+    "summary": "Now that working from home is more important than ever, I'll take you through my dream DIY transformation of my own home office workspace, how I set up my de...",
+    "author_name": null,
+    "cover_image_url": "https://i.ytimg.com/vi/C-8sFlhfosM/maxresdefault.jpg",
+    "fingerprint": "76b034f661d6524b",
+    "score": 64,
+    "ai_score": null,
+    "final_score": 64,
+    "verdict": "review",
+    "reasons": [
+      "内容平台"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://invisionapp.com/lp/enterprise-freehand-short-new-gen-b",
+    "original_url": "https://www.invisionapp.com/lp/enterprise-freehand-short-new-gen-b?utm_source=blog&utm_medium=content&utm_campaign=InVision_company_announcement",
+    "title": "AI Innovation Workspace | Miro",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-02-23",
+    "raw_text": null,
+    "summary": "Speed up product development from ideation to launch. Align teams, break tool silos, and ship what customers need in one AI-powered visual platform.",
+    "author_name": null,
+    "cover_image_url": "https://framerusercontent.com/assets/Bab0War93Jeq5MpDPwqKFiyI.png",
+    "fingerprint": "65b6695da9511adf",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://invisionapp.com/inside-design/new-invision-company-announcement",
+    "original_url": "https://www.invisionapp.com/inside-design/new-invision-company-announcement/",
+    "title": "AI Innovation Workspace | Miro",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-02-23",
+    "raw_text": null,
+    "summary": "Speed up product development from ideation to launch. Align teams, break tool silos and ship what customers need in one AI-powered visual platform.",
+    "author_name": null,
+    "cover_image_url": "https://framerusercontent.com/assets/Bab0War93Jeq5MpDPwqKFiyI.png",
+    "fingerprint": "dff4f91a6d21b8f3",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://editorx.com/prowebsites/home?experiment_id=movefaster",
+    "original_url": "https://www.editorx.com/prowebsites/home?utm_source=mb&utm_medium=cpc&utm_campaign=ma_ads_edx-dribbble-top&experiment_id=movefaster",
+    "title": "Responsive Web Design | Website Creation | Editor X",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "twitter",
+    "date_added": "2022-03-02",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "ec59fc3e9deab994",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://qq.design/design/Foundation/Icon",
+    "original_url": "https://qq.design/design/Foundation/Icon/",
+    "title": "qdesign",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-04-19",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "e7b308e29069e052",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://cloud.tencent.com/developer/news/160720",
+    "original_url": "https://cloud.tencent.com/developer/news/160720",
+    "title": "17大平台设计语言汇总 - 腾讯云开发者社区-腾讯云",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-04-20",
+    "raw_text": null,
+    "summary": "17大平台设计语言汇总。作者：老虎帮－KEVINSONGG本次分享来自老虎帮的@KEVINSONGG：作为一名产品设计师，我们有必要了解现在流行的设计语言或是设计规范，学习它们的设计思想和方法，有助于我们设计工作，并且也可以拓宽我们的眼界，做到与时俱进。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "2df090ace753e62b",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://blackmagicdesign.com/cn/products/davinciresolve",
+    "original_url": "http://www.blackmagicdesign.com/cn/products/davinciresolve/",
+    "title": "DaVinci Resolve | Blackmagic Design",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-04-29",
+    "raw_text": null,
+    "summary": "颠覆传统的全新创意工具，集剪辑、调色、专业音频后期制作于一身的一站式流程！",
+    "author_name": "Blackmagic Design",
+    "cover_image_url": null,
+    "fingerprint": "e49c4fa9addb2287",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://qixinghua.com/h/14408.html",
+    "original_url": "https://www.qixinghua.com/h/14408.html",
+    "title": "音视频工具产品设计方法论（上篇） - 七星花",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-23",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1f45772003a40b1c",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://img2go.com/zh/convert-video-to-gif",
+    "original_url": "https://www.img2go.com/zh/convert-video-to-gif#j=854926f6-70e9-4b7a-9134-5a96c5e22f9f",
+    "title": "在线将视频转换为动画GIF - 免费在线视频转换器",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-05-26",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "4b8cae1b7098ac4f",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en",
+    "original_url": "https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en?from=001010",
+    "title": "TikTok One Creative Suite",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-06-17",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "4cc20f6c6b6375d6",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://company.scenery.video/product",
+    "original_url": "https://www.company.scenery.video/product",
+    "title": "Product | Scenery",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-07-05",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "258d8fb08ac8f76a",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://zcool.com.cn/article/ZMzEyOTI=.html",
+    "original_url": "http://www.zcool.com.cn/article/ZMzEyOTI=.html#commentMaoDian",
+    "title": "一款卡片管理软件的手机交互设计流程图_简立方SimpleUX-站酷ZCOOL",
+    "folder": "书签栏/设计资源/教程/视觉",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-07",
+    "raw_text": null,
+    "summary": "一款卡片管理软件的手机交互设计流程图,成都UI设计师,站酷网,中国设计师互动平台.",
+    "author_name": null,
+    "cover_image_url": "https://img.zcool.cn/community/032901a5568fb59000001271646a1f6.jpg?k=b700977e44da5c192a4ae3dbe4df3e0c&t=6b031180",
+    "fingerprint": "2383cd46e2814e0d",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "详情页链接",
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://zcool.com.cn/article/ZNzMyMDA=.html",
+    "original_url": "http://www.zcool.com.cn/article/ZNzMyMDA=.html",
+    "title": "该内容已被作者删除-站酷ZCOOL",
+    "folder": "书签栏/设计资源/教程/视觉",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-13",
+    "raw_text": null,
+    "summary": "站酷ZCOOL，中国设计师互动平台。深耕设计领域二十年，站酷聚集了1900万设计师、摄影师、插画师、艺术家、创意人，设计创意群体中具有较高的影响力与号召力。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1a928d52edf00d5f",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "详情页链接",
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://zcool.com.cn/article/ZODY1MjQ=.html",
+    "original_url": "http://www.zcool.com.cn/article/ZODY1MjQ=.html",
+    "title": "该内容已被作者删除-站酷ZCOOL",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-23",
+    "raw_text": null,
+    "summary": "站酷ZCOOL，中国设计师互动平台。深耕设计领域二十年，站酷聚集了1900万设计师、摄影师、插画师、艺术家、创意人，设计创意群体中具有较高的影响力与号召力。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "5732366f19827050",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "详情页链接",
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://appshots.design/apps/sounds-noise-calm-health-app-shot-endel",
+    "original_url": "https://appshots.design/apps/sounds-noise-calm-health-app-shot-endel",
+    "title": "Appshots : Endel",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-04-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "dde5da5b4763f944",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2023 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://99designs.com/blog/video-animation/video-production-process",
+    "original_url": "https://99designs.com/blog/video-animation/video-production-process/",
+    "title": "How to create a video: the ultimate guide to video production - 99designs",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-04-18",
+    "raw_text": null,
+    "summary": "Learn how to produce videos from pre-production to post-production with this step-by-step guide. Here we show you how to create a video for your business in an effective, sustainable way, so you will reap long-term benefits.",
+    "author_name": "Dom Hennequin",
+    "cover_image_url": "https://99designs-blog.imgix.net/blog/wp-content/uploads/2019/06/How-to-create-a-video.png?auto=format&q=60&fit=max&w=930",
+    "fingerprint": "e02080b20a53f818",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2023 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://remove.bg/zh/upload",
+    "original_url": "https://www.remove.bg/zh/upload",
+    "title": "上传图片 – remove.bg",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-05-05",
+    "raw_text": null,
+    "summary": "选择一张图片并消除背景 - 100% 全自动 - 仅用 5 秒钟 - 无需点击 - 而且免费。",
+    "author_name": "Kaleido",
+    "cover_image_url": "https://www.remove.bg/images/remove_image_background.jpg",
+    "fingerprint": "651ce9a800b5f823",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2023 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://figma.cool/learning-paths",
+    "original_url": "https://www.figma.cool/learning-paths",
+    "title": "Figma 学习路径 - 基础介绍,中文教程 - Figma 中文社区",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-05-10",
+    "raw_text": null,
+    "summary": "Figma 中文社区收集并挑选了 Figma 最实用的教程，帮助大家更快上手 Figma。方便大家更多了解Figma基础使用操作、组件库使用、制作原型机团队合作。",
+    "author_name": null,
+    "cover_image_url": "./defaultOGImage.jpg",
+    "fingerprint": "959ba6fbee0c0f26",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2023 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://tdesign.tencent.com/design/icon",
+    "original_url": "https://tdesign.tencent.com/design/icon",
+    "title": "TDesign - 开源的企业级设计体系，为设计师 & 开发者，打造工作美学",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-06-20",
+    "raw_text": null,
+    "summary": "TDesign 是腾讯开源的企业级设计体系，提供了统一价值观，一致的设计语言和视觉风格，和开箱即用的 UI 组件库。致力于为设计师 & 开发者，打造工作美学。",
+    "author_name": "TDesign",
+    "cover_image_url": null,
+    "fingerprint": "63aaf8bfe3f92b41",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2023 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://longevity.technology/lifestyle/how-boxing-can-enhance-your-mental-health",
+    "original_url": "https://longevity.technology/lifestyle/how-boxing-can-enhance-your-mental-health/",
+    "title": "How boxing can enhance your mental health",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-08-09",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "53e6a180e5a5a513",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://designsystems.com/iconography-guide",
+    "original_url": "https://www.designsystems.com/iconography-guide/",
+    "title": "A complete guide to iconography",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-10-17",
+    "raw_text": null,
+    "summary": "A deep-dive guide on how to create, organize, name, and use icons within a design system",
+    "author_name": null,
+    "cover_image_url": "https://images.ctfassets.net/7jw9uvgmirvi/qukQKqrle9obCOzD2YHsu/00f7025db0e76bc26dcc8d046c89950e/guides_OG.png?w=1200",
+    "fingerprint": "ba1920a849a671f1",
+    "score": 62,
+    "ai_score": null,
+    "final_score": 62,
+    "verdict": "review",
+    "reasons": [
+      "2023 年收藏"
+    ],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://elements.envato.com/video-templates/compatible-with-after-effects?gclid=EAIaIQobChMIq_jDooyA6QIVgCy3AB0OwQanEAEYASAAEgJ3JfD_BwE",
+    "original_url": "https://elements.envato.com/video-templates/compatible-with-after-effects?gclid=EAIaIQobChMIq_jDooyA6QIVgCy3AB0OwQanEAEYASAAEgJ3JfD_BwE",
+    "title": "Download Editable Video Templates - Envato Elements",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-04-24",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1b7e20d1b6b258ae",
+    "score": 58,
+    "ai_score": null,
+    "final_score": 58,
+    "verdict": "review",
+    "reasons": [
+      "AI 相关收藏"
+    ],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://uxdesign.cc/how-and-why-i-redesign-my-portfolio-every-year-bf3bba3833fc",
+    "original_url": "https://uxdesign.cc/how-and-why-i-redesign-my-portfolio-every-year-bf3bba3833fc",
+    "title": "How and why I redesign my portfolio every year | by Shawn Park | UX Collective",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-10-16",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "c656e1761f065ffe",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://figmacn.com/tutorial/figma-tips-tricks-superpower-your-workflow",
+    "original_url": "https://www.figmacn.com/tutorial/figma-tips-tricks-superpower-your-workflow",
+    "title": "Redirecting...",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-10-25",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "6d0e212974435075",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://macwk.com/soft/all/p1",
+    "original_url": "https://macwk.com/soft/all/p1",
+    "title": "mac全部软件 - MacWk.com 精品mac软件下载",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-02-25",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d80716c89ffb8635",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://screenlane.com/platform/ios",
+    "original_url": "https://screenlane.com/platform/ios/",
+    "title": "Ios App UI design inspiration",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-09-08",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "4e7c683311ce0cac",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [],
+    "risk_flags": [
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://mobbin.design/browse/ios/apps",
+    "original_url": "https://mobbin.design/browse/ios/apps",
+    "title": "Mobbin — UI & UX design inspiration for mobile & web apps",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-09-08",
+    "raw_text": null,
+    "summary": "Save hours of UI & UX research with our library of 600,000+ fully searchable mobile & web app screenshots.",
+    "author_name": null,
+    "cover_image_url": "https://mobbin.com/og_image.png?v=4.0",
+    "fingerprint": "eace5218bc41adda",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://icon.wuruihong.com/icon",
+    "original_url": "https://icon.wuruihong.com/icon?utm_source=FbZ0mZdv#/ios",
+    "title": "图标工场",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-12-29",
+    "raw_text": null,
+    "summary": "一键快速生成iOS, Android，Web App, PhoneGap(Cordova)等移动平台不同大小(规格尺寸)的App图标和Launch Image/Splash Screen启动图，快速预览，可以直接打包发布到应用市场",
+    "author_name": "睿鸿科技",
+    "cover_image_url": "https://icon.wuruihong.com/wrh/android-chrome-512x512.png",
+    "fingerprint": "f5bedecaf19d71e7",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [],
+    "risk_flags": []
+  },
+  {
+    "source_url": "https://tongyi.aliyun.com/qianwen",
+    "original_url": "https://tongyi.aliyun.com/qianwen/",
+    "title": "千问-阿里 AI 助手",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": "千问是阿里官方AI助手，提供最强Qwen大模型体验的第一入口，助力你的工作、学习、生活。 支持 AI 搜索、网页总结、AI PPT、AI 生图、PPT 创作和录音纪要，让创作、汇报、调研、分析更高效。",
+    "author_name": null,
+    "cover_image_url": "https://img.alicdn.com/imgextra/i2/O1CN01taBbMS1CfyJoOt0lB_!!6000000000109-2-tps-80-80.png",
+    "fingerprint": "a750aa32fc8e1fc8",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [
+      "工具站内容",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://clipdrop.co/uncrop",
+    "original_url": "https://clipdrop.co/uncrop",
+    "title": "Clipdrop - Uncrop",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d09568cce8e8b044",
+    "score": 56,
+    "ai_score": null,
+    "final_score": 56,
+    "verdict": "review",
+    "reasons": [
+      "工具站内容",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable",
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://blog.wpjam.com/article/wp-theme-lessons",
+    "original_url": "http://blog.wpjam.com/article/wp-theme-lessons/",
+    "title": "WordPress 主题教程：从零开始制作 WordPress 主题 - WordPress 果酱",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-31",
+    "raw_text": null,
+    "summary": "创建 WordPress 主题其实不难，只要你从现在开始认真学习这个教程，从零一步一步开始，你就会成为一个 WordPress 主题制作高手，至少你会修改现有主题。本文是一个从零开始制作 WordPress 主题的教程，它会一步一步教你如何制作 WordPress 主题。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "eff9a61aa02508a5",
+    "score": 54,
+    "ai_score": null,
+    "final_score": 54,
+    "verdict": "review",
+    "reasons": [
+      "详情页链接",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://douban.com/note/317985075",
+    "original_url": "http://www.douban.com/note/317985075/",
+    "title": "豆瓣",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-23",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "b2201e246ac27ba8",
+    "score": 54,
+    "ai_score": null,
+    "final_score": 54,
+    "verdict": "review",
+    "reasons": [
+      "详情页链接",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://sspai.com/category/review",
+    "original_url": "http://sspai.com/category/review",
+    "title": "少数派 - 高效工作，品质生活",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-04-29",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "dd146ae1e43bb5a9",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://woshipm.com/tag/axure",
+    "original_url": "http://www.woshipm.com/tag/axure",
+    "title": "Axure | 人人都是产品经理",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-11",
+    "raw_text": null,
+    "summary": "Axure -",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "9740afe4387eab03",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://uisdc.com/photoshop-tutorials",
+    "original_url": "http://www.uisdc.com/photoshop-tutorials",
+    "title": "年终大放送！100个photoshop终极教程全分享！",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-16",
+    "raw_text": null,
+    "summary": "无论你是否喜欢ps，它都是一个神一般的存在，是设计师们最好的设计工具。使用PS，你可以进行图片编辑，图形设计，字体设计，画插图，3D建模，卡通片绘制等等。今天我们为大家点了一桌大餐，有一百个关于这些的PS教程，希望能对你的胃口~推荐阅读： 《PS新手教程！",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2013/12/jiq.jpg",
+    "fingerprint": "f69e906acd6996e6",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://uisdc.com/pixel-perfect-precision-handbook",
+    "original_url": "http://www.uisdc.com/pixel-perfect-precision-handbook",
+    "title": "尖叫吧！像素完美使用手册（附PDF下载）",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-23",
+    "raw_text": null,
+    "summary": "编者按：魔鬼藏于细节，在设计领域中，能否精准处理好像素也是考校设计师处理细节能力的一种。来自英国的USTWO团队就致力于精准控制像素，并且为了让更多的设计师了解、注意并且深入学习这方面知识，他们制作了这本《精准像素完美使用手册》。目前这本册子已经推进到2.0的大版本，并且附带多种格式。",
+    "author_name": "优设网发布",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2014/06/PIXEL-PERFECT-PRECISION.jpg",
+    "fingerprint": "ac8ff3a93c3f0d04",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://xihe.mindspore.cn/",
+    "original_url": "https://xihe.mindspore.cn/",
+    "title": "昇思MindSpore社区官网 | 全场景AI框架",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": "华为开源自研AI框架MindSpore。自动微分、并行加持，一次训练，可多场景部署。支持端边云全场景的深度学习训练推理框架，主要应用于计算机视觉、自然语言处理等AI领域，面向数据科学家、算法工程师等人群。主要具备基于源码转换的通用自动微分、自动实现分布式并行训练、数据处理、以及图执行引擎等功能特性。借助自动微分，轻松训练神经网络。框架开源，华为培育AI开发生态。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d370cc95b7591908",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://xinghuo.xfyun.cn/",
+    "original_url": "https://xinghuo.xfyun.cn/",
+    "title": "讯飞星火-懂你的AI助手",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": "讯飞星火具备语音、翻译、学习、办公、创作、研究等能力，有记忆能懂你，让你的成果更快交付",
+    "author_name": "科大讯飞股份有限公司",
+    "cover_image_url": null,
+    "fingerprint": "57f97f53ed0bd63b",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://virtual-man.xfyun.cn/",
+    "original_url": "https://virtual-man.xfyun.cn/",
+    "title": "讯飞虚拟数字人-全栈式AI虚拟人应用服务平台",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": "科大讯飞虚拟人平台,运用最新的AI虚拟数字形象技术,结合语音识别、语义理解、语音合成、星火大模型等AI核心技术,提供虚拟数字人形象资产构建、AI驱动、多模态交互的多场景虚拟人解决方案。提供形象定制、声音克隆、多模态智能交互、虚拟主播视频制作、虚拟人直播、虚拟人能力开放等服务内容。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "206c51d2e911d7c2",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://ailab.wondershare.cn/?_gl=1%2Avj473q%2A_ga%2AMjMzMzQ5NDIzLjE3MDk1NDI5MjQ.%2A_ga_24WTSJBD5B%2AMTcwOTU0MjkyNC4xLjAuMTcwOTU0MjkyNC42MC4wLjUxMTg3ODk0Ng..",
+    "original_url": "https://ailab.wondershare.cn/?_gl=1*vj473q*_ga*MjMzMzQ5NDIzLjE3MDk1NDI5MjQ.*_ga_24WTSJBD5B*MTcwOTU0MjkyNC4xLjAuMTcwOTU0MjkyNC42MC4wLjUxMTg3ODk0Ng..",
+    "title": "天幕多媒体创作引擎 - 助力客户构建专属大模型及智能应用",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": "天幕多媒体创作引擎聚焦于数字创意领域场景，以生成式AI技术为基础，提供多模态内容生成，支持全球不同语言，为多媒体创作闭环提供解决方案。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d584141f12f27f2a",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://domoai.app/",
+    "original_url": "https://domoai.app/",
+    "title": "DomoAI: Video-to-Video, Style Transfer, AI Video Tool",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-15",
+    "raw_text": null,
+    "summary": "AI video editor that converts videos, text, and images into animation. Make your character move as you want.",
+    "author_name": null,
+    "cover_image_url": "https://imgo.domoai.app/web/domoai-og-image.jpg",
+    "fingerprint": "3481a29e1e9e66dd",
+    "score": 52,
+    "ai_score": null,
+    "final_score": 52,
+    "verdict": "review",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://tudou.com/plcover/3Rjedx3d4j8",
+    "original_url": "http://www.tudou.com/plcover/3Rjedx3d4j8/",
+    "title": "土豆-召唤全球优秀短视频",
+    "folder": "书签栏/设计资源/教程/视觉",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-04-01",
+    "raw_text": null,
+    "summary": "视频服务平台,提供视频播放,视频发布,视频搜索,视频分享",
+    "author_name": null,
+    "cover_image_url": "https://img.alicdn.com/imgextra/i2/O1CN01BeAcgL1ywY0G5nSn8_!!6000000006643-2-tps-195-195.png",
+    "fingerprint": "e88d016eecf23f2e",
+    "score": 50,
+    "ai_score": null,
+    "final_score": 50,
+    "verdict": "review",
+    "reasons": [
+      "AI 主题相关",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://motionsites.ai/",
+    "original_url": "https://motionsites.ai/",
+    "title": "AI Website Prompts & Design Inspiration | MotionSites",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2026-08-29",
+    "raw_text": null,
+    "summary": "Discover MotionSites website prompts, motion designs and ready-to-build AI inspiration.",
+    "author_name": "MotionSites",
+    "cover_image_url": "https://storage.googleapis.com/gpt-engineer-file-uploads/OzagiQ9ZfuQNatpgQBgKibiYrtm2/social-images/social-1772948036264-1social.webp",
+    "fingerprint": "e6b922d2c015a950",
+    "score": 50,
+    "ai_score": null,
+    "final_score": 50,
+    "verdict": "review",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 主题相关",
+      "2026 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://awwwards.com/",
+    "original_url": "https://www.awwwards.com/",
+    "title": "Awwwards - Website Awards - Best Web Design Trends",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-04-24",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8143685f682fca3a",
+    "score": 48,
+    "ai_score": null,
+    "final_score": 48,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "内容平台",
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable",
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://aisupersmart.com/",
+    "original_url": "https://www.aisupersmart.com/",
+    "title": "One moment, please...",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-08-22",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "ff86ffdf8fad2cc7",
+    "score": 46,
+    "ai_score": null,
+    "final_score": 46,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 主题相关",
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://hunyuan.tencent.com/",
+    "original_url": "https://hunyuan.tencent.com/",
+    "title": "腾讯混元",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1122c4445ca75fd4",
+    "score": 46,
+    "ai_score": null,
+    "final_score": 46,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://ai.360.com/",
+    "original_url": "https://ai.360.com/",
+    "title": "《360智脑》内测正酣、火热进行中！",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": "立即体验：ai.360.com",
+    "author_name": null,
+    "cover_image_url": "https://so1.360tres.com/t010849f2f4d6b85f1b.png",
+    "fingerprint": "52b5f6ed40a05f3f",
+    "score": 46,
+    "ai_score": null,
+    "final_score": 46,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://api.minimax.chat/",
+    "original_url": "https://api.minimax.chat/",
+    "title": "MiniMax",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": "MiniMax是全球领先的通用人工智能科技公司，致力于\"与所有人共创智能\"，自主研发了一系列多模态通用大模型，并面向全球推出一系列AI原生产品，已服务逾3亿名用户",
+    "author_name": "MiniMax",
+    "cover_image_url": "https://filecdn.minimax.chat/public/58eca777-e31f-448a-9823-e2220e49b426.png",
+    "fingerprint": "33d638c7eaefa95b",
+    "score": 46,
+    "ai_score": null,
+    "final_score": 46,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://zenvideo.qq.com/",
+    "original_url": "https://zenvideo.qq.com/",
+    "title": "腾讯智影-在线智能视频创作平台",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "b1ad60b019d45905",
+    "score": 46,
+    "ai_score": null,
+    "final_score": 46,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "unreachable",
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://senseavatar.sensetime.com/",
+    "original_url": "https://senseavatar.sensetime.com/",
+    "title": "商汤如影",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-05",
+    "raw_text": null,
+    "summary": "商汤如影",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1770a04558aa191a",
+    "score": 46,
+    "ai_score": null,
+    "final_score": 46,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://commercepro.capcut.com/?enter_from=page_header&from_page=landing_page",
+    "original_url": "https://commercepro.capcut.com/?enter_from=page_header&from_page=landing_page&utm_medium=ccweb&utm_source=homepage&utm_content=header",
+    "title": "小云雀AI 一起创作好故事",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-09-06",
+    "raw_text": null,
+    "summary": "你的全能AI创作助手，让创作更自由，让表达更可控。字节旗下官方AI故事&短剧创作平台",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "4b8eba4142b9ab42",
+    "score": 46,
+    "ai_score": null,
+    "final_score": 46,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://tumblr.com/dashboard",
+    "original_url": "http://www.tumblr.com/dashboard",
+    "title": "注册 - 登录",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-06",
+    "raw_text": null,
+    "summary": "Tumblr 是你在互联网上做真实自己的地方。无需做作，无需完美。只有你，以及那些懂你的人。",
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "165a27f45ad4c0a3",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://500px.com/popular",
+    "original_url": "http://500px.com/popular",
+    "title": "500px的/普遍的照片",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "twitter",
+    "date_added": "2014-03-29",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1a239125cd97ad50",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://axure.us/category/axure",
+    "original_url": "http://www.axure.us/category/axure/",
+    "title": "Axure教程 - Axure中文网",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-04-01",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "f8221da885454fba",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://uedc.163.com/2248.html",
+    "original_url": "http://uedc.163.com/2248.html",
+    "title": "AXURE在原型设计中的应用 | 网易用户体验设计中心",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-06",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "e1d9aecd9ba42cd0",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://webppd.com/index.php",
+    "original_url": "http://www.webppd.com/index.php",
+    "title": "WebPPD产品原型设计 Axure RP 7.0 6.5,下载,汉化,教程,视频,组件,培训,案例,产品经理,交互设计,企业内训 - Powered by Discuz!",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8c466dfdd1b1f4fe",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://xue.masterchat.cn/axure/31.html",
+    "original_url": "http://xue.masterchat.cn/axure/31.html",
+    "title": "004.使用axure的动态面板制作tab切换效果-Axure高级教程",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-28",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8a927306d571fb18",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://bbs.masterchat.cn/forum-39-1.html",
+    "original_url": "http://bbs.masterchat.cn/forum-39-1.html",
+    "title": "AxureRP案例分析-Axure手机案例 Axure客户端案例 Axure Web案例 Axure网站案例 Axure菜单案例 Axure 播放器案例 Axure IM案例 Axure变量案例 Axure动态面板案例 -",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "fe1467164ed242c5",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://ucdchina.com/snap/12738",
+    "original_url": "http://ucdchina.com/snap/12738",
+    "title": "Justinmind，为移动设计而生 - UCD大社区",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d3c354c4d9784e1a",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://blogread.cn/it",
+    "original_url": "http://blogread.cn/it/",
+    "title": "IT博客技术大学习 · 值得读的技术文章",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8e4e785970fd514f",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://wordpress.org.cn/forum.php",
+    "original_url": "http://wordpress.org.cn/forum.php",
+    "title": "WordPress中文论坛-WordPress Chinese Forums - Powered by Discuz!",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-06",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "5a181499b61ab35f",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://webjx.com/web/xindejiqiao-31254.html",
+    "original_url": "http://www.webjx.com/web/xindejiqiao-31254.html",
+    "title": "用户体验设计实例:网站搜索的设计-心得技巧-网页制作-网页教学网",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "twitter",
+    "date_added": "2014-03-12",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "56d6e854cf194343",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://kennyhsu.com/android-environment-build",
+    "original_url": "http://kennyhsu.com/android-environment-build/",
+    "title": "Android 环境搭建 从0开始学安卓、自己学做APP。 « Kenny博客",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-08",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "45726748a4170dc3",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old",
+      "unreachable"
+    ]
+  },
+  {
+    "source_url": "https://quanxue.cn/JC_WebPage/JsIndex.html",
+    "original_url": "http://www.quanxue.cn/JC_WebPage/JsIndex.html",
+    "title": "JavaScript教程 | WebPage系列",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-04-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "fe0cea43eb5a8152",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://duote.com/tech/illustrator",
+    "original_url": "http://www.duote.com/tech/illustrator/",
+    "title": "Illustrator教程-Illustrator高级|实用|基础|入门|使用教程下载-2345软件教程(多特软件站)",
+    "folder": "书签栏/设计资源/教程/视觉",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-04-01",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "5f50ad9d8f6be10e",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://poluoluo.com/jzxy/ShowClass.asp?ClassID=44&page=3",
+    "original_url": "http://www.poluoluo.com/jzxy/ShowClass.asp?ClassID=44&page=3",
+    "title": "PS基础知识教程 - 平面设计 - 破洛洛",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-30",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "bd26b317cf6bc58e",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://blueidea.com/tech/graph/2003/500.asp",
+    "original_url": "http://www.blueidea.com/tech/graph/2003/500.asp",
+    "title": "Photoshop路径终极教程 - 蓝色理想",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-08-26",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "3f959fb74310ba39",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://360doc.com/content/10/0612/19/445332_32745697.shtml",
+    "original_url": "http://www.360doc.com/content/10/0612/19/445332_32745697.shtml",
+    "title": "Photoshop中路径绘制方法详解",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-08-26",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "40614c4d2c9c2afb",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://84-24.org/",
+    "original_url": "https://84-24.org/?utm_source=extension&utm_medium=click&utm_campaign=muzli",
+    "title": "84—24",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-28",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "f1ae4cb5d958c4d6",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://youtube.iiilab.com/",
+    "original_url": "https://youtube.iiilab.com/",
+    "title": "YouTube高清视频下载 - 油管(YouTube)视频解析下载保存到手机、电脑",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2025-07-15",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "bcabf5412602e168",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2025 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://chatgpt.com/gpts",
+    "original_url": "https://chatgpt.com/gpts",
+    "title": "ChatGPT",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2025-04-09",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "be21ad49adfffe46",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "AI 工具产品页",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2025 年收藏"
+    ],
+    "risk_flags": [
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://huaweicloud.com/product/cbs/digitalhuman.html",
+    "original_url": "https://www.huaweicloud.com/product/cbs/digitalhuman.html",
+    "title": "AI 数字人_Digital Human_多模态机器人_华为云",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "89253ea92a03bc50",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "AI 工具产品页",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://cn.aliyun.com/product/ai/avatar?from_alibabacloud=",
+    "original_url": "https://cn.aliyun.com/product/ai/avatar?from_alibabacloud=",
+    "title": "虚拟数字人_虚拟主播_直播平台_人工智能-阿里云",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "db1820c34693a7a0",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "AI 工具产品页",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://cloud.baidu.com/product/baidudigitalhuman.html",
+    "original_url": "https://cloud.baidu.com/product/baidudigitalhuman.html",
+    "title": "曦灵数字人_AI超写实虚拟人_元宇宙数字人-百度智能云",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "6694c896c4c2e8d3",
+    "score": 44,
+    "ai_score": null,
+    "final_score": 44,
+    "verdict": "reject",
+    "reasons": [
+      "AI 工具产品页",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://invisionapp.com/",
+    "original_url": "https://www.invisionapp.com/",
+    "title": "Collaborate better | InVision",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-06-07",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8eff6219d829d9d7",
+    "score": 40,
+    "ai_score": null,
+    "final_score": 40,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://spotify.design/",
+    "original_url": "https://spotify.design/",
+    "title": "Home | Spotify Design",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-06-07",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "3d02d200fc2d403e",
+    "score": 40,
+    "ai_score": null,
+    "final_score": 40,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://hue.tools/?format=hex",
+    "original_url": "https://hue.tools/?format=hex",
+    "title": "hue.tools",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-07-21",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "974769008236a0e7",
+    "score": 40,
+    "ai_score": null,
+    "final_score": 40,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://iconmagazine.de/",
+    "original_url": "https://iconmagazine.de/",
+    "title": "ICON Magazine",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-09-27",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1f0fe53c87d07921",
+    "score": 40,
+    "ai_score": null,
+    "final_score": 40,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://figmachina.com/",
+    "original_url": "https://figmachina.com/",
+    "title": "FigmaChina",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-10-17",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "ab8eaf09927dd86e",
+    "score": 40,
+    "ai_score": null,
+    "final_score": 40,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://designsystems.com/",
+    "original_url": "https://www.designsystems.com/",
+    "title": "DesignSystems.com",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-10-17",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "5728f2f12afd6964",
+    "score": 40,
+    "ai_score": null,
+    "final_score": 40,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://spline.design/",
+    "original_url": "https://spline.design/",
+    "title": "Spline - 3D Design tool in the browser with real-time collaboration",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-10-26",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "24af36381f7ae643",
+    "score": 40,
+    "ai_score": null,
+    "final_score": 40,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://yiyan.baidu.com/welcome",
+    "original_url": "https://yiyan.baidu.com/welcome",
+    "title": "文心一言",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "28b217728f7dd0c0",
+    "score": 38,
+    "ai_score": null,
+    "final_score": 38,
+    "verdict": "reject",
+    "reasons": [
+      "AI 工具产品页",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://volcengine.com/product/avatar",
+    "original_url": "https://www.volcengine.com/product/avatar",
+    "title": "虚拟数字人_数字人定制_火山引擎",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "320cd3ef73b9654e",
+    "score": 38,
+    "ai_score": null,
+    "final_score": 38,
+    "verdict": "reject",
+    "reasons": [
+      "AI 工具产品页",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://stickpng.com/",
+    "original_url": "https://www.stickpng.com/",
+    "title": "Free Transparent PNG Images, Stickers & No Background Clipart - StickPNG",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-06-21",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "a69b844a22603c65",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://gridcalculator.dk/",
+    "original_url": "http://gridcalculator.dk/#/1194/12/24/16",
+    "title": "Grid Calculator by Nicolaj Kirkgaard Nielsen",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-05-21",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "b801fe47b7952066",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://xinpianchang.com/",
+    "original_url": "https://www.xinpianchang.com/",
+    "title": "新片场 - 发现全球优质视频与创作人，与百万创作人一起成长",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2021-01-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "75054d579bc75f10",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例"
+    ],
+    "risk_flags": [
+      "homepage"
+    ]
+  },
+  {
+    "source_url": "https://s.muz.li/MmM2OGFlMDRl",
+    "original_url": "https://s.muz.li/MmM2OGFlMDRl",
+    "title": "ThoughtLab | Full Service Creative & Digital Marketing Agency",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-03-02",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "714b8637cabf7b6f",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://s.muz.li/YWQzY2MwOGY4",
+    "original_url": "https://s.muz.li/YWQzY2MwOGY4",
+    "title": "Abhishek Jha — Visual Designer",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-09-29",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "0c66dc7d996407be",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://freepik.com/search?color=green&format=search&last_filter=color&last_value=green&query=ui+background",
+    "original_url": "https://www.freepik.com/search?color=green&format=search&last_filter=color&last_value=green&query=ui%20background",
+    "title": "Ui Background Vectors, Photos and PSD files | Free Download",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-05-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "0f25107805541c9e",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站",
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://freepik.com/free-photos-vectors/gradient-design",
+    "original_url": "https://www.freepik.com/free-photos-vectors/gradient-design",
+    "title": "Free Vector | Free vector gradient blur pink blue abstract background",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2023-06-29",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "e6ad7362d00d60e1",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站",
+      "2023 年收藏"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://chat.sensetime.com/wb/login",
+    "original_url": "https://chat.sensetime.com/wb/login",
+    "title": "商汤商量语言大模型",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "7c0a385c28590230",
+    "score": 34,
+    "ai_score": null,
+    "final_score": 34,
+    "verdict": "reject",
+    "reasons": [
+      "登录/搜索/账户页",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "non_content"
+    ]
+  },
+  {
+    "source_url": "https://dribbble.com/",
+    "original_url": "http://dribbble.com/",
+    "title": "Dribbble - Popular",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-05",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "aaa2f848b66ed534",
+    "score": 30,
+    "ai_score": null,
+    "final_score": 30,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://zcool.com.cn/",
+    "original_url": "http://www.zcool.com.cn/",
+    "title": "站酷（ZCOOL）- 设计师互动平台",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-05",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "160a675c0763d801",
+    "score": 30,
+    "ai_score": null,
+    "final_score": 30,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://uisdc.com/",
+    "original_url": "http://www.uisdc.com/",
+    "title": "优设-UISDC: 优秀网页设计联盟-SDC-网页设计师交流平台-听讲座，聊设计，找素材，尽在优设网",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "ad69b3d30cc6dd73",
+    "score": 30,
+    "ai_score": null,
+    "final_score": 30,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://medium.com/",
+    "original_url": "https://medium.com/",
+    "title": "Medium",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2018-02-27",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "5082a1bf2b969ed2",
+    "score": 30,
+    "ai_score": null,
+    "final_score": 30,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "内容平台",
+      "2018 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://oursketch.com/plugin?category=layout",
+    "original_url": "https://oursketch.com/plugin?category=layout",
+    "title": "布局 - Sketch 插件库",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-03-17",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "233fb11ed57ce0bb",
+    "score": 28,
+    "ai_score": null,
+    "final_score": 28,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://mockupworld.co/all-mockups",
+    "original_url": "https://www.mockupworld.co/all-mockups/",
+    "title": "All Free Mockups | Mockup World",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-10-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "a4b5e97d72230a04",
+    "score": 28,
+    "ai_score": null,
+    "final_score": 28,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://ls.graphics/devices-mockups",
+    "original_url": "https://www.ls.graphics/devices-mockups",
+    "title": "Devices Mockups",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-10-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d534b61670354a25",
+    "score": 28,
+    "ai_score": null,
+    "final_score": 28,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://figma.com/community",
+    "original_url": "https://www.figma.com/community",
+    "title": "Community – Figma",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-11-26",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "616f9c020634f91c",
+    "score": 28,
+    "ai_score": null,
+    "final_score": 28,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站"
+    ],
+    "risk_flags": [
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://oschina.net/p/ionicons",
+    "original_url": "http://www.oschina.net/p/ionicons",
+    "title": "ionicons首页、文档和下载 - 开源图标集合 - 开源中国社区",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-06",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "262f83fb1bbac3b7",
+    "score": 26,
+    "ai_score": null,
+    "final_score": 26,
+    "verdict": "reject",
+    "reasons": [
+      "详情页链接",
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://25xt.com/works/appdesign",
+    "original_url": "http://www.25xt.com/works/appdesign",
+    "title": "APP界面设计_APPUI设计_APP设计素材 – 25学堂",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-21",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "3f29f80b01b81a88",
+    "score": 26,
+    "ai_score": null,
+    "final_score": 26,
+    "verdict": "reject",
+    "reasons": [
+      "详情页链接",
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://ui.cn/detail/177657.html",
+    "original_url": "http://www.ui.cn/detail/177657.html",
+    "title": "【教程】UI动效大师之路[下雨啊]-UI中国-专业界面交互设计平台",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2016-12-14",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "38aebcfa53c0de14",
+    "score": 26,
+    "ai_score": null,
+    "final_score": 26,
+    "verdict": "reject",
+    "reasons": [
+      "详情页链接",
+      "工具/素材站",
+      "2016 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://frogdesign.cn/",
+    "original_url": "http://www.frogdesign.cn/",
+    "title": "frog | 全球化设计咨询公司",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-27",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "49cd2238984bd6fc",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://quora.com/",
+    "original_url": "http://www.quora.com/",
+    "title": "Home - Quora",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-30",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "27b8800e01f0545a",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://kickstarter.com/",
+    "original_url": "https://www.kickstarter.com/",
+    "title": "Kickstarter",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-21",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "10e320d887918080",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://instagram.com/",
+    "original_url": "http://instagram.com/",
+    "title": "Instagram",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-25",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "aa7d2bf7ed7f1bea",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://itgonglun.com/",
+    "original_url": "http://www.itgonglun.com/",
+    "title": "IT 公论",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-28",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "9c6bec9b002cdebe",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://graphicburger.com/",
+    "original_url": "http://graphicburger.com/",
+    "title": "GraphicBurger | Tasty PSD & other resources made with care for each pixel. Free for both personal & commercial use. Have a bite!",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "dabdbe0e695ce880",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://iconfans.com/",
+    "original_url": "http://www.iconfans.com/",
+    "title": "ICONFANS专业界面设计平台",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-05",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8ac853aa85d1379d",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://huaban.com/",
+    "original_url": "http://huaban.com/",
+    "title": "花瓣网_发现、采集你喜欢的一切(家居，美食，时尚，穿搭，设计，商品，美图等)",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2015-01-25",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "700ac6026cac041c",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2015 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://uxmag.com/",
+    "original_url": "http://uxmag.com/",
+    "title": "UX Magazine | Defining and Informing the Complex Field of User Experience (UX)",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2018-02-27",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "417392a91368e0c3",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2018 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://coursera.org/",
+    "original_url": "https://www.coursera.org/",
+    "title": "Coursera",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-05",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "b7d4cbae594d8069",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://duobei.com/",
+    "original_url": "http://www.duobei.com/",
+    "title": "多贝公开课",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "b20db0bab0154bd4",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://heguangming.com/",
+    "original_url": "http://www.heguangming.com/",
+    "title": "非原型，不设计！ - Axure rp 6.5 中文教程网，分享和学习关于Axure的一切的一切",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-11",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "1e70b774adbf5753",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://xue.masterchat.cn/",
+    "original_url": "http://xue.masterchat.cn/",
+    "title": "互联网产品经理学院-满足产品经理的求知欲-产品邦",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-27",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "3cbf7e602f6dee1f",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://wejustinmind.com/",
+    "original_url": "http://www.wejustinmind.com/",
+    "title": "Justinmind中文组织 | We♡ Justinmind",
+    "folder": "书签栏/设计资源/教程/原型",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "386d6e9c8341fd5c",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://51cto.com/",
+    "original_url": "http://www.51cto.com/",
+    "title": "51CTO.COM - 技术成就梦想 - 中国领先的IT技术网站",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-19",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "c37f54d3013b8668",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://thefox.cn/",
+    "original_url": "http://www.thefox.cn/",
+    "title": "WordPress主题站|wordpress模板|wordpress cms主题|wordpress企业主题|wordpress图片主题|wordpress中文主题|wordpress插件",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-31",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "3a4bdbb74ae1e39c",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://w3school.com.cn/",
+    "original_url": "http://www.w3school.com.cn/",
+    "title": "w3school 在线教程",
+    "folder": "书签栏/设计资源/教程/技术",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-31",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d719136403e2cbdc",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://missyuan.net/",
+    "original_url": "http://www.missyuan.net/",
+    "title": "思缘教程网 - PS教程,Photoshop教程网",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-09-14",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "bb1a95e56ca759aa",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://wzsky.net/",
+    "original_url": "http://www.wzsky.net/",
+    "title": "设计前沿-PS教程,标志设计,平面设计,网页设计,图片素材",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-23",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "7c8aaad710320b23",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://16xx8.com/",
+    "original_url": "http://www.16xx8.com/",
+    "title": "photoshop教程_ps教程_ps图文教程 - ps教程自学网",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-23",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "0d1d0d42618e7ad6",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://codecademy.com/",
+    "original_url": "http://www.codecademy.com/",
+    "title": "Learn to code | Codecademy",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2015-01-19",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "ada9e3ac0de6bac8",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "2015 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://openai.com/",
+    "original_url": "https://openai.com/",
+    "title": "OpenAI",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "3f411219de5cf13e",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 工具产品页",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage",
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://doubao.com/",
+    "original_url": "https://www.doubao.com/",
+    "title": "豆包 - 抖音旗下 AI 智能助手",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "6ba4c43629474af9",
+    "score": 22,
+    "ai_score": null,
+    "final_score": 22,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 工具产品页",
+      "AI 主题相关",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage",
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://axure.com/community/widget-libraries",
+    "original_url": "http://www.axure.com/community/widget-libraries",
+    "title": "Download Widget Libraries | Axure",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-06",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "5299ca1172778a59",
+    "score": 16,
+    "ai_score": null,
+    "final_score": 16,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://uimaker.com/uimakerhtml/uistudy",
+    "original_url": "http://www.uimaker.com/uimakerhtml/uistudy/",
+    "title": "什么是UI设计_UI设计用什么软件_UI设计教程_UI设计师-UI制造者-专注UI界面设计",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-16",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "8840af00bf456dcd",
+    "score": 16,
+    "ai_score": null,
+    "final_score": 16,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://xunue.com/3270.html",
+    "original_url": "http://www.xunue.com/3270.html",
+    "title": "灯泡线形图标简单教程(Illustrator教程) – UI的那些事",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-07-21",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "26e5c77097bcede9",
+    "score": 16,
+    "ai_score": null,
+    "final_score": 16,
+    "verdict": "reject",
+    "reasons": [
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://runwayml.com/",
+    "original_url": "https://runwayml.com/",
+    "title": "Runway - Advancing creativity with artificial intelligence.",
+    "folder": "书签栏/AI相关",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2024-03-04",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "ca1174f4491e77a3",
+    "score": 16,
+    "ai_score": null,
+    "final_score": 16,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 工具产品页",
+      "AI 相关收藏",
+      "2024 年收藏"
+    ],
+    "risk_flags": [
+      "homepage",
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://spectrum.adobe.com/",
+    "original_url": "https://spectrum.adobe.com/",
+    "title": "Meet Spectrum, Adobe’s design system - Spectrum",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2022-01-06",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "325aba0fdb90b622",
+    "score": 12,
+    "ai_score": null,
+    "final_score": 12,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "工具/素材站",
+      "2022 年收藏"
+    ],
+    "risk_flags": [
+      "homepage",
+      "resource_site"
+    ]
+  },
+  {
+    "source_url": "https://pinterest.com/",
+    "original_url": "http://www.pinterest.com/",
+    "title": "Pinterest",
+    "folder": "书签栏/设计资源/外国",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-03-21",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "0bcc4316810a541b",
+    "score": 5,
+    "ai_score": null,
+    "final_score": 5,
+    "verdict": "reject",
+    "reasons": [
+      "标题过于笼统",
+      "站点首页而非具体案例",
+      "内容平台",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "generic_title",
+      "homepage",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://canva.com/",
+    "original_url": "https://www.canva.com/",
+    "title": "主页 - Canva",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2020-09-01",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "b58ca2ee43d595e2",
+    "score": 4,
+    "ai_score": null,
+    "final_score": 4,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "AI 工具产品页"
+    ],
+    "risk_flags": [
+      "homepage",
+      "tool_page"
+    ]
+  },
+  {
+    "source_url": "https://ui.cn/",
+    "original_url": "http://www.ui.cn/",
+    "title": "UI中国-专业界面设计平台",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-09",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "08f759065337d22d",
+    "score": 0,
+    "ai_score": null,
+    "final_score": 0,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://uishe.cn/",
+    "original_url": "http://www.uishe.cn/",
+    "title": "UI社-中国最好的UI设计素材资源网站-UISHE.CN-2014年UI设计趋势,扁平化素材,UI设计教程!",
+    "folder": "书签栏/设计资源",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-05-27",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "d28d1bdb7c5cb201",
+    "score": 0,
+    "ai_score": null,
+    "final_score": 0,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://uimaker.com/",
+    "original_url": "http://www.uimaker.com/",
+    "title": "UI设计_UI_UI设计师-Uimaker-专注UI设计",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-10",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "eca2576efd96a174",
+    "score": 0,
+    "ai_score": null,
+    "final_score": 0,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://xueui.cn/",
+    "original_url": "http://www.xueui.cn/",
+    "title": "学ui网—ui设计师学习教程平台",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-16",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "9aff1681bce6a481",
+    "score": 0,
+    "ai_score": null,
+    "final_score": 0,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "resource_site",
+      "old"
+    ]
+  },
+  {
+    "source_url": "https://xunue.com/",
+    "original_url": "http://www.xunue.com/",
+    "title": "UI的那些事_ui设计_ui设计教程_ui界面设计_icon图标设计",
+    "folder": "书签栏/设计资源/教程",
+    "source_kind": "bookmark",
+    "source_platform": "other",
+    "date_added": "2014-06-16",
+    "raw_text": null,
+    "summary": null,
+    "author_name": null,
+    "cover_image_url": null,
+    "fingerprint": "73c8bfe1c6e5948f",
+    "score": 0,
+    "ai_score": null,
+    "final_score": 0,
+    "verdict": "reject",
+    "reasons": [
+      "站点首页而非具体案例",
+      "工具/素材站",
+      "2014 年收藏，偏旧"
+    ],
+    "risk_flags": [
+      "homepage",
+      "resource_site",
+      "old"
+    ]
+  }
+]

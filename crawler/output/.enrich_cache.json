@@ -1,0 +1,566 @@
+{
+  "e1807b32734c3808": {
+    "title": "前端项目如何做 vibe codingVue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 - 掘金",
+    "summary": "Vue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 AI（如 Cursor Agent）协作完成软件开发的模式：你描述意图，AI 读代码、改代码、跑命令；你负责方向、验 Vue 项目 Vibe Coding 指南 Vibe Coding 指以自然语言与 AI（如 Cursor Agen",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/0a57c9395e4a43ae9fdbe2c913b1001e~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5qmY54yr6LWw5rGf5rmW:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=SGgzcypvDu8RSC2DWnk00XkWPUk%3D",
+    "author_name": null
+  },
+  "15a92170a50bc4fd": {
+    "title": "Vibe Coding指南Vibe Coding 指南 目录 什么是 Vibe Coding？ 核心理念 完美提示词的六 - 掘金",
+    "summary": "Vibe Coding 指南 目录 什么是 Vibe Coding？ 核心理念 完美提示词的六大要素 高级技巧 三种工作模式 常见陷阱与避坑指南 黄金公式 进阶心法 实战案例 性能与成本优化 附录",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "7eeb5e70f3860f5b": {
+    "title": "从 Vibe Coding 到 SDD：AI 编程的工程化演进从 Vibe Coding 到 SDD：AI 编程的工程化 - 掘金",
+    "summary": "从 Vibe Coding 到 SDD：AI 编程的工程化演进 1. 为什么 AI 编程需要 SDD 很多人第一次使用 AI 编程工具时，体验都很像 Vibe Coding：告诉 AI 一个大概想法，",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/dee8b2113ee74906917d8b26eb6f9987~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5pS_6YeH5LqR5oqA5pyv:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=JLwAo139SIJKd%2Bzc66m2mp7XPFg%3D",
+    "author_name": null
+  },
+  "5edee7409ebf5111": {
+    "title": "Vibe Coding时代的自我鞭策AI编程时代下你的优势到底是什么 灵魂拷问: 在 vibe coding 盛行以及基 - 掘金",
+    "summary": "AI编程时代下你的优势到底是什么 灵魂拷问: 在 vibe coding 盛行以及基模越来越强的当今，你觉得你的优势是什么？ 如果你还在说: “AI处理不了复杂的业务逻辑”、“AI写不了安全代码”、“",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/08fce29d99a2435eb00c9a105d9d4a77~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5bCP6auY5LiN5oeC5YaZ5Luj56CB:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=IefmmMqYQxbpI2AtBGmn3vfAUO4%3D",
+    "author_name": null
+  },
+  "fe0f37b35ba2107b": {
+    "title": "全面解读 Vibe Coding：概念、流程、实践与未来Vibe Coding近来在软件开发圈掀起热议。作为一种 由大语 - 掘金",
+    "summary": "Vibe Coding近来在软件开发圈掀起热议。作为一种 由大语言模型（LLM）驱动的全新编程风格，它由人工智能专家安德烈·卡帕斯提（Andrej Karpathy）于2025年初提出。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "391a6f7d06caef18": {
+    "title": "Vibe Coding 概念大全Vibe Coding 概念大全 AI 基础概念 人工智能（AI） 大语言模型（LLM） - 掘金",
+    "summary": "Vibe Coding 概念大全 AI 基础概念 人工智能（AI） 大语言模型（LLM） 模型参数 训练和推理 微调（Fine-tuning） Token 和计费 Token 输入 Token 和输出",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "ced36bfd363457c7": {
+    "title": "拒绝手写代码！用 Vibe Coding + SDD 范式“搓”一个微信计分小程序在传统的软件开发语境下，当我们想做一个 - 掘金",
+    "summary": "在传统的软件开发语境下，当我们想做一个“麻将/扑克计分器”时，脑海中浮现的第一个画面往往是：打开 VS Code，初始化 Git 仓库，纠结是用 Vue 还是 React，配置 Webpack 或 V",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "2cb3fc3bd0795b8a": {
+    "title": "Vibe Coding：让AI替你写代码，你只管躺着赚钱！Vibe Coding：用自然语言+AI编辑器开发产品，小白3 - 掘金",
+    "summary": "Vibe Coding：用自然语言+AI编辑器开发产品，小白3天赚大钱！无需编程，灵感即代码，AI自动生成、调试、优化。Cursor/Trae等工具让开发像搭积木，成本直降90%。",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/bcc8395c92e348b08d10ca1ffd4ff21d~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgV2lsZEJsdWU=:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=T6yR5Fs%2F9f6950eKvVydND2sg3I%3D",
+    "author_name": null
+  },
+  "84d27e765fd60b83": {
+    "title": "10分钟复刻爆火「死了么」App：vibe coding 实战（Expo+Supabase+MCP）这期用 vibe c - 掘金",
+    "summary": "这期用 vibe coding 的方式，10分钟复刻「死了么」App 的核心功能。我不讲原理、不展开细节，只讲“怎么做”。跟着视频步骤走，你也能做出一个可运行的 App 原型。",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/36d5dd2a3aa64d5e80ffeeabd94510a0~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgbUNlbGw=:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=Py3lVwEJGu2OIGpGS5apZcglMCs%3D",
+    "author_name": null
+  },
+  "26ad53cfcb2bb4bf": {
+    "title": "2025 Vibe Coding 元年：AI 编程的技术突破全景2025 年，Vibe Coding（对话式编程）正式从 - 掘金",
+    "summary": "2025 年，Vibe Coding（对话式编程）正式从概念走向成熟。这一年，AI 编程从\"会补全代码的 Copilot\"跨越到\"能接管项目的 Agent\"，开发者与 AI 的协作方式发生了历史性变革--- theme: smartblue --- 2025 年，Vibe Coding（对话式编程）正式从概念走向成熟",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/c58da7b2d6df446fbf583362e27774c4~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgRGVscm95:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=y2dwRrSPHva6apAdhbnqFsKSy8U%3D",
+    "author_name": null
+  },
+  "5e6f89a532b173f0": {
+    "title": "Vibe Coding 中的 Skills 详解",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "102d14ad9d4b26a7": {
+    "title": "🌟从“抽卡式编程”到规范驱动： 深度解析「Vibe Coding」的三层跃迁今天，我们就以一个“手搓计分小程序”的真实 - 掘金",
+    "summary": "今天，我们就以一个“手搓计分小程序”的真实演进路径，拆解 Vibe Coding 的三大阶段，见证它如何从“碰运气”走向“控流程”，最终实现 **AI 驱动的工程化落地**。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "fec3e53e07b24787": {
+    "title": "前端Vibe Coding探索：Cursor+MCP打造沉浸式开发流chrome-devtools-mcp（调试自动化） - 掘金",
+    "summary": "chrome-devtools-mcp（调试自动化）+cursor Rules（代码风格约束）+figma mcp（设计稿数据确定）进行前端vibe coding 探索",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "c8dac8f994e73855": {
+    "title": "【大纲】TRAE AI 编程入门第一讲——Vibe Coding 初识即上手体系化 AI 编程入门课程第一讲大纲。本课聚 - 掘金",
+    "summary": "体系化 AI 编程入门课程第一讲大纲。本课聚焦 Vibe Coding（直觉编程）理念，带你告别晦涩语法，像聊天一样写代码。通过对比传统编程，快速上手字节跳动 AI 编程工具 TRAE，体验从想法到聊",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "f89d24b7021f86db": {
+    "title": "开通了 Trae Pro 终于可以开心地 Vibe Coding 了一位资深Java程序员分享了使用AI编程工具Trae - 掘金",
+    "summary": "一位资深Java程序员分享了使用AI编程工具Trae的深度体验。作者目前95%的代码都由AI编写，通过\"Vibe Coding\"方式用自然语言描述需求让AI完成编码。",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/c1887a566c174a589b63d12329508445~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5oKf6bij:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=UA44%2Bu8p%2BzSO72s5QJxUWr%2BiF6E%3D",
+    "author_name": null
+  },
+  "ac6efd2d5d32dca0": {
+    "title": "Vibe Coding：重构工作流的思维与实践本文系作者 [架构精进之路] 原创，著作权归作者所有，未经授权禁止任何形式 - 掘金",
+    "summary": "本文系作者 [架构精进之路] 原创，著作权归作者所有，未经授权禁止任何形式的转载、抄袭或盗用，违者必究。 弹指间，岁序更迭，又至年末，这一年我们不断奋斗，不断忙碌，真的好似一瞬间，就来到了 2025",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/cc9353d518074b4fadd64621a4a08bea~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5p625p6E57K-6L-b5LmL6Lev:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=mOSk7ijK%2F9yWKxFylUmscQaitXA%3D",
+    "author_name": null
+  },
+  "7b1a4b67ec1c9719": {
+    "title": "挖到 4 个 Vibe Coding 的 GitHub 开源项目，速速收藏。Andrej Karpathy 是 Open - 掘金",
+    "summary": "Andrej Karpathy 是 OpenAI 创始成员、前特斯拉 AI 总监。 他年初在 X 上发布了一条推文，分享了自己使用 Cursor + Claude 进行编程的体验",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "512602eaeca21e91": {
+    "title": "一个人的战场 —— Vibe Coding 与 Cursor、Trae、Vercel 的沉浸式开发实战在传统印象中，开发 - 掘金",
+    "summary": "在传统印象中，开发一个产品需要一个完整的团队：前端、后端、UI、运维、产品经理……大家各司其职，通宵改需求，开会扯功能。但今天我要告诉你的是——一个人也可以搞定一切。 我越来越坚信：工具决定效率",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/a15b2330e1654d19b9f7d830374bd941~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5YWs5Li7:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=Ef9wQ8IIdoU9kafxJJC8dbgA2p0%3D",
+    "author_name": null
+  },
+  "d80f3d08809fef22": {
+    "title": "Vibe Coding项目四周获数十万用户",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": "佳佳子_"
+  },
+  "a8039fba9af069d7": {
+    "title": "Vibe Coding 的尽头是 AI Agent 军团：我用 16 个 Agent 自动化了整个创业公司90% 的人还 - 掘金",
+    "summary": "90% 的人还在让 AI 补代码，1% 的人已经在指挥 AI 军团。本文带你从 Vibe Coding 入门到 Agent 协同实战。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "cbd8b3a263f2e181": {
+    "title": "关于氛围编程（Vibe Coding）的一切Vibe Coding这一术语由OpenAI联合创始人Andrej Karp - 掘金",
+    "summary": "Vibe Coding这一术语由OpenAI联合创始人Andrej Karpathy提出，即用自然语言提示和智能体AI支持，更快地将想法转化为代码。",
+    "cover_image_url": "https://p6-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/9ff330efd8fc4d5eb693fa863867b89f~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bCP5bCP5bCP5oCq5YW9:q75.awebp?rk3s=f64ab15b&x-expires=1783061103&x-signature=enbqvIO3jWCfM25MgFTWhfwKywA%3D",
+    "author_name": null
+  },
+  "e8f2c952224c0952": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "Ace Lee ｜Ai版"
+  },
+  "667ffda6faf6547a": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "干饭老李"
+  },
+  "e143ce1d7a4a7900": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "电子礼物主理人🌌"
+  },
+  "6c598cbe9bfe8afb": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "鱼小鲨"
+  },
+  "97df06eaae58f2e6": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "铁男momo君"
+  },
+  "bf780935e04924ee": {
+    "title": "Vibe Coding10个创意玩法💡别再只做日历了 - 小红书",
+    "summary": "开始Vibe Coding之后，很多人入门后做的第一个项目都是日历或者To Do，但其实 Vibe Coding 更有意思的地方，在于把脑海里的想法快速变成可交互的作品。 这次整理了10个有趣的项目方向。 #vibecoding #ai #howto实现一万种vibecoding #vibecoding大赏 #设计灵感 #设计 #审美积累 #创意 #灵感",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "Crazy 脑瓜子"
+  },
+  "a9df6f73294bd8de": {
+    "title": "很好奇大家的vibe coding赚钱能力 - 小红书",
+    "summary": "#个人开发者 #开发 #时间自由的事业 好奇怪的语序。） 如果是跨行做出来的案例就更好了）",
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "小马迹"
+  },
+  "ce4a7c6a56253685": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "ApprenticeMichelle"
+  },
+  "c5dddd081820ef79": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "江炜"
+  },
+  "462301bd975562f8": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "JeremyKong"
+  },
+  "dc43de21104e20be": {
+    "title": "小红书 - 你访问的页面不见了",
+    "summary": null,
+    "cover_image_url": "//picasso-static.xiaohongshu.com/fe-platform/e6214e4fbfae2cf14d634d4296916e8a5eaefdf4.png",
+    "author_name": "yue=emomo"
+  },
+  "53cc117e19a78260": {
+    "title": "《让淘宝的内容好逛，我们都做了什么》_哔哩哔哩_bilibili",
+    "summary": "《让淘宝的内容好逛，我们都做了什么》是阿里巴巴设计公开课-体验设计/视觉设计/UI设计/运营设计的第11集视频，该合集共计54集，视频收藏或关注UP主，及时了解更多相关视频内容。",
+    "cover_image_url": "https://i1.hdslb.com/bfs/archive/b32eb004b1b70dc47999bb05d59b707e9850fea7.png@1200w_630h",
+    "author_name": "来亿点芝士ba"
+  },
+  "4d028840484a2809": {
+    "title": "XPPen 品牌焕新：面向 Z 世代，激发自由灵感与创作真我 | XPPen",
+    "summary": "XPPen 举办了一场以“梦想 勇敢 真我”为主题的品牌焕新线上发布会。发布会中，XPPen 吉祥物 - 虚拟 IP Fenix 向观众诠释了全新的品牌愿景与核心理念，并介绍了 XPPen 完善的产品布局与技术亮点，向外界吹响品牌升级的号角。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "4777707aa8ba64c0": {
+    "title": "Web 用户体验设计提升实践",
+    "summary": "本文是基于 Shopee 供应链团队内部 WMS（Warehouse Management System，仓库管理系统） 项目的整体重构，总结而出的一份 Web 用户体验设计提升指南。因为是对...",
+    "cover_image_url": "https://segmentfault.com/img/bVcV4tK?spec=cover",
+    "author_name": null
+  },
+  "1e9909e3c9db9ea5": {
+    "title": "超实用！高手的 Ai 兵器谱之「玩转3D效果」",
+    "summary": "在Adobe illustrator（Ai）中，有一项让大部分使用者都相对陌生的3D功能。虽然不及专业的3D软件强大，但能帮助我们快速做出立体的造型。今天我将为大家详细讲解 Ai 中3D效果的基本原理，并介绍相关的使用方法，最后会通过一个案例帮助大家更好的理解 Ai 中3D效果的实际运用。",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2019/03/uisdc-banner-20190313-4.jpg",
+    "author_name": "优设网发布"
+  },
+  "bbfacc44b633424a": {
+    "title": "用一篇5000+的干货，帮你了解常用的Web产品设计布局",
+    "summary": "开篇现如今，几乎所有的网页设计都要进行响应式和自适应设计，才能让产品能够覆盖到更多终端，接手一个产品设计的初期，制定界面适配规则时，你是否也有过如下疑问：宽度单位我是用百分比还是 px？还是 rem？区别是什么？",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/04/uisdc-banner-20210423-3.jpg",
+    "author_name": "优设网发布"
+  },
+  "169ba0cabc050a1a": {
+    "title": "Windows 11全新设计语言如何引领设计新趋势 ？（附源文件下载）",
+    "summary": "Hi，我是彩云。虽然我平时除了用 OC 渲染模型的时候用以外，几乎很少用 windows 系统，但 windows 11 这次的更新还是让人感到惊艳的，近几年的毛玻璃风格趋势重新回归就来源于微软的这套新设计语言 Fluent。为了探究这次升级背后的思考和理念，我从微软官方找到了这篇文章，感受到了国际顶级设计团队对...",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/09/uisdc-banner-20210906-2.jpg",
+    "author_name": "优设网发布"
+  },
+  "ce1483a8ef3c924e": {
+    "title": "字节跳动出品！ArcoDesign 值得学习的 8 个设计原则",
+    "summary": "设计原则相当于整个语言体系中的修辞手法。务实的浪漫主义是对设计语言的形容，它也代表着 ArcoDesign 试图建立的工作模式。浪漫与务实并非矛盾对立，它们相辅相成，引导设计方向。",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/11/uisdc-banner-202111117-4.jpg",
+    "author_name": "优设网发布"
+  },
+  "2efd2acc0361a67a": {
+    "title": "超赞！3个维度帮你重新思考设计标准",
+    "summary": "@尤原庆 ：最近很多设计师小伙伴问我关于设计标准的问题，例如产品设计的一致性、容错、简洁、重视内容等。在这些问题中，我发现大家思考设计标准的维度都有一些偏差或者不完整，所以今天想把一些自己如何思考设计标准的粗浅想法记录一下，希望对大家有一些帮助。1，设计标准的重要性首先讲一下设计标准的重要性。",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2016/07/design-standard-rethink.jpg",
+    "author_name": "优设网发布"
+  },
+  "9d03e0d7b0155599": {
+    "title": "全球最大的音乐服务商Spotify，如何做设计原则升级？",
+    "summary": "Hi，大家好，我是彩云。Spotify，也叫“声田”，是一个在国外非常火的正版音乐平台，也是目前全球最大的流音乐服务商之一，在去年用户规模就已经达到了2.48亿。那这么大量用户的产品如何定义自己的设计原则，又是如何做升级的，值得我们学习。",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2020/11/uisdc-banner-20201102-3.jpg",
+    "author_name": "优设网发布"
+  },
+  "1b9ee6eeedce000c": {
+    "title": "如何做好工具类产品体验？来看大厂总结的四象模型",
+    "summary": "工具类产品通常使用门槛较高，产品逻辑较复杂，在交互及体验上的要求也会更为苛刻，尤其对于设计工具而言。我们查找了已有的设计方法，发现并没有专门针对生产力工具的设计方法与体验衡量的方法论，因此推导出专门适用于生产力工具产品的设计与体验模型，归纳为：2 大要素、4 个核心维度、4 个体验目标与 9 大体验原则，希望可以...",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2021/02/uisdc-banner-20210205-4.jpg",
+    "author_name": "优设网发布"
+  },
+  "0605cbd1fdd16d1c": {
+    "title": "四象模型（工具产品设计及体验模型） | How it comes？ – 人人都是产品经理",
+    "summary": "工具类产品通常使用门槛较高，产品逻辑较复杂，在交互及体验上的要求也会更为苛刻，尤其对于设计工具而言。面对这种类型的产品，设计师该如何着手呢？ 我们查找了已有的设计方法，发现并没有专门针对生产力工具的设计方法与体验衡量的方法论，因此推导出专门适用于生产力工具产品",
+    "cover_image_url": "https://image.woshipm.com/wp-files/2018/12/6fuxr1SteCd5fmzU2xc9.jpg",
+    "author_name": null
+  },
+  "0d49c2914cce5ac7": {
+    "title": "体验设计度量，看这一篇就够 - My Secret Rainbow",
+    "summary": "如何评估设计价值已经成为设计同行都在思考和研究的课题。本篇将通过复盘优酷设计构建内容行业的设计质量评估体系的过程，盘点国内外现有体验度量理论和国内已有落地方法，总结设计模型的构建流程和方法，希望与设计同行共同讨论设计价值量化的方法。通过阅读本文章，设计团队也可以构建属于自己业务的设计质量评估模型。",
+    "cover_image_url": "https://www.mysecretrainbow.com/wp-content/uploads/2021/02/1613673101-1.png",
+    "author_name": null
+  },
+  "742ca0b734c513bd": {
+    "title": "Homepage",
+    "summary": "B R A I N B I T The Evolution in Consumer EEG Wearables Pre-order Now Everything your head needs The amazing EEG-headband concept Intelligently designed for extended use",
+    "cover_image_url": "http:/_I/favicon/BB-logo-gor-1-e1483706669381.png",
+    "author_name": null
+  },
+  "5395b72cf7f05ba8": {
+    "title": "干货贴：UI进阶必备高颜值设计网站-2019合集",
+    "summary": "作为一枚努力的UI设计师，每天找灵感/勤思考必不可少。Behance、Dribbble、Pinterest、iconfont、站酷、UI中国以及被约谈的花瓣，这些老生常谈的灵...",
+    "cover_image_url": "http://upload-images.jianshu.io/upload_images/3677373-72d533b8b41a510e.png",
+    "author_name": null
+  },
+  "926894b737be7fb3": {
+    "title": "Hôpital NOVO - Identité visuelle & Naming - Graphéine branding, stratégie et design de marque",
+    "summary": "Stratégie, naming et architecture de marque de l’Hôpital NOVO, né de la fusion de trois établissements du Nord-Ouest Val-d’Oise. Un logotype fédérateur illustrant entraide, mobilité et cycle de vie, pour réinventer l’hôpital de proximité et imaginer demain.",
+    "cover_image_url": "https://grapheine.com/wp-content/uploads/2024/03/02-hopital-novo-identite-visuelle-signe.webp",
+    "author_name": null
+  },
+  "63058089a132c184": {
+    "title": "Naolib - Nantes Métropole Mobility - Brand design & Illustration - Graphéine branding, brand strategy and brand design",
+    "summary": "Naolib, Nantes Métropole's new mobility brand, a single brand that brings together all the region's transport operators (bus, streetcar, bicycle, parking, etc.).",
+    "cover_image_url": "https://grapheine.com/wp-content/uploads/2023/09/02-naolib-identite-logotype-vert.webp",
+    "author_name": null
+  },
+  "70c60fa6440ccb76": {
+    "title": "Work Smarter, Not Harder: Must-Have Web Design Tools for 2024 | Muzli Blog",
+    "summary": "Staying updated with the latest tools can significantly enhance your workflow and creativity.",
+    "cover_image_url": "https://feed.muzli.cloud/muzli_feed/wp-content/uploads/2024/07/21162231/tools1.png",
+    "author_name": null
+  },
+  "701500a3b9d441dd": {
+    "title": "Browse Icons & Logos",
+    "summary": "Search and browse thousands of curated icons and logos for dashboards and app directories.",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "162872536618ded9": {
+    "title": "品牌营销：如何建立像迷信一样的仪式？ – 人人都是产品经理",
+    "summary": "仪式到底是满足了人们的什么样需求呢？以及在品牌上该如何利用这些需求原理进行仪式化呢？文章为你解读。 提到仪式，一般人首先会想到的是原始部落里“载歌载舞”的奇怪动作，或则人们求神拜佛时的特定形式，这些仪式由来已久，但是，这些仪式为什么会存在？以及它形成的路径到底",
+    "cover_image_url": "//image.woshipm.com/wp-files/img/94.jpg",
+    "author_name": null
+  },
+  "04dbc65a375f97e5": {
+    "title": "Anchor—making a cross-platform design system | Centered Ep 7",
+    "summary": "In New York City we meet with Anchor, a podcasting app that uses a playful design system to craft a seamless flow across platforms and devices. Centered host...",
+    "cover_image_url": "https://i.ytimg.com/vi/D7YvXCHLsdo/maxresdefault.jpg",
+    "author_name": null
+  },
+  "76b034f661d6524b": {
+    "title": "The MODERN Home Office Setup – DIY Transformation + Desk Tour",
+    "summary": "Now that working from home is more important than ever, I'll take you through my dream DIY transformation of my own home office workspace, how I set up my de...",
+    "cover_image_url": "https://i.ytimg.com/vi/C-8sFlhfosM/maxresdefault.jpg",
+    "author_name": null
+  },
+  "65b6695da9511adf": {
+    "title": "AI Innovation Workspace | Miro",
+    "summary": "Speed up product development from ideation to launch. Align teams, break tool silos, and ship what customers need in one AI-powered visual platform.",
+    "cover_image_url": "https://framerusercontent.com/assets/Bab0War93Jeq5MpDPwqKFiyI.png",
+    "author_name": null
+  },
+  "dff4f91a6d21b8f3": {
+    "title": "AI Innovation Workspace | Miro",
+    "summary": "Speed up product development from ideation to launch. Align teams, break tool silos and ship what customers need in one AI-powered visual platform.",
+    "cover_image_url": "https://framerusercontent.com/assets/Bab0War93Jeq5MpDPwqKFiyI.png",
+    "author_name": null
+  },
+  "e7b308e29069e052": {
+    "title": "qdesign",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "2df090ace753e62b": {
+    "title": "17大平台设计语言汇总 - 腾讯云开发者社区-腾讯云",
+    "summary": "17大平台设计语言汇总。作者：老虎帮－KEVINSONGG本次分享来自老虎帮的@KEVINSONGG：作为一名产品设计师，我们有必要了解现在流行的设计语言或是设计规范，学习它们的设计思想和方法，有助于我们设计工作，并且也可以拓宽我们的眼界，做到与时俱进。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "e49c4fa9addb2287": {
+    "title": "DaVinci Resolve | Blackmagic Design",
+    "summary": "颠覆传统的全新创意工具，集剪辑、调色、专业音频后期制作于一身的一站式流程！",
+    "cover_image_url": null,
+    "author_name": "Blackmagic Design"
+  },
+  "4cc20f6c6b6375d6": {
+    "title": "TikTok One Creative Suite",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "2383cd46e2814e0d": {
+    "title": "一款卡片管理软件的手机交互设计流程图_简立方SimpleUX-站酷ZCOOL",
+    "summary": "一款卡片管理软件的手机交互设计流程图,成都UI设计师,站酷网,中国设计师互动平台.",
+    "cover_image_url": "https://img.zcool.cn/community/032901a5568fb59000001271646a1f6.jpg?k=b700977e44da5c192a4ae3dbe4df3e0c&t=6b031180",
+    "author_name": null
+  },
+  "1a928d52edf00d5f": {
+    "title": "该内容已被作者删除-站酷ZCOOL",
+    "summary": "站酷ZCOOL，中国设计师互动平台。深耕设计领域二十年，站酷聚集了1900万设计师、摄影师、插画师、艺术家、创意人，设计创意群体中具有较高的影响力与号召力。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "5732366f19827050": {
+    "title": "该内容已被作者删除-站酷ZCOOL",
+    "summary": "站酷ZCOOL，中国设计师互动平台。深耕设计领域二十年，站酷聚集了1900万设计师、摄影师、插画师、艺术家、创意人，设计创意群体中具有较高的影响力与号召力。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "dde5da5b4763f944": {
+    "title": "Appshots : Endel",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "e02080b20a53f818": {
+    "title": "How to create a video: the ultimate guide to video production - 99designs",
+    "summary": "Learn how to produce videos from pre-production to post-production with this step-by-step guide. Here we show you how to create a video for your business in an effective, sustainable way, so you will reap long-term benefits.",
+    "cover_image_url": "https://99designs-blog.imgix.net/blog/wp-content/uploads/2019/06/How-to-create-a-video.png?auto=format&q=60&fit=max&w=930",
+    "author_name": "Dom Hennequin"
+  },
+  "651ce9a800b5f823": {
+    "title": "上传图片 – remove.bg",
+    "summary": "选择一张图片并消除背景 - 100% 全自动 - 仅用 5 秒钟 - 无需点击 - 而且免费。",
+    "cover_image_url": "https://www.remove.bg/images/remove_image_background.jpg",
+    "author_name": "Kaleido"
+  },
+  "959ba6fbee0c0f26": {
+    "title": "Figma 学习路径 - 基础介绍,中文教程 - Figma 中文社区",
+    "summary": "Figma 中文社区收集并挑选了 Figma 最实用的教程，帮助大家更快上手 Figma。方便大家更多了解Figma基础使用操作、组件库使用、制作原型机团队合作。",
+    "cover_image_url": "./defaultOGImage.jpg",
+    "author_name": null
+  },
+  "63aaf8bfe3f92b41": {
+    "title": "TDesign - 开源的企业级设计体系，为设计师 & 开发者，打造工作美学",
+    "summary": "TDesign 是腾讯开源的企业级设计体系，提供了统一价值观，一致的设计语言和视觉风格，和开箱即用的 UI 组件库。致力于为设计师 & 开发者，打造工作美学。",
+    "cover_image_url": null,
+    "author_name": "TDesign"
+  },
+  "ba1920a849a671f1": {
+    "title": "A complete guide to iconography",
+    "summary": "A deep-dive guide on how to create, organize, name, and use icons within a design system",
+    "cover_image_url": "https://images.ctfassets.net/7jw9uvgmirvi/qukQKqrle9obCOzD2YHsu/00f7025db0e76bc26dcc8d046c89950e/guides_OG.png?w=1200",
+    "author_name": null
+  },
+  "6d0e212974435075": {
+    "title": "Redirecting...",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "eace5218bc41adda": {
+    "title": "Mobbin — UI & UX design inspiration for mobile & web apps",
+    "summary": "Save hours of UI & UX research with our library of 600,000+ fully searchable mobile & web app screenshots.",
+    "cover_image_url": "https://mobbin.com/og_image.png?v=4.0",
+    "author_name": null
+  },
+  "f5bedecaf19d71e7": {
+    "title": "图标工场",
+    "summary": "一键快速生成iOS, Android，Web App, PhoneGap(Cordova)等移动平台不同大小(规格尺寸)的App图标和Launch Image/Splash Screen启动图，快速预览，可以直接打包发布到应用市场",
+    "cover_image_url": "https://icon.wuruihong.com/wrh/android-chrome-512x512.png",
+    "author_name": "睿鸿科技"
+  },
+  "a750aa32fc8e1fc8": {
+    "title": "千问-阿里 AI 助手",
+    "summary": "千问是阿里官方AI助手，提供最强Qwen大模型体验的第一入口，助力你的工作、学习、生活。 支持 AI 搜索、网页总结、AI PPT、AI 生图、PPT 创作和录音纪要，让创作、汇报、调研、分析更高效。",
+    "cover_image_url": "https://img.alicdn.com/imgextra/i2/O1CN01taBbMS1CfyJoOt0lB_!!6000000000109-2-tps-80-80.png",
+    "author_name": null
+  },
+  "eff9a61aa02508a5": {
+    "title": "WordPress 主题教程：从零开始制作 WordPress 主题 - WordPress 果酱",
+    "summary": "创建 WordPress 主题其实不难，只要你从现在开始认真学习这个教程，从零一步一步开始，你就会成为一个 WordPress 主题制作高手，至少你会修改现有主题。本文是一个从零开始制作 WordPress 主题的教程，它会一步一步教你如何制作 WordPress 主题。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "b2201e246ac27ba8": {
+    "title": "豆瓣",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "dd146ae1e43bb5a9": {
+    "title": "少数派 - 高效工作，品质生活",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "9740afe4387eab03": {
+    "title": "Axure | 人人都是产品经理",
+    "summary": "Axure -",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "f69e906acd6996e6": {
+    "title": "年终大放送！100个photoshop终极教程全分享！",
+    "summary": "无论你是否喜欢ps，它都是一个神一般的存在，是设计师们最好的设计工具。使用PS，你可以进行图片编辑，图形设计，字体设计，画插图，3D建模，卡通片绘制等等。今天我们为大家点了一桌大餐，有一百个关于这些的PS教程，希望能对你的胃口~推荐阅读： 《PS新手教程！",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2013/12/jiq.jpg",
+    "author_name": "优设网发布"
+  },
+  "ac8ff3a93c3f0d04": {
+    "title": "尖叫吧！像素完美使用手册（附PDF下载）",
+    "summary": "编者按：魔鬼藏于细节，在设计领域中，能否精准处理好像素也是考校设计师处理细节能力的一种。来自英国的USTWO团队就致力于精准控制像素，并且为了让更多的设计师了解、注意并且深入学习这方面知识，他们制作了这本《精准像素完美使用手册》。目前这本册子已经推进到2.0的大版本，并且附带多种格式。",
+    "cover_image_url": "https://image.uisdc.com/wp-content/uploads/2014/06/PIXEL-PERFECT-PRECISION.jpg",
+    "author_name": "优设网发布"
+  },
+  "d370cc95b7591908": {
+    "title": "昇思MindSpore社区官网 | 全场景AI框架",
+    "summary": "华为开源自研AI框架MindSpore。自动微分、并行加持，一次训练，可多场景部署。支持端边云全场景的深度学习训练推理框架，主要应用于计算机视觉、自然语言处理等AI领域，面向数据科学家、算法工程师等人群。主要具备基于源码转换的通用自动微分、自动实现分布式并行训练、数据处理、以及图执行引擎等功能特性。借助自动微分，轻松训练神经网络。框架开源，华为培育AI开发生态。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "57f97f53ed0bd63b": {
+    "title": "讯飞星火-懂你的AI助手",
+    "summary": "讯飞星火具备语音、翻译、学习、办公、创作、研究等能力，有记忆能懂你，让你的成果更快交付",
+    "cover_image_url": null,
+    "author_name": "科大讯飞股份有限公司"
+  },
+  "206c51d2e911d7c2": {
+    "title": "讯飞虚拟数字人-全栈式AI虚拟人应用服务平台",
+    "summary": "科大讯飞虚拟人平台,运用最新的AI虚拟数字形象技术,结合语音识别、语义理解、语音合成、星火大模型等AI核心技术,提供虚拟数字人形象资产构建、AI驱动、多模态交互的多场景虚拟人解决方案。提供形象定制、声音克隆、多模态智能交互、虚拟主播视频制作、虚拟人直播、虚拟人能力开放等服务内容。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "d584141f12f27f2a": {
+    "title": "天幕多媒体创作引擎 - 助力客户构建专属大模型及智能应用",
+    "summary": "天幕多媒体创作引擎聚焦于数字创意领域场景，以生成式AI技术为基础，提供多模态内容生成，支持全球不同语言，为多媒体创作闭环提供解决方案。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "3481a29e1e9e66dd": {
+    "title": "DomoAI: Video-to-Video, Style Transfer, AI Video Tool",
+    "summary": "AI video editor that converts videos, text, and images into animation. Make your character move as you want.",
+    "cover_image_url": "https://imgo.domoai.app/web/domoai-og-image.jpg",
+    "author_name": null
+  },
+  "e88d016eecf23f2e": {
+    "title": "土豆-召唤全球优秀短视频",
+    "summary": "视频服务平台,提供视频播放,视频发布,视频搜索,视频分享",
+    "cover_image_url": "https://img.alicdn.com/imgextra/i2/O1CN01BeAcgL1ywY0G5nSn8_!!6000000006643-2-tps-195-195.png",
+    "author_name": null
+  },
+  "e6b922d2c015a950": {
+    "title": "AI Website Prompts & Design Inspiration | MotionSites",
+    "summary": "Discover MotionSites website prompts, motion designs and ready-to-build AI inspiration.",
+    "cover_image_url": "https://storage.googleapis.com/gpt-engineer-file-uploads/OzagiQ9ZfuQNatpgQBgKibiYrtm2/social-images/social-1772948036264-1social.webp",
+    "author_name": "MotionSites"
+  },
+  "ff86ffdf8fad2cc7": {
+    "title": "One moment, please...",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "1122c4445ca75fd4": {
+    "title": "腾讯混元",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "52b5f6ed40a05f3f": {
+    "title": "《360智脑》内测正酣、火热进行中！",
+    "summary": "立即体验：ai.360.com",
+    "cover_image_url": "https://so1.360tres.com/t010849f2f4d6b85f1b.png",
+    "author_name": null
+  },
+  "33d638c7eaefa95b": {
+    "title": "MiniMax",
+    "summary": "MiniMax是全球领先的通用人工智能科技公司，致力于\"与所有人共创智能\"，自主研发了一系列多模态通用大模型，并面向全球推出一系列AI原生产品，已服务逾3亿名用户",
+    "cover_image_url": "https://filecdn.minimax.chat/public/58eca777-e31f-448a-9823-e2220e49b426.png",
+    "author_name": "MiniMax"
+  },
+  "1770a04558aa191a": {
+    "title": "商汤如影",
+    "summary": "商汤如影",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "4b8eba4142b9ab42": {
+    "title": "小云雀AI 一起创作好故事",
+    "summary": "你的全能AI创作助手，让创作更自由，让表达更可控。字节旗下官方AI故事&短剧创作平台",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "165a27f45ad4c0a3": {
+    "title": "注册 - 登录",
+    "summary": "Tumblr 是你在互联网上做真实自己的地方。无需做作，无需完美。只有你，以及那些懂你的人。",
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "d3c354c4d9784e1a": {
+    "title": "Justinmind，为移动设计而生 - UCD大社区",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  },
+  "8e4e785970fd514f": {
+    "title": "IT博客技术大学习 · 值得读的技术文章",
+    "summary": null,
+    "cover_image_url": null,
+    "author_name": null
+  }
+}
